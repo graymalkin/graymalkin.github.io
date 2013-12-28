@@ -1,3 +1,21 @@
+Konami-JS
+===
+Konami-JS ~
+:: Now with support for touch events and multiple instances for
+:: those situations that call for multiple easter eggs!
+Code: http://konami-js.googlecode.com/
+Examples: http://www.snaptortoise.com/konami-js
+Copyright (c) 2009 George Mandis (georgemandis.com, snaptortoise.com)
+Version: 1.4.2 (9/2/2013)
+Licensed under the MIT License (http://opensource.org/licenses/MIT)
+Tsted in: Safari 4+, Google Chrome 4+, Firefox 3+, IE7+, Mobile Safari 2.2.1 and Dolphin Browser
+
+
+Javascript Scroll
+===
+Credit to http://css-tricks.com/examples/SmoothPageScroll/
+
+
 Creative Commons License
 ===
 This work is licensed under a Creative Commons Attribution-ShareAlike 3.0 Unported License.
