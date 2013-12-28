@@ -1,0 +1,106 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+	<title>Simon Cooksey</title>
+	<meta content="text/html; charset=utf-8" http-equiv="Content-Type" />
+	<link href="styles.css" rel="stylesheet" type="text/css" />
+	<!-- Credit to http://css-tricks.com/examples/SmoothPageScroll/ -->
+	<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.4.3/jquery.min.js"></script>
+	<script src="scroll.js"></script>
+
+	<!-- http://code.snaptortoise.com/konami-js/ -->
+	<script src="konami.js"></script>
+	<script lang="javascript">
+	  var easter_egg = new Konami();
+	  easter_egg.code = function() { document.getElementById('pfudor').play(); }
+	  easter_egg.load();
+	</script>
+</head>
+
+<body class="page">
+
+<div class="floater">
+  <ul>
+    <li>Top</li>
+    <li>About</li>
+    <li>Work</li>
+    <li>Travel</li>
+  </ul>
+</div>
+
+<div class="textBlock" id="mainSection">
+  <div class="title" id="title"><span>Simon Cooksey</span></div>
+	<div id="menuRowOne" class="menuRow">
+		<div class="column">
+			<h1 class="heading">About<br/></h1>
+			<p class="main">My name is Simon Cooksey and I am a second year student at the University of Kent studying Computer Science with a Year in Industry.</p>
+			<a href="#about"><span class="clickableDivOverlay"></span></a>
+		</div>
+		<div class="column">
+			<h1 class="heading">Work</h1>
+			<p class="main">I have worked for my secondary school helping with network management and support roles. I also continue to work with <a href="http://tinkersoc.org/" class="clickableLink">TinkerSoc</a> at university as a committee member. Some of my projects are documented <a href="http://tinkering.graymalk.in" class="clickableLink">here</a>.</p>
+			<a href="#work"><span class="clickableDivOverlay"></span></a>
+		</div>
+	</div>
+	<div id="menuRowOne" class="menuRow">
+		<div class="columnWide">
+			<h1 class="heading">Travel<br /></h1>
+			<p class="main centered">From June 2012 I spent 6 weeks travelling in China, starting in Shanghai and finishing in Hong Kong.</p>
+			<a href="#travel"><span class="clickableDivOverlay"></span></a>
+		</div>
+	</div>
+</div>
+
+<!-- Break -->
+<div class="break"></div>
+
+<div class="textBlock" id="aboutMe">
+	<div class="columnWide">
+		<h1 id="about" class="heading">About Me<br/></h1>
+		<img src="http://dl.dropbox.com/u/1735112/bowties.jpg" alt="bowties.jpg"/>
+		<p class="main">I have grown up in Devon, and been highly interested in computers from an early age.</p>
+		<p class="main">At secondary school I maintained my interest in computing and began to learn about programming. I started with <a href="http://www.microsoft.com/learning/en/us/book.aspx?id=8776&locale=en-us#fbid=bFs-GqEz39K">Patrice Pelland's book</a> "Build a program now!". I came in contact with the Network manager for our school and he spent time with me teaching me more about programming.</p>
+		<p class="main">I first heard about the Arduino in March 2009 when listening to the <a href="http://twit.tv/floss61">FLOSS podcast</a> and built my own Arduino from a kit. I have been in love with electronics since and continue to maintain my hobby with TinkerSoc at university.</p>
+		<p class="main">My related tinkering projects can be found on the section of this website dedicated to it, <a href="http://tinkering.graymalk.in/">here</a>.</p>
+	</div>
+</div>
+
+<!-- Break -->
+<div class="break"></div>
+
+<div id="work" class="textBlock">
+	<div class="columnWide">
+		<h1 class="heading">My Work<br/></h1>
+		<p class="main">I'm studying for a BSc in Computer Science with a Year in Industry. I achieved a distinction in my first year of study, attaining an average mark of 75% over the 8 modules studied. This is a record I intend to keep up and better as I progress through my course.</p>
+		<p class="main">I've been elected one of two course representatives for the 2nd year of my course, along with <a href="https://www.facebook.com/elepedus">Ed Lepedus</a>.</p>
+		<p class="main">I am also the Communications Officer for <a href="http://tinkersoc.org" target="_blank">TinkerSoc</a> a society to which I am very committed and enjoy very much. My role is to liase with other society members to keep them informed of activities and to get their opinions and views back to the rest of the committee. I also help design and develop projects with them.</p>
+		<img src="./images/layout.png" alt="PCB Design" />
+	</div>
+</div>
+
+<!-- Break -->
+<div class="break"></div>
+
+<div class="textBlock" id="myTravels">
+	<div class="columnWide">
+		<h1 id="travel" class="heading">Travel<br/></h1>
+		<img src="./images/shanghai.jpg" alt="shanghai.jpg"/>
+		<p class="main">In the summer before university a friend and I travelled in China for 6 weeks as a sort of "mini gap year" as neither of us wanted to take a full year out of education.</p>
+		<p class="main">We started in Shanghai (pictured) and travelled to Beijing, Chengdu, Lijiang and eventually onto Hong Kong. We stayed in a Hindu monastery, and hiked to the Leshan Grand Buddha, explored the technology markets in Hong Kong, walked along the great wall and ate Peking duck, in Peking.</p>
+		<p class="main">It was a fantastic experience, and I look forward to going back.</p>
+	</div>
+</div>
+
+<!-- Break -->
+<div class="break"></div>
+
+<div class="footer">
+	<span class="columnWide">&copy; Simon Cooksey 2013</span>
+	<p class="columnWide"><a href="contact.html">Contact me</a> | <a href="http://tinkering.graymalk.in">Tinkering Projects</a></p>
+</div>
+<audio id="pfudor">
+  <source src="pfudor.mp3" type="audio/mpeg">
+</audio>
+</body>
+
+</html>

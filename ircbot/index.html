@@ -1,0 +1,110 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+	<title>Gwen the C# IRC Bot</title>
+	<meta content="text/html; charset=utf-8" http-equiv="Content-Type" />
+	<link href="../styles.css" rel="stylesheet" type="text/css" />
+	<!-- Credit to http://css-tricks.com/examples/SmoothPageScroll/ -->
+	<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.4.3/jquery.min.js"></script>
+	<script src="../scroll.js"></script>
+</head>
+
+<body class="page">
+
+<div class="textBlock" id="mainSection">
+  <marquee>Current Development status: Everything on the IRC side is working marvelously, just adding some modules to her now</marquee>
+  <div class="title" id="title"><span>Gwen, My C#.NET IRC Bot</span></div>
+	<div class="menuRow">
+		<div class="column">
+			<h1 class="heading">About</h1>
+			<p class="main">Gwen is a simple bot written in C#.NET to respond to $weather in IRC with the current weather conditions. It utilises Yahoo 
+							<a href="http://en.wikipedia.org/wiki/WOEID" class="clickableLink">WOEIDs</a> and their weather API to get the data</p>
+			<a href="#about"><span class="clickableDivOverlay"></span></a>
+		</div>
+		<div class="column">
+			<h1 class="heading">General Commands</h1>
+			<p class="main">The usage for this bot is quite simple, most modules with have a dedicated $command in their description, but I've made a few useful intrinsic commands too</p>
+			<a href="#general"><span class="clickableDivOverlay"></span></a>
+		</div>
+	</div>
+</div>
+<div class="textBlock">
+	<div class="menuRow">
+		<div class="columnWide">
+		  <h1 class="heading">Weather</h1>
+		  <p class="main">The weather module, in Weather.cs, uses Yahoo WOEID APIs to get weather information from the net and puts returns that information to the sender.</p>
+		  <a href="#weather"><span class="clickableDivOverlay"></span></a>
+		</div>
+	</div>
+
+	<br/>
+	
+	<div class="menuRow">
+		<div class="column">
+		  <h1 class="heading">Insult</h1>
+		  <p class="main">Brown left Gwen in a terrible mood one morning, and she developped a hobby for creating the most vile insults. One can invoke her venomous tongue using the $insult [user] command</p>
+		</div>		
+		<div class="column">
+			<h1 class="heading">Admin</h1>
+			<p class="main">There are some much needed admin commands, which allow users to be added to the list of people who can use $join and $quit</p>
+			<a href="#admin"><span class="clickableDivOverlay"></span></a>
+		</div>
+	</div>
+</div>
+
+<!-- Break -->
+<div class="break"></div>
+
+<div id="general" class="textBlock">
+	<div class="columnWide">
+		<h1 class="heading">Usage</h1>
+		<p class="main">The usage for this program is quite simple, most of the commands start with $ and then their name, and atributes</p>
+		<pre>$join [channel name]</br>$leave [channel name]<br/>$quit [reason]<br/>$help</pre>
+	</div>
+</div>
+
+<!-- Break -->
+<div class="break"></div>
+
+<div id="weather" class="textBlock">
+        <div class="columnWide">
+                <h1 class="heading">Weather Module</h1>
+		<p class="main">The weather module takes a location, which can be a postal code, place name, point of interest, address and so on - gets a Yahoo <a href="http://en.wikipedia.org/wiki/WOEID" class="clickableLink">WOEID</a> and then sends that to the Yahoo weather API to get the current weather conditions in that location.</p>
+                <p class="main"><pre>$weather [location]    The default location is Canterbury, Uk</pre></p>
+        </div>
+</div>
+<!-- Break -->
+<div class="break"></div>
+
+<div id="admin" class="textBlock">
+        <div class="columnWide">
+                <h1 class="heading">Admin</h1>
+                <p class="main">There are two commands to add and remove admins. Any admin may remove another admin - including them selves, but only graymalkin may add admins. Graymalkin cannot be removed from admins. All admin commands create a log entry.</p>
+		<pre>$add_admin [username]<br/>$remove_admin [username]</pre>
+        </div>
+</div>
+
+<!-- Break -->
+<div class="break"></div>
+
+<div id="about" class="textBlock">
+	<div class="columnWide">
+		<h1 class="heading">About<br/></h1>
+		<p class="main">The program is realeased to the public under a <a href="http://creativecommons.org/licenses/by/3.0/" class="clickableLink">Creative Commons 3.0 license</a>, which means you're free to download the code, and change it how ever you like, but you must attribute me as the original author.</p>
+		<p class="main">Please note, the program is provided as is - if it suddenly goes AWOL, or flooding your IRC channel, it is your problem not mine.</p>
+		<p class="main">I'll be updating this code periodically, as I keep playing with it, but you may download the current version <a href="gwen/" class="clickableLink">here</a></p>
+	</div>
+</div>
+
+<!-- Break -->
+<div class="break"></div>
+
+<br/><br/><br/>
+<div class="footer">
+	<span class="columnWide">Is this the end?</span>
+	<p class="columnWide">Yeah, actually, it pretty much is... sorry about that ^_^</p>
+</div>
+<br/><br/><br/>
+</body>
+
+</html>

@@ -1,0 +1,220 @@
+@import url(http://fonts.googleapis.com/css?family=Alegreya+Sans+SC);
+
+/*
+	Colours:
+		Background:			F1F2DF
+		Text:				343444
+		Text block background:		CCCCCC
+		Header background: 		4B5B6E
+		Footer background: 		4B5B6E
+*/
+
+a:visited a{
+       color: #FFFFFF;
+}
+	
+.page, html {
+	background-color: #FFFFFF;
+	color:#343444;
+	margin-left: 0px;
+	margin-right: 0px;
+	background-color: #000;
+	width: 100%;
+	height: 100%;
+	margin-top: 0;
+}
+
+.title {
+	font-family: 'Alegreya Sans SC', sans-serif;
+	text-transform: capitalize;
+ 	text-align:center;
+ 	color:#CCCCCC;
+ 	font-size: 300%;
+ 	font-weight:bolder;
+ 	background-color: #050505;
+ 	margin-top: 25px;
+ 	margin-bottom: 25px;
+ 	padding-top: 10px;
+ 	padding-bottom: 10px;
+}
+
+.heading{
+	font-family: 'Marvel', sans-serif;
+	font-size: 250%;
+	text-align:center;
+	padding: 20px 0 5px 0;
+	margin: 0 0 0 0;
+}
+
+.textBlock{
+	text-align: center;
+	background-color: #E0DCD5;
+	font-family: 'Droid Sans', sans-serif;
+	color: #343444;
+	font-size: 125%;
+	width:100%;
+	height: 100%;
+	overflow: hidden;
+}
+
+.main{
+	display:inline-table;
+	margin-top: 5px;
+	overflow: hidden;
+}
+
+.centered {
+    text-align: center;
+    width: 100%;
+}
+
+@media (min-width: 800px) {
+.column {
+	position: relative;
+	display: table-cell;
+	float: center;
+	width: 30%;
+	padding-left:1.25%;
+	padding-right:1.25%;
+	min-width: 250px;
+}
+}
+
+@media (max-width: 500px) {
+    .column {
+	position: relative;
+	display: inline-block;
+	float: center;
+	width: 65%;
+	padding-left:1.25%;
+	padding-right:1.25%;
+	min-width: 250px;
+    }
+}
+
+
+.columnWide {
+	position: relative;
+	display: inline-block;
+	width: 65%;
+	text-align: justify;
+}
+
+
+.clickableDivOverlay{
+	position:absolute; 
+	height:100%;
+	width:100%;
+	top:0;
+  	left: 0;
+
+  	/* edit: added z-index */
+  	z-index: 1;
+}
+
+.menuRow {
+	margin: 0 auto;
+	width: 65%;
+}
+
+.menuRow > .columnWide {
+	width: 100%;
+}
+
+.menuRow > .column:hover, .menuRow  > .columnWide:hover {
+	background-color: rgba(255,255, 255, 0.4);
+}
+
+.clickableLink{
+	z-index: 3;
+	display:inline;
+	position: relative;
+	color: #000000;
+}
+
+.footer{
+	background-color: #E0DCD5;
+	color: #343444;
+	font-size: 125%;
+	text-align:center;
+	font-family: 'Droid Sans', sans-serif;	
+	width: 100%;
+}
+
+.break {
+	height: 0px;
+}
+
+img {
+    width: 65%;
+    height: auto;
+    margin-left: auto;
+    margin-right: auto;
+    display: block;
+}
+
+pre{
+    font-family: 'Droid Sans Mono', sans-serif;
+    text-align:center;
+    font-size: 75%;	
+    margin-left: 0;
+    margin-right: 0;
+    margin-top: 0;
+}
+marquee {
+    width:100%;
+    white-space: nowrap; 
+    overflow: hidden;
+    
+    /* Safari and Chrome  */
+    overflow-x:-webkit-marquee;
+    -webkit-marquee-direction: backwards;
+    -webkit-marquee-style: scroll;
+    -webkit-marquee-speed: fast;
+    -webkit-marquee-increment: 1px;
+    -webkit-marquee-repetition: infinite;
+    
+    /* W3C  */
+    overflow-x: marquee-line;
+    marquee-direction: forward;
+    marquee-style: scroll;
+    marquee-speed: fast;
+    marquee-play-count: infinite;
+}
+
+#mainSection {
+    background-color: #111;
+    color: #eee;
+}
+
+#mainSection a {
+    color: #fff;
+}
+
+#aboutMe {
+    background-color: #313b3e;
+    color: #fff;
+}
+
+#work {
+    background-color: #fff;
+    color: #111;
+}
+
+#myTravels {
+    background-color: #02090F;
+    color: #fff;
+    min-height: 950px;
+}
+
+.floater {
+    background-color: rgba(255, 255, 255, 0.3);
+    color: #ffffff;
+    float: right;
+    width: 100px;
+    height: 80%;
+    width: 10%;
+    position: absolute;
+    margin-left: 90%;
+    top: 10%;
+}
