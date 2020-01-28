@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="en">
+  <title>Simon Cooksey</title>
+  <meta name="viewport" content="width=device-width, user-scalable=yes">
+  <link rel="stylesheet" type="text/css" href="./style.css"/>
+  <meta charset="utf-8">
+</head>
+<body>
+  <div class="content">
+    <h1 class="title">Simon Cooksey</h1>
+    <div class="byline">PhD Student</div>
+
+    <p>I develop tools to help reason about the behaviour of computer software in multi-core
+      processors. I am currently on an industrial internship at NVIDIA.</p>
+    
+    <h2>Postgraduate</h2>
+    <p>I am a PhD candidate in the Programming Languages and Systems group at the University of Kent. I work with
+      <a href="https://cs.kent.ac.uk/~mjb211">Mark Batty</a> researching weak memory behaviours and compiler
+      verification. My academic profile page is <a href="https://www.cs.kent.ac.uk/people/rpg/sjc205/">here</a>.</p>
+
+    <p>My current work is looking at implementing memory models using logic solvers. A version of
+      this work is written up, and titled <i>PrideMM: A Solver for Relaxed Memory Models</i> it can be read <a href="./papers/cav18.pdf">here</a>. We
+      use a cutting edge <i>quantified boolean formula</i> solver to execute a model described in a higher level Second
+      Order logic. It allows a new class of memory model which tackles the thin-air problem to be simulated. I have
+      recently presented this work at the <a href="https://conferences.au.dk/acw/">Aarhus Concurrency Workshop</a>,
+      with a talk called <i>Further Work On Thin Air Reads</i>.</p>
+
+    <h2>Industrial Experience</h2>
+    <h3>NVIDIA</h3>
+    <p>I have a 6 month internship at NVIDIA Research working in a computer architecture group.</p>
+    
+    <h3>XMOS</h3>
+    <p>I worked for the Bristol based semiconductor company <a href="http://www.xmos.com/">XMOS</a>. XMOS
+      produce a line of multi-core embedded processors called the xCORE. I built tools and
+      applications for the platform, including a port of an MP3 library, <tt><a href="https://github.com/graymalkin/lib_mp3/">lib_mp3</a></tt> and
+      adaptations to their debugging toolchain to enable remote debugging of hardware targets over the network, and to
+      allow interfacing the debugger with a fast simulator.</p>
+
+    <h2>Undergraduate</h2>
+    <p>I graduated from the University of Kent with a First in <i>Computer Science with a Year in Industry</i>.</p>
+    
+    <h3>TinkerSoc</h3>
+    <p>I was the president of <a href="http://tinkersoc.org/">TinkerSoc</a>, a society dedicated to making things,
+      particularly electronics.
+
+      <h2>PGR Rep</h2>
+    <p>As one of the Post Graduate Research representatives, and represent students of the school of computing in
+      various committee meetings. I also help organise the PG away weekend and the PG conference. If you have a question
+      or a problem, get in contact using the details below.</p>
+    
+    <h2>Contact</h2>
+    <p>
+      You can contact me via email, <a href="mailto:sjc205@kent.ac.uk">sjc205@kent.ac.uk</a>, on
+      KentIRC in <tt>#cs</tt>, on freenode under the nick <tt>graymalkin</tt>, and occaisionally can
+      be contacted via amateur radio on SSTV (14.230MHz) and on the Canterbury repeater
+      (433.150MHz +1600KHz/103.5). My callsigns are <tt>M6GFL</tt> and <tt>2E0GFL</tt>.
+    </p>
+
+    <p>
+      <a href="./pgp.pub">I use PGP</a> if that floats your boat, my PGP fingerprint is
+      <tt>49BC 8FD6 E61B B9CA BA97 A33C 33AA 9C37 025D 2B62</tt>
+      and I have a keybase profile <a href="https://keybase.io/graymalkin">here</a>. I quite
+      like people signing my PGP key so if you're a PGP user too, give me a poke and we can
+      arrange a time to exchange fingerprints in person.
+    </p>
+  </div>
+
+  <link rel="stylesheet" type="text/css" href="orrery.min.css"/>
+  <div class="orrery">
+    <div id="sun" class="star">
+      <div class="flare"></div>
+      <div class="flare"></div>
+      <div class="flare"></div>
+    </div>
+    <div id="mercury_orbit" class="orbit"></div>
+    <div id="mercury" class="planet"></div>
+    <div id="venus_orbit" class="orbit"></div>
+    <div id="venus" class="planet"></div>
+
+    <div id="earth_orbit" class="orbit"></div>
+    <div id="earth" class="planet">
+      <div id="moon"></div>
+    </div>
+
+    <div id="mars_orbit" class="orbit"></div>
+    <div id="mars" class="planet">
+      <div id="phobos"></div>
+      <div id="deimos"></div>
+    </div>
+
+    <div id="saturn_orbit" class="orbit"></div>
+    <div id="saturn" class="planet">
+      <div class="ring"></div>
+      <div id="titan"></div>
+    </div>
+
+    <div id="jupiter_orbit" class="orbit"></div>
+    <div id="jupiter" class="planet">
+      <div class="spot"></div>
+      <div id="io"></div>
+      <div id="europa"></div>
+      <div id="ganymede"></div>
+      <div id="callisto"></div>
+    </div>
+
+    <div id="neptune_orbit" class="orbit"></div>
+    <div id="neptune" class="planet">
+      <div class="ring"></div>
+    </div>
+
+    <div id="uranus_orbit" class="orbit"></div>
+    <div id="uranus" class="planet"></div>
+  </div>
+</body>
+</html>
