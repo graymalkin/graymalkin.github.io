@@ -38,6 +38,13 @@ pre {
     margin: 0px 10px 10px 10px;
 }
 
+pre:before {
+    content: attr(language);
+    display: block;
+    font-family: serif;
+    font-style: italic;
+}
+
 quot, blockquote {
     font-style: italic;
 }
@@ -171,3 +178,19 @@ code {
 .sc {
     font-variant: small-caps;
 }
+
+a[target~="_blank"]:after {
+    content: "⧉";
+    vertical-align: super;
+
+}
+
+summary div {
+    display: inline;
+}
+
+
+.pub {
+    margin-bottom: 1em;
+}
+
