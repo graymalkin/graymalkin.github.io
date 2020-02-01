@@ -10,22 +10,31 @@
     <h1 class="title">Simon Cooksey</h1>
     <div class="byline">PhD Student</div>
 
-    <p>I develop tools to help reason about the behaviour of computer software in multi-core
-      processors. I am currently on an industrial internship at NVIDIA.</p>
-    
-    <h2>Postgraduate</h2>
+    <p>I study modern multi-processor computers to understand the behaviours admitted by their complex
+      micro-architectural designs. My research has focussed particularly on so-called weak memory behaviours, which are
+      exhibited on machines that allow out-of-order execution and caching.
+
+    <p>These intricate behaviours present challenges for programmer reasoning. Formal models help to clarify precisely
+      what is allowed, and my tools bridge the gap between mathematical formalisation and programmer intuition about
+      computer behaviour. My tools make these formal models executable. This informs the development of the model by
+      allowing quick refinement of definitions, and also permits a programmer to probe the behaviour of a model to grasp
+      the precise meaning of a given program.
+
+    <p>These models stand as cutting edge specifications for verification of concurrent programs executing on modern
+      high-performance hardware.
+
+      <h2>Postgraduate</h2>
     <p>I am a PhD candidate in the Programming Languages and Systems group at the University of Kent. I work with
       <a href="https://cs.kent.ac.uk/~mjb211">Mark Batty</a> researching weak memory behaviours and compiler
-      verification. My academic profile page is <a href="https://www.cs.kent.ac.uk/people/rpg/sjc205/">here</a>.</p>
+      verification. My academic profile page is <a href="https://www.cs.kent.ac.uk/people/rpg/sjc205/">here</a>. I am
+      currently writing up my thesis.
 
-    <p>My current work is looking at implementing memory models using logic solvers. A version of
-      this work is written up, and titled <i>PrideMM: A Solver for Relaxed Memory Models</i> it can be read <a href="./papers/cav18.pdf">here</a>. We
-      use a cutting edge <i>quantified boolean formula</i> solver to execute a model described in a higher level Second
-      Order logic. It allows a new class of memory model which tackles the thin-air problem to be simulated. I have
-      recently presented this work at the <a href="https://conferences.au.dk/acw/">Aarhus Concurrency Workshop</a>,
-      with a talk called <i>Further Work On Thin Air Reads</i>.</p>
-
-    <h3>Publications</h3>
+      <h2>Publications</h2>
+      <h3>Modular Relaxed Dependencies</h3>
+    <p>Modular Relaxed Dependencies (MRD) is a denotational semantics for weak memory consistency in C and C++. As well
+      as helping to define the denotation, I built an evaluation tool (MRDer) in OCaml to enable fast calculation of the
+      semantics against a corpus of litmus tests. Further, I proved meta-theoretic properties about the semantics with
+      respect to industry standard models of C/C++.
     <details class="pub">
       <summary>
 	<div>
@@ -63,7 +72,13 @@
 }</pre>
     </details>
 
-    
+    <h3>PrideMM</h3>
+    <p>PrideMM is a tool written in OCaml which provides an API for building Second Order logical formulae and uses
+      this API to express memory models. We use cutting edge Quantified Boolean Formulae (QBF) solvers to efficiently
+      simulate a new class of memory model which solve the thin-air problem. We encode the problems in a high-level
+      second order logic giving us flexibility in problem expression. This then gets translated into a QBF model
+      checking problem for a solver to efficiently execute.
+
     <details class="pub">
       <summary>
 	<div>
@@ -83,7 +98,9 @@
     
     <h2>Industrial Experience</h2>
     <h3>NVIDIA</h3>
-    <p>I have a 6 month internship at NVIDIA Research working in a computer architecture group.</p>
+    <p>As an intern at NVIDIA I extended the Memory Consistency Model for NVIDIA’s virtual instruction set (PTX) to
+      support "memory views". This enables writing well defined programs which mix generic load and store operations
+      with specialised load and store operations for texture, surface and constant accesses.</p>
     
     <h3>XMOS</h3>
     <p>I worked for the Bristol based semiconductor company <a href="http://www.xmos.com/">XMOS</a>. XMOS
@@ -99,26 +116,12 @@
     <p>I was the president of <a href="http://tinkersoc.org/">TinkerSoc</a>, a society dedicated to making things,
       particularly electronics.
 
-      <h2>PGR Rep</h2>
-    <p>As one of the Post Graduate Research representatives, and represent students of the school of computing in
-      various committee meetings. I also help organise the PG away weekend and the PG conference. If you have a question
-      or a problem, get in contact using the details below.</p>
-    
     <h2>Contact</h2>
-    <p>
-      You can contact me via email, <a href="mailto:sjc205@kent.ac.uk">sjc205@kent.ac.uk</a>, on
-      KentIRC in <tt>#cs</tt>, on freenode under the nick <tt>graymalkin</tt>, and occaisionally can
-      be contacted via amateur radio on SSTV (14.230MHz) and on the Canterbury repeater
-      (433.150MHz +1600KHz/103.5). My callsigns are <tt>M6GFL</tt> and <tt>2E0GFL</tt>.
-    </p>
-
-    <p>
-      <a href="./pgp.pub">I use PGP</a> if that floats your boat, my PGP fingerprint is
+    <p>You can contact me via email, <a href="mailto:sjc205@kent.ac.uk">sjc205@kent.ac.uk</a>.
+      <a href="./pgp.pub">I use PGP</a>, so if that floats your boat: my PGP fingerprint is
       <tt>49BC 8FD6 E61B B9CA BA97 A33C 33AA 9C37 025D 2B62</tt>
-      and I have a keybase profile <a href="https://keybase.io/graymalkin">here</a>. I quite
-      like people signing my PGP key so if you're a PGP user too, give me a poke and we can
-      arrange a time to exchange fingerprints in person.
-    </p>
+      and I have a keybase profile <a href="https://keybase.io/graymalkin">here</a>. 
+    <p>My CV can be found <a href="./cv.pdf" target="_blank">here</a>. 
   </div>
 
   
