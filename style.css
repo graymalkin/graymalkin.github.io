@@ -187,19 +187,17 @@ code {
 a[target~="_blank"]:after {
     content: "⧉";
     vertical-align: super;
-
-}
-
-summary {
-    margin-left: 2em;
+    font-size: smallest;
 }
 
 summary div {
     display: inline;
 }
 
-
 .pub {
     margin-bottom: 1em;
 }
 
+.pub > * {
+    margin-left: 2em;
+}
