@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Photography</title>
+  <link rel="stylesheet" href="https://graymalk.in/photography/styles.css">
+  <script src="https://graymalk.in/photography/scripts/exif.js"></script>
+  <link rel="preconnect" href="https://fonts.googleapis.com"> 
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin> 
+  <link href="https://fonts.googleapis.com/css2?family=Raleway:wght@100;400&display=swap" rel="stylesheet">
+</head>
+  <body>
+    
+
+<div class="hero">
+  <div>
+    <img src="https://graymalk.in/photography/images/zabriskie.jpeg" alt="Zabriskie Point" />
+  </div>
+</div>
+
+<article>
+  <div class="exif">
+  <div>
+    <img class="camera-icon" src="https://graymalk.in/photography/icons/cameras/dslr.png" alt="Camera Icon" /><span id="model"></span>
+  </div>
+  <div>
+    <img class="icon" src="https://graymalk.in/photography//icons/iso-dark.png" alt="ISO Icon"/><span id="iso"></span>
+  </div>
+  <div>
+    <img class="icon" src="https://graymalk.in/photography//icons/aperture-dark.png" alt="Aperture Icon"/><span id="aperture"></span>
+  </div>
+  <div>
+    <img class="icon" src="https://graymalk.in/photography//icons/shutter-dark.png" alt="Shutter Icon"/><span id="shutter"></span>
+  </div>
+  <div>
+    <img class="icon" src="https://graymalk.in/photography//icons/focal-dark.png" alt="Focal Length Icon"/><span id="focal"></span>
+  </div>
+  <details class="details">
+    <summary>More</summary>
+    <p>Exposure Program: <span id="program"></span>
+    <p>Flash: <span id="flash"></span>
+    <p>Lens: <span id="lens"></span>
+    <p>Metering: <span id="metering"></span>
+    <p>Resolution: <span id="resolution"></span>
+    <p>Time: <span id="time"></span>
+  </details>
+</div>
+
+<script>
+  function shutterToString(tv) {
+    let n = tv.numerator;
+    let d = tv.denominator;
+    if (n < d) {
+      return `${n}/${d}s`;
+    } else {
+      return `${n/d}s`;
+    }
+  }
+  let imgElem = document.querySelector(".hero img");
+  var e = new exif.EXIF(imgElem.attributes.src.value);
+  e.complete.then(() => {
+    document.getElementById("model").innerHTML = e.getEXIFField("Model");
+    document.getElementById("iso").innerHTML = e.getEXIFField("ISOSpeedRatings");
+    document.getElementById("aperture").innerHTML = `f/${e.getEXIFField("FNumber")}`;
+    document.getElementById("focal").innerHTML = `${e.getEXIFField("FocalLength")}mm`;
+    document.getElementById("shutter").innerHTML = shutterToString(e.getEXIFField("ExposureTime"));
+
+    
+    document.getElementById("program").innerHTML = e.getEXIFField("ExposureProgram");
+    document.getElementById("flash").innerHTML = e.getEXIFField("Flash");
+    document.getElementById("lens").innerHTML = e.getEXIFField("LensModel");
+    let date = Date.parse(e.getEXIFField("DateTimeOriginal").replace(/(\d+):(\d+):(\d+) /, "$1/$2/$3 "));
+    let dateOptions = { 
+      year: 'numeric', month: 'numeric', day: 'numeric', 
+      hour: 'numeric', minute: 'numeric', second: 'numeric', 
+    };
+    document.getElementById("time").innerHTML = 
+      new Intl.DateTimeFormat('default', dateOptions).format(date);
+    document.getElementById("metering").innerHTML  = e.getEXIFField("MeteringMode");
+    document.getElementById("resolution").innerHTML = `${e.getEXIFField("PixelXDimension")} x ${e.getEXIFField("PixelYDimension")}`;
+  
+
+    console.log(e);
+    
+  });
+</script>
+  <h1>Zabriskie Point</h1>
+  <p>Photo of Zabriskie Point in Death Valley, California.</p>
+
+</article>
+
+
+<div class="copyright">
+  Copyright &copy; Simon Cooksey
+</div>
+
+
+
+  </body>
+</html>

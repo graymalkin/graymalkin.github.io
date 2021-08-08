@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Simon&#39;s Photography</title>
+    <link>https://graymalk.in/photography/</link>
+    <description>Recent content on Simon&#39;s Photography</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-gb</language><atom:link href="https://graymalk.in/photography/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Zabriskie Point</title>
+      <link>https://graymalk.in/photography/zabriskie/</link>
+      <pubDate>Sat, 24 Nov 2018 00:00:00 +0000</pubDate>
+      
+      <guid>https://graymalk.in/photography/zabriskie/</guid>
+      <description>Photo of Zabriskie Point in Death Valley, California.</description>
+    </item>
+    
+    <item>
+      <title>Ashford International</title>
+      <link>https://graymalk.in/photography/ashford-international/</link>
+      <pubDate>Sat, 18 Nov 2017 00:00:00 +0000</pubDate>
+      
+      <guid>https://graymalk.in/photography/ashford-international/</guid>
+      <description>Blue hour image of Ashford International train station in Kent, on a drizzly evening in November.</description>
+    </item>
+    
+    <item>
+      <title>Glider Ridge Soaring at Long Mynd</title>
+      <link>https://graymalk.in/photography/mynd/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>https://graymalk.in/photography/mynd/</guid>
+      <description>Gliders ridge soar along the Cotswold egde at Long Mynd, here A7 does a low pass along the boundary of the airfield.</description>
+    </item>
+    
+  </channel>
+</rss>
