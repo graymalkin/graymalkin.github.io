@@ -4,20 +4,31 @@
   <title>Photography</title>
   <link rel="stylesheet" href="https://graymalk.in/photography/styles.css">
   <script src="https://graymalk.in/photography/scripts/exif.js"></script>
+  <meta name="viewport" content="width=device-width, user-scalable=no" />
   <link rel="preconnect" href="https://fonts.googleapis.com"> 
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin> 
-  <link href="https://fonts.googleapis.com/css2?family=Raleway:wght@100;400&display=swap" rel="stylesheet">
 </head>
-  <body>
-    
+<body>
+  
 
 <div class="hero">
   <div>
-    <img src="https://graymalk.in/photography/images/ashford-intl.jpeg" alt="Ashford International" />
+    <img srcset="https://graymalk.in/photography/images/ashford-intl-small.jpeg 320w,
+                 https://graymalk.in/photography/images/ashford-intl-medium.jpeg 750w,
+                 https://graymalk.in/photography/images/ashford-intl-large.jpeg 2500w"
+      sizes="(max-width: 400px) 320px, (max-width: 800px) 750px, 2500px"
+      src="https://graymalk.in/photography/images/ashford-intl-small.jpeg"
+      alt=Ashford&#32;International />
   </div>
 </div>
 
 <article>
+  <div class="photo-desc">
+    <h1>Ashford International</h1>
+    <h2>Ashford, Kent &mdash; November 2017</h2>
+    <p>Blue hour image of Ashford International train station in Kent, on a drizzly evening in November.</p>
+
+  </div>
   <div class="exif">
   <div>
     <img class="camera-icon" src="https://graymalk.in/photography/icons/cameras/dslr.png" alt="Camera Icon" /><span id="model"></span>
@@ -83,17 +94,13 @@
     
   });
 </script>
-  <h1>Ashford International</h1>
-  <p>Blue hour image of Ashford International train station in Kent, on a drizzly evening in November.</p>
-
 </article>
 
 
-<div class="copyright">
+  <div class="copyright">
   Copyright &copy; Simon Cooksey
 </div>
 
-
-
-  </body>
+</body>
+  <link href="https://fonts.googleapis.com/css2?family=Raleway:wght@100;400&display=swap" rel="stylesheet" async>
 </html>

@@ -5,36 +5,65 @@
   <title>Photography</title>
   <link rel="stylesheet" href="https://graymalk.in/photography/styles.css">
   <script src="https://graymalk.in/photography/scripts/exif.js"></script>
+  <meta name="viewport" content="width=device-width, user-scalable=no" />
   <link rel="preconnect" href="https://fonts.googleapis.com"> 
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin> 
-  <link href="https://fonts.googleapis.com/css2?family=Raleway:wght@100;400&display=swap" rel="stylesheet">
 </head>
-  <body>
-    
+<body>
+  
+
+<nav>
+  <h1>Simon&#39;s Photography</h1>
+</nav>
 
 <article>
-  <h1>Simon&#39;s Photography</h1>
-  <div class="image-index">
+  <ul class="image-index">
     
-    <div>
-        <img src="images/zabriskie.jpeg" alt="Zabriskie Point"/><br />
-        <a href="https://graymalk.in/photography/zabriskie/">Zabriskie Point</a>
-    </div>
+    <li>
+      <a href="https://graymalk.in/photography/zabriskie/">
+        <img src="thumbs/zabriskie.jpeg" 
+          srcset="https://graymalk.in/photography/images/zabriskie-small.jpeg 320w,
+                  https://graymalk.in/photography/images/zabriskie-medium.jpeg 750w,
+                  https://graymalk.in/photography/images/zabriskie-large.jpeg 2500w"
+          sizes="(max-width: 400px) 320px, (max-width: 800px) 750px, 2500px"
+          alt="Zabriskie Point" />
+        
+      </a>
+    </li>
     
-    <div>
-        <img src="images/ashford-intl.jpeg" alt="Ashford International"/><br />
-        <a href="https://graymalk.in/photography/ashford-international/">Ashford International</a>
-    </div>
+    <li>
+      <a href="https://graymalk.in/photography/ashford-international/">
+        <img src="thumbs/ashford-intl.jpeg" 
+          srcset="https://graymalk.in/photography/images/ashford-intl-small.jpeg 320w,
+                  https://graymalk.in/photography/images/ashford-intl-medium.jpeg 750w,
+                  https://graymalk.in/photography/images/ashford-intl-large.jpeg 2500w"
+          sizes="(max-width: 400px) 320px, (max-width: 800px) 750px, 2500px"
+          alt="Ashford International" />
+        
+      </a>
+    </li>
     
-    <div>
-        <img src="images/mynd-glider.jpeg" alt="Ashford International"/><br />
-        <a href="https://graymalk.in/photography/mynd/">Glider Ridge Soaring at Long Mynd</a>
-    </div>
+    <li>
+      <a href="https://graymalk.in/photography/mynd/">
+        <img src="thumbs/mynd-glider.jpeg" 
+          srcset="https://graymalk.in/photography/images/mynd-glider-small.jpeg 320w,
+                  https://graymalk.in/photography/images/mynd-glider-medium.jpeg 750w,
+                  https://graymalk.in/photography/images/mynd-glider-large.jpeg 2500w"
+          sizes="(max-width: 400px) 320px, (max-width: 800px) 750px, 2500px"
+          alt="Ashford International" />
+        
+      </a>
+    </li>
     
-  </div>
+  </ul>
 </article>
 
 
 
-  </body>
+  <div class="copyright">
+  Copyright &copy; Simon Cooksey
+</div>
+
+</body>
+  <link href="https://fonts.googleapis.com/css2?family=Raleway:wght@100;400&display=swap" rel="stylesheet" async>
 </html>
