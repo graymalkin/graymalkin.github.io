@@ -7,7 +7,7 @@
   <meta charset="utf-8">
 </head>
 <body>
-  <div class="content">
+  <main>
     <h1 class="title">Simon Cooksey</h1>
     <div class="byline">Research Associate</div>
 
@@ -30,14 +30,38 @@
     <p>I am open to industrial collaboration investigating weak memory behaviours and the semantics of compiler optimised programs. I am happy to work on an ad-hoc contractor basis, or as part of a traditionally funded research program, please <a href="#contact">get in touch</a>.</p>
 
     <h2>Postgraduate</h2>
-    <p>I am a PhD candidate in the Programming Languages and Systems group at the University of Kent. I work with
+    <p>I am a Post-doctoral researcher in the Programming Languages and Systems group at the University of Kent. I work with
       <a href="https://www.cs.kent.ac.uk/people/staff/mjb211/" target="_blank" rel="noreferrer">Mark Batty</a> researching weak memory
       behaviours and compiler verification. 
       <a href="https://www.cs.kent.ac.uk/people/rpg/sjc205/">My academic profile page is here</a>.
+      I completed my thesis in September 2021.
 
     <p>In June 2020 I received the <a href="https://blogs.kent.ac.uk/graduateschoolnews/2020/05/19/graduate-school-prizes-2020/" target="_blank" rel="noreferrer">Kent Postgraduate Prize</a>, recognising the impact of my research.</p>
 
       <h2>Publications</h2>
+      <h3>Pomsets with Predicate Transformers</h3>
+      <p>Pomsets with Predicate Transformers (PwT) is a recent fully denotational semantics for weak memory consistency.
+      It captures program dependencies by embedding a logic into predicate transformers which compose to create proof
+      burdens necessary to remove dependencies which are syntactic only from list of dependencies actually present in a
+      program. I developed an OCaml tool to automatically evaluate PwT over a series of litmus tests. <i>To appear at
+      POPL 2022.</i>
+      <details class="pub">
+        <summary>
+          <div><i>The Leaky Semicolon: Compositional Semantic Dependencies for Relaxed-Memory Concurrency</i></div>
+          <br >
+          Alan Jeffery, James Riely, Mark Batty, <b>Simon Cooksey</b>, Ilya Kaysin, Anton Podkopaev
+        </summary>
+        <pre language="BibTeX">@inproceedings{Jeffrey:2022,
+  title={The Leaky Semicolon: Compositional Semantic Dependencies for Relaxed-Memory Concurrency},
+  author={Jeffrey, Alan and Riely, James and Batty, Mark and Cooksey, Simon and Kaysin, Ilya and Podkopaev, Anton},
+  year=2022,
+  booktitle={Principles of Programming Languages},
+  note={To appear}
+}
+</pre>
+        
+      </details>
+
       <h3>Modular Relaxed Dependencies</h3>
     <p>Modular Relaxed Dependencies (MRD) is a denotational semantics for weak memory consistency in C and C++. As well
       as helping to define the denotation, I built an evaluation tool (MRDer) in OCaml to enable fast calculation of the
@@ -46,13 +70,15 @@
     <details class="pub">
       <summary>
 	<div>
-	  <i>Modular Relaxed Dependencies in Weak Memory Concurrency</i>. To appear, ESOP 2020.
+	  <i>Modular Relaxed Dependencies in Weak Memory Concurrency</i>. ESOP 2020.
 	  <br >
 	  Marco Paviotti, <b>Simon Cooksey</b>, Anouk Paradis, Daniel Wright, Scott Owens, Mark Batty
 	</div>
       </summary>
       <a href="papers/esop20.pdf" target="_blank">[PDF]</a>
       <pre language="BibTeX">@inproceedings{MPaviotti:ESOP20,
+  title={Modular Relaxed Dependencies in Weak Memory Concurrency},
+  author={Pavoitti, Marco and Cooksey, Simon and Paradis, Anouk and Wright, Daniel and Owens, Scott and Batty, Mark},
   booktitle="Programming Languages and Systems",
   editor="M{\"u}ller, Peter",
   year="2020",
@@ -139,7 +165,7 @@
       <tt>49BC 8FD6 E61B B9CA BA97 A33C 33AA 9C37 025D 2B62</tt>
       and I have a <a href="https://keybase.io/graymalkin">keybase profile</a>. 
     <p>My <a href="./cv.pdf" target="_blank">CV</a> is available too, although I am not currently looking for a job.
-  </div>
+  </main>
 
   
   <link rel="stylesheet" type="text/css" href="orrery.min.css"/>
