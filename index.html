@@ -13,19 +13,19 @@
 
     <p>I study modern multiprocessor computers to understand the behaviours admitted by their complex
       micro-architectural designs. My research has focussed particularly on so-called weak memory behaviours, which are
-      exhibited on machines that allow out-of-order execution and caching.
+      exhibited on machines that allow out-of-order execution and caching.</p>
 
     <p>These intricate behaviours present challenges for programmer reasoning. Formal models help to clarify precisely
       what is allowed, and my tools bridge the gap between mathematical formalisation and programmer intuition about
       computer behaviour. My tools make these formal models executable. This informs the development of the model by
       allowing quick refinement of definitions, and also permits a programmer to probe the behaviour of a model to grasp
-      the precise meaning of a given program.
+      the precise meaning of a given program.</p>
 
     <p>These models stand as cutting edge specifications for verification of concurrent programs executing on modern
       high-performance hardware.
 
     <h2>Research Associate</h2>
-    <p>I am in the process of writing-up my thesis, meanwhile I am also working on the CAPC research programme, funded by the UKRI investigation into Digital Security by Design.</p>
+    <p>I am working on the CAPC research programme, funded by the UKRI investigation into Digital Security by Design.</p>
 
     <p>I am open to industrial collaboration investigating weak memory behaviours and the semantics of compiler optimised programs. I am happy to work on an ad-hoc contractor basis, or as part of a traditionally funded research program, please <a href="#contact">get in touch</a>.</p>
 
@@ -34,17 +34,38 @@
       <a href="https://www.cs.kent.ac.uk/people/staff/mjb211/" target="_blank" rel="noreferrer">Mark Batty</a> researching weak memory
       behaviours and compiler verification. 
       <a href="https://www.cs.kent.ac.uk/people/rpg/sjc205/">My academic profile page is here</a>.
-      I completed my thesis in September 2021.
+      I completed my thesis in September 2021.</p>
 
     <p>In June 2020 I received the <a href="https://blogs.kent.ac.uk/graduateschoolnews/2020/05/19/graduate-school-prizes-2020/" target="_blank" rel="noreferrer">Kent Postgraduate Prize</a>, recognising the impact of my research.</p>
 
       <h2>Publications</h2>
+      <h3>Mixed-Proxy Extensions to NVIDIA PTX</h3>
+      <p>An extension of NVIDIA's PTX ISA to support mixing load and store operations that target different proxies of memory. 
+      This gives well-defined semantics to programs with both, for example, constant loads and generic stores to the same address. 
+      The memory model extension was built in the relational model checking tool, Alloy, and we showed that our extension to the PTX model is sound and complete with respect to the existing industrial model.
+      <i>To appear in the proceedings of ISCA 2022.</i></p>
+      <details class="pub">
+        <summary>
+          <div><i>Mixed-Proxy Extensions for the NVIDIA PTX Memory Consistency Model</i></div>
+          <br >
+          Daniel Lustig, <b>Simon Cooksey</b>, Olivier Giroux
+        </summary>
+        <pre language="BibTeX">@inproceedings{Lustig:2022,
+  title={Mixed-Proxy Extensions for the NVIDIA PTX Memory Consistency Model},
+  author={Lustig, Daniel and Cooksey, Simon and Giroux, Olivier},
+  booktitle={Proceedings of the 49th {ACM/IEEE} International Symposium on Computer Architecture, {ISCA} 2022, New York, USA, June 11-15, 2022}
+  year={2022},
+  publisher={{ACM/IEEE}},
+  note={To appear},
+}
+</pre>
+      </details>
+
       <h3>Pomsets with Predicate Transformers</h3>
       <p>Pomsets with Predicate Transformers (PwT) is a recent fully denotational semantics for weak memory consistency.
       It captures program dependencies by embedding a logic into predicate transformers which compose to create proof
       burdens necessary to remove dependencies which are syntactic only from list of dependencies actually present in a
-      program. I developed an OCaml tool to automatically evaluate PwT over a series of litmus tests. <i>To appear at
-      POPL 2022.</i>
+      program. I developed an OCaml tool to automatically evaluate PwT over a series of litmus tests. <i>Appears in the proceedings of POPL 2022.</i></p>
       <details class="pub">
         <summary>
           <div><i>The Leaky Semicolon: Compositional Semantic Dependencies for Relaxed-Memory Concurrency</i></div>
@@ -55,7 +76,7 @@
         <pre language="BibTeX">@inproceedings{Jeffrey:2022,
   title={The Leaky Semicolon: Compositional Semantic Dependencies for Relaxed-Memory Concurrency},
   author={Jeffrey, Alan and Riely, James and Batty, Mark and Cooksey, Simon and Kaysin, Ilya and Podkopaev, Anton},
-  booktitle={Proceedings of the 49th {ACM} {SIGPLAN} Symposium on Principles of Programming Languages, {POPL} 2017, Philadelphia, USA, January 18-20, 2022},
+  booktitle={Proceedings of the 49th {ACM} {SIGPLAN} Symposium on Principles of Programming Languages, {POPL} 2022, Philadelphia, USA, January 18-20, 2022},
   editor={Rajeev Alur and Hongseok Yang},
   pages={54--84},
   publisher={{ACM}},
@@ -69,7 +90,7 @@
     <p>Modular Relaxed Dependencies (MRD) is a denotational semantics for weak memory consistency in C and C++. As well
       as helping to define the denotation, I built an evaluation tool (MRDer) in OCaml to enable fast calculation of the
       semantics against a corpus of litmus tests. Further, I proved meta-theoretic properties about the semantics with
-      respect to industry standard models of C/C++.
+      respect to industry standard models of C/C++.</p>
     <details class="pub">
       <summary>
 	<div>
@@ -97,7 +118,7 @@
 	<div>
 	  <i>P1780R0: Modular Relaxed Dependencies: A new approach to the Out-Of-Thin-Air Problem</i>. ISO/IEC JTC1/SC22/WG21.
 	  <br >
-	  Mark Batty, <b>Simon Cooksey</b>, Scott Owens, Anouk Paradis, Marco Paviotti, Daniel Wright
+	  Mark Batty, <b>Simon Cooksey</b>, Scott Owens, Anouk Paradis, Marco Paviotti, Daniel Wright</p>
 	</div>
       </summary>
       <a href="https://wg21.link/p1780" rel="noreferrer" target="_blank">Online working document</a>
@@ -116,7 +137,7 @@
       this API to express memory models. We use cutting edge Quantified Boolean Formulae (QBF) solvers to efficiently
       simulate a new class of memory model which solve the thin-air problem. We encode the problems in a high-level
       second order logic giving us flexibility in problem expression. This then gets translated into a QBF model
-      checking problem for a solver to efficiently execute.
+      checking problem for a solver to efficiently execute.</p>
 
     <details class="pub">
       <summary>
@@ -138,13 +159,13 @@
     <h2>Grants</h2>
     <h3>Complementing capabilities: introducing pointer-safe programming to DSBD tech<br/>
     (<i>Innovate UK ICSF, 2022</i>)</h3>
-    <p>I am a Researcher Co-Investigator for a grant of £494,770 responding to the Innovate UK call to extend the DSbD ecosystem with new CHERI-compatible software. This work will be focussed on porting the Rust compiler to CHERI and formally demonstrating how the guarantees provided by Rust join up nicely with the guarantees of the capability hardware.</p>
+    <p>I am a Researcher Co-Investigator for a grant of £494,770 (80% FEC) responding to the Innovate UK call to extend the DSbD ecosystem with new CHERI-compatible software. This work will be focussed on porting the Rust compiler to CHERI and formally demonstrating how the guarantees provided by Rust join up nicely with the guarantees of the capability hardware.</p>
 
     <h3>Fixing the thin-air problem: ISO dissemination<br/> (<i>VeTSS, 2020</i>)</h3>
-    <p>I am a named researcher and co-author of a VeTSS grant of £60,455 to pursue further integration of MRD into the ISO C++ Standard. This grant funds travel to ISO meetings, and research time for me to prepare papers ahead of these meetings.
+    <p>I am a named researcher and co-author of a VeTSS grant of £60,455 (80% FEC) to pursue further integration of MRD into the ISO C++ Standard. This grant funds travel to ISO meetings, and research time for me to prepare papers ahead of these meetings.</p>
 
     <h3>CAPC: Capability C semantics, tools and reasoning<br/> (<i>Digital Security by Design, 2020)</i></h3>
-    <p>I am a named researcher and co-author of a Digital Security by Design grant of £596,634. This is a longer term project to build verified concurrent libraries for the CHERI platform. CHERI is an interesting extension to ARM where memory accesses are tagged with capabilities to keep code secure.
+    <p>I am a named researcher and co-author of a Digital Security by Design grant of £485,168 (80% FEC). This is a longer term project to build verified concurrent libraries for the CHERI platform. CHERI is an interesting extension to ARM where memory accesses are tagged with capabilities to keep code secure.</p>
 
     <h2>Industrial Experience</h2>
     <h3>NVIDIA</h3>
@@ -164,14 +185,14 @@
     
     <h3>TinkerSoc</h3>
     <p>I was the president of <a href="http://tinkersoc.org/">TinkerSoc</a>, a society dedicated to making things,
-      particularly electronics.
+      particularly electronics.</p>
 
     <h2 id="contact">Contact</h2>
     <p>You can contact me via email, <a href="mailto:simon@graymalk.in">simon@graymalk.in</a>.
       <a href="./pgp.pub">I use PGP</a>, so if that floats your boat: my PGP fingerprint is
       <tt>49BC 8FD6 E61B B9CA BA97 A33C 33AA 9C37 025D 2B62</tt>
-      and I have a <a href="https://keybase.io/graymalkin">keybase profile</a>. 
-    <p>My <a href="./cv.pdf" target="_blank">CV</a> is available too, although I am not currently looking for a job.
+      and I have a <a href="https://keybase.io/graymalkin">keybase profile</a>. </p>
+    <p>My <a href="./cv.pdf" target="_blank">CV</a> is available too, although I am not currently looking for a job.</p>
   </main>
 
   
