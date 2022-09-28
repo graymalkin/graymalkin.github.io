@@ -190,10 +190,11 @@ church encoding a cinch</div>
     <div class="sourceCode" id="cb18"><pre
     class="sourceCode js"><code class="sourceCode javascript"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a><span class="fu">y</span> (f <span class="kw">=&gt;</span> x <span class="kw">=&gt;</span> x)</span></code></pre></div>
     <p>We get an error from NodeJS:</p>
-    <pre><code>const y = f =&gt; (x =&gt; f(x(x)))(x =&gt; f(x(x)))
-                                   ^
-
-RangeError: Maximum call stack size exceeded</code></pre>
+    <div class="sourceCode" id="cb19"><pre
+    class="sourceCode txt"><code class="sourceCode default"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a>const y = f =&gt; (x =&gt; f(x(x)))(x =&gt; f(x(x)))</span>
+<span id="cb19-2"><a href="#cb19-2" aria-hidden="true" tabindex="-1"></a>                                   ^</span>
+<span id="cb19-3"><a href="#cb19-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb19-4"><a href="#cb19-4" aria-hidden="true" tabindex="-1"></a>RangeError: Maximum call stack size exceeded</span></code></pre></div>
     <p>Annoyingly, the V8 JavaScript engine (which NodeJS is built on)
     does not support tail-call optimisation<a href="#fn1"
     class="footnote-ref" id="fnref1"
