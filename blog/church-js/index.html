@@ -10,7 +10,7 @@
   <main>
     <h1 class="title">Church encoding in JavaScript</h1>
     <div class="byline">Weak typing in JavaScript makes lambda calculus’
-church encoding a cinch in JS</div>
+church encoding a cinch</div>
 
     <p>In the office recently we were chatting about encoding natural
     numbers in functional programming. One of my colleagues isn’t a
@@ -195,12 +195,28 @@ church encoding a cinch in JS</div>
 
 RangeError: Maximum call stack size exceeded</code></pre>
     <p>Annoyingly, the V8 JavaScript engine (which NodeJS is built on)
-    does not support tail-call optimisation. There is a fixed-point
+    does not support tail-call optimisation<a href="#fn1"
+    class="footnote-ref" id="fnref1"
+    role="doc-noteref"><sup>1</sup></a>. There is a fixed-point
     combinator whose definition works in an eager language like
     JavaScript.</p>
     <div class="sourceCode" id="cb20"><pre
     class="sourceCode js"><code class="sourceCode javascript"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a><span class="kw">const</span> z <span class="op">=</span> f <span class="kw">=&gt;</span> (x <span class="kw">=&gt;</span> <span class="fu">f</span> (v <span class="kw">=&gt;</span> <span class="fu">x</span>(x)(v)))(x <span class="kw">=&gt;</span> <span class="fu">f</span> (v <span class="kw">=&gt;</span> <span class="fu">x</span>(x)(v)))</span></code></pre></div>
-    <p>… wip</p>
+    <p>This is the point where I found V8 doesn’t work for me, and
+    WebKit is too slow. I’ll keep playing and try and build some working
+    interesting recursion examples.</p>
+    <section class="footnotes footnotes-end-of-document"
+    role="doc-endnotes">
+    <hr />
+    <ol>
+    <li id="fn1" role="doc-endnote"><p>A thread on stackoverflow has an
+    on going discussion about support (or lack-thereof) for tail-call
+    optimisation in JavaScript. <a
+    href="https://stackoverflow.com/questions/23260390/node-js-tail-call-optimization-possible-or-not">The
+    thread</a><a href="#fnref1" class="footnote-back"
+    role="doc-backlink">↩︎</a></p></li>
+    </ol>
+    </section>
   </main>
   <style>pre > code.sourceCode { white-space: pre; position: relative; }
 pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
