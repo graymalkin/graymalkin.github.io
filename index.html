@@ -2,6 +2,7 @@
 <html lang="en">
   <title>Simon Cooksey</title>
   <meta name="viewport" content="width=device-width, user-scalable=yes">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/firacode@6.2.0/distr/fira_code.css">
   <link rel="stylesheet" type="text/css" href="./style.css"/>
   <meta name="description" content="Personal webpage of Simon Cooksey, summarising academic research projects and funding.">
   <meta charset="utf-8">
@@ -9,20 +10,12 @@
 <body>
   <main>
     <h1 class="title">Simon Cooksey</h1>
-    <div class="byline">Research Fellow</div>
+    <div class="byline">Research Fellow in Programming Languages</div>
+    <nav>
+      <a href="/blog/">Blog</a> | <a href="/photography/">Photography</a>
+    </nav>
 
-    <p>I study modern multiprocessor computers to understand the behaviours admitted by their complex
-      micro-architectural designs. My research has focussed particularly on so-called weak memory behaviours, which are
-      exhibited on machines that allow out-of-order execution and caching.</p>
-
-    <p>These intricate behaviours present challenges for programmer reasoning. Formal models help to clarify precisely
-      what is allowed, and my tools bridge the gap between mathematical formalisation and programmer intuition about
-      computer behaviour. My tools make these formal models executable. This informs the development of the model by
-      allowing quick refinement of definitions, and also permits a programmer to probe the behaviour of a model to grasp
-      the precise meaning of a given program.</p>
-
-    <p>These models stand as cutting edge specifications for verification of concurrent programs executing on modern
-      high-performance hardware.
+    I am a Research Fellow in Programming Languages at the University of Kent, as part of the Programming Languages and Systems Research Group.
 
     <h2>Research Fellow</h2>
     <p>I am working on the <i>Complementing Capabilities</i> research project to bring the Rust programming language to Morello.</p>
@@ -30,50 +23,53 @@
     <p>I am open to industrial collaboration investigating weak memory behaviours and the semantics of compiler optimised programs. I am happy to work on an ad-hoc contractor basis, or as part of a traditionally funded research program, please <a href="#contact">get in touch</a>.</p>
 
     <h2>Postgraduate</h2>
-    <p>I am a Post-doctoral researcher in the Programming Languages and Systems group at the University of Kent. I work with
-      <a href="https://www.cs.kent.ac.uk/people/staff/mjb211/" target="_blank" rel="noreferrer">Mark Batty</a> researching weak memory
-      behaviours and compiler verification. 
-      <a href="https://www.cs.kent.ac.uk/people/rpg/sjc205/">My academic profile page is here</a>.
-      I completed my thesis in September 2021.</p>
+    <p>I completed my PhD in the Programming Languages and Systems group at the University of Kent.
+    I worked with my supervisor  <a href="https://www.cs.kent.ac.uk/people/staff/mjb211/" target="_blank" rel="noreferrer">Mark Batty</a> researching weak memory behaviours and compiler verification.</p>
 
     <p>In June 2020 I received the <a href="https://blogs.kent.ac.uk/graduateschoolnews/2020/05/19/graduate-school-prizes-2020/" target="_blank" rel="noreferrer">Kent Postgraduate Prize</a>, recognising the impact of my research.</p>
 
-      <h2>Publications</h2>
-      <h3>Mixed-Proxy Extensions to NVIDIA PTX</h3>
-      <p>An extension of NVIDIA's PTX ISA to support mixing load and store operations that target different proxies of memory. 
-      This gives well-defined semantics to programs with both, for example, constant loads and generic stores to the same address. 
-      The memory model extension was built in the relational model checking tool, Alloy, and we showed that our extension to the PTX model is sound and complete with respect to the existing industrial model.
-      <i>To appear in the proceedings of ISCA 2022.</i></p>
-      <details class="pub">
-        <summary>
-          <div><i>Mixed-Proxy Extensions for the NVIDIA PTX Memory Consistency Model</i></div>
-          <br >
-          Daniel Lustig, <b>Simon Cooksey</b>, Olivier Giroux
-        </summary>
-        <pre language="BibTeX">@inproceedings{Lustig:2022,
-  title={Mixed-Proxy Extensions for the NVIDIA PTX Memory Consistency Model},
-  author={Lustig, Daniel and Cooksey, Simon and Giroux, Olivier},
-  booktitle={Proceedings of the 49th {ACM/IEEE} International Symposium on Computer Architecture, {ISCA} 2022, New York, USA, June 11-15, 2022}
-  year={2022},
-  publisher={{ACM/IEEE}},
-  note={To appear},
-}
-</pre>
-      </details>
+    <h2>Publications</h2>
+    <h3>Mixed-Proxy Extensions to NVIDIA PTX</h3>
+    <p>An extension of NVIDIA's PTX ISA to support mixing load and store operations that target different proxies of memory. 
+    This gives well-defined semantics to programs with both, for example, constant loads and generic stores to the same address. 
+    The memory model extension was built in the relational model checking tool, Alloy, and we showed that our extension to the PTX model is sound and complete with respect to the existing industrial model.
+    <i></i></p>
+    <details class="pub">
+      <summary>
+        <div><i>Mixed-Proxy Extensions for the NVIDIA PTX Memory Consistency Model</i></div>
+        <br >
+        Daniel Lustig, <b>Simon Cooksey</b>, Olivier Giroux
+      </summary>
+      <pre language="BibTeX">@inproceedings{DLustig:2022,
+  author = {Lustig, Daniel and Cooksey, Simon and Giroux, Olivier},
+  title = {Mixed-Proxy Extensions for the NVIDIA PTX Memory Consistency Model: Industrial Product},
+  booktitle = {Proceedings of the 49th Annual International Symposium on Computer Architecture},
+  pages = {1058-1070},
+  publisher = {Association for Computing Machinery},
+  year = {2022},
+  isbn = {9781450386104},
+  address = {New York, NY, USA},
+  url = {https://doi.org/10.1145/3470496.3533045},
+  doi = {10.1145/3470496.3533045},
+  numpages = {13},
+  location = {New York, New York},
+  series = {ISCA '22}
+}</pre>
+    </details>
 
-      <h3>Pomsets with Predicate Transformers</h3>
-      <p>Pomsets with Predicate Transformers (PwT) is a recent fully denotational semantics for weak memory consistency.
-      It captures program dependencies by embedding a logic into predicate transformers which compose to create proof
-      burdens necessary to remove dependencies which are syntactic only from list of dependencies actually present in a
-      program. I developed an OCaml tool to automatically evaluate PwT over a series of litmus tests. <i>Appears in the proceedings of POPL 2022.</i></p>
-      <details class="pub">
-        <summary>
-          <div><i>The Leaky Semicolon: Compositional Semantic Dependencies for Relaxed-Memory Concurrency</i></div>
-          <br >
-          Alan Jeffery, James Riely, Mark Batty, <b>Simon Cooksey</b>, Ilya Kaysin, Anton Podkopaev
-        </summary>
-        <a href="papers/popl22.pdf" target="_blank">[PDF]</a>
-        <pre language="BibTeX">@inproceedings{Jeffrey:2022,
+    <h3>Pomsets with Predicate Transformers</h3>
+    <p>Pomsets with Predicate Transformers (PwT) is a recent fully denotational semantics for weak memory consistency.
+    It captures program dependencies by embedding a logic into predicate transformers which compose to create proof
+    burdens necessary to remove dependencies which are syntactic only from list of dependencies actually present in a
+    program. I developed an OCaml tool to automatically evaluate PwT over a series of litmus tests. <i>Appears in the proceedings of POPL 2022.</i></p>
+    <details class="pub">
+      <summary>
+        <div><i>The Leaky Semicolon: Compositional Semantic Dependencies for Relaxed-Memory Concurrency</i></div>
+        <br >
+        Alan Jeffery, James Riely, Mark Batty, <b>Simon Cooksey</b>, Ilya Kaysin, Anton Podkopaev
+      </summary>
+      <a href="papers/popl22.pdf" target="_blank">[PDF]</a>
+      <pre language="BibTeX">@inproceedings{AJeffrey:2022,
   title={The Leaky Semicolon: Compositional Semantic Dependencies for Relaxed-Memory Concurrency},
   author={Jeffrey, Alan and Riely, James and Batty, Mark and Cooksey, Simon and Kaysin, Ilya and Podkopaev, Anton},
   booktitle={Proceedings of the 49th {ACM} {SIGPLAN} Symposium on Principles of Programming Languages, {POPL} 2022, Philadelphia, USA, January 18-20, 2022},
@@ -84,20 +80,19 @@
   url={https://doi.org/10.1145/3498716}
 }
 </pre>
-      </details>
+    </details>
 
-      <h3>Modular Relaxed Dependencies</h3>
+    <h3>Modular Relaxed Dependencies</h3>
     <p>Modular Relaxed Dependencies (MRD) is a denotational semantics for weak memory consistency in C and C++. As well
       as helping to define the denotation, I built an evaluation tool (MRDer) in OCaml to enable fast calculation of the
       semantics against a corpus of litmus tests. Further, I proved meta-theoretic properties about the semantics with
       respect to industry standard models of C/C++.</p>
     <details class="pub">
       <summary>
-	<div>
-	  <i>Modular Relaxed Dependencies in Weak Memory Concurrency</i>. ESOP 2020.
-	  <br >
-	  Marco Paviotti, <b>Simon Cooksey</b>, Anouk Paradis, Daniel Wright, Scott Owens, Mark Batty
-	</div>
+        <i>Modular Relaxed Dependencies in Weak Memory Concurrency</i>. 
+        ESOP 2020.
+        <br >
+        Marco Paviotti, <b>Simon Cooksey</b>, Anouk Paradis, Daniel Wright, Scott Owens, Mark Batty
       </summary>
       <a href="papers/esop20.pdf" target="_blank">[PDF]</a>
       <pre language="BibTeX">@inproceedings{MPaviotti:ESOP20,
@@ -115,11 +110,10 @@
 
     <details class="pub">
       <summary>
-	<div>
-	  <i>P1780R0: Modular Relaxed Dependencies: A new approach to the Out-Of-Thin-Air Problem</i>. ISO/IEC JTC1/SC22/WG21.
-	  <br >
-	  Mark Batty, <b>Simon Cooksey</b>, Scott Owens, Anouk Paradis, Marco Paviotti, Daniel Wright</p>
-	</div>
+        <i>P1780R0: Modular Relaxed Dependencies: A new approach to the Out-Of-Thin-Air Problem</i>.
+        ISO/IEC JTC1/SC22/WG21.
+        <br >
+        Mark Batty, <b>Simon Cooksey</b>, Scott Owens, Anouk Paradis, Marco Paviotti, Daniel Wright
       </summary>
       <a href="https://wg21.link/p1780" rel="noreferrer" target="_blank">Online working document</a>
       <pre language="BibTeX">@techreport{MBatty:P1780,
@@ -141,11 +135,9 @@
 
     <details class="pub">
       <summary>
-	<div>
-	<i>PrideMM: Second Order Model Checking for Memory Consistency Models</i>. TAPAS 2019.
-	<br >
-	<b>Simon Cooksey</b>, Sarah Harris, Mary Batty, Radu Grigore, Mikoláš Janota
-	</div>
+        <i>PrideMM: Second Order Model Checking for Memory Consistency Models</i>. TAPAS 2019.
+        <br >
+        <b>Simon Cooksey</b>, Sarah Harris, Mary Batty, Radu Grigore, Mikoláš Janota
       </summary>
       <a href="papers/tapas19.pdf" target="_blank">[PDF]</a>
       <pre language="BibTeX">@inproceedings{SCooksey:TAPAS19,
