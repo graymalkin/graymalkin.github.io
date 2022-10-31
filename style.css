@@ -132,6 +132,7 @@ quot, blockquote {
 .title, .byline {
     font-weight: bold;
     font-family: 'Fira Code', 'DeJa Vu Mono', monospace;
+    line-height: 115%;
 }
 
 @keyframes blink {

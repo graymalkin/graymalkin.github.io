@@ -1,21 +1,26 @@
 <!DOCTYPE html>
 <html lang="en">
-  <title>Church encoding in JavaScript --- Simon Cooksey</title>
+  <title>Church encoding in
+JavaScript &mdash; Simon Cooksey Blog</title>
   <meta name="viewport" content="width=device-width, user-scalable=yes">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/firacode@6.2.0/distr/fira_code.css">
   <link rel="stylesheet" type="text/css" href="https://graymalk.in/style.css"/>
-  <meta name="dcterms.date" content="2022-09-28" />
-<meta charset="utf-8">
+  <meta name="description" content="Personal webpage of Simon Cooksey, summarising academic research projects and funding.">
+  <meta charset="utf-8">
 </head>
 <body>
   <main>
     <h1 class="title">Church encoding in JavaScript</h1>
     <div class="byline">Weak typing in JavaScript makes lambda calculus’
 church encoding a cinch</div>
-
+    <div class="date">2022-09-28</div>
+    <nav>
+        <a href="/blog/">Blog</a> | <a href="/photography/">Photography</a>
+    </nav>
     <p>In the office recently we were chatting about encoding natural
     numbers in functional programming. One of my colleagues isn’t a
     Programming Languages theory person, and wanted to build a bit of
-    intuition for it — we asked him how he’d implement addition if he
+    intuition for it – we asked him how he’d implement addition if he
     could not use the <code>+</code> operator in JavaScript. This is,
     predictably, a bit challenging – the base number type in JS isn’t
     structural like it might be in a language like OCaml, it’s all
@@ -37,8 +42,8 @@ church encoding a cinch</div>
 <span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>  S n -&gt; n</span>
 <span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a>| Z -&gt; Z</span></code></pre></div>
     <p>Simply, <code>succ</code> adds a <code>S</code> constructor to
-    our number, and <code>pred</code> pops a successor off a number, and
-    it bottoms out at zero.</p>
+    our number; similarly <code>pred</code> pops a successor off a
+    number, and it bottoms out at zero.</p>
     <p>Okay, so what about addition?</p>
     <div class="sourceCode" id="cb3"><pre
     class="sourceCode ocaml"><code class="sourceCode ocaml"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="kw">let</span> <span class="kw">rec</span> add a = <span class="kw">function</span></span>
@@ -55,34 +60,36 @@ church encoding a cinch</div>
     <p>This doesn’t help us in Javascript though. Our encoding of
     naturals here is structural in the types available in the language,
     we could probably fake that up in Javascript using lists or objects,
-    but far more interesting is Church encoding.</p>
+    but a far more interesting way to do this is something called Church
+    Encoding.</p>
     <p>A church numeral is a number which is represented as a
     higher-order function. A church numeral takes 2 arguments, a
-    function <code>f</code> and a base-case <code>x</code> - the
+    function <code>f</code> and a base-case <code>x</code> – the
     function <code>f</code> is applied <code>n</code> times for the
     value <code>n</code> encoded as a church numeral.</p>
     <div class="sourceCode" id="cb4"><pre
     class="sourceCode ocaml"><code class="sourceCode ocaml"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="co">(* Apply f zero times to x *)</span></span>
-<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a><span class="kw">let</span> ch_zero _f x = x</span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a><span class="kw">let</span> zero _f x = x</span>
 <span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a><span class="co">(* Apply f three times to x *)</span></span>
-<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a><span class="kw">let</span> ch_three f x = f (f (f x))</span></code></pre></div>
+<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a><span class="kw">let</span> three f x = f (f (f x))</span></code></pre></div>
     <p>This can be written in Javascript more conveniently!</p>
     <div class="sourceCode" id="cb5"><pre
-    class="sourceCode js"><code class="sourceCode javascript"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="kw">const</span> ch_zero <span class="op">=</span> f <span class="kw">=&gt;</span> x <span class="kw">=&gt;</span> x</span>
-<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a><span class="kw">const</span> ch_three <span class="op">=</span> f <span class="kw">=&gt;</span> x <span class="kw">=&gt;</span> <span class="fu">f</span>(<span class="fu">f</span>(<span class="fu">f</span>(x)))</span></code></pre></div>
+    class="sourceCode js"><code class="sourceCode javascript"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="kw">const</span> zero <span class="op">=</span> f <span class="kw">=&gt;</span> x <span class="kw">=&gt;</span> x</span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a><span class="kw">const</span> three <span class="op">=</span> f <span class="kw">=&gt;</span> x <span class="kw">=&gt;</span> <span class="fu">f</span>(<span class="fu">f</span>(<span class="fu">f</span>(x)))</span></code></pre></div>
     <p>What does it look like to use a church numeral in JavaScript?
-    Well, it applies a function n times to x, so we can use it to
-    count:</p>
+    Well, it applies a function <code>n</code> times to <code>x</code>,
+    so we can use it to count:</p>
     <div class="sourceCode" id="cb6"><pre
     class="sourceCode js"><code class="sourceCode javascript"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="co">/* Count to 3 (starting at 1) */</span></span>
-<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a><span class="fu">ch_three</span>(x <span class="kw">=&gt;</span> { <span class="bu">console</span><span class="op">.</span><span class="fu">log</span>(x)<span class="op">;</span> <span class="cf">return</span> x<span class="op">+</span><span class="dv">1</span>})(<span class="dv">1</span>)</span>
-<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a><span class="co">// 1</span></span>
-<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a><span class="co">// 2</span></span>
-<span id="cb6-5"><a href="#cb6-5" aria-hidden="true" tabindex="-1"></a><span class="co">// 3</span></span></code></pre></div>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a><span class="kw">const</span> count_one <span class="op">=</span> x <span class="kw">=&gt;</span> { <span class="bu">console</span><span class="op">.</span><span class="fu">log</span>(x)<span class="op">;</span> <span class="cf">return</span> x <span class="op">+</span> <span class="dv">1</span> }</span>
+<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a><span class="fu">three</span>(count_one)(<span class="dv">1</span>)</span>
+<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a><span class="co">// 1</span></span>
+<span id="cb6-5"><a href="#cb6-5" aria-hidden="true" tabindex="-1"></a><span class="co">// 2</span></span>
+<span id="cb6-6"><a href="#cb6-6" aria-hidden="true" tabindex="-1"></a><span class="co">// 3</span></span></code></pre></div>
     <p>Similarly, we can convert these Church numerals to normal
     JavaScript numbers:</p>
     <div class="sourceCode" id="cb7"><pre
-    class="sourceCode js"><code class="sourceCode javascript"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="bu">console</span><span class="op">.</span><span class="fu">log</span>( <span class="fu">ch_three</span>(x <span class="kw">=&gt;</span> x<span class="op">+</span><span class="dv">1</span>)(<span class="dv">0</span>) )</span>
+    class="sourceCode js"><code class="sourceCode javascript"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="bu">console</span><span class="op">.</span><span class="fu">log</span>( <span class="fu">three</span>(x <span class="kw">=&gt;</span> x<span class="op">+</span><span class="dv">1</span>)(<span class="dv">0</span>) )</span>
 <span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a><span class="co">// 3</span></span></code></pre></div>
     <p>And we can implement a general function for casting from Church
     numerals to JavaScript numbers.</p>
@@ -93,7 +100,7 @@ church encoding a cinch</div>
     <div class="sourceCode" id="cb9"><pre
     class="sourceCode js"><code class="sourceCode javascript"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="kw">const</span> succ <span class="op">=</span> n <span class="kw">=&gt;</span> f <span class="kw">=&gt;</span> x <span class="kw">=&gt;</span> <span class="fu">f</span> ( <span class="fu">n</span>(f)(x) )</span></code></pre></div>
     <p>The part inside the brackets <code>n(f)(x)</code> applies
-    <code>f</code> n times to <code>x</code>, and the extra
+    <code>f</code> <code>n</code> times to <code>x</code>, and the extra
     <code>f</code> outside the brackets applies it one more time.
     Successor!</p>
     <p>Now we can implement a function which converts normal JavaScript
@@ -106,7 +113,7 @@ church encoding a cinch</div>
 <span id="cb10-5"><a href="#cb10-5" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> <span class="fu">succ</span> (<span class="fu">num_to_ch</span>(n<span class="op">-</span><span class="dv">1</span>))</span>
 <span id="cb10-6"><a href="#cb10-6" aria-hidden="true" tabindex="-1"></a>  }</span>
 <span id="cb10-7"><a href="#cb10-7" aria-hidden="true" tabindex="-1"></a>}</span></code></pre></div>
-    <p>Great, that’s convenient. We haven’t looked at addition yet,
+    <p>Great, that’s convenient We haven’t looked at addition yet,
     though. Two church numerals <code>m</code> and <code>n</code> will
     apply some function <code>f</code> <code>n</code> and <code>m</code>
     times respectively. After addition of <code>m</code> and
@@ -136,17 +143,17 @@ church encoding a cinch</div>
     <div class="sourceCode" id="cb13"><pre
     class="sourceCode js"><code class="sourceCode javascript"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="kw">const</span> inl <span class="op">=</span> x <span class="kw">=&gt;</span> y <span class="kw">=&gt;</span> x <span class="co">/* stand-in for true */</span></span>
 <span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a><span class="kw">const</span> inr <span class="op">=</span> x <span class="kw">=&gt;</span> y <span class="kw">=&gt;</span> y <span class="co">/* stand-in for false */</span></span></code></pre></div>
-    <p>We can evaluate them by applying them with true for left
-    branches, and false for right branches:</p>
+    <p>We can evaluate them by applying them with <code>true</code> for
+    left branches, and <code>false</code> for right branches:</p>
     <div class="sourceCode" id="cb14"><pre
     class="sourceCode js"><code class="sourceCode javascript"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a><span class="bu">console</span><span class="op">.</span><span class="fu">log</span>(<span class="fu">inl</span>(<span class="kw">true</span>)(<span class="kw">false</span>))</span>
 <span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a><span class="co">// true</span></span>
 <span id="cb14-3"><a href="#cb14-3" aria-hidden="true" tabindex="-1"></a><span class="bu">console</span><span class="op">.</span><span class="fu">log</span>(<span class="fu">inr</span>(<span class="kw">true</span>)(<span class="kw">false</span>))</span>
 <span id="cb14-4"><a href="#cb14-4" aria-hidden="true" tabindex="-1"></a><span class="co">// false</span></span></code></pre></div>
     <p>Now we can build some predicate functions, like
-    <code>is_zero</code>: where for some number n it is evaluated with a
-    base-case of true (<code>inl</code>), and an inductive case which
-    maps any input to false (<code>inr</code>).</p>
+    <code>is_zero</code>: where for some number <code>n</code> it is
+    evaluated with a base-case of true (<code>inl</code>), and an
+    inductive case which maps any input to false (<code>inr</code>).</p>
     <div class="sourceCode" id="cb15"><pre
     class="sourceCode js"><code class="sourceCode javascript"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a><span class="kw">const</span> is_zero <span class="op">=</span> n <span class="kw">=&gt;</span> <span class="fu">n</span>(x <span class="kw">=&gt;</span> inr)(inl)</span>
 <span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a><span class="bu">console</span><span class="op">.</span><span class="fu">log</span>(<span class="fu">is_zero</span>(zero)(<span class="kw">true</span>)(<span class="kw">false</span>))</span>
@@ -190,11 +197,10 @@ church encoding a cinch</div>
     <div class="sourceCode" id="cb18"><pre
     class="sourceCode js"><code class="sourceCode javascript"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a><span class="fu">y</span> (f <span class="kw">=&gt;</span> x <span class="kw">=&gt;</span> x)</span></code></pre></div>
     <p>We get an error from NodeJS:</p>
-    <div class="sourceCode" id="cb19"><pre
-    class="sourceCode txt"><code class="sourceCode default"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a>const y = f =&gt; (x =&gt; f(x(x)))(x =&gt; f(x(x)))</span>
-<span id="cb19-2"><a href="#cb19-2" aria-hidden="true" tabindex="-1"></a>                                   ^</span>
-<span id="cb19-3"><a href="#cb19-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb19-4"><a href="#cb19-4" aria-hidden="true" tabindex="-1"></a>RangeError: Maximum call stack size exceeded</span></code></pre></div>
+    <pre><code>const y = f =&gt; (x =&gt; f(x(x)))(x =&gt; f(x(x)))
+                                   ^
+
+RangeError: Maximum call stack size exceeded</code></pre>
     <p>Annoyingly, the V8 JavaScript engine (which NodeJS is built on)
     does not support tail-call optimisation<a href="#fn1"
     class="footnote-ref" id="fnref1"
@@ -206,13 +212,13 @@ church encoding a cinch</div>
     <p>This is the point where I found V8 doesn’t work for me, and
     WebKit is too slow. I’ll keep playing and try and build some working
     interesting recursion examples.</p>
-    <section class="footnotes footnotes-end-of-document"
+    <section id="footnotes" class="footnotes footnotes-end-of-document"
     role="doc-endnotes">
     <hr />
     <ol>
-    <li id="fn1" role="doc-endnote"><p>A thread on stackoverflow has an
-    on going discussion about support (or lack-thereof) for tail-call
-    optimisation in JavaScript. <a
+    <li id="fn1"><p>A thread on stackoverflow has an on going discussion
+    about support (or lack-thereof) for tail-call optimisation in
+    JavaScript. <a
     href="https://stackoverflow.com/questions/23260390/node-js-tail-call-optimization-possible-or-not">The
     thread</a><a href="#fnref1" class="footnote-back"
     role="doc-backlink">↩︎</a></p></li>

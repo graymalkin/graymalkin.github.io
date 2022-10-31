@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
-  <title>Blog &mdash; Simon Cooksey Blog</title>
+  <title>$title$ &mdash; Simon Cooksey Blog</title>
   <meta name="viewport" content="width=device-width, user-scalable=yes">
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/firacode@6.2.0/distr/fira_code.css">
   <link rel="stylesheet" type="text/css" href="https://graymalk.in/style.css"/>
@@ -9,17 +9,14 @@
 </head>
 <body>
   <main>
-    <h1 class="title">Blog</h1>
-    <div class="byline"></div>
-    <div class="date"></div>
+    <h1 class="title">$title$</h1>
+    <div class="byline">$subtitle$</div>
+    <div class="date">$date$</div>
     <nav>
         <a href="/blog/">Blog</a> | <a href="/photography/">Photography</a>
     </nav>
-    <ul>
-    <li>&lt;span style=color: #666&gt;(2022-09-28)</span> <a
-    href="./church-js/">Church encoding in JavaScript</a></li>
-    </ul>
+    $body$
   </main>
-  <style></style>
+  <style>$highlighting-css$</style>
 </body>
 </html>
