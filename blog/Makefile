@@ -16,7 +16,7 @@ index.md: $(INPUTS)
 	@for a in $(INPTUS); do \
 		DATE=$$(grep -m 1 "date" $$a | sed -e 's/date: //g'); \
 		TITLE=$$(grep -m 1 "title" $$a | sed -e 's/title: //g'); \
-		echo " - <span style="color: \#666">($$DATE)</span> [$$TITLE](./$$(dirname $$a)/)" >> index.md; \
+		echo " - <span style=\"color: #666\">($$DATE)</span> [$$TITLE](./$$(dirname $$a)/)" >> index.md; \
 	done
 
 all: $(OUTPUTS)
