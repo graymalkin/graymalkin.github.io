@@ -52,6 +52,18 @@ pre:before {
     font-style: italic;
 }
 
+code { 
+    font-family: 'Fira Code', monospace; 
+    font-size: 80%;
+}
+
+@supports (font-variation-settings: normal) {
+    code { 
+        font-family: 'Fira Code VF', monospace;
+        font-size: 80%;
+    }
+}
+
 quot, blockquote {
     font-style: italic;
 }
