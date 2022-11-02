@@ -1,13 +1,18 @@
 TEMPLATE = ./blog-template.html
+PANDOC_FLAGS = --standalone --highlight-style kate --template=$(TEMPLATE) --mathjax
 
-ARTICLES = church-js
+# Order is the index order. Maintain reverse chronological order.
+ARTICLES = \
+	barcamp-2022 \
+	church-js
+
 OUTPUTS = $(patsubst %,%/index.html,$(ARTICLES)) index.html
 INPTUS = $(patsubst %,%/index.md,$(ARTICLES))
 
 .INTERMEDIATE: index.md
 
 %.html: %.md $(TEMPLATE)
-	pandoc -o $@ $< --highlight-style kate --template=$(TEMPLATE)
+	pandoc $(PANDOC_FLAGS) -o $@ $< 
 
 index.md: $(INPUTS)
 	@echo "---" > index.md
@@ -16,7 +21,10 @@ index.md: $(INPUTS)
 	@for a in $(INPTUS); do \
 		DATE=$$(grep -m 1 "date" $$a | sed -e 's/date: //g'); \
 		TITLE=$$(grep -m 1 "title" $$a | sed -e 's/title: //g'); \
-		echo " - <span style=\"color: #666\">($$DATE)</span> [$$TITLE](./$$(dirname $$a)/)" >> index.md; \
+		PUBLISHED=$$(grep -m 1 "published" $$a | sed -e 's/published: //g'); \
+		if [ $$PUBLISHED = true ]; then \
+			echo " - <span style=\"color: #666\">($$DATE)</span> [$$TITLE](./$$(dirname $$a)/)" >> index.md; \
+		fi \
 	done
 
 all: $(OUTPUTS)

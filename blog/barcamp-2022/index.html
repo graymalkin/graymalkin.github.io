@@ -1,0 +1,200 @@
+<!DOCTYPE html>
+<html lang="en">
+  <title>A Maker’s Guide to EBikes &mdash; Simon Cooksey Blog</title>
+  <meta name="viewport" content="width=device-width, user-scalable=yes">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/firacode@6.2.0/distr/fira_code.css">
+  <link rel="stylesheet" type="text/css" href="https://graymalk.in/style.css"/>
+  <meta name="description" content="Personal webpage of Simon Cooksey, summarising academic research projects and funding.">
+  <meta charset="utf-8">
+  <script
+  src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js"
+  type="text/javascript"></script>
+</head>
+<body>
+  <main>
+    <h1 class="title">A Maker’s Guide to EBikes</h1>
+    <div class="byline">My talk at BarCamp Canterbury</div>
+    <div class="date">2022-11-01</div>
+    <nav>
+        <ul>
+            <li><a href="/">Home</a></li>
+            <li><a href="/blog/">Blog</a></li>
+            <li><a href="/photography/">Photography</a></li>
+        </ul>
+    </nav>
+    <p>This year’s BarCamp Canterbury was held at the MakerSpace in the
+    new Engineering building at Canterbury Christ Church university. I
+    gave a short talk on building eBikes, the slides are available <a
+    href="./ebike-slides.pdf">here</a> (53M PDF).</p>
+    <h1 id="manifesto-bikes-as-a-hacking-platform">Manifesto: Bikes as a
+    hacking platform</h1>
+    <h1 id="technical-aspects-of-ebikes">Technical Aspects of
+    EBikes</h1>
+    <p>To make this a somewhat useful (I hope) resource, I will
+    enumerate some of the things I’ve learned about EBikes, and how to
+    build them.</p>
+    <h2 id="ebikes-and-the-law">EBikes and the law</h2>
+    <p>Most importantly, we want to build bikes which fit within the UK
+    law. I am not a laywer.</p>
+    <p>The UK law is largely derrived from european law, which is useful
+    as European ebikes are largely legal in the UK. They are technically
+    defined as “Electrically Assisted Pedal Cycles” (EAPCs). EBikes you
+    find in high-street bike shops will all conform – but there’s some
+    interesting questions to be raised about exactly how and why.</p>
+    <p>Mainly, the concern is how power can be applied by the rider, and
+    the maximum power available.</p>
+    <p>The exact details are available on the GOV.UK website<a
+    href="#fn1" class="footnote-ref" id="fnref1"
+    role="doc-noteref"><sup>1</sup></a>, but I’ll outline them here:</p>
+    <p>What counts as an EAPC An EAPC must have pedals that can be used
+    to propel it.</p>
+    <p>It must show either:</p>
+    <ul>
+    <li>the power output</li>
+    <li>the manufacturer of the motor</li>
+    </ul>
+    <p>It must also show either:</p>
+    <ul>
+    <li>the battery’s voltage</li>
+    <li>the maximum speed of the bike</li>
+    </ul>
+    <p>Its electric motor:</p>
+    <ul>
+    <li>must have a maximum power output of 250 watts</li>
+    <li>should not be able to propel the bike when it’s travelling more
+    than 15.5mph</li>
+    </ul>
+    <p>An EAPC can have more than 2 wheels (for example, a
+    tricycle).</p>
+    <p>These rules to me don’t make a great deal of sense. The maximum
+    power output of a motor is a slightly odd thing, most motors have a
+    very wide power envelope, and performance will depend on airflow,
+    voltage and current. Many 250W labelled motors will work fine at
+    500W, if cooled adequately. Many EBike 1000W hub-motors will run at
+    2.5kW with minor cooling modification<a href="#fn2"
+    class="footnote-ref" id="fnref2"
+    role="doc-noteref"><sup>2</sup></a>. Similarly, having a 1000W motor
+    run at 250W by a brushless motor controller is totally practical, so
+    building a bike which can work on-road legally and off-road with
+    higher power leads a bike builder to need to label their motor as,
+    say, 1000W even if it’s not operated at that wattage.</p>
+    <p>They don’t make sense for other reasons too: a generic motor
+    manufacturer name, and the voltage of the battery have almost no
+    baring on describing the performance of an EBike. A 72v system
+    connected to a 9Continent motor does not tell you a whether the
+    motor is conformant, what wattage the bike is designed for, whether
+    it is speed limitted etc.</p>
+    <h2 id="types-of-ebike-drive">Types of EBike Drive</h2>
+    <h3 id="brushless-vs-brushed">Brushless vs Brushed</h3>
+    <h3 id="hub-vs-bottom-bracket">Hub vs Bottom Bracket</h3>
+    <h2 id="understanding-batteries">Understanding Batteries</h2>
+    <h3 id="lead-acid-vs-lithium">Lead acid vs Lithium</h3>
+    <h3 id="technical-specifications-of-batteries">Technical
+    specifications of batteries</h3>
+    <p><strong>S and P rating.</strong> Batteries are specified by the
+    number and configuration of the cells.</p>
+    <p>The S rating is the number of cells arranged in series, this
+    defines pack voltage.</p>
+    <p>The P rating is the nbumber of strings of cells arranged in
+    parallel, this defines the pack’s capacity and the maximum current
+    draw.</p>
+    <p><strong>C rating.</strong> The C rating is a multiplier of the
+    battery (or cell’s) Ah rating to give you a charge/discharge current
+    in A. It’s a bit of an odd number, but it can help with napkin maths
+    about how quickly a cycle on a battery will take.</p>
+    <p>Let’s take a 10Ah battery to start with.</p>
+    <ul>
+    <li>If I do a 1C discharge, it will have a current draw of 10A, and
+    discharge in 1 hour.</li>
+    <li>If I do a 0.2C discharge, I will draw 2A, and it will discharge
+    in 5 hours.</li>
+    <li>If I do a 2C discharge, I will draw 20A, and it will discharge
+    in half an hour.</li>
+    </ul>
+    <p>C ratings are given for charge and discharge. A typical 18650
+    battery will be good for about 1C continuous discharge, and 0.2C
+    charge. Lower C numbers will result in better long-term energy
+    storage with your battery pack.</p>
+    <p>Each charge/discharge cycle mechanically alters the structure of
+    the inside of your cells, and the more aggressive the
+    charge/discharge the more the internal structure changes. These
+    changes mean the battery stores less energy – so using lower C
+    ratings will mean your battery lasts longer.</p>
+    <h3 id="designing-a-battery-pack">Designing a battery pack</h3>
+    <p>You will need to know your system voltage, the type of cell you
+    will use, and motor wattage. These specifications will essentially
+    define a minimum pack size to safely (electrically) operate your
+    bike.</p>
+    <p>Say, you are going to use Samsung 29E cells, to operate a 250W
+    EBike with a 24v system voltage. How do you pick the pack size?</p>
+    <p>Well, first off is the voltage. You’d like the <em>nominal</em>
+    voltage of the pack to be 24v. The nominal voltage of a single
+    Lithium Ion cell is 3.7v. We shall first calculate the S rating.</p>
+    <p><span class="math display">\[
+    \begin{align}
+        S &amp;= \left\lceil \frac{V_{system}}{V_{cell}} \right\rceil \\
+        S &amp;= \left\lceil \frac{24v}{3.7v} \right\rceil = \lceil 6.48
+    \rceil = 7
+    \end{align}
+    \]</span></p>
+    <p>So, we must build a 7S pack. Okay. Now how many strings of cells
+    do we need in parallel? We need to do some unit conversion for this.
+    Let’s take our 250W motor, running on a 24v pack – what current does
+    it draw? Well, <span class="math inline">\(\frac{250W}{24v} =
+    10.41A\)</span>. We should add a bit of headroom here, let’s build a
+    battery pack which can comfortably accomodate a 15A current draw.
+    Okay, how many cells in parallel do we need? Consulting the
+    datasheet for the Samsung 29E cells we’re using, we can see that
+    they have a continuous discharge rating of 2.75A (1C discharge), but
+    that can hurt the cycle life of the battery, i.e. how quickly the
+    energy storage will deteriorate with charge/discharge cycles. Let’s
+    take that as a maximum though, and find out what P rating we’d
+    need.</p>
+    <p><span class="math display">\[
+    \begin{align}
+        P &amp;= \left\lceil \frac{I_{max}}{I_{cell}} \right\rceil\\
+        P &amp;= \left\lceil \frac{15A}{2.75A}\right\rceil = \lceil
+    5.45\rceil = 6
+    \end{align}
+    \]</span></p>
+    <p>So we should build at a minimum a 7S6P pack, which will contain
+    42 cells. We can also now pick a charger: a CC/CV charger which is
+    less than the 0.2C charge rate of the battery will suffice. Our
+    total Ah capacity of the battery is <span class="math inline">\(P *
+    I_{cell} = 6 * 2.9 = 17.4Ah\)</span>, so a 0.2C charge rate would
+    mean the maximum charger size we should use is about 3.5A.</p>
+    <p>With our S and P rating we can also calculate the pack energy
+    capacity in Wh:</p>
+    <p><span class="math display">\[
+    \begin{align}
+        E &amp;= S * P * V_{cell} * Ah_{cell} \\
+        E &amp;= 7 * 6 * 3.7v * 2.9 Ah = 450 Wh
+    \end{align}
+    \]</span></p>
+    <p>This is a fairly large battery, for context my commute of about
+    6.5 miles uses about 80 to 100Wh of energy. A 450Wh pack would last
+    me several days of commuting. If you plan on using the bike for
+    serious distances, then you can consider adding extra strings in
+    parallel – this won’t change the voltage, only increase the maximum
+    continuous current you can draw, and increase the battery pack’s
+    overall energy storage.</p>
+    <h2 id="building-your-own-custom-lithium-pack">Building your own
+    custom lithium pack</h2>
+    <p>Okay, so you know what size and configuration battery to build
+    now, how do you actually build it?</p>
+    <section id="footnotes" class="footnotes footnotes-end-of-document"
+    role="doc-endnotes">
+    <hr />
+    <ol>
+    <li id="fn1"><p>Electric Bike Rules on GOV.UK
+    https://www.gov.uk/electric-bike-rules<a href="#fnref1"
+    class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+    <li id="fn2"><p>Discussion on understanding EBike motor power<a
+    href="#fnref2" class="footnote-back"
+    role="doc-backlink">↩︎</a></p></li>
+    </ol>
+    </section>
+  </main>
+  <style></style>
+</body>
+</html>
