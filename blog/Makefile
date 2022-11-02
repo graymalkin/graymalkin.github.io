@@ -4,6 +4,7 @@ PANDOC_FLAGS = --standalone --highlight-style kate --template=$(TEMPLATE) --math
 # Order is the index order. Maintain reverse chronological order.
 ARTICLES = \
 	barcamp-2022 \
+	make-a-static-site \
 	church-js
 
 OUTPUTS = $(patsubst %,%/index.html,$(ARTICLES)) index.html
