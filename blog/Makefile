@@ -1,5 +1,5 @@
 TEMPLATE = ./blog-template.html
-PANDOC_FLAGS = --standalone --highlight-style kate --template=$(TEMPLATE) --mathjax
+PANDOC_FLAGS = --standalone --citeproc --highlight-style kate --template=$(TEMPLATE) --mathjax
 
 # Order is the index order. Maintain reverse chronological order.
 ARTICLES = \

@@ -1,7 +1,7 @@
 ---
 title: Make a static website
 subtitle: Building a static website with pandoc and Make
-date: 2022-11-01
+date: 2022-11-02
 published: true
 ---
 

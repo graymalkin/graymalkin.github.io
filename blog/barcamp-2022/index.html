@@ -3,7 +3,7 @@
   <title>A Maker’s Guide to EBikes &mdash; Simon Cooksey Blog</title>
   <meta name="viewport" content="width=device-width, user-scalable=yes">
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/firacode@6.2.0/distr/fira_code.css">
-  <link rel="stylesheet" type="text/css" href="https://graymalk.in/style.css"/>
+  <link rel="stylesheet" type="text/css" href="/style.css"/>
   <meta name="description" content="Personal webpage of Simon Cooksey, summarising academic research projects and funding.">
   <meta charset="utf-8">
   <script
@@ -14,7 +14,7 @@
   <main>
     <h1 class="title">A Maker’s Guide to EBikes</h1>
     <div class="byline">My talk at BarCamp Canterbury</div>
-    <div class="date">2022-11-01</div>
+    <div class="date">2022-11-02</div>
     <nav>
         <ul>
             <li><a href="/">Home</a></li>
@@ -25,7 +25,7 @@
     <p>This year’s BarCamp Canterbury was held at the MakerSpace in the
     new Engineering building at Canterbury Christ Church university. I
     gave a short talk on building eBikes, the slides are available <a
-    href="./ebike-slides.pdf">here</a> (53M PDF).</p>
+    href="./slides.pdf">here</a> (53M PDF).</p>
     <h1 id="manifesto-bikes-as-a-hacking-platform">Manifesto: Bikes as a
     hacking platform</h1>
     <h1 id="technical-aspects-of-ebikes">Technical Aspects of
@@ -38,14 +38,21 @@
     law. I am not a laywer.</p>
     <p>The UK law is largely derrived from european law, which is useful
     as European ebikes are largely legal in the UK. They are technically
-    defined as “Electrically Assisted Pedal Cycles” (EAPCs). EBikes you
-    find in high-street bike shops will all conform – but there’s some
-    interesting questions to be raised about exactly how and why.</p>
-    <p>Mainly, the concern is how power can be applied by the rider, and
-    the maximum power available.</p>
-    <p>The exact details are available on the GOV.UK website<a
-    href="#fn1" class="footnote-ref" id="fnref1"
+    defined as “Electrically Assisted Pedal Cycles” (EAPCs).
+    Specifically the laws are derived from British Standard and European
+    Norm BS EN 15194:2017 <span class="citation"
+    data-cites="BSEN15194:2017">(<span>“Cycles - Electrically Power
+    Assisted Cycles - EPAC Bicycles”</span> 2017)</span>. EBikes you
+    find in high-street bike shops should all conform to that standard,
+    and the testing methodology specified – but there’s some interesting
+    questions to be raised motor specifications in particular, but more
+    on that in a second.</p>
+    <p>Mainly, the concern for legality in the UK is how power can be
+    applied by the rider and the maximum power available. The exact
+    details are available on the GOV.UK website<a href="#fn1"
+    class="footnote-ref" id="fnref1"
     role="doc-noteref"><sup>1</sup></a>, but I’ll outline them here:</p>
+    <blockquote>
     <p>What counts as an EAPC An EAPC must have pedals that can be used
     to propel it.</p>
     <p>It must show either:</p>
@@ -66,6 +73,7 @@
     </ul>
     <p>An EAPC can have more than 2 wheels (for example, a
     tricycle).</p>
+    </blockquote>
     <p>These rules to me don’t make a great deal of sense. The maximum
     power output of a motor is a slightly odd thing, most motors have a
     very wide power envelope, and performance will depend on airflow,
@@ -182,15 +190,29 @@
     custom lithium pack</h2>
     <p>Okay, so you know what size and configuration battery to build
     now, how do you actually build it?</p>
+    <h1 class="unnumbered" id="references">References</h1>
+    <div id="refs" class="references csl-bib-body hanging-indent"
+    role="doc-bibliography">
+    <div id="ref-BSEN15194:2017" class="csl-entry"
+    role="doc-biblioentry">
+    <span>“Cycles - Electrically Power Assisted Cycles - EPAC
+    Bicycles.”</span> 2017. Standard. 389 Chiswick High Rd., Chiswick,
+    London W4 4AL. <a
+    href="https://knowledge.bsigroup.com/products/cycles-electrically-power-assisted-cycles-epac-bicycles-1/standard">https://knowledge.bsigroup.com/products/cycles-electrically-power-assisted-cycles-epac-bicycles-1/standard</a>.
+    </div>
+    </div>
     <section id="footnotes" class="footnotes footnotes-end-of-document"
     role="doc-endnotes">
     <hr />
     <ol>
-    <li id="fn1"><p>Electric Bike Rules on GOV.UK
-    https://www.gov.uk/electric-bike-rules<a href="#fnref1"
-    class="footnote-back" role="doc-backlink">↩︎</a></p></li>
-    <li id="fn2"><p>Discussion on understanding EBike motor power<a
-    href="#fnref2" class="footnote-back"
+    <li id="fn1"><p>Electric Bike Rules on <a
+    href="https://www.gov.uk/electric-bike-rules">GOV.UK</a><a
+    href="#fnref1" class="footnote-back"
+    role="doc-backlink">↩︎</a></p></li>
+    <li id="fn2"><p>Discussion on understanding EBike motor power and
+    how to measure it on the <a
+    href="https://ebikes.ca/learn/power-ratings.html">Grin technologies
+    website</a><a href="#fnref2" class="footnote-back"
     role="doc-backlink">↩︎</a></p></li>
     </ol>
     </section>

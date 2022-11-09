@@ -1,12 +1,13 @@
 ---
 title: A Maker's Guide to EBikes
 subtitle: My talk at BarCamp Canterbury
-date: 2022-11-01
+date: 2022-11-02
 published: false
+bibliography: barcamp-2022/bib.bib
 ---
 
 This year's BarCamp Canterbury was held at the MakerSpace in the new Engineering building at Canterbury Christ Church university.
-I gave a short talk on building eBikes, the slides are available [here](./ebike-slides.pdf) (53M PDF).
+I gave a short talk on building eBikes, the slides are available [here](./slides.pdf) (53M PDF).
 
 # Manifesto: Bikes as a hacking platform
 
@@ -19,31 +20,31 @@ I am not a laywer.
 
 The UK law is largely derrived from european law, which is useful as European ebikes are largely legal in the UK.
 They are technically defined as "Electrically Assisted Pedal Cycles" (EAPCs).
-EBikes you find in high-street bike shops will all conform -- but there's some interesting questions to be raised about exactly how and why.
+Specifically the laws are derived from British Standard and European Norm BS EN 15194:2017 [@BSEN15194:2017].
+EBikes you find in high-street bike shops should all conform to that standard, and the testing methodology specified -- but there's some interesting questions to be raised motor specifications in particular, but more on that in a second.
 
-Mainly, the concern is how power can be applied by the rider, and the maximum power available.
-
+Mainly, the concern for legality in the UK is how power can be applied by the rider and the maximum power available.
 The exact details are available on the GOV.UK website[^1], but I'll outline them here:
 
-What counts as an EAPC
-An EAPC must have pedals that can be used to propel it.
-
-It must show either:
-
-  - the power output
-  - the manufacturer of the motor
-
-It must also show either:
-
-  - the battery’s voltage
-  - the maximum speed of the bike
-  
-Its electric motor:
-
-  - must have a maximum power output of 250 watts
-  - should not be able to propel the bike when it’s travelling more than 15.5mph
-
-An EAPC can have more than 2 wheels (for example, a tricycle).
+> What counts as an EAPC
+> An EAPC must have pedals that can be used to propel it.
+> 
+> It must show either:
+> 
+>   - the power output
+>   - the manufacturer of the motor
+> 
+> It must also show either:
+> 
+>   - the battery’s voltage
+>   - the maximum speed of the bike
+>   
+> Its electric motor:
+> 
+>   - must have a maximum power output of 250 watts
+>   - should not be able to propel the bike when it’s travelling more than 15.5mph
+> 
+> An EAPC can have more than 2 wheels (for example, a tricycle).
 
 These rules to me don't make a great deal of sense.
 The maximum power output of a motor is a slightly odd thing, most motors have a very wide power envelope, and performance will depend on airflow, voltage and current.
@@ -54,11 +55,12 @@ Similarly, having a 1000W motor run at 250W by a brushless motor controller is t
 They don't make sense for other reasons too: a generic motor manufacturer name, and the voltage of the battery have almost no baring on describing the performance of an EBike.
 A 72v system connected to a 9Continent motor does not tell you a whether the motor is conformant, what wattage the bike is designed for, whether it is speed limitted etc.
 
-[^1]: Electric Bike Rules on GOV.UK https://www.gov.uk/electric-bike-rules
-[^2]: Discussion on understanding EBike motor power
+[^1]: Electric Bike Rules on [GOV.UK](https://www.gov.uk/electric-bike-rules)
+[^2]: Discussion on understanding EBike motor power and how to measure it on the [Grin technologies website](https://ebikes.ca/learn/power-ratings.html)
 
 
 ## Types of EBike Drive
+
 
 ### Brushless vs Brushed
 
@@ -144,3 +146,5 @@ If you plan on using the bike for serious distances, then you can consider addin
 ## Building your own custom lithium pack
 
 Okay, so you know what size and configuration battery to build now, how do you actually build it?
+
+# References
