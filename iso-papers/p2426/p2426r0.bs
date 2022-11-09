@@ -1,0 +1,175 @@
+<pre class='metadata'>
+Title: Coherence order and program dependencies
+Shortname: P2426
+Revision: 0
+Date: 2021-08-19
+Level: 0
+Status: D
+Group: wg21
+URL: https://graymalk.in/p2426r0-coherence-and-dependencies/
+Editor: Mark Batty, University of Kent, https://cs.kent.ac.uk/~mjb211
+Editor: Simon Cooksey, University of Kent, https://graymalk.in
+Editor: Alan Jeffrey, Roblox, https://asaj.org
+Editor: Ilya Kaysin, JetBrains Research, https://ilya.fun
+Editor: Anton Podkopaev, JetBrains Research, https://podkopaev.net
+Editor: James Riely, University of Chicago, https://fpl.cs.depaul.edu/jriely/
+Editor: Daniel Wright, University of Kent
+Abstract: The interaction between coherence order and dependencies that the compiler should preserve is not obvious. This paper attempts to outline some of the interesting programs we have constructed while exploring this problem.
+Markup Shorthands: markdown on
+</pre>
+
+Recap {#recap}
+==============
+
+There has been much discussion in SG1 about how to solve the so-called out-of-thin-air problem, where the memory model of C++ permits nonsense executions only with some non-normative weasel wording as warding against these behaviours.
+
+This is necessary as the C++ memory model must be weak enough to permit existing important compiler optimisations, like code hoisting. 
+
+<div class="example">
+
+```c++
+void thread1(void) {
+  int r1 = atomic_load_explicit(&x, memory_order_relaxed);
+  if(r1 == 0) {
+    atomic_store_explicit(&y, 1, memory_order_relaxed);
+  } else {
+    atomic_store_explicit(&y, 1, memory_order_relaxed);
+  }
+}
+```
+
+```c++
+void thread2(void) {
+  int r2 = atomic_load_explicit(&y, memory_order_relaxed);
+  atomic_store_explicit(&x, r2, memory_order_relaxed);
+}
+```
+
+In this program thread 1 can be optimised to hoist the store of y outside a conditional, yielding:
+```c++
+void thread1(void) {
+  int r1 = atomic_load_explicit(&x, memory_order_relaxed);
+  atomic_store_explicit(&y, 1, memory_order_relaxed);
+}
+```
+
+This optimisation can be witnessed in GCC and LLVM with `-O2`.
+
+A final execution where `x == 1 && y == 1` is now obviously observable, by executing thread1 first, and then executing thread2.
+
+If we modify `thread1()` to instead to a dependent store:
+```c++
+void thread1(void) {
+  int r1 = atomic_load_explicit(&x, memory_order_relaxed);
+  if(r1 == 0) {
+    /* Now we store 0 in the true branch */
+    atomic_store_explicit(&y, 0, memory_order_relaxed);
+  } else {
+    atomic_store_explicit(&y, 1, memory_order_relaxed);
+  }
+}
+```
+
+The hardware and compiler may not re-order the load and store, as there is a "real" control dependency.
+A final execution where `x == 1 && y == 1` would be somehow 'self satisfying', and should be forbidden.
+</div>
+
+In each of these programs, we can draw a cycle in dependency ([DEP]) and reads from ([RF]).
+It would be convinient to forbid such cycles, but there was a control dependency in the first program too -- that dependency could clearly be ignored by a compiler.
+The challenge is, which [DEP] edges should be preserved and forbidden from forming cycles?
+*Semantic dependencies* ([SDEP]) are exactly the dependencies which should have some semantic force, rather than merely being present in the syntax.
+Unfortunately, it is hard to presicely define a rigorous definition of [SDEP], although recent academic work has had a go.
+[[MRD]], which has been presented here in [[P1780r0]], gives a complex calculation for semantic dependency; and [[PWP]] provides a logic which evaluates to a [SDEP] relation.
+
+The Problem {#problem}
+======================
+In the process of studying [[MRD]] and [[PWP]], we have noticed that there is a space of choices to be made about which dependencies should be promoted to [SDEP], and even ones which are not obviously present in the syntactic structure of the program.
+A key tuning point on both these semantics is exactly the strength implied by modification order ([MO]) &mdash; although the exact mechanisms for this are quite complex and out of scope for discussion in this paper.
+Instead, we will focus on a discussion of which [SDEP] edges would be desirable for C++, using this paper to solicit feedback from the SG1 audience.
+
+We have found some programs which create dependencies around [MO] edges, and it is not clear what the correct semantics for these programs should be.
+
+
+Dead code elimination  {#dce}
+=============================
+In our first example, we will look at how dead code elimination can create questions about preservation of [MO].
+Consider these two definitions of a function which stores to x dependent on some boolean:
+
+<div class="example">
+```c++
+void f1(bool b) {
+  if (b) {
+    x.store(2, memory_order_relaxed);
+  }
+  x.store(1, memory_order_relaxed);
+  x.store(2, memory_order_relaxed);
+  if (!b) {
+    x.store(1, memory_order_relaxed);
+  }
+  x.store(3, memory_order_relaxed);
+}
+```
+
+```c++
+void f2(bool b) {
+  if (!b) {
+    x.store(1, memory_order_relaxed);
+  }
+  x.store(2, memory_order_relaxed);
+  x.store(1, memory_order_relaxed);
+  if (b) {
+    x.store(2, memory_order_relaxed);
+  }
+  x.store(3, memory_order_relaxed);
+}
+```
+</div>
+
+TODO: The more I think about it, the more this example is messing me up. I don't understand why it can be optimised to `x = 1; x = 2; x = 3`.
+
+In each, if `b` is true, then the program should store values to `x` of `2, 1, 2, 3` in that order -- but dead store removal can eliminate the 1st unconditional store of each program, meaning f1 has the stores `x = 1; x = 2; x = 3;`, and f2 has the stores `x = 2; x = 1; x = 3`.
+For a given true/false value of `b` these two functions should evaluate equivalently, but in the presence of compiler optimisations we can observe a different pattern of stores to `x`.
+
+<div class="note">
+gcc and clang are extremely conservative optimising around relaxed atomics. See https://godbolt.org/z/E46axT9vo
+```nasm
+;; Clang output, f2 is identical. Clang uses some clever arithmetic around the bool
+;; to calculate the values for stores and elide control flow -- but all 4 stores 
+;; are emitted. No dead store elimination.
+f1(bool):                                 # @f1(bool)
+        mov     eax, 2
+        sub     eax, edi
+        add     edi, 1
+        mov     dword ptr [rip + x], edi
+        mov     dword ptr [rip + x], eax
+        mov     dword ptr [rip + x], edi
+        mov     dword ptr [rip + x], 3
+        ret
+```
+</div>
+
+In the semantics of C++ should dead code elimination be forbidden here, and how should this occur? 
+
+
+<pre class='metadata'>
+Text Macro: DEP <span class="rel dep">dep</span>
+Text Macro: HB <span class="rel hb">hb</span>
+Text Macro: MO <span class="rel mo">mo</span>
+Text Macro: RF <span class="rel rf">rf</span>
+Text Macro: SB <span class="rel sb">sb</span>
+Text Macro: SDEP <span class="rel sdep">sdep</span>
+Text Macro: SW <span class="rel sw">sw</span>
+</pre>
+<style>
+  .rel {
+    font-family: sans-serif;
+    font-style: normal;
+  }
+  .dep { color: #920000; }
+  .hb { color: forestgreen; }
+  .mo { color: blue; }
+  .rf { color: red; }
+  .sb { color: black; }
+  .sdep { color: #ff8306; }
+  .sw { color: rgb(139, 10, 80); }
+</style>

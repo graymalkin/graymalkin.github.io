@@ -56,6 +56,11 @@ h3 + p {
     margin-top: 0.5em;
 }
 
+blockquote {
+    border-left: solid #7c7c7c 2px;
+    padding-left: 8px;
+}
+
 pre {
     padding: 8px;
     display: block;

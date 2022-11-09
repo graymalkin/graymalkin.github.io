@@ -1,0 +1,915 @@
+<pre class='metadata'>
+Title: Modular Relaxed Dependencies: A new approach to the Out-Of-Thin-Air Problem
+Shortname: P1780
+Revision: 1
+Audience: SG1
+Status: D
+Group: WG21
+URL: http://wg21.link/P1780
+!Source: <a href="https:/github.com/MBattyResearch/compositional-eventstructures/c++-pxxx/">https:/github.com/MBattyResearch/compositional-eventstructures/c++-p1780/</a>
+Editor: Mark Batty, University of Kent, M.J.Batty@kent.ac.uk
+Editor: Simon Cooksey, University of Kent, sjc205@kent.ac.uk
+Editor: Scott Owens, University of Kent, S.A.Owens@kent.ac.uk
+Editor: Anouk Paradis, Ecole Polytechnique, anouk.paradis@polytechnique.edu
+Editor: Marco Paviotti, University of Kent, M.Paviotti@kent.ac.uk
+Editor: Daniel Wright, University of Kent, daw29@kent.ac.uk
+Abstract: This note describes Modular Relaxed Dependency (MRD), an alteration of the existing concurrency specification that allows compiler optimisations while forbidding thin-air values. It has two key advantages over previous suggestions: first, it is a relatively contained change that leaves much of the existing concurrency definition unaltered; second, and in contrast to other solutions, the cost of evaluating the semantics is relatively low. We present the context, the ideas behind the change, a tool that executes the amended model, and the textual changes required to the standard.
+Date: 2019-10-15
+Markup Shorthands: markdown yes
+</pre>
+
+<style type="text/css">
+  .math {
+    background-color: hsl(266, 67%, 98%);
+    padding: 0.3em;
+    border-radius: 0.3em;
+  }
+
+  .dp {
+    font-family: monospace;
+    font-style: normal;
+    color: #920000;
+  }
+  .dp::after { content: "DP";  }
+  
+  .dep {
+    font-family: sans-serif;
+    font-style: normal;
+    color: #920000;
+  }
+  .dep::after { content: "dep"; }
+
+  .sb {
+    font-family: sans-serif;
+    font-style: normal;
+    color: black;
+  }
+  .sb::after { content: "sb";  }
+  
+  .sdep {
+    font-family: sans-serif;
+    font-style: normal;
+    color: #ff8306;
+  }
+  .sdep::after { content: "sdep";  }
+
+  .rf {
+    font-family: sans-serif;
+    font-style: normal;
+    color: red;
+  }
+  .rf::after { content: "rf"; }
+
+  .title {
+    font-weight: bold;
+    padding: 0em 0.5em 0em 0.2em 0em;
+  }
+  
+  .title + p {
+	margin-top: 0em;
+  }
+
+  .litmus-title  {
+    font-weight: bold;
+    background-color: hsl(24, 20%, 95%);
+    padding: 0.5em 0em 0.2em 1em;
+  }
+
+  .litmus-title + .highlight {
+    margin-top: 0;
+    padding-top: 0;
+  }
+  
+  ol li ol {
+    list-style-type: lower-alpha;
+  }
+  
+  ol li ol li ol {
+    list-style-type: lower-roman;
+  }
+  
+  ol li ol li ol li ol {
+    list-style-type: upper-alpha;
+  }
+
+  .rm {
+	text-decoration: line-through;
+	color: #960c02;
+	font-family: serif, 'Times New Roman';
+  }
+  
+  .new {
+	color: #001f96;
+    font-family: serif, 'Times New Roman';
+  }
+  
+  .heading2 {
+	font: 120% serif;
+	font-weight: bold;
+    line-height: 1.2;
+  }
+  
+  .heading2:before {
+	content: attr(hdg);
+	margin-right: 2em;
+  }
+  
+  .heading3 {
+	font: 110% serif;
+	font-weight: bold;
+    line-height: 1.2;
+  }
+  
+  .heading3:before {
+	content: attr(hdg);
+	margin-right: 2em;
+  }
+  
+  .clause:before {
+	content: attr(cls);
+	font-size: 90%;
+	text-align: right;
+	margin-left: -2em;
+  }
+  
+  .clause > p:first-of-type {
+	margin-left: 1em;
+	display: inline;
+  }
+  
+  .clause {
+	margin-top: 1em;
+	margin-bottom: 1em;
+  }
+  
+  .in-box {
+	border: solid #555 2px;
+	background-color: #eeeeee;
+	padding: 0.5em;
+  }
+
+</style>
+
+
+
+Recap {#recap}
+=====
+
+From its introduction in 2011, the C++ concurrency model has faced a great deal of scrutiny, leading to various
+refinements of the standard. [P0668R5: Revising the
+C++ Memory Model](http://www.open-std.org/jtc1/sc22/wg21/docs/papers/2018/p0668r5.html) describes changes needed to
+incorporate the fixes of [[RC11]], the latest revision of the existing C++
+concurrency design, solving most known problems.
+
+This process of scrutiny and refinement has produced a mature model, but it has also uncovered major problems. The
+out-of-thin-air problem, discussed most recently in [[P1217R1]] does not yet have a convenient solution:
+existing solutions -- like the [Promising Semantics](https://people.mpi-sws.org/~viktor/papers/popl2017-promising.pdf)
+-- discard the mature concurrency model of the standard and start afresh with a different paradigm. Implementing such a
+change would require a wide-ranging rewrite of the standard.
+
+The out-of-thin-air problem arises from an under-specification of which program dependencies ought to order memory
+accesses. The trouble is neatly explained by example.
+
+<div class="litmus-title">LB</div>
+```c++
+// Thread 1
+r1 = x.load(memory_order::relaxed);
+y.store(1, memory_order::relaxed);
+
+// Thread 2
+r2 = y.load(memory_order::relaxed);
+x.store(1, memory_order::relaxed);
+```
+
+In the example above, called Load Buffering (LB), C++ allows the execution where `r1` and `r2` have value 1 at the end
+of execution. This outcome must be allowed to permit efficient compilation of relaxed accesses to plain loads and stores
+on the Power and ARM architectures, where the corresponding behaviour is allowed.
+
+<div class="litmus-title">LB+datas (P1217R1 OOTA Example 1, JCTC4)</div>
+```c++
+// Thread 1
+r1 = x.load(memory_order::relaxed);
+y.store(r1, memory_order::relaxed);
+
+// Thread 2
+r2 = y.load(memory_order::relaxed);
+x.store(r1, memory_order::relaxed);
+```
+
+In the example above, taken from [[P1217R1]], there
+are now data dependencies from load to store and no explicit write of any value. Surprisingly, the outcome 42 is allowed
+by the C++ standard -- we say that the value 42 is conjured from *thin-air*.
+
+<div class="litmus-title">LB+ctrls (P1217R1 OOTA Example 2, JCTC13)</div>
+```c++
+// Thread 1
+r1 = x.load(memory_order::relaxed);
+if(r1 == 42) {
+  y.store(42, memory_order::relaxed);
+}
+
+// Thread 2
+r2 = y.load(memory_order::relaxed);
+if(r2 == 42) {
+  x.store(42, memory_order::relaxed);
+}
+```
+
+A similar behaviour can be exhibited using control dependencies, as above. The thin-air outcomes of LB+datas and
+LB+ctrls are the result of a design choice that aims to permit compiler optimisation: some optimisations remove
+syntactic dependencies, so if C++ bestows ordering to no dependencies, the compiler is free to remove what it likes.
+
+<div class="litmus-title">LB+false+ctrl (JCTC6)</div>
+```c++
+// Thread 1
+r1 = x.load(memory_order::relaxed);
+if(r1 == 42) {
+  y.store(42, memory_order::relaxed);
+} else {
+  y.store(42, memory_order::relaxed);
+}
+
+// Thread 2
+r2 = y.load(memory_order::relaxed);
+if(r2 == 42) {
+  x.store(42, memory_order::relaxed);
+}
+```
+
+In Thread 1 above, a compiler may spot that, whatever value is read, the write will be made regardless, optimising to
+the program below, and allowing both threads to read 42:
+
+```c++
+// Thread 1
+r1 = x.load(memory_order::relaxed);
+y.store(42, memory_order::relaxed);
+```
+
+As it stands, the standard allows both threads to read 42 and hence it permits the optimisation, but it also allows the
+thin-air outcomes in LB+datas and
+LB+ctrls. [[P1217R1]] explains that these outcomes
+cannot occur in practice and must be forbidden to enable reasoning and formal verification.
+
+Our Solution {#solution}
+============
+
+[[P0422R0]] highlights a series of litmus tests, borrowed from Java, that constrain the ideal behaviour of an improved semantics
+(e.g. JCTC4, JCTC13 and JCTC6 above). The paper makes the observation that the thin-air execution of each test features
+a cycle in (<span class="rf"></span> &cup; <span class="sdep"></span>) where <span class="sdep"></span>, *semantic
+dependency*, is an as yet undefined relation that captures only the real dependencies that the compiler will leave in
+place. If only we forbid cycles in (<span class="rf"></span> &cup; <span class="sdep"></span>), then the model would
+have the behaviour we desire.
+
+[[P1217R1]] highlights a simple way to guarantee a
+lack of thin-air behaviour: forbid the reordering of relaxed loads with following stores. This is equivalent to
+forbidding cycles in (<span class="rf"></span> &cup; <span class="sb"></span>), and is sufficient to avoid cycles in
+(<span class="rf"></span> &cup; <span class="sdep"></span>). This approach is controversial because it may have a
+substantial overhead, especially on GPUs.
+
+Our solution is to provide a definition of <span class="sdep"></span>, and to forbid cycles in (<span class="rf"></span>
+&cup; <span class="sdep"></span>). We have a proof that our solution does not incur any overhead at all; that it
+supports the optimum compilation strategies for Power, ARM, X86 and RISC-V; and that a DRF-SC result holds.
+
+
+The standard describes the three stages of working out the concurrent
+behaviour of a program:
+
+ 1. Generate a list of pre-executions from the source of a program, each corresponding to an arbitrary choice of read
+    values.
+	
+ 2. Pair each pre-execution with reads-from and modification order relations that capture the dynamic memory behaviour
+    of the program, and filter, keeping those that are *consistent* with the rules of the memory model.
+ 
+ 3. Finally, check for races: race free programs have the consistent executions calculated in step 2, racy programs have
+    undefined behaviour.
+
+We augment this scheme by calculating <span class="sdep"></span> in step 1. 
+
+[Section 6](#proposal) includes the proposed standards text to build <span class="sdep"></span>.
+
+
+Modular Relaxed Dependency {#mrd}
+==========================
+
+This section explains the idea behind MRD by example, referring back to the programs already discussed, and referring
+forward to the proposed amendment to the standard in [Section 6](#proposal). MRD relies on three new definitions: the
+*justification set* of a write is a set of operations that a write depends on in a given execution, *semantic
+dependency* is a collection of dependencies from read operations to write operations, and *causally before* is the union
+of reads-from and semantic dependency.
+
+<div class="title">LB+datas</div>
+```c++
+// Thread 1
+r1 = x.load(memory_order::relaxed);
+y.store(r1, memory_order::relaxed);
+
+// Thread 2
+r2 = y.load(memory_order::relaxed);
+x.store(r1, memory_order::relaxed);
+```
+
+First we discuss LB+datas. C++ allows the program to read 42, despite there being no write of 42. It is the clearest
+example of thin-air behaviour and it should be forbidden. The execution corresponding to this outcome is as follows. 
+
+<img width="240" alt="Thin-air execution of LB" src="https://www.cs.kent.ac.uk/people/rpg/sjc205/c++-p1780/images/lb+datas-42-42.png" />
+
+To forbid the thin air execution we will recognise semantic dependency edges from the reads to the writes: on each
+thread, the value written by the store depends on the value read by the load. Semantic dependency and reads-from are
+components of *causally before*, and here form a cycle. Our additions to the standard
+in [6.8.2.2 paragraph 1](#6.8.2.2), forbid such cycles.
+
+<div class="new">
+> The implementation shall ensure that no program execution demonstrates a cycle in the causally before relation.
+</div>
+
+We will demonstrate the construction of semantic dependency edges, following the definition
+ in [6.8.2.2 paragraph 3](#6.8.2.2p3). The behaviour will be forbidden, as there is no way to elide <span
+ class="sdep"></span> edges between the reads and their subsequent writes. The definition builds a justification set for
+ a given store recursively:
+
+<div class="new">
+> To build a choice of *semantic dependency* for an execution, first construct a justification set for each store.
+</div>
+
+To explore the forbidden 42/42 outcome we must build a justification set for each write from the execution. We will
+start with the store `e`.
+
+<div class="new">
+> A *justification set* for a store operation `w` is a set of operations constructed recursively over the execution
+</div>
+
+The recursion is over the operations of the execution that preceed `e` in sequenced before. The first step of the
+recursion identifies `d` as the *head operation* and `{e}` as the *tail execution*.
+
+<div class="new">
+> Recursively calculate the justification set for `w` over the tail execution
+</div>
+
+The tail contains a single operation, the write `{e}`. Recursive application of the rules leads us to the following case:
+
+<div class="new">
+> If the execution contains no operations which are sequenced before `w`, the justification set for `w` is empty.
+</div>
+
+The tail execution `{e}` contains no operations sequenced before `e`, so the justification for `e` in the tail execution
+is empty. This part of the recursion is now complete. We move back to the outer step &mdash; `d` is the head operation
+and empty is the justification set for `e` over the tail execution. `d` is a load, so we apply case 2 of the recursive
+step. 
+
+In case 2.a we add `d` to the justification set for `e`: it becomes `{d}`. There is no other load in the justification
+set of the tail execution, so case 2.b does not apply. Now we apply case 2.c, which recognises false dependencies that
+arise from the structure of the program.
+
+2.c asks us to consider other executions where the load `d` returns a different value. The thread that gave rise to `d` is as follows:
+
+```c++
+// Thread 1
+r1 = x.load(memory_order::relaxed);
+y.store(r1, memory_order::relaxed);
+```
+
+There are two executions of interest. One, where the load takes a value which is not 42 (let's say 0), and one where it takes the
+value 42.
+
+<table>
+<tr>
+  <td><img width="160" alt="Execution of LB thread 1" src="https://www.cs.kent.ac.uk/people/rpg/sjc205/c++-p1780/images/lb-thread1-42.png" /></td>
+  <td><img width="160" alt="Execution of LB thread 1" src="https://www.cs.kent.ac.uk/people/rpg/sjc205/c++-p1780/images/lb-thread1-0.png" /></td>
+</tr>
+<tr>
+  <th colspan=2>C++ Pre-executions</th>
+</tr>
+</table>
+
+To remove the semantic dependency we must remove `d` from the justification set of `e`. To remove `d`, the rules require
+the following:
+
+<div class="new">
+> The load `r` may be removed from the justification set if for every other value, and corresponding load `r'`, there is
+> an execution in which [...] there is a store `w'`, equivalent to `w`, following `r'`.
+</div>
+
+Here it is not possible to find and equivalent store: `e` writes a different value to `e'`, so `d` cannot be removed
+from the justification set of `e`. We have now completed our recursion over thread 1, and thread 2 is symmetric, so the
+rules will leave `{f}` as the justification set of `g`. We now build semantic dependency according to the following
+rule:
+
+<div class="new">
+> There is a semantic dependency from each load in a given justification set to the store that it justifies.
+</div>
+	  
+
+This builds semantic dependency from `d` to `e`, and from `f` to `g`, giving the following execution.
+
+<img width="320" alt="Execution of LB+datas showing a cycle in causally before" src="https://www.cs.kent.ac.uk/people/rpg/sjc205/c++-p1780/images/lb-cyclic-cb.png"></img>
+
+
+This thin-air execution exhibits a cycle in *causally before*, and is excluded by the rule in [6.8.2.2](#6.8.2.2), as
+intended:
+
+<div class="new">
+> The implementation shall ensure that no program execution demonstrates a cycle in the causally before relation.
+</div>
+
+<div class="title">LB+ctrls</div>
+```c++
+// Thread 1
+r1 = x.load(memory_order::relaxed);
+if(r1 == 42) {
+  y.store(42, memory_order::relaxed);
+}
+
+// Thread 2
+r2 = y.load(memory_order::relaxed);
+if(r2 == 42) {
+  x.store(42, memory_order::relaxed);
+}
+```
+
+LB+ctrls is a test that is similar to LB+datas, but in
+LB+ctrls there are writes of value 42 in the program text. Even so,
+the following execution, containing writes of 42, is considered
+thin-air behaviour and should be forbidden.
+
+<img width="240" alt="Thin-air execution of LB" src="https://www.cs.kent.ac.uk/people/rpg/sjc205/c++-p1780/images/lb+datas-42-42.png" />
+
+This execution is identical to the execution of LB+datas, and the
+rules in [6.8.2.2](#6.8.2.2) are applied similarly until the
+application of rule 2 to the head operation `d` with the empty
+justification set for `e` over the tail execution.
+
+As for LB+datas, case 2.a adds `d` to the justification set for `e`,
+making it `{d}`, and 2.b does not apply.  2.c asks us to consider
+other executions where the load `d` returns a different value, and
+these do differ from LB+datas. The thread that gave rise to `d` is as
+follows:
+
+```c++
+// Thread 1
+r1 = x.load(memory_order::relaxed);
+if(r1 == 42) {
+  y.store(42, memory_order::relaxed);
+}
+```
+
+There are two executions of interest. One, where the load takes a value which is not 42 (let's say 0), and one where it takes the
+value 42.
+
+<table>
+<tr>
+  <td><img width="160" alt="Execution of LB thread 1" src="https://www.cs.kent.ac.uk/people/rpg/sjc205/c++-p1780/images/lb-thread1-42.png" /></td>
+  <td><img width="160" alt="Execution of LB thread 1" src="https://www.cs.kent.ac.uk/people/rpg/sjc205/c++-p1780/images/lbctrl-thread1-0.png" /></td>
+</tr>
+<tr>
+  <th colspan=2>C++ Pre-executions</th>
+</tr>
+</table>
+
+To avoid the semantic dependency we must remove `d` from the justification set of `e`. To remove `d`, the rules require
+the following:
+
+<div class="new">
+> The load `r` may be removed from the justification set if for every other value, and corresponding load `r'`, there is
+> an execution in which [...] there is a store `w'`, equivalent to `w`, following `r'`.
+</div>
+
+Once again it is not possible to find an equivalent store. This time, there is no write following `d'`, so `d` cannot be removed
+from the justification set of `e`. As a consequence, each thread has a semantic dependency, giving the following execution, forbidden because of its cycle in causally-before.
+
+<img width="320" alt="Execution of LB+datas showing a cycle in causally before" src="https://www.cs.kent.ac.uk/people/rpg/sjc205/c++-p1780/images/lb-cyclic-cb.png"></img>
+
+
+
+
+<div class="title">LB+false+ctrl</div>
+```c++
+// Thread 1
+r1 = x.load(memory_order::relaxed);
+if(r1 == 42) {
+  y.store(42, memory_order::relaxed);
+} else {
+  y.store(42, memory_order::relaxed);
+}
+
+// Thread 2
+r2 = y.load(memory_order::relaxed);
+if(r2 == 42) {
+  x.store(42, memory_order::relaxed);
+}
+```
+
+The first thread of LB+false+ctrl, given above, has a false dependency from the load of `x` to the store of `y`. In hardware
+concurrency models, the control structure of the corresponding code would induce control dependencies, provide ordering,
+and forbid the outcome where both threads read 42. In C++ however, we want to allow the optimiser to hoist the store to
+y above the if-statement, so we cannot enforce this dependency, and we must allow the execution that reads 42/42.
+
+<img width="240" alt="Thin-air execution of LB" src="https://www.cs.kent.ac.uk/people/rpg/sjc205/c++-p1780/images/lb+datas-42-42.png" />
+
+This execution is identical to the execution of LB+datas and LB+ctrls, and the
+rules in [6.8.2.2](#6.8.2.2) are applied similarly until the
+application of rule 2 to the head operation `d` with the empty
+justification set for `e` over the tail execution.
+
+Once again, case 2.a adds `d` to the justification set for `e`,
+making it `{d}`, and 2.b does not apply.  2.c asks us to consider
+other executions where the load `d` returns a different value. The thread that gave rise to `d` is as
+follows:
+
+```c++
+// Thread 1
+r1 = x.load(memory_order::relaxed);
+if(r1 == 42) {
+  y.store(42, memory_order::relaxed);
+} else {
+  y.store(42, memory_order::relaxed);
+}
+```
+
+There are two executions of interest. One, where the load takes a value which is not 42 (let's say 0), and one where it takes the
+value 42.
+
+<table>
+<tr>
+  <td><img width="160" alt="Execution of LB thread 1" src="https://www.cs.kent.ac.uk/people/rpg/sjc205/c++-p1780/images/lb-thread1-42.png" /></td>
+  <td><img width="160" alt="Execution of LB thread 1" src="https://www.cs.kent.ac.uk/people/rpg/sjc205/c++-p1780/images/lb-thread1-false-42.png" /></td>
+</tr>
+<tr>
+  <th colspan=2>C++ Pre-executions</th>
+</tr>
+</table>
+
+
+To avoid the semantic dependency we must remove `d` from the justification set of `e`. To remove `d`, the rules require
+the following:
+
+<div class="new">
+> The load `r` may be removed from the justification set if for every other value, and corresponding load `r'`, there is
+> an execution in which [...] there is a store `w'`, equivalent to `w`, following `r'` [and] there is a justification set for `w'`.
+</div>
+
+Here, the store `e'` is equivalent to `e`, so we construct a
+justification set for `e'`. This involves applying the definition of
+*justification set* again to the execution containing `e'` and
+`d'`, we do this in the box below.
+
+<div class="in-box">
+The recursion follows the series of steps we have seen several times
+before: we end up with case 2.a adding `d'` to the justification set
+for `e'`, making it `{d'}`, and 2.b does not apply.  Case 2.c offers
+the possibility of removing `d'` from the justification set.  If we
+attempted to apply 2.c, we would end up considering the execution
+containing `e` and `d` again, making no progress toward the evaluation
+of the test. Instead, we leave the justification set as `{d'}`.
+</div>
+
+The remaining conditions in 2.c require us to chose an `S`.
+
+<div class="new">
+>  a set of operations `S` which follows `r` [such that] `S`
+>  contains every operation in the justification set which occurs after `r` in sequenced before. For every operation in
+>  `S`, if there is an operation at the same location, sequenced between `r` and that operation, the operation must also
+>  be in `S`.
+</div>
+
+The justification set for `e` is the load `{d}`. There are no operations in the justification set, `{d}`, sequenced after `d`, so we
+choose `S` to be empty. 2.c requires us to choose an `S'` as well:
+
+<div class="new">
+>a set of operations `S'` which follows `r'` such that [...] `S` and `S'` contain the same number of operations, and contain equivalent operations.
+</div>
+
+To match the number of events in `S`, we must choose `S'` to be empty. The rest of the conditions of 2.c are satisfied
+by `S` and `S'` if they are empty.
+
+Having satisfied all of the conditions in 2.c, we can remove `d` from the justification set of `e`, leaving the
+justification set empty. Now, we apply the rule that calculates semantic dependency.
+
+<div class="new">
+> There is a semantic dependency from each load in a given justification set to the store that it justifies.
+</div>
+
+This builds semantic dependency from `f` to `g`, but the empty justification of `e` omits the sematic dependecy from `d`
+to `e`, as constructed in previous examples. This gives the following execution.
+
+
+<img width="320" alt="Execution of LB+datas showing no cycle in causally before" src="https://www.cs.kent.ac.uk/people/rpg/sjc205/c++-p1780/images/lb-acyclic-cb.png"></img>
+
+
+This execution does not have a cycle in *causally before*, so the rule in [6.8.2.2](#6.8.2.2) allows the behaviour, as
+intended:
+
+<div class="new">
+> The implementation shall ensure that no program execution demonstrates a cycle in the causally before relation.
+</div>
+
+The mechanisms that permit the outcome 42/42 in the evaluation of LB+false+ctrl are precisely the same mechanisms that
+permit the outcome 1/1 in LB.
+
+
+<div class="title">RFUB Example 1</div>
+```c++
+// Thread 1:
+r1 = x.load(memory_order::relaxed);
+y.store(r1, memory_order::relaxed);
+
+// Thread 2:
+bool assigned_42(false);
+r2 = y.load(memory_order::relaxed);
+if(r2 != 42) {
+  assigned_42 = true;
+  r2 = 42;
+}
+x.store(r2, memory_order::relaxed);
+assert_not(assigned_42);
+```
+
+<!--
+int main() {
+  atomic_int x=0; atomic_int y=0; atomic_int z=0;
+  {{{ { r1=x.load(memory_order_relaxed); 
+        y.store(42,memory_order_relaxed); }
+  ||| { z.store(0,memory_order_relaxed);
+        r2=y.load(memory_order_relaxed);
+        x.store(42,memory_order_relaxed);
+        r3=z.load(memory_order_relaxed);
+ }  }}}
+  return 0;
+}
+-->
+
+The RFUB test above was recently discussed
+in [[P1217R1]]. Consensus among WG21 members
+sugested that, in order to permit compiler optimisations, the outcome where `x` and `y` read 42 and the assertion
+succeeds should be allowed. We will show that it is allowed by our calculation of semantic dependency, as intended.
+The execution that satisfies this constraint follows:
+
+<img width="320" alt="Execution of RFUB Example 1 satisfying the constraint" src="https://www.cs.kent.ac.uk/people/rpg/sjc205/c++-p1780/images/rfub-interesting-exec.png"></img>
+
+Thread 1 is the same as Thread 1 of LB+data, so we know there is a semantic dependency from `d` to `e`. If there were a
+semantic dependency from `g` to `h`, the resulting cycle in causally-before would rule out the behaviour. We show an
+execuion exists without this dependency.
+
+Following [6.8.2.2 paragraph 3](#6.8.2.2p3), we must construct a justification set for writes `f` and `h`. Write `f` has an empty justification set according to the following rule:
+
+<div class="new">
+>  If the execution contains no operations which are sequenced before `w`, the justification set for `w` is empty.
+</div>
+
+To calculate the justification set of `h` we recurse as in previous examples over the operations sequenced before
+`h`. We identify the first operation in sequence before to be `f` and call it the *head operation*. This leaves `{g, h,
+i}` as the *tail execution*. We then recursively calculate the justification set for `h` over the tail giving head `g`
+and tail `{h, i}`.  Finally, we have `h` as the head and there are no events preceeding it in sequenced before, so in
+this level of the recursion the justification set of `h` is empty. We then step back up to the level of the recursion
+with head `g` and tail `{h,i}` and build the justification set of `h` following rule 2.
+
+2.a has us add `g` to the justification set of `h`, and rule 2.b does not apply.
+2.c asks us to consider other executions where the load `g` returns a different value. When `g` does not return 42
+(let's say 0), a different path of execution is followed.
+
+
+
+
+
+<table>
+<tr>
+<td><img width="140" alt="Desired execution of RFUB" src="https://www.cs.kent.ac.uk/people/rpg/sjc205/c++-p1780/images/rfub-thread2-42-42-0.png"></img></td>
+<td><img width="140" alt="Alternative execution of RFUB at load g" src="https://www.cs.kent.ac.uk/people/rpg/sjc205/c++-p1780/images/rfub-thread2-0-42-1.png"></img></td>
+</tr>
+<tr>
+  <th colspan=2>C++ Pre-executions</th>
+</tr>
+</table>
+
+
+To avoid the semantic dependency we must remove `g` from the justification set of `h`. To remove `g`, the rules require
+the following:
+
+<div class="new">
+> The load `r` may be removed from the justification set if for every other value, and corresponding load `r'`, there is
+> an execution in which [...] there is a store `w'`, equivalent to `w`, following `r'` [and] there is a justification set for `w'`.
+</div>
+
+Here, the store `h'` is equivalent to `h`, so we construct a
+justification set for `h'`. This involves applying the definition of
+*justification set* again to the execution containing `h'` and
+`g'`, we do this in the box below.
+
+<div class="in-box"> The recursion over head operations and tail executions follows as before, but there is a new write
+`m'` to location `z`. For the level of the recursion where we have head `h'` and tail execution `{i'}`, there are no
+reads sequenced before `h'`, so the justification set of `h'` is empty. At the next level of the recursion with head `m'`
+and tail `{h', i'}`, rule 1 does not add `m'` to the justification set. The next level of the recursion has head `g'`, tail
+`{m', h', i'}`, and an empty justification set for `h'`.
+
+Following rule 2.a we add `g'` to the justification set of `h'`. As before, rule 2.b does not apply, and we do not
+attempt to apply rule 2.c, leaving the justification set `{g'}` for `h'`.
+
+In the final level of recursion with head `f'` and tail `{g', m', h',
+i'}`, rule 1 does not add to the justificaion set as `f'` and `g'` are
+operations on different locations.
+</div>
+
+Returning to the execution with `h` and `g`, the remaining parts of rule 2.c ask us to choose an `S` and `S'`, and as
+before, we can choose `S` and `S'` to be empty.
+
+
+<div class="new">
+>a set of operations `S'` which follows `r'` such that [...] `S` and `S'` contain the same number of operations, and contain equivalent operations.
+</div>
+
+The rest of the conditions of 2.c are satisfied by `S` and `S'` if they are empty. Having satisfied all of the
+conditions in 2.c, we can remove `g` from the justification set of `h`, leaving the justification set empty.
+
+In the final level of recursion we have the head operation as `f`, the tail execution `{g, h, i}`, and the empty justification set for `h`. Rule 1 leaves the justification set empty. 
+
+We have the following justification sets for each store in the 42/42/0 execution:
+
+ - `e` has the justification set `{d}`
+ - `f` has an empty justification set
+ - `h` has an empty justification set
+
+These justification sets lead to the construction of one semantic dependency edge from `d` to `e`, and subsequently
+there is no cycle in causally before and the 42/42/0 outcome is allowed, as intended. The original execution is below,
+ammended with the <span class="sdep"></span> annotation.
+
+<img width="400" alt="Execution of RFUB with annotation of sdep" src="https://www.cs.kent.ac.uk/people/rpg/sjc205/c++-p1780/images/rfub-acyclic-cb.png"></img>
+
+
+MRDer {#mrder}
+=====
+
+We have built a tool that takes C-like programs as input and evaluates them under the C++ memory model augmented with
+MRD (MRDC). The language supports non-atomics, atomics, RMWs, fences, forks and joins. This combination uses the RC11
+model, incorporating all known fixes to the original C++ specification. Most litmus tests are evaluated in under a
+minute on a modestly spec'd computer (16GB of Memory, Intel i5-5250U @ 1.60GHz (2.5GHz turbo)). 
+
+The performance of the tool is largely proportional to the size of the program being evaluated. For example, a variant
+of ISA2 with fences is evaluated in 1.5s, whereas without the fences it is evaluated in 0.8s. We have run the tool on
+100 hand-chosen tests, and we believe the performance to be compatible with automated testing.
+
+We will ultimately release the code but for now, in development, please eagerly email us with questions about the
+tool. We can execute tests for you, or we can work together to get MRDer working in conjunction with your own tools.
+
+Recall the RFUB test, below, was recently discussed
+in [[P1217R1]].
+
+```c++
+// Thread 1:
+r1 = x.load(memory_order::relaxed);
+y.store(r1, memory_order::relaxed);
+
+// Thread 2:
+
+bool assigned_42(false);
+r2 = y.load(memory_order::relaxed);
+if(r2 != 42) {
+  assigned_42 = true;
+  r2 = 42;
+}
+x.store(r2, memory_order::relaxed);
+assert_not(assigned_42);
+```
+
+We used MRDer to evaluate this test, and the outcome in question is allowed by MRDC as desired: `r1 == 42 && r2 == 42`
+with no assertion failure. The reason is straightforward: regardless of the choice made for the read of `y` in thread 1, a
+write to `x` of value 42 is always made. The machinery of MRD recognises this, lifting as it should.
+
+
+Conclusion {#conclusion}
+==========
+
+MRD is one possible solution to the thin-air problem. Its machinery is *orthogonal* to the conditions of the existing
+memory model, and as a consequence, it is implemented within the standard in a localised and self-contained
+way. Moreover, all of the refinements made to the current standard are carried over. MRDer makes it clear that MRD
+can be evaluated efficiently, and enables us to quickly answer questions about how it behaves.
+
+We believe MRDC hits quite a few desirable properties for a revision of the C++ concurrency model:
+ - continued support of `ld;st` re-ordering,
+ - reasoning about programs with RFUB behaviour,
+ - implementability at no additional cost on major architectures (ARM, POWER, x86, RISC-V),
+ - augmentation of RC11, incorporating all known fixes to C++ concurrency,
+ - extension, rather than re-creation, of the existing standard,
+ - potential route to redefining `memory_order::consume` using semantic dependency, and
+ - application to other memory models with an *axiomatic* representation, e.g. Java, Linux and OpenCL.
+
+
+ 
+
+Proposed Standard Change {#proposal}
+========================
+
+[...]
+
+<div class="heading2" hdg="6.8.2">Multi-threaded executions and data races</div>
+
+[...]
+
+<div class=new>
+<span class="heading3" hdg="6.8.2.2" id="6.8.2.2">Thin-air restriction</span>
+
+<div class="clause" cls="1">
+
+Some side effects are *semantically dependent* on evaluation operations.
+An evaluation A is *causally before* an evaluation B if:
+ - A is a side effect on an atomic object M, and B is an evaluation of M that takes its value, or
+ - A is semantically dependent on B, or
+ - for some operation X, A is causally before X and X is causally before B.
+
+The implementation shall ensure that no program execution demonstrates a cycle in the causally before relation.
+
+</div>
+
+<div class="clause" cls="2">
+
+Two operations are *equivalent operations* if they are both loads, both stores, both read-modify-writes or both
+fences, and they have matching location, values, and memory order.
+
+</div>
+
+<div class="clause" cls="3" id="6.8.2.2p3">
+
+A *justification set* for a store operation `w` is a set of operations constructed recursively over the execution
+containing `w`.  If the execution contains no operations which are sequenced before `w`, the justification set for `w`
+is empty.  Otherwise, it consists of an operation sequenced before all others, we call this the *head operation*, and
+the rest of the execution is the *tail execution*.
+
+Recursively calculate the justification set for `w` over the tail execution, without the head operation, and then modify
+it accorcding to the rules below:
+
+ 1. If the head is a store `w'` and there is a load `r` in the justification set of the tail, remove `r` and replace it
+    with `w'` if:
+    1. `w'` and `r` are operations on the same location of the same value, and
+    2. there is no operation at the same location sequenced after `w'` and sequenced before `r`.
+ 2. If the head is a load `r`:
+    1. Add `r` to the justification set.
+	2. If there is another load, `r'`, in the justification set of the tail, remove `r'` if:
+	    1. `r` and `r'` are operations on the same location of the same value, and
+		2. there is no operation at the same location sequenced after `r` and sequenced before `r'`
+	3. A load operation returns one of many possible values: `r` represents one of these. Reads of other values lead to
+        executions that match before the load operation `r`, and then diverge afterwards.
+		The load `r` may be removed from the justification set if for every other value, and corresponding load `r'`,
+        there is an execution in which:
+		1. There is a store `w'`, equivalent to `w`, following `r'`.
+		2. There is a justification set for `w'`, a set of operations `S` which follows `r`, and a set of operations `S'` which follows `r'` such that:
+			1. `S` contains every operation in the justification set which occurs after `r` in sequenced before. For every operation in `S`, if there is an operation at the same location, sequenced between `r` and that operation, the operation must also be in `S`.
+			2. `S` does not contain any operation to the same location as `r`.
+			3. `S` and `S'` contain the same number of operations, and contain equivalent operations.
+			4. If one operation in `S` is sequenced before another, and both are on the same location, the equivalent operations in `S'` are sequenced in the same order.
+			5. If an operation in `S` is sequenced before or after a lock or fence in `S`, the equivalent operations in `S'` must be sequenced in the same order.
+
+Note: `S` and `S'` do not need to contain every operation sequenced after their respective loads, provided they satisfy the above conditions
+
+To build a choice of *semantic dependency* for an execution, first construct a justification set for each store. There is a
+semantic dependency from each load in a given justification set to the store that it justifies.  
+
+Note: Choices of justification set with fewer loads lead to fewer semantic dependencies, and this allows more observable behaviours.
+
+
+</div>
+</div>
+
+[...]
+
+<div class="heading2" hdg="30.4">Order and consistency</div>
+[...]
+
+<div class="rm clause" cls="8">
+
+Implementations should ensure that no “out-of-thin-air” values are computed that circularly depend on their
+own computation.
+
+[*Note*: For example, with x and y initially zero,
+
+```
+// Thread 1:
+r1 = y.load(memory_order::relaxed);
+x.store(r1, memory_order::relaxed);
+// Thread 2:
+r2 = x.load(memory_order::relaxed);
+y.store(r2, memory_order::relaxed);
+```
+	
+should not produce r1 == r2 == 42, since the store of 42 to y is only possible if the store to x stores 42,
+which circularly depends on the store to y storing 42. Note that without this restriction, such an execution is
+possible.
+</div>
+
+
+<div class="rm clause" cls="9">
+
+[*Note*: The recommendation similarly disallows r1 == r2 == 42 in the following example, with x and y again initially
+	zero:
+
+```
+// Thread 1:
+r1 = x.load(memory_order::relaxed);
+if (r1 == 42) y.store(42, memory_order::relaxed);
+// Thread 2:
+r2 = y.load(memory_order::relaxed);
+if (r2 == 42) x.store(42, memory_order::relaxed);
+```
+
+&mdash; *end note*]
+</div>
+
+[...]
+	
