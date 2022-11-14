@@ -9,9 +9,6 @@
 $for(header-includes)$
   $header-includes$
 $endfor$
-$if(math)$
-  $math$
-$endif$
 </head>
 <body>
   <main>
@@ -22,10 +19,15 @@ $endif$
         <ul>
             <li><a href="/">Home</a></li>
             <li><a href="/blog/">Blog</a></li>
+            <li><a href="/iso-papers">ISO Papers</a></li>
             <li><a href="/photography/">Photography</a></li>
         </ul>
     </nav>
-    $body$
+$if(toc)$
+<h1 id="toc">Contents</h1>
+$toc$
+$endif$
+$body$
   </main>
   <style>$highlighting-css$</style>
 </body>

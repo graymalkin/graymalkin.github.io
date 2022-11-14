@@ -3,6 +3,7 @@ title: Church encoding in JavaScript
 subtitle: Weak typing in JavaScript makes lambda calculus’ church encoding a cinch
 date: 2022-09-28
 published: true
+toc: false
 ---
 
 In the office recently we were chatting about encoding natural numbers in functional programming.

@@ -6,9 +6,6 @@
   <link rel="stylesheet" type="text/css" href="/style.css"/>
   <meta name="description" content="Personal webpage of Simon Cooksey, summarising academic research projects and funding.">
   <meta charset="utf-8">
-  <script
-  src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js"
-  type="text/javascript"></script>
 </head>
 <body>
   <main>
@@ -20,49 +17,46 @@ Make</div>
         <ul>
             <li><a href="/">Home</a></li>
             <li><a href="/blog/">Blog</a></li>
+            <li><a href="/iso-papers">ISO Papers</a></li>
             <li><a href="/photography/">Photography</a></li>
         </ul>
     </nav>
-    <p>I’m a believer in simple static html based websites, but I’m not
-    quite so dyed-in-the-wool that I want to write html by hand. That
-    being said, my homepage is built by hand in raw html, and edits I do
-    are directly on the html.</p>
-    <p>That isn’t very scalable, and I’ve recently started this blog. In
-    other projects, especially for the <a
-    href="https://tinkersoc.org">TinkerSoc</a> website, I’ve used static
-    website generator tools. First, we used <a
-    href="https://jekyllrb.com">Jekyll</a>, a Ruby tool for turning
-    markup into a whole website. It’s scriptable, extensible, generally
-    quite good. It’s even supported by github pages! You can add a repo
-    containing a jekyll website, and prod GitHub in the right way and
-    they’ll build it for you and host it at
-    <code>https://username.github.io</code>. Unfortunately, if you use
-    GitHub’s build, you can do quite a lot less with Ruby to extend
-    it.</p>
-    <p>With poor performance, and weak github integration we eventually
-    rebuilt the website using <a href="https://gohugo.com">Hugo</a>, a
-    Go based static website generator built with the same aims - but
-    it’s <em>really</em> fast.</p>
-    <p>All of these tools are pretty heavyweight though, and have
-    significant learning curves. I’ve done the hard work, I could use
-    them for my website, but that would be procrastinating a little too
-    much. So what am I doing instead? Well, just Pandoc and
-    Makefiles.</p>
-    <h1 id="building-articles">Building articles</h1>
-    <p>First up: how do I build an individual post? Well, that’s easy, I
-    can call pandoc on a <code>.md</code> file and fill in a
-    template.</p>
-    <div class="sourceCode" id="cb1"><pre
-    class="sourceCode makefile"><code class="sourceCode makefile"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="dt">TEMPLATE </span><span class="ch">=</span><span class="st"> ./blog-template.html</span></span>
+<p>I’m a believer in simple static html based websites, but I’m not
+quite so dyed-in-the-wool that I want to write html by hand. That being
+said, my homepage is built by hand in raw html, and edits I do are
+directly on the html.</p>
+<p>That isn’t very scalable, and I’ve recently started this blog. In
+other projects, especially for the <a
+href="https://tinkersoc.org">TinkerSoc</a> website, I’ve used static
+website generator tools. First, we used <a
+href="https://jekyllrb.com">Jekyll</a>, a Ruby tool for turning markup
+into a whole website. It’s scriptable, extensible, generally quite good.
+It’s even supported by github pages! You can add a repo containing a
+jekyll website, and prod GitHub in the right way and they’ll build it
+for you and host it at <code>https://username.github.io</code>.
+Unfortunately, if you use GitHub’s build, you can do quite a lot less
+with Ruby to extend it.</p>
+<p>With poor performance, and weak github integration we eventually
+rebuilt the website using <a href="https://gohugo.com">Hugo</a>, a Go
+based static website generator built with the same aims - but it’s
+<em>really</em> fast.</p>
+<p>All of these tools are pretty heavyweight though, and have
+significant learning curves. I’ve done the hard work, I could use them
+for my website, but that would be procrastinating a little too much. So
+what am I doing instead? Well, just Pandoc and Makefiles.</p>
+<h1 id="building-articles">Building articles</h1>
+<p>First up: how do I build an individual post? Well, that’s easy, I can
+call pandoc on a <code>.md</code> file and fill in a template.</p>
+<div class="sourceCode" id="cb1"><pre
+class="sourceCode makefile"><code class="sourceCode makefile"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="dt">TEMPLATE </span><span class="ch">=</span><span class="st"> ./blog-template.html</span></span>
 <span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="dt">PANDOC_FLAGS </span><span class="ch">=</span><span class="st"> --standalone --highlight-style kate --template=</span><span class="ch">$(</span><span class="dt">TEMPLATE</span><span class="ch">)</span><span class="st"> --mathjax</span></span>
 <span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a><span class="dv">%.html:</span><span class="dt"> %.md </span><span class="ch">$(</span><span class="dt">TEMPLATE</span><span class="ch">)</span></span>
 <span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a>    pandoc <span class="ch">$(</span><span class="dt">PANDOC_FLAGS</span><span class="ch">)</span> -o <span class="ch">$@</span> <span class="ch">$&lt;</span> </span></code></pre></div>
-    <p>Each article needs a front-matter block with the date, title,
-    subtitle, and a published state:</p>
-    <div class="sourceCode" id="cb2"><pre
-    class="sourceCode md"><code class="sourceCode markdown"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="co">---</span></span>
+<p>Each article needs a front-matter block with the date, title,
+subtitle, and a published state:</p>
+<div class="sourceCode" id="cb2"><pre class="sourceCode md"><code class="sourceCode markdown"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="co">---</span></span>
 <span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a><span class="an">title:</span><span class="co"> Make a static website</span></span>
 <span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a><span class="an">subtitle:</span><span class="co"> Building a static website with pandoc and Make</span></span>
 <span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a><span class="an">date:</span><span class="co"> 2022-11-01</span></span>
@@ -71,23 +65,21 @@ Make</div>
 <span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb2-8"><a href="#cb2-8" aria-hidden="true" tabindex="-1"></a>I&#39;m a believer in simple static html based websites, but I&#39;m not quite so dyed-in-the-wool that I want to write html by hand.</span>
 <span id="cb2-9"><a href="#cb2-9" aria-hidden="true" tabindex="-1"></a>...</span></code></pre></div>
-    <h1 id="template">Template</h1>
-    <p>Okay, the template. Most of this is boilerplate that I’ve pulled
-    from my home page. There are a few <code>$macro$</code>s which
-    pandoc expands:</p>
-    <ul>
-    <li><code>$header-includes$</code> This allows me to specify extra
-    <code>&lt;head&gt;</code> items for the html.</li>
-    <li><code>$math$</code> pulls in MathJax so I can use <span
-    class="math inline">\(\LaTeX\)</span> math expressions.</li>
-    <li><code>$title$</code>, <code>$subtitle$</code>,
-    <code>$date$</code> all expand to the obvious parts of the article
-    that pandoc is typesetting.</li>
-    <li><code>&lt;style&gt;$highlighting-css$&lt;/style&gt;</code>
-    includes some CSS to syntax highlight any source code.</li>
-    </ul>
-    <div class="sourceCode" id="cb3"><pre
-    class="sourceCode html"><code class="sourceCode html"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="dt">&lt;!DOCTYPE </span>html<span class="dt">&gt;</span></span>
+<h1 id="template">Template</h1>
+<p>Okay, the template. Most of this is boilerplate that I’ve pulled from
+my home page. There are a few <code>$macro$</code>s which pandoc
+expands:</p>
+<ul>
+<li><code>$header-includes$</code> This allows me to specify extra
+<code>&lt;head&gt;</code> items for the html.</li>
+<li><code>$title$</code>, <code>$subtitle$</code>, <code>$date$</code>
+all expand to the obvious parts of the article that pandoc is
+typesetting.</li>
+<li><code>&lt;style&gt;$highlighting-css$&lt;/style&gt;</code> includes
+some CSS to syntax highlight any source code.</li>
+</ul>
+<div class="sourceCode" id="cb3"><pre
+class="sourceCode html"><code class="sourceCode html"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="dt">&lt;!DOCTYPE </span>html<span class="dt">&gt;</span></span>
 <span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a><span class="kw">&lt;html</span> <span class="er">lang</span><span class="ot">=</span><span class="st">&quot;en&quot;</span><span class="kw">&gt;</span></span>
 <span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>  <span class="kw">&lt;title&gt;</span>$title$ <span class="dv">&amp;mdash;</span> Simon Cooksey Blog<span class="kw">&lt;/title&gt;</span></span>
 <span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a>  <span class="kw">&lt;meta</span> <span class="er">name</span><span class="ot">=</span><span class="st">&quot;viewport&quot;</span> <span class="er">content</span><span class="ot">=</span><span class="st">&quot;width=device-width, user-scalable=yes&quot;</span><span class="kw">&gt;</span></span>
@@ -98,38 +90,35 @@ Make</div>
 <span id="cb3-9"><a href="#cb3-9" aria-hidden="true" tabindex="-1"></a>$for(header-includes)$</span>
 <span id="cb3-10"><a href="#cb3-10" aria-hidden="true" tabindex="-1"></a>  $header-includes$</span>
 <span id="cb3-11"><a href="#cb3-11" aria-hidden="true" tabindex="-1"></a>$endfor$</span>
-<span id="cb3-12"><a href="#cb3-12" aria-hidden="true" tabindex="-1"></a>$if(math)$</span>
-<span id="cb3-13"><a href="#cb3-13" aria-hidden="true" tabindex="-1"></a>  $math$</span>
-<span id="cb3-14"><a href="#cb3-14" aria-hidden="true" tabindex="-1"></a>$endif$</span>
-<span id="cb3-15"><a href="#cb3-15" aria-hidden="true" tabindex="-1"></a><span class="kw">&lt;/head&gt;</span></span>
-<span id="cb3-16"><a href="#cb3-16" aria-hidden="true" tabindex="-1"></a><span class="kw">&lt;body&gt;</span></span>
-<span id="cb3-17"><a href="#cb3-17" aria-hidden="true" tabindex="-1"></a>  <span class="kw">&lt;main&gt;</span></span>
-<span id="cb3-18"><a href="#cb3-18" aria-hidden="true" tabindex="-1"></a>    <span class="kw">&lt;h1</span> <span class="er">class</span><span class="ot">=</span><span class="st">&quot;title&quot;</span><span class="kw">&gt;</span>$title$<span class="kw">&lt;/h1&gt;</span></span>
-<span id="cb3-19"><a href="#cb3-19" aria-hidden="true" tabindex="-1"></a>    <span class="kw">&lt;div</span> <span class="er">class</span><span class="ot">=</span><span class="st">&quot;byline&quot;</span><span class="kw">&gt;</span>$subtitle$<span class="kw">&lt;/div&gt;</span></span>
-<span id="cb3-20"><a href="#cb3-20" aria-hidden="true" tabindex="-1"></a>    <span class="kw">&lt;div</span> <span class="er">class</span><span class="ot">=</span><span class="st">&quot;date&quot;</span><span class="kw">&gt;</span>$date$<span class="kw">&lt;/div&gt;</span></span>
-<span id="cb3-21"><a href="#cb3-21" aria-hidden="true" tabindex="-1"></a>    <span class="kw">&lt;nav&gt;</span></span>
-<span id="cb3-22"><a href="#cb3-22" aria-hidden="true" tabindex="-1"></a>        <span class="kw">&lt;ul&gt;</span></span>
-<span id="cb3-23"><a href="#cb3-23" aria-hidden="true" tabindex="-1"></a>            <span class="kw">&lt;li&gt;&lt;a</span> <span class="er">href</span><span class="ot">=</span><span class="st">&quot;/&quot;</span><span class="kw">&gt;</span>Home<span class="kw">&lt;/a&gt;&lt;/li&gt;</span></span>
-<span id="cb3-24"><a href="#cb3-24" aria-hidden="true" tabindex="-1"></a>            <span class="kw">&lt;li&gt;&lt;a</span> <span class="er">href</span><span class="ot">=</span><span class="st">&quot;/blog/&quot;</span><span class="kw">&gt;</span>Blog<span class="kw">&lt;/a&gt;&lt;/li&gt;</span></span>
-<span id="cb3-25"><a href="#cb3-25" aria-hidden="true" tabindex="-1"></a>            <span class="kw">&lt;li&gt;&lt;a</span> <span class="er">href</span><span class="ot">=</span><span class="st">&quot;/photography/&quot;</span><span class="kw">&gt;</span>Photography<span class="kw">&lt;/a&gt;&lt;/li&gt;</span></span>
-<span id="cb3-26"><a href="#cb3-26" aria-hidden="true" tabindex="-1"></a>        <span class="kw">&lt;/ul&gt;</span></span>
-<span id="cb3-27"><a href="#cb3-27" aria-hidden="true" tabindex="-1"></a>    <span class="kw">&lt;/nav&gt;</span></span>
-<span id="cb3-28"><a href="#cb3-28" aria-hidden="true" tabindex="-1"></a>    $body$</span>
-<span id="cb3-29"><a href="#cb3-29" aria-hidden="true" tabindex="-1"></a>  <span class="kw">&lt;/main&gt;</span></span>
-<span id="cb3-30"><a href="#cb3-30" aria-hidden="true" tabindex="-1"></a>  <span class="kw">&lt;style&gt;</span>$highlighting-css$<span class="kw">&lt;/style&gt;</span></span>
-<span id="cb3-31"><a href="#cb3-31" aria-hidden="true" tabindex="-1"></a><span class="kw">&lt;/body&gt;</span></span>
-<span id="cb3-32"><a href="#cb3-32" aria-hidden="true" tabindex="-1"></a><span class="kw">&lt;/html&gt;</span></span></code></pre></div>
-    <h1 id="building-an-index-page">Building an index page</h1>
-    <p>This is where Hugo and Jekyll excel, and pandoc is less useful.
-    Thankfully, I want a very simple index page, so a little bit of bash
-    hacking to read the meta-data from the yaml block at the top of each
-    article does the trick. I build a custom <code>index.md</code> which
-    will just turn into the bullet list I want after it runs through
-    Pandoc. Makefile as a metaprogramming language 😜.</p>
-    <p>I also have a flag which allows me to hid WIP articles from the
-    index, but let me continue commiting the html.</p>
-    <div class="sourceCode" id="cb4"><pre
-    class="sourceCode makefile"><code class="sourceCode makefile"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Order is the index order. Maintain reverse chronological order.</span></span>
+<span id="cb3-12"><a href="#cb3-12" aria-hidden="true" tabindex="-1"></a><span class="kw">&lt;/head&gt;</span></span>
+<span id="cb3-13"><a href="#cb3-13" aria-hidden="true" tabindex="-1"></a><span class="kw">&lt;body&gt;</span></span>
+<span id="cb3-14"><a href="#cb3-14" aria-hidden="true" tabindex="-1"></a>  <span class="kw">&lt;main&gt;</span></span>
+<span id="cb3-15"><a href="#cb3-15" aria-hidden="true" tabindex="-1"></a>    <span class="kw">&lt;h1</span> <span class="er">class</span><span class="ot">=</span><span class="st">&quot;title&quot;</span><span class="kw">&gt;</span>$title$<span class="kw">&lt;/h1&gt;</span></span>
+<span id="cb3-16"><a href="#cb3-16" aria-hidden="true" tabindex="-1"></a>    <span class="kw">&lt;div</span> <span class="er">class</span><span class="ot">=</span><span class="st">&quot;byline&quot;</span><span class="kw">&gt;</span>$subtitle$<span class="kw">&lt;/div&gt;</span></span>
+<span id="cb3-17"><a href="#cb3-17" aria-hidden="true" tabindex="-1"></a>    <span class="kw">&lt;div</span> <span class="er">class</span><span class="ot">=</span><span class="st">&quot;date&quot;</span><span class="kw">&gt;</span>$date$<span class="kw">&lt;/div&gt;</span></span>
+<span id="cb3-18"><a href="#cb3-18" aria-hidden="true" tabindex="-1"></a>    <span class="kw">&lt;nav&gt;</span></span>
+<span id="cb3-19"><a href="#cb3-19" aria-hidden="true" tabindex="-1"></a>        <span class="kw">&lt;ul&gt;</span></span>
+<span id="cb3-20"><a href="#cb3-20" aria-hidden="true" tabindex="-1"></a>            <span class="kw">&lt;li&gt;&lt;a</span> <span class="er">href</span><span class="ot">=</span><span class="st">&quot;/&quot;</span><span class="kw">&gt;</span>Home<span class="kw">&lt;/a&gt;&lt;/li&gt;</span></span>
+<span id="cb3-21"><a href="#cb3-21" aria-hidden="true" tabindex="-1"></a>            <span class="kw">&lt;li&gt;&lt;a</span> <span class="er">href</span><span class="ot">=</span><span class="st">&quot;/blog/&quot;</span><span class="kw">&gt;</span>Blog<span class="kw">&lt;/a&gt;&lt;/li&gt;</span></span>
+<span id="cb3-22"><a href="#cb3-22" aria-hidden="true" tabindex="-1"></a>            <span class="kw">&lt;li&gt;&lt;a</span> <span class="er">href</span><span class="ot">=</span><span class="st">&quot;/photography/&quot;</span><span class="kw">&gt;</span>Photography<span class="kw">&lt;/a&gt;&lt;/li&gt;</span></span>
+<span id="cb3-23"><a href="#cb3-23" aria-hidden="true" tabindex="-1"></a>        <span class="kw">&lt;/ul&gt;</span></span>
+<span id="cb3-24"><a href="#cb3-24" aria-hidden="true" tabindex="-1"></a>    <span class="kw">&lt;/nav&gt;</span></span>
+<span id="cb3-25"><a href="#cb3-25" aria-hidden="true" tabindex="-1"></a>    $body$</span>
+<span id="cb3-26"><a href="#cb3-26" aria-hidden="true" tabindex="-1"></a>  <span class="kw">&lt;/main&gt;</span></span>
+<span id="cb3-27"><a href="#cb3-27" aria-hidden="true" tabindex="-1"></a>  <span class="kw">&lt;style&gt;</span>$highlighting-css$<span class="kw">&lt;/style&gt;</span></span>
+<span id="cb3-28"><a href="#cb3-28" aria-hidden="true" tabindex="-1"></a><span class="kw">&lt;/body&gt;</span></span>
+<span id="cb3-29"><a href="#cb3-29" aria-hidden="true" tabindex="-1"></a><span class="kw">&lt;/html&gt;</span></span></code></pre></div>
+<h1 id="building-an-index-page">Building an index page</h1>
+<p>This is where Hugo and Jekyll excel, and pandoc is less useful.
+Thankfully, I want a very simple index page, so a little bit of bash
+hacking to read the meta-data from the yaml block at the top of each
+article does the trick. I build a custom <code>index.md</code> which
+will just turn into the bullet list I want after it runs through Pandoc.
+Makefile as a metaprogramming language 😜.</p>
+<p>I also have a flag which allows me to hid WIP articles from the
+index, but let me continue commiting the html.</p>
+<div class="sourceCode" id="cb4"><pre
+class="sourceCode makefile"><code class="sourceCode makefile"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Order is the index order. Maintain reverse chronological order.</span></span>
 <span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a><span class="dt">ARTICLES </span><span class="ch">=</span><span class="st"> </span><span class="ch">\</span></span>
 <span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a><span class="st">    barcamp-2022 </span><span class="ch">\</span></span>
 <span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a><span class="st">    make-a-static-site </span><span class="ch">\</span></span>
@@ -150,9 +139,9 @@ Make</div>
 <span id="cb4-19"><a href="#cb4-19" aria-hidden="true" tabindex="-1"></a><span class="fu">            echo </span><span class="st">&quot; - &lt;span style=\&quot;</span><span class="fu">color: </span><span class="co">#666\&quot;&gt;($$DATE)&lt;/span&gt; [$$TITLE](./$$(dirname $$a)/)&quot; &gt;&gt; index.md; \</span></span>
 <span id="cb4-20"><a href="#cb4-20" aria-hidden="true" tabindex="-1"></a><span class="co">        fi \</span></span>
 <span id="cb4-21"><a href="#cb4-21" aria-hidden="true" tabindex="-1"></a><span class="co">    done</span></span></code></pre></div>
-    <p>And there we have it! A flexible static website, with markdown
-    for writing articles, but a light-weight set of tools to build the
-    index and each page.</p>
+<p>And there we have it! A flexible static website, with markdown for
+writing articles, but a light-weight set of tools to build the index and
+each page.</p>
   </main>
   <style>pre > code.sourceCode { white-space: pre; position: relative; }
 pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }

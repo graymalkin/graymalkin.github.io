@@ -18,157 +18,147 @@ church encoding a cinch</div>
         <ul>
             <li><a href="/">Home</a></li>
             <li><a href="/blog/">Blog</a></li>
+            <li><a href="/iso-papers">ISO Papers</a></li>
             <li><a href="/photography/">Photography</a></li>
         </ul>
     </nav>
-    <p>In the office recently we were chatting about encoding natural
-    numbers in functional programming. One of my colleagues isn’t a
-    Programming Languages theory person, and wanted to build a bit of
-    intuition for it – we asked him how he’d implement addition if he
-    could not use the <code>+</code> operator in JavaScript. This is,
-    predictably, a bit challenging – the base number type in JS isn’t
-    structural like it might be in a language like OCaml, it’s all
-    floats all the way down.</p>
-    <h1 id="natural-numbers-in-ocaml">Natural numbers in OCaml</h1>
-    <p>We demonstrated what an encoding of natural numbers would look
-    like in OCaml:</p>
-    <div class="sourceCode" id="cb1"><pre
-    class="sourceCode ocaml"><code class="sourceCode ocaml"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="kw">type</span> nat = Z | S <span class="kw">of</span> nat</span>
+<p>In the office recently we were chatting about encoding natural
+numbers in functional programming. One of my colleagues isn’t a
+Programming Languages theory person, and wanted to build a bit of
+intuition for it – we asked him how he’d implement addition if he could
+not use the <code>+</code> operator in JavaScript. This is, predictably,
+a bit challenging – the base number type in JS isn’t structural like it
+might be in a language like OCaml, it’s all floats all the way down.</p>
+<h1 id="natural-numbers-in-ocaml">Natural numbers in OCaml</h1>
+<p>We demonstrated what an encoding of natural numbers would look like
+in OCaml:</p>
+<div class="sourceCode" id="cb1"><pre
+class="sourceCode ocaml"><code class="sourceCode ocaml"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="kw">type</span> nat = Z | S <span class="kw">of</span> nat</span>
 <span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="kw">let</span> two = S (S Z)</span>
 <span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="kw">let</span> three = S (S (S Z))</span></code></pre></div>
-    <p>With this definition we can think about what some operators on
-    naturals would be. The obvious starting point are the successor
-    (<code>succ</code>) and predecessor (<code>pred</code>)
-    functions.</p>
-    <div class="sourceCode" id="cb2"><pre
-    class="sourceCode ocaml"><code class="sourceCode ocaml"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="kw">let</span> <span class="dt">succ</span> n = S n</span>
+<p>With this definition we can think about what some operators on
+naturals would be. The obvious starting point are the successor
+(<code>succ</code>) and predecessor (<code>pred</code>) functions.</p>
+<div class="sourceCode" id="cb2"><pre
+class="sourceCode ocaml"><code class="sourceCode ocaml"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="kw">let</span> <span class="dt">succ</span> n = S n</span>
 <span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a><span class="kw">let</span> <span class="dt">pred</span> = <span class="kw">function</span> </span>
 <span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>  S n -&gt; n</span>
 <span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a>| Z -&gt; Z</span></code></pre></div>
-    <p>Simply, <code>succ</code> adds a <code>S</code> constructor to
-    our number; similarly <code>pred</code> pops a successor off a
-    number, and it bottoms out at zero.</p>
-    <p>Okay, so what about addition?</p>
-    <div class="sourceCode" id="cb3"><pre
-    class="sourceCode ocaml"><code class="sourceCode ocaml"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="kw">let</span> <span class="kw">rec</span> add a = <span class="kw">function</span></span>
+<p>Simply, <code>succ</code> adds a <code>S</code> constructor to our
+number; similarly <code>pred</code> pops a successor off a number, and
+it bottoms out at zero.</p>
+<p>Okay, so what about addition?</p>
+<div class="sourceCode" id="cb3"><pre
+class="sourceCode ocaml"><code class="sourceCode ocaml"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="kw">let</span> <span class="kw">rec</span> add a = <span class="kw">function</span></span>
 <span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>  S n -&gt; add (S a) n</span>
 <span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>| Z -&gt; a</span>
 <span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a>add two three</span>
 <span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a><span class="co">(* - : nat = S (S (S (S (S Z)))) *)</span></span></code></pre></div>
-    <p>This function pops all the successors off the 2nd argument and
-    puts them on the front of the first argument, until there’s none
-    left. Addition!</p>
-    <h1 id="church-numerals-in-javascript">Church numerals in
-    Javascript</h1>
-    <p>This doesn’t help us in Javascript though. Our encoding of
-    naturals here is structural in the types available in the language,
-    we could probably fake that up in Javascript using lists or objects,
-    but a far more interesting way to do this is something called Church
-    Encoding.</p>
-    <p>A church numeral is a number which is represented as a
-    higher-order function. A church numeral takes 2 arguments, a
-    function <code>f</code> and a base-case <code>x</code> – the
-    function <code>f</code> is applied <code>n</code> times for the
-    value <code>n</code> encoded as a church numeral.</p>
-    <div class="sourceCode" id="cb4"><pre
-    class="sourceCode ocaml"><code class="sourceCode ocaml"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="co">(* Apply f zero times to x *)</span></span>
+<p>This function pops all the successors off the 2nd argument and puts
+them on the front of the first argument, until there’s none left.
+Addition!</p>
+<h1 id="church-numerals-in-javascript">Church numerals in
+Javascript</h1>
+<p>This doesn’t help us in Javascript though. Our encoding of naturals
+here is structural in the types available in the language, we could
+probably fake that up in Javascript using lists or objects, but a far
+more interesting way to do this is something called Church Encoding.</p>
+<p>A church numeral is a number which is represented as a higher-order
+function. A church numeral takes 2 arguments, a function <code>f</code>
+and a base-case <code>x</code> – the function <code>f</code> is applied
+<code>n</code> times for the value <code>n</code> encoded as a church
+numeral.</p>
+<div class="sourceCode" id="cb4"><pre
+class="sourceCode ocaml"><code class="sourceCode ocaml"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="co">(* Apply f zero times to x *)</span></span>
 <span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a><span class="kw">let</span> zero _f x = x</span>
 <span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a><span class="co">(* Apply f three times to x *)</span></span>
 <span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a><span class="kw">let</span> three f x = f (f (f x))</span></code></pre></div>
-    <p>This can be written in Javascript more conveniently!</p>
-    <div class="sourceCode" id="cb5"><pre
-    class="sourceCode js"><code class="sourceCode javascript"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="kw">const</span> zero <span class="op">=</span> f <span class="kw">=&gt;</span> x <span class="kw">=&gt;</span> x</span>
+<p>This can be written in Javascript more conveniently!</p>
+<div class="sourceCode" id="cb5"><pre class="sourceCode js"><code class="sourceCode javascript"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="kw">const</span> zero <span class="op">=</span> f <span class="kw">=&gt;</span> x <span class="kw">=&gt;</span> x</span>
 <span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a><span class="kw">const</span> three <span class="op">=</span> f <span class="kw">=&gt;</span> x <span class="kw">=&gt;</span> <span class="fu">f</span>(<span class="fu">f</span>(<span class="fu">f</span>(x)))</span></code></pre></div>
-    <p>What does it look like to use a church numeral in JavaScript?
-    Well, it applies a function <code>n</code> times to <code>x</code>,
-    so we can use it to count:</p>
-    <div class="sourceCode" id="cb6"><pre
-    class="sourceCode js"><code class="sourceCode javascript"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="co">/* Count to 3 (starting at 1) */</span></span>
+<p>What does it look like to use a church numeral in JavaScript? Well,
+it applies a function <code>n</code> times to <code>x</code>, so we can
+use it to count:</p>
+<div class="sourceCode" id="cb6"><pre class="sourceCode js"><code class="sourceCode javascript"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="co">/* Count to 3 (starting at 1) */</span></span>
 <span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a><span class="kw">const</span> count_one <span class="op">=</span> x <span class="kw">=&gt;</span> { <span class="bu">console</span><span class="op">.</span><span class="fu">log</span>(x)<span class="op">;</span> <span class="cf">return</span> x <span class="op">+</span> <span class="dv">1</span> }</span>
 <span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a><span class="fu">three</span>(count_one)(<span class="dv">1</span>)</span>
 <span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a><span class="co">// 1</span></span>
 <span id="cb6-5"><a href="#cb6-5" aria-hidden="true" tabindex="-1"></a><span class="co">// 2</span></span>
 <span id="cb6-6"><a href="#cb6-6" aria-hidden="true" tabindex="-1"></a><span class="co">// 3</span></span></code></pre></div>
-    <p>Similarly, we can convert these Church numerals to normal
-    JavaScript numbers:</p>
-    <div class="sourceCode" id="cb7"><pre
-    class="sourceCode js"><code class="sourceCode javascript"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="bu">console</span><span class="op">.</span><span class="fu">log</span>( <span class="fu">three</span>(x <span class="kw">=&gt;</span> x<span class="op">+</span><span class="dv">1</span>)(<span class="dv">0</span>) )</span>
+<p>Similarly, we can convert these Church numerals to normal JavaScript
+numbers:</p>
+<div class="sourceCode" id="cb7"><pre class="sourceCode js"><code class="sourceCode javascript"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="bu">console</span><span class="op">.</span><span class="fu">log</span>( <span class="fu">three</span>(x <span class="kw">=&gt;</span> x<span class="op">+</span><span class="dv">1</span>)(<span class="dv">0</span>) )</span>
 <span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a><span class="co">// 3</span></span></code></pre></div>
-    <p>And we can implement a general function for casting from Church
-    numerals to JavaScript numbers.</p>
-    <div class="sourceCode" id="cb8"><pre
-    class="sourceCode js"><code class="sourceCode javascript"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="kw">const</span> ch_to_num <span class="op">=</span> n <span class="kw">=&gt;</span> <span class="fu">n</span>(x <span class="kw">=&gt;</span> x<span class="op">+</span><span class="dv">1</span>)(<span class="dv">0</span>)</span></code></pre></div>
-    <p>We don’t yet have a way to build these numbers though – we need
-    to implement a successor function.</p>
-    <div class="sourceCode" id="cb9"><pre
-    class="sourceCode js"><code class="sourceCode javascript"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="kw">const</span> succ <span class="op">=</span> n <span class="kw">=&gt;</span> f <span class="kw">=&gt;</span> x <span class="kw">=&gt;</span> <span class="fu">f</span> ( <span class="fu">n</span>(f)(x) )</span></code></pre></div>
-    <p>The part inside the brackets <code>n(f)(x)</code> applies
-    <code>f</code> <code>n</code> times to <code>x</code>, and the extra
-    <code>f</code> outside the brackets applies it one more time.
-    Successor!</p>
-    <p>Now we can implement a function which converts normal JavaScript
-    numbers to church numerals too.</p>
-    <div class="sourceCode" id="cb10"><pre
-    class="sourceCode js"><code class="sourceCode javascript"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="kw">const</span> num_to_ch <span class="op">=</span> n <span class="kw">=&gt;</span> { </span>
+<p>And we can implement a general function for casting from Church
+numerals to JavaScript numbers.</p>
+<div class="sourceCode" id="cb8"><pre class="sourceCode js"><code class="sourceCode javascript"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="kw">const</span> ch_to_num <span class="op">=</span> n <span class="kw">=&gt;</span> <span class="fu">n</span>(x <span class="kw">=&gt;</span> x<span class="op">+</span><span class="dv">1</span>)(<span class="dv">0</span>)</span></code></pre></div>
+<p>We don’t yet have a way to build these numbers though – we need to
+implement a successor function.</p>
+<div class="sourceCode" id="cb9"><pre class="sourceCode js"><code class="sourceCode javascript"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="kw">const</span> succ <span class="op">=</span> n <span class="kw">=&gt;</span> f <span class="kw">=&gt;</span> x <span class="kw">=&gt;</span> <span class="fu">f</span> ( <span class="fu">n</span>(f)(x) )</span></code></pre></div>
+<p>The part inside the brackets <code>n(f)(x)</code> applies
+<code>f</code> <code>n</code> times to <code>x</code>, and the extra
+<code>f</code> outside the brackets applies it one more time.
+Successor!</p>
+<p>Now we can implement a function which converts normal JavaScript
+numbers to church numerals too.</p>
+<div class="sourceCode" id="cb10"><pre
+class="sourceCode js"><code class="sourceCode javascript"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="kw">const</span> num_to_ch <span class="op">=</span> n <span class="kw">=&gt;</span> { </span>
 <span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a>  <span class="cf">if</span> (n <span class="op">==</span> <span class="dv">0</span>) { </span>
 <span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> zero </span>
 <span id="cb10-4"><a href="#cb10-4" aria-hidden="true" tabindex="-1"></a>  } <span class="cf">else</span> { </span>
 <span id="cb10-5"><a href="#cb10-5" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> <span class="fu">succ</span> (<span class="fu">num_to_ch</span>(n<span class="op">-</span><span class="dv">1</span>))</span>
 <span id="cb10-6"><a href="#cb10-6" aria-hidden="true" tabindex="-1"></a>  }</span>
 <span id="cb10-7"><a href="#cb10-7" aria-hidden="true" tabindex="-1"></a>}</span></code></pre></div>
-    <p>Great, that’s convenient We haven’t looked at addition yet,
-    though. Two church numerals <code>m</code> and <code>n</code> will
-    apply some function <code>f</code> <code>n</code> and <code>m</code>
-    times respectively. After addition of <code>m</code> and
-    <code>n</code> we need to apply some function <code>f</code>
-    <code>m+n</code> times.</p>
-    <div class="sourceCode" id="cb11"><pre
-    class="sourceCode js"><code class="sourceCode javascript"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="co">//  Apply f to x n times, and apply f to the result m timnes.</span></span>
+<p>Great, that’s convenient We haven’t looked at addition yet, though.
+Two church numerals <code>m</code> and <code>n</code> will apply some
+function <code>f</code> <code>n</code> and <code>m</code> times
+respectively. After addition of <code>m</code> and <code>n</code> we
+need to apply some function <code>f</code> <code>m+n</code> times.</p>
+<div class="sourceCode" id="cb11"><pre
+class="sourceCode js"><code class="sourceCode javascript"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="co">//  Apply f to x n times, and apply f to the result m timnes.</span></span>
 <span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a><span class="kw">const</span> add <span class="op">=</span> m <span class="kw">=&gt;</span> n <span class="kw">=&gt;</span> f <span class="kw">=&gt;</span> x <span class="kw">=&gt;</span> <span class="fu">m</span>(f)(<span class="fu">n</span> (f)(x))</span>
 <span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a><span class="kw">let</span> five <span class="op">=</span> <span class="fu">add</span>(two)(three)</span>
 <span id="cb11-4"><a href="#cb11-4" aria-hidden="true" tabindex="-1"></a><span class="bu">console</span><span class="op">.</span><span class="fu">log</span>(<span class="fu">ch_to_num</span>(five))</span>
 <span id="cb11-5"><a href="#cb11-5" aria-hidden="true" tabindex="-1"></a><span class="co">// 5</span></span></code></pre></div>
-    <h1 id="more-fun-with-church-encoding">More fun with Church
-    encoding</h1>
-    <p>We can define a few more numeric functions in Church
-    encoding:</p>
-    <div class="sourceCode" id="cb12"><pre
-    class="sourceCode js"><code class="sourceCode javascript"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="kw">const</span> mult <span class="op">=</span> m <span class="kw">=&gt;</span> n <span class="kw">=&gt;</span> f <span class="kw">=&gt;</span> x <span class="kw">=&gt;</span> <span class="fu">n</span>(<span class="fu">m</span> (f))(x)</span>
+<h1 id="more-fun-with-church-encoding">More fun with Church
+encoding</h1>
+<p>We can define a few more numeric functions in Church encoding:</p>
+<div class="sourceCode" id="cb12"><pre
+class="sourceCode js"><code class="sourceCode javascript"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="kw">const</span> mult <span class="op">=</span> m <span class="kw">=&gt;</span> n <span class="kw">=&gt;</span> f <span class="kw">=&gt;</span> x <span class="kw">=&gt;</span> <span class="fu">n</span>(<span class="fu">m</span> (f))(x)</span>
 <span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a><span class="kw">const</span> exp <span class="op">=</span> m <span class="kw">=&gt;</span> n <span class="kw">=&gt;</span> <span class="fu">n</span> (m)</span>
 <span id="cb12-3"><a href="#cb12-3" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb12-4"><a href="#cb12-4" aria-hidden="true" tabindex="-1"></a><span class="bu">console</span><span class="op">.</span><span class="fu">log</span>(<span class="fu">ch_to_num</span>(<span class="fu">mult</span>(three)(two)))</span>
 <span id="cb12-5"><a href="#cb12-5" aria-hidden="true" tabindex="-1"></a><span class="co">// 6</span></span>
 <span id="cb12-6"><a href="#cb12-6" aria-hidden="true" tabindex="-1"></a><span class="bu">console</span><span class="op">.</span><span class="fu">log</span>(<span class="fu">ch_to_num</span>(<span class="fu">exp</span>(three)(two)))</span>
 <span id="cb12-7"><a href="#cb12-7" aria-hidden="true" tabindex="-1"></a><span class="co">// 9</span></span></code></pre></div>
-    <p>We can grab more Church encoding from PL literature, too: here is
-    an encoding of boolean values <code>inl</code> and
-    <code>inr</code>.</p>
-    <div class="sourceCode" id="cb13"><pre
-    class="sourceCode js"><code class="sourceCode javascript"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="kw">const</span> inl <span class="op">=</span> x <span class="kw">=&gt;</span> y <span class="kw">=&gt;</span> x <span class="co">/* stand-in for true */</span></span>
+<p>We can grab more Church encoding from PL literature, too: here is an
+encoding of boolean values <code>inl</code> and <code>inr</code>.</p>
+<div class="sourceCode" id="cb13"><pre
+class="sourceCode js"><code class="sourceCode javascript"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="kw">const</span> inl <span class="op">=</span> x <span class="kw">=&gt;</span> y <span class="kw">=&gt;</span> x <span class="co">/* stand-in for true */</span></span>
 <span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a><span class="kw">const</span> inr <span class="op">=</span> x <span class="kw">=&gt;</span> y <span class="kw">=&gt;</span> y <span class="co">/* stand-in for false */</span></span></code></pre></div>
-    <p>We can evaluate them by applying them with <code>true</code> for
-    left branches, and <code>false</code> for right branches:</p>
-    <div class="sourceCode" id="cb14"><pre
-    class="sourceCode js"><code class="sourceCode javascript"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a><span class="bu">console</span><span class="op">.</span><span class="fu">log</span>(<span class="fu">inl</span>(<span class="kw">true</span>)(<span class="kw">false</span>))</span>
+<p>We can evaluate them by applying them with <code>true</code> for left
+branches, and <code>false</code> for right branches:</p>
+<div class="sourceCode" id="cb14"><pre
+class="sourceCode js"><code class="sourceCode javascript"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a><span class="bu">console</span><span class="op">.</span><span class="fu">log</span>(<span class="fu">inl</span>(<span class="kw">true</span>)(<span class="kw">false</span>))</span>
 <span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a><span class="co">// true</span></span>
 <span id="cb14-3"><a href="#cb14-3" aria-hidden="true" tabindex="-1"></a><span class="bu">console</span><span class="op">.</span><span class="fu">log</span>(<span class="fu">inr</span>(<span class="kw">true</span>)(<span class="kw">false</span>))</span>
 <span id="cb14-4"><a href="#cb14-4" aria-hidden="true" tabindex="-1"></a><span class="co">// false</span></span></code></pre></div>
-    <p>Now we can build some predicate functions, like
-    <code>is_zero</code>: where for some number <code>n</code> it is
-    evaluated with a base-case of true (<code>inl</code>), and an
-    inductive case which maps any input to false (<code>inr</code>).</p>
-    <div class="sourceCode" id="cb15"><pre
-    class="sourceCode js"><code class="sourceCode javascript"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a><span class="kw">const</span> is_zero <span class="op">=</span> n <span class="kw">=&gt;</span> <span class="fu">n</span>(x <span class="kw">=&gt;</span> inr)(inl)</span>
+<p>Now we can build some predicate functions, like <code>is_zero</code>:
+where for some number <code>n</code> it is evaluated with a base-case of
+true (<code>inl</code>), and an inductive case which maps any input to
+false (<code>inr</code>).</p>
+<div class="sourceCode" id="cb15"><pre
+class="sourceCode js"><code class="sourceCode javascript"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a><span class="kw">const</span> is_zero <span class="op">=</span> n <span class="kw">=&gt;</span> <span class="fu">n</span>(x <span class="kw">=&gt;</span> inr)(inl)</span>
 <span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a><span class="bu">console</span><span class="op">.</span><span class="fu">log</span>(<span class="fu">is_zero</span>(zero)(<span class="kw">true</span>)(<span class="kw">false</span>))</span>
 <span id="cb15-3"><a href="#cb15-3" aria-hidden="true" tabindex="-1"></a><span class="co">// true</span></span>
 <span id="cb15-4"><a href="#cb15-4" aria-hidden="true" tabindex="-1"></a><span class="bu">console</span><span class="op">.</span><span class="fu">log</span>(<span class="fu">is_zero</span>(one)(<span class="kw">true</span>)(<span class="kw">false</span>))</span>
 <span id="cb15-5"><a href="#cb15-5" aria-hidden="true" tabindex="-1"></a><span class="co">// false</span></span>
 <span id="cb15-6"><a href="#cb15-6" aria-hidden="true" tabindex="-1"></a><span class="bu">console</span><span class="op">.</span><span class="fu">log</span>(<span class="fu">is_zero</span>(two)(<span class="kw">true</span>)(<span class="kw">false</span>))</span>
 <span id="cb15-7"><a href="#cb15-7" aria-hidden="true" tabindex="-1"></a><span class="co">// false</span></span></code></pre></div>
-    <p>With booleans we can also define some logical operators:</p>
-    <div class="sourceCode" id="cb16"><pre
-    class="sourceCode js"><code class="sourceCode javascript"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a><span class="kw">const</span> and <span class="op">=</span> a <span class="kw">=&gt;</span> b <span class="kw">=&gt;</span> <span class="fu">a</span>(b)(inr)</span>
+<p>With booleans we can also define some logical operators:</p>
+<div class="sourceCode" id="cb16"><pre
+class="sourceCode js"><code class="sourceCode javascript"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a><span class="kw">const</span> and <span class="op">=</span> a <span class="kw">=&gt;</span> b <span class="kw">=&gt;</span> <span class="fu">a</span>(b)(inr)</span>
 <span id="cb16-2"><a href="#cb16-2" aria-hidden="true" tabindex="-1"></a><span class="bu">console</span><span class="op">.</span><span class="fu">log</span>(<span class="fu">and</span>(inl)(inl)(<span class="kw">true</span>)(<span class="kw">false</span>))</span>
 <span id="cb16-3"><a href="#cb16-3" aria-hidden="true" tabindex="-1"></a><span class="co">// true</span></span>
 <span id="cb16-4"><a href="#cb16-4" aria-hidden="true" tabindex="-1"></a><span class="bu">console</span><span class="op">.</span><span class="fu">log</span>(<span class="fu">and</span>(inr)(inl)(<span class="kw">true</span>)(<span class="kw">false</span>))</span>
@@ -187,47 +177,46 @@ church encoding a cinch</div>
 <span id="cb16-17"><a href="#cb16-17" aria-hidden="true" tabindex="-1"></a><span class="co">// true</span></span>
 <span id="cb16-18"><a href="#cb16-18" aria-hidden="true" tabindex="-1"></a><span class="bu">console</span><span class="op">.</span><span class="fu">log</span>(<span class="fu">or</span>(inr)(inr)(<span class="kw">true</span>)(<span class="kw">false</span>))</span>
 <span id="cb16-19"><a href="#cb16-19" aria-hidden="true" tabindex="-1"></a><span class="co">// false</span></span></code></pre></div>
-    <h1 id="loops-and-recursion">Loops and recursion</h1>
-    <p>This is where the story seems to get a little sticky. Curry found
-    the fixed-point operator in simply typed lambda calculus called the
-    Y-combinator.</p>
-    <p>It is defined as <code>Y = \f (\x f x x)(\x f x x)</code>, and we
-    can write this in the same style of JavaScript we’ve been looking at
-    so far:</p>
-    <div class="sourceCode" id="cb17"><pre
-    class="sourceCode js"><code class="sourceCode javascript"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a><span class="kw">const</span> y <span class="op">=</span> f <span class="kw">=&gt;</span> (x <span class="kw">=&gt;</span> <span class="fu">f</span>(<span class="fu">x</span>(x)))(x <span class="kw">=&gt;</span> <span class="fu">f</span>(<span class="fu">x</span>(x)))</span></code></pre></div>
-    <p>But when we true to evaluate this, even with a function which
-    isn’t recursive we get unstuck.</p>
-    <div class="sourceCode" id="cb18"><pre
-    class="sourceCode js"><code class="sourceCode javascript"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a><span class="fu">y</span> (f <span class="kw">=&gt;</span> x <span class="kw">=&gt;</span> x)</span></code></pre></div>
-    <p>We get an error from NodeJS:</p>
-    <pre><code>const y = f =&gt; (x =&gt; f(x(x)))(x =&gt; f(x(x)))
+<h1 id="loops-and-recursion">Loops and recursion</h1>
+<p>This is where the story seems to get a little sticky. Curry found the
+fixed-point operator in simply typed lambda calculus called the
+Y-combinator.</p>
+<p>It is defined as <code>Y = \f (\x f x x)(\x f x x)</code>, and we can
+write this in the same style of JavaScript we’ve been looking at so
+far:</p>
+<div class="sourceCode" id="cb17"><pre
+class="sourceCode js"><code class="sourceCode javascript"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a><span class="kw">const</span> y <span class="op">=</span> f <span class="kw">=&gt;</span> (x <span class="kw">=&gt;</span> <span class="fu">f</span>(<span class="fu">x</span>(x)))(x <span class="kw">=&gt;</span> <span class="fu">f</span>(<span class="fu">x</span>(x)))</span></code></pre></div>
+<p>But when we true to evaluate this, even with a function which isn’t
+recursive we get unstuck.</p>
+<div class="sourceCode" id="cb18"><pre
+class="sourceCode js"><code class="sourceCode javascript"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a><span class="fu">y</span> (f <span class="kw">=&gt;</span> x <span class="kw">=&gt;</span> x)</span></code></pre></div>
+<p>We get an error from NodeJS:</p>
+<pre><code>const y = f =&gt; (x =&gt; f(x(x)))(x =&gt; f(x(x)))
                                    ^
 
 RangeError: Maximum call stack size exceeded</code></pre>
-    <p>Annoyingly, the V8 JavaScript engine (which NodeJS is built on)
-    does not support tail-call optimisation<a href="#fn1"
-    class="footnote-ref" id="fnref1"
-    role="doc-noteref"><sup>1</sup></a>. There is a fixed-point
-    combinator whose definition works in an eager language like
-    JavaScript.</p>
-    <div class="sourceCode" id="cb20"><pre
-    class="sourceCode js"><code class="sourceCode javascript"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a><span class="kw">const</span> z <span class="op">=</span> f <span class="kw">=&gt;</span> (x <span class="kw">=&gt;</span> <span class="fu">f</span> (v <span class="kw">=&gt;</span> <span class="fu">x</span>(x)(v)))(x <span class="kw">=&gt;</span> <span class="fu">f</span> (v <span class="kw">=&gt;</span> <span class="fu">x</span>(x)(v)))</span></code></pre></div>
-    <p>This is the point where I found V8 doesn’t work for me, and
-    WebKit is too slow. I’ll keep playing and try and build some working
-    interesting recursion examples.</p>
-    <section id="footnotes" class="footnotes footnotes-end-of-document"
-    role="doc-endnotes">
-    <hr />
-    <ol>
-    <li id="fn1"><p>A thread on stackoverflow has an on going discussion
-    about support (or lack-thereof) for tail-call optimisation in
-    JavaScript. <a
-    href="https://stackoverflow.com/questions/23260390/node-js-tail-call-optimization-possible-or-not">The
-    thread</a><a href="#fnref1" class="footnote-back"
-    role="doc-backlink">↩︎</a></p></li>
-    </ol>
-    </section>
+<p>Annoyingly, the V8 JavaScript engine (which NodeJS is built on) does
+not support tail-call optimisation<a href="#fn1" class="footnote-ref"
+id="fnref1" role="doc-noteref"><sup>1</sup></a>. There is a fixed-point
+combinator whose definition works in an eager language like
+JavaScript.</p>
+<div class="sourceCode" id="cb20"><pre
+class="sourceCode js"><code class="sourceCode javascript"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a><span class="kw">const</span> z <span class="op">=</span> f <span class="kw">=&gt;</span> (x <span class="kw">=&gt;</span> <span class="fu">f</span> (v <span class="kw">=&gt;</span> <span class="fu">x</span>(x)(v)))(x <span class="kw">=&gt;</span> <span class="fu">f</span> (v <span class="kw">=&gt;</span> <span class="fu">x</span>(x)(v)))</span></code></pre></div>
+<p>This is the point where I found V8 doesn’t work for me, and WebKit is
+too slow. I’ll keep playing and try and build some working interesting
+recursion examples.</p>
+<section id="footnotes" class="footnotes footnotes-end-of-document"
+role="doc-endnotes">
+<hr />
+<ol>
+<li id="fn1"><p>A thread on stackoverflow has an on going discussion
+about support (or lack-thereof) for tail-call optimisation in
+JavaScript. <a
+href="https://stackoverflow.com/questions/23260390/node-js-tail-call-optimization-possible-or-not">The
+thread</a><a href="#fnref1" class="footnote-back"
+role="doc-backlink">↩︎</a></p></li>
+</ol>
+</section>
   </main>
   <style>pre > code.sourceCode { white-space: pre; position: relative; }
 pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }

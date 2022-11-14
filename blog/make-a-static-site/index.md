@@ -3,6 +3,7 @@ title: Make a static website
 subtitle: Building a static website with pandoc and Make
 date: 2022-11-02
 published: true
+toc: false
 ---
 
 I'm a believer in simple static html based websites, but I'm not quite so dyed-in-the-wool that I want to write html by hand.
@@ -54,7 +55,6 @@ Okay, the template.
 Most of this is boilerplate that I've pulled from my home page. There are a few `$macro$`s which pandoc expands:
 
  - `$header-includes$` This allows me to specify extra `<head>` items for the html.
- - `$math$` pulls in MathJax so I can use $\LaTeX$ math expressions.
  - `$title$`, `$subtitle$`, `$date$` all expand to the obvious parts of the article that pandoc is typesetting.
  - `<style>$highlighting-css$</style>` includes some CSS to syntax highlight any source code.
 
@@ -70,9 +70,6 @@ Most of this is boilerplate that I've pulled from my home page. There are a few 
 $for(header-includes)$
   $header-includes$
 $endfor$
-$if(math)$
-  $math$
-$endif$
 </head>
 <body>
   <main>
