@@ -7,7 +7,8 @@ OUTPUTS = index.html
 INPTUS = \
 	p1780/p1780r2.bs \
 	p2426/p2426r0.bs \
-	p1780/p1780r1.bs
+	p1780/p1780r1.bs \
+	p1780/p1780r0.bs
 
 .INTERMEDIATE: index.md
 
