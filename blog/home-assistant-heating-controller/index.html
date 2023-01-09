@@ -1,0 +1,269 @@
+<!DOCTYPE html>
+<html lang="en">
+  <title>Home Assistant Heating
+Controller &mdash; Simon Cooksey Blog</title>
+  <meta name="viewport" content="width=device-width, user-scalable=yes">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/firacode@6.2.0/distr/fira_code.css">
+  <link rel="stylesheet" type="text/css" href="/style.css"/>
+  <meta name="description" content="Personal webpage of Simon Cooksey, summarising academic research projects and funding.">
+  <meta charset="utf-8">
+</head>
+<body>
+  <main>
+    <h1 class="title">Home Assistant Heating Controller</h1>
+    <div class="byline">Taking control of my heating system with a
+custom D1 Mini Board and ESPHome</div>
+    <div class="date">2023-01-31</div>
+    <nav>
+        <ul>
+            <li><a href="/">Home</a></li>
+            <li><a href="/blog/">Blog</a></li>
+            <li><a href="/iso-papers">ISO Papers</a></li>
+            <li><a href="/photography/">Photography</a></li>
+        </ul>
+    </nav>
+<p>I’ve been using <a href="https://www.home-assistant.io">Home
+Assistant</a> to automate my house, and one of the big things I want to
+add control of is my heating. The heating system in my house is a little
+different to a typical British home in that I have zones, one for
+upstairs (radiators) and one for downstairs (underfloor heating). This
+means a lot of the off-the-shelf thermostat options, especially Google
+Nest, aren’t suitable for me, and what options there are have a
+prohibitive cost.</p>
+<p>What are we contending with? I have a combi-boiler hooked up to a
+pair of Honeywell thermostats.<a href="#fn1" class="footnote-ref"
+id="fnref1" role="doc-noteref"><sup>1</sup></a> Both thermostats are set
+up to bridge the ‘request for heat’ control line on the boiler. Here’s
+what the thermostat receiver looks like for my underfloor heating.</p>
+<figure>
+<img src="./images/honeywell-heating.jpg"
+alt="Honeywell heating interface" />
+<figcaption aria-hidden="true">Honeywell heating interface</figcaption>
+</figure>
+<p>This interface is pleasingly simple, the controller mounts on top and
+simply has an RF receiver for the thermostat, and a relay to bridge
+connect <code>A</code> to <code>B</code>. To connect this to home
+assistant I could just use a generic relay board, like this from Amazon,
+and flash the ESP8266 with something sensible from <a
+href="https://esphome.io">ESPHome</a>.</p>
+<figure>
+<img src="./images/generic-esp-relay-board.jpg"
+alt="Generic ESP8266 Relay Board" />
+<figcaption aria-hidden="true">Generic ESP8266 Relay Board</figcaption>
+</figure>
+<p>These annoy me though. I’d need to separately have a mains to 12v
+power supply to control something which is switching mains voltage. A
+quick search didn’t yeild anything satisfactory with an integrated power
+suply, so I am left with only one reasonable choice: build my own at
+significant expense and time cost, negating any cost saving from not
+buying the expensive Ecobee thermostats in the first place. Okay, it’s
+not quite that bad, the BOM for each of these boards comes to about £50
+in small quantities, and it can probably be optimised a bit.</p>
+<h2 id="enclosure">Enclosure</h2>
+<p>First thing’s first: the enclosure. I recently scavenged a bunch of
+<a href="https://en.wikipedia.org/wiki/DIN_rail">DIN mounted</a>
+hardware from an old CNC machine control panel, and I quite like DIN
+mounting. A scan of Farnell yielded this bad-boy:</p>
+<figure>
+<img src="./images/cnmb-4v-kit.jpg" alt="CNMB/4V/KIT DIN Enclosure" />
+<figcaption aria-hidden="true">CNMB/4V/KIT DIN Enclosure</figcaption>
+</figure>
+<p>This supports a reasonable 86.5x68mm PCB in the bottom-most mounting
+position.</p>
+<h1 id="circuit-design">Circuit design</h1>
+<p>I need three key things on this board: - Power supply, mains to a
+reasonable DC voltage for some relays - ESP8266/ESP32 compatibility -
+Two relays, one for each of my heating zones</p>
+<p>I did all the design in Eagle, the CAD files are available <a
+href="">here</a>. They are provided without warantee, I’m not a
+qualified electrical/electronic engineer. If your house burns down it’s
+between you and your insurer.</p>
+<h2 id="relays">Relays</h2>
+<p>This is basically a text-book circuit. I’m using 2N7002 MOSFETs to
+control the coil on a relay, these FETs are great as they have a very
+low trigger voltage of about 1v (ideal for 3.3v logic).</p>
+<h2 id="power-supply">Power supply</h2>
+<p>This was by far the most difficult part to deal with. I didn’t want
+to roll my own AC/DC converter or switch mode power supply, so I picked
+a PCB-mount module. The first one I selected was very simple, but
+regrettably £20 ea. I thought about it and decided to deal with a SIP
+module with a higher integration complexity (and board footprint), but
+that was substantially cheaper at £1.86 ea, and about £5 in support
+components.</p>
+<figure>
+<img src="./images/power-supply.png" alt="Power supply schematic" />
+<figcaption aria-hidden="true">Power supply schematic</figcaption>
+</figure>
+<p>In theory I should also add MOV between L and N, but this is optional
+in the datasheet’s application note, and the board I have is quite well
+populated. Maybe in REV2.</p>
+<h1 id="esphome-setup">ESPHome setup</h1>
+<p>ESPHome is fantastic for DIY smarthome gadgets. With just a familiar
+(at least to Home Assistant users) YAML configuration you can create a
+binary to run on an ESP32, ESP8266, etc, which will connect to your WiFi
+and expsose all manor of sensors and actuators to your Home Assistant
+API. This project is wildly simple for ESPHome configuration and
+comprises simply two switches connected to D2 and D3 of the D1 mini.
+There is also a status LED on D4.</p>
+<div class="sourceCode" id="cb1"><pre
+class="sourceCode yaml"><code class="sourceCode yaml"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">esphome</span><span class="kw">:</span></span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="fu">name</span><span class="kw">:</span><span class="at"> heating-controller</span></span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="fu">esp8266</span><span class="kw">:</span></span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="fu">board</span><span class="kw">:</span><span class="at"> d1_mini_lite </span></span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a><span class="fu">switch</span><span class="kw">:</span></span>
+<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a><span class="at">  </span><span class="kw">-</span><span class="at"> </span><span class="fu">platform</span><span class="kw">:</span><span class="at"> gpio</span></span>
+<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="fu">pin</span><span class="kw">:</span><span class="at"> D2</span></span>
+<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="fu">name</span><span class="kw">:</span><span class="at"> </span><span class="st">&quot;Underfloor heating&quot;</span></span>
+<span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a><span class="fu">switch</span><span class="kw">:</span></span>
+<span id="cb1-13"><a href="#cb1-13" aria-hidden="true" tabindex="-1"></a><span class="at">  </span><span class="kw">-</span><span class="at"> </span><span class="fu">platform</span><span class="kw">:</span><span class="at"> gpio</span></span>
+<span id="cb1-14"><a href="#cb1-14" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="fu">pin</span><span class="kw">:</span><span class="at"> D3</span></span>
+<span id="cb1-15"><a href="#cb1-15" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="fu">name</span><span class="kw">:</span><span class="at"> </span><span class="st">&quot;Radiators&quot;</span></span></code></pre></div>
+<h1 id="bugs-with-rev1">Bugs with REV1</h1>
+<h1 id="next-revision">Next revision</h1>
+<p>I’ll add a couple of pads for connecting a thermal probe, this will
+make the board useful to people with a water cylinder, especially those
+who want to automate using solar energy to keep their water hot when
+possible. As far as I know, most water cylinders in the UK have two
+heating elements one top, one bottom, so the dual relay will be useful
+for that. I’ll also add that MOV to the power supply.</p>
+<p>I might put the ESP on a daugterboard with a screen for status, and
+the status LEDs broken out more sensibly. This will free up a bit of
+space on the bottom board nicely.</p>
+<p>There’s some minor tweaks to do to the power supply too. Adding a MOV
+and a bleed resistor would add a couple of extra types of safety.</p>
+<h1 id="bill-of-materials">Bill of Materials</h1>
+<table>
+<colgroup>
+<col style="width: 15%" />
+<col style="width: 16%" />
+<col style="width: 11%" />
+<col style="width: 7%" />
+<col style="width: 50%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th style="text-align: left;">Part IDs</th>
+<th style="text-align: left;">Part Name</th>
+<th style="text-align: left;">Value</th>
+<th style="text-align: center;">Qty</th>
+<th style="text-align: left;">Part description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">Enclosure</td>
+<td style="text-align: left;">CMNB/4V/Kit</td>
+<td style="text-align: left;">–</td>
+<td style="text-align: center;">1</td>
+<td style="text-align: left;">DIN Mount enclosure</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">R1</td>
+<td style="text-align: left;">0604</td>
+<td style="text-align: left;">1K</td>
+<td style="text-align: center;">1</td>
+<td style="text-align: left;">Example of a row that spans multiple
+lines.</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">R2</td>
+<td style="text-align: left;">0604</td>
+<td style="text-align: left;">470R</td>
+<td style="text-align: center;">1</td>
+<td style="text-align: left;">Here’s another one. Note the blank line
+between rows.</td>
+</tr>
+</tbody>
+</table>
+<style>
+    thead {
+        border-top: 3px solid;
+        border-bottom: 1px solid;
+    }
+    tbody {
+        border-bottom: 1px solid;
+    }
+</style>
+<section id="footnotes" class="footnotes footnotes-end-of-document"
+role="doc-endnotes">
+<hr />
+<ol>
+<li id="fn1"><p>Annoyingly, my boiler made by Worcester Bosch doesn’t
+support the <a href="https://www.opentherm.eu">OpenTherm</a> standard
+for communication, only a propietary system that Woscester Bosch
+supplies. Very frustrating.<a href="#fnref1" class="footnote-back"
+role="doc-backlink">↩︎</a></p></li>
+</ol>
+</section>
+  </main>
+  <style>pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    background-color: #ffffff;
+    color: #a0a0a0;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #a0a0a0;  padding-left: 4px; }
+div.sourceCode
+  { color: #1f1c1b; background-color: #ffffff; }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span { color: #1f1c1b; } /* Normal */
+code span.al { color: #bf0303; background-color: #f7e6e6; font-weight: bold; } /* Alert */
+code span.an { color: #ca60ca; } /* Annotation */
+code span.at { color: #0057ae; } /* Attribute */
+code span.bn { color: #b08000; } /* BaseN */
+code span.bu { color: #644a9b; font-weight: bold; } /* BuiltIn */
+code span.cf { color: #1f1c1b; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #924c9d; } /* Char */
+code span.cn { color: #aa5500; } /* Constant */
+code span.co { color: #898887; } /* Comment */
+code span.cv { color: #0095ff; } /* CommentVar */
+code span.do { color: #607880; } /* Documentation */
+code span.dt { color: #0057ae; } /* DataType */
+code span.dv { color: #b08000; } /* DecVal */
+code span.er { color: #bf0303; text-decoration: underline; } /* Error */
+code span.ex { color: #0095ff; font-weight: bold; } /* Extension */
+code span.fl { color: #b08000; } /* Float */
+code span.fu { color: #644a9b; } /* Function */
+code span.im { color: #ff5500; } /* Import */
+code span.in { color: #b08000; } /* Information */
+code span.kw { color: #1f1c1b; font-weight: bold; } /* Keyword */
+code span.op { color: #1f1c1b; } /* Operator */
+code span.ot { color: #006e28; } /* Other */
+code span.pp { color: #006e28; } /* Preprocessor */
+code span.re { color: #0057ae; background-color: #e0e9f8; } /* RegionMarker */
+code span.sc { color: #3daee9; } /* SpecialChar */
+code span.ss { color: #ff5500; } /* SpecialString */
+code span.st { color: #bf0303; } /* String */
+code span.va { color: #0057ae; } /* Variable */
+code span.vs { color: #bf0303; } /* VerbatimString */
+code span.wa { color: #bf0303; } /* Warning */</style>
+</body>
+</html>
