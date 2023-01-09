@@ -18,7 +18,7 @@ INPTUS = $(patsubst %,%/index.md,$(ARTICLES))
 
 index.md: $(INPUTS)
 	@echo "---" > index.md
-	@echo "title: Blog blog" >> index.md
+	@echo "title: Blog" >> index.md
 	@echo "---" >> index.md
 	@for a in $(INPTUS); do \
 		DATE=$$(grep -m 1 "date" $$a | sed -e 's/date: //g'); \
