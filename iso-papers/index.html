@@ -10,7 +10,7 @@
 <body>
   <main>
     <h1 class="title">ISO Papers</h1>
-    <div class="byline"></div>
+    
     <div class="date"></div>
     <nav>
         <ul>
@@ -38,15 +38,19 @@
   <style></style>
   <script>
     let newHeadlineMarkup = "";
-    document.querySelectorAll("h1, h2, h3, h4, .byline").forEach((headline, _index) => {
-      newHeadingMarkup = "";
-      headline.innerHTML
-        .split(" ")
-        .forEach(function(word, index) {
-        newHeadingMarkup += `<span class="headline-word"></span>`;
-      });
-      headline.innerHTML = newHeadingMarkup;
-    });
+    document.querySelectorAll("h1, h2, h3, h4, .byline")
+      .forEach((headline, _) => {
+        var newHeadingMarkup = "";
+        headline.innerHTML
+          .split(" ")
+          .forEach((word, _) => {
+            console.log(word);
+            newHeadingMarkup += `<span class="headline-word">${word}</span>`;
+          }
+        );
+        headline.innerHTML = newHeadingMarkup;
+      }
+    );
   </script>
 </body>
 </html>
