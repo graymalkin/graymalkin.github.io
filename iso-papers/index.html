@@ -36,5 +36,17 @@
     </ul>
   </main>
   <style></style>
+  <script>
+    let newHeadlineMarkup = "";
+    document.querySelectorAll("h1, h2, h3, h4, .byline").forEach((headline, _index) => {
+      newHeadingMarkup = "";
+      headline.innerHTML
+        .split(" ")
+        .forEach(function(word, index) {
+        newHeadingMarkup += `<span class="headline-word"></span>`;
+      });
+      headline.innerHTML = newHeadingMarkup;
+    });
+  </script>
 </body>
 </html>

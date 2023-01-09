@@ -5,18 +5,26 @@ body {
     font-family: Georgia, serif;
 }
 
-h1, h2, h3, h4, h5 {
+h1, h2, h3, h4, h5, .byline {
     font-family: 'Fira Code', 'DeJa Vu Mono', monospace;
+    color: white;
+    display: flex;
+    flex-wrap: wrap;
+    margin: 0 0 0 -0.25em;
+    padding: 0.25em 0.25em 0.1em 0.25em;
+    line-height: 123%;
 }
 
-h2, h3, h4, h5 {
-    margin: 0;
-    margin-top: 1.67em;
+.title {
+    margin-bottom: 0.5em;
 }
 
-h2 + h3,
-h3 + h4 {
-    margin-top: 0.5em;
+.headline-word {
+    display: inline;
+    color: white;
+    background: black;
+    padding: 0.25em 0.25em 0.1em 0.25em;
+    margin-bottom: 0.1em;
 }
 
 nav {
@@ -40,10 +48,6 @@ nav ul li + li::before {
 
 nav ul * a {
     color: black;
-}
-
-h3, h4 {
-    color: #666;
 }
 
 p, img {
@@ -102,23 +106,17 @@ quot, blockquote {
     .title {
 	font-size: 250%;
 	margin-top: 0.7em;
-	padding-bottom: 0.4em;
     }
     .byline {
-	font-size: 180%;
-	margin-top: -1.6em;
-	margin-bottom: 1.5em;
+        font-size: 180%;
+        margin-bottom: 1.5em;
     }
     p {
 	line-height: 1.75em;
     }
     
     .date {
-	margin-top: -2em;
-	margin-bottom: 3em;
-	margin-left: 0em;
 	font-size: 120%;
-	font-family: 'Fira Code', 'DeJa Vu Mono', monospace;
     }
     .date p {
 	padding: 0;
@@ -139,12 +137,10 @@ quot, blockquote {
     }
     .title {
 	margin-top: 1em;
-	padding-bottom: 0.2em;
-	font-size: 450%;
+	font-size: 300%;
     }
     .byline {
-	font-size: 230%;
-	margin-top: -1.7em;
+	font-size: 200%;
 	margin-bottom: 2em;
     }
     p {
@@ -152,11 +148,14 @@ quot, blockquote {
     }
     
     .date {
-	margin-top: -3em;
-	margin-bottom: 3em;
 	font-size: 150%;
-	font-family: 'Fira Code', 'DeJa Vu Mono', monospace;
-    }
+}
+}
+
+.date {
+    font-family: 'Fira Code', 'DeJa Vu Mono', monospace;
+    margin-top: -2em;
+    float: right;
 }
 
 .date p {
@@ -167,7 +166,10 @@ quot, blockquote {
 .title, .byline {
     font-weight: bold;
     font-family: 'Fira Code', 'DeJa Vu Mono', monospace;
-    line-height: 115%;
+}
+
+.byline {
+	margin-top: -0.8em;
 }
 
 @keyframes blink {
@@ -175,11 +177,6 @@ quot, blockquote {
     25%  { opacity: 1; }
     50%  { opacity: 0; }
     75%  { opacity: 0; }
-}
-
-.title::after {
-    content:"_";
-    animation: blink 1.5s cubic-bezier(1, 0, 0, 1) infinite;
 }
 
 .indent {
@@ -239,5 +236,12 @@ summary div {
 }
 
 .pub > * {
-    margin-left: 2em;
+    margin-left: 0.25em;
+}
+
+@media (scripting: none) {
+    h1, h2, h3, h4, h5, .byline {
+        background-color: black;
+        display: table;
+    }
 }

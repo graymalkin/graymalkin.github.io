@@ -13,7 +13,7 @@ $endfor$
 <body>
   <main>
     <h1 class="title">$title$</h1>
-    <div class="byline">$subtitle$</div>
+    $if(subtitle)$<div class="byline">$subtitle$</div>$endif$
     <div class="date">$date$</div>
     <nav>
         <ul>
@@ -30,5 +30,21 @@ $endif$
 $body$
   </main>
   <style>$highlighting-css$</style>
+  <script>
+    let newHeadlineMarkup = "";
+    document.querySelectorAll("h1, h2, h3, h4, .byline")
+      .forEach((headline, _) => {
+        var newHeadingMarkup = "";
+        headline.innerHTML
+          .split(" ")
+          .forEach((word, _) => {
+            console.log(word);
+            newHeadingMarkup += `<span class="headline-word">$${word}</span>`;
+          }
+        );
+        headline.innerHTML = newHeadingMarkup;
+      }
+    );
+  </script>
 </body>
 </html>

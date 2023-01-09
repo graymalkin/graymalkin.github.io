@@ -13,16 +13,17 @@
     <div class="byline">Research Fellow in Programming Languages</div>
     <nav>
       <ul>
+          <li><a href="/">Home</a></li>
           <li><a href="/blog/">Blog</a></li>
           <li><a href="/iso-papers">ISO Papers</a></li>
           <li><a href="/photography/">Photography</a></li>
       </ul>
   </nav>
 
-    I am a Research Fellow in Programming Languages at the University of Kent, as part of the Programming Languages and Systems Research Group.
-
-    <h2>Research Fellow</h2>
-    <p>I am working on the <i>Complementing Capabilities</i> research proje ct to bring the Rust programming language to Morello.</p>
+  
+  <h2>Research Fellow</h2>
+    <p> I am a Research Fellow in Programming Languages at the University of Kent, as part of the Programming Languages and Systems Research Group.
+    I am working on the <i>Complementing Capabilities</i> research project to bring the Rust programming language to Morello.</p>
 
     <p>I am open to industrial collaboration investigating weak memory behaviours and the semantics of compiler optimised programs. I am happy to work on an ad-hoc contractor basis, or as part of a traditionally funded research program, please <a href="#contact">get in touch</a>.</p>
 
@@ -153,16 +154,18 @@
     </details>
     
     <h2>Grants</h2>
-    <h3>Complementing capabilities: introducing pointer-safe programming to DSBD tech<br/>
-    (<i>Innovate UK ICSF, 2022</i>)</h3>
+    <h3>Complementing capabilities: introducing pointer-safe programming to DSBD tech</h3>
+    <p><i>Innovate UK ICSF, 2022.</i></p>
     <p>I am a Researcher Co-Investigator for a grant of £494,770 (80% FEC) responding to the Innovate UK call to extend the DSbD ecosystem with new CHERI-compatible software. This work will be focussed on porting the Rust compiler to CHERI and formally demonstrating how the guarantees provided by Rust join up nicely with the guarantees of the capability hardware.</p>
 
-    <h3>Fixing the thin-air problem: ISO dissemination<br/> (<i>VeTSS, 2020</i>)</h3>
+    <h3>Fixing the thin-air problem: ISO dissemination</h3>
+    <p><i>VeTSS, 2020</i>.</p>
     <p>I am a named researcher and co-author of a VeTSS grant of £60,455 (80% FEC) to pursue further integration of MRD into the ISO C++ Standard. This grant funds travel to ISO meetings, and research time for me to prepare papers ahead of these meetings.</p>
 
-    <h3>CAPC: Capability C semantics, tools and reasoning<br/> (<i>Digital Security by Design, 2020)</i></h3>
+    <h3>CAPC: Capability C semantics, tools and reasoning</h3>
+    <p><i>Digital Security by Design, 2020.</i></p>
     <p>I am a named researcher and co-author of a Digital Security by Design grant of £485,168 (80% FEC). This is a longer term project to build verified concurrent libraries for the CHERI platform. CHERI is an interesting extension to ARM where memory accesses are tagged with capabilities to keep code secure.</p>
-
+    
     <h2>Industrial Experience</h2>
     <h3>NVIDIA</h3>
     <p>As an intern at NVIDIA I extended the Memory Consistency Model for NVIDIA’s virtual instruction set (PTX) to
@@ -239,5 +242,21 @@
     <div id="uranus_orbit" class="orbit"></div>
     <div id="uranus" class="planet"></div>
   </div>
+  <script>
+    let newHeadlineMarkup = "";
+    document.querySelectorAll("h1, h2, h3, h4, .byline")
+      .forEach((headline, _) => {
+        var newHeadingMarkup = "";
+        headline.innerHTML
+          .split(" ")
+          .forEach((word, _) => {
+            console.log(word);
+            newHeadingMarkup += `<span class="headline-word">${word}</span>`;
+          }
+        );
+        headline.innerHTML = newHeadingMarkup;
+      }
+    );
+  </script>
 </body>
 </html>

@@ -209,5 +209,21 @@ code span.st { color: #bf0303; } /* String */
 code span.va { color: #0057ae; } /* Variable */
 code span.vs { color: #bf0303; } /* VerbatimString */
 code span.wa { color: #bf0303; } /* Warning */</style>
+  <script>
+    let newHeadlineMarkup = "";
+    document.querySelectorAll("h1, h2, h3, h4, .byline")
+      .forEach((headline, _) => {
+        var newHeadingMarkup = "";
+        headline.innerHTML
+          .split(" ")
+          .forEach((word, _) => {
+            console.log(word);
+            newHeadingMarkup += `<span class="headline-word">${word}</span>`;
+          }
+        );
+        headline.innerHTML = newHeadingMarkup;
+      }
+    );
+  </script>
 </body>
 </html>
