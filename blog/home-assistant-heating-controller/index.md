@@ -78,14 +78,19 @@ esphome:
 esp8266:
     board: d1_mini_lite 
 
-switch:
-  - platform: gpio
+light:
+  - platform: status_led
+    name: "Heating status"
     pin: D2
-    name: "Underfloor heating"
 
 switch:
   - platform: gpio
     pin: D3
+    name: "Underfloor heating"
+
+switch:
+  - platform: gpio
+    pin: D4
     name: "Radiators"
 ```
 
@@ -105,27 +110,66 @@ Adding a MOV and a bleed resistor would add a couple of extra types of safety.
 
 # Bill of Materials
 
-
 -------------------------------------------------------------------------------
-Part IDs    Part Name    Value     Qty  Part description
------------ -----------  -------- ----- ---------------------------------------
-Enclosure   CMNB/4V/Kit  --       1     DIN Mount enclosure
+Part IDs          Value      Package      Part description
+----------------- ---------- -----------  -------------------------------------
+Enclosure         --         CMNB/4V/Kit  DIN Mount enclosure
 
-R1          0604         1K       1     Example of a row that spans multiple
-                                        lines.
+C1                470µF      Panasonic E  12V PSU output capacitor
 
-R2          0604         470R     1     Here's another one. Note the blank line
-                                        between rows.
+C2                22µF/450V  16mm radius  Mains input cap
+
+C3                47µF       Panasonic D  12V PSU output capacitor
+
+C4, C5            100nF      0603         Linear regulator decoupling
+
+C6                330nF      0603         Linear regulator input capacitor
+
+C7, C8            10µF       Panasonic B  Linear regulator bulk capacitance
+
+CX1               Class-X    15mm         Class X mains input capacitor
+
+CY1               Class-Y    10mm         Class-Y mains input capacitor
+
+D1, D2            1n4004     DO41         Relay flyback diode
+
+D3                SMBJ 20V   SMBJ         Over-voltage protection shunt diode
+
+F1                2A         6x32mm       Fuse, slow blow
+
+IC1               7805       TO252        5V linear regulator
+
+K1, K2            G2R-12                  Omron 12VDC relay
+
+L1                4R7                     12V PSU output filter inductor
+
+L2                1R                      Mains input filter
+
+LED1, LED2, LED3  Green      1206         LED
+
+Q1, Q2            2N7002E    SOT-23       N-Channel MOSFET
+
+R1, R3, R5, R6,   470R       0603         Resistor
+R7, R8
+
+R2, R4            47K        0603         Resistor
+
+R9                1K         0603         Resistor
+
+R10               12R        22mm, 3W     Resistor
 -------------------------------------------------------------------------------
+
+The schematics and layout are available on my [GitHub](https://github.com/graymalkin/esphome-heating-interface).
 
 <style>
-    thead {
-        border-top: 3px solid;
-        border-bottom: 1px solid;
-    }
-    tbody {
-        border-bottom: 1px solid;
-    }
+table{
+    border-collapse: collapse;
+    margin-bottom: 1em;
+}
+table thead { border-top: 3px solid black; border-bottom: 1px solid black; }
+table tbody { border-bottom: 3px solid black; }
+table th, table td{ padding: 0.33em; }
 </style>
+
 
 [^1]: Annoyingly, my boiler made by Worcester Bosch doesn't support the [OpenTherm](https://www.opentherm.eu) standard for communication, only a propietary system that Woscester Bosch supplies. Very frustrating.
