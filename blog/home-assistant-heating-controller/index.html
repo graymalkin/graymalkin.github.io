@@ -13,7 +13,7 @@ Controller &mdash; Simon Cooksey Blog</title>
     <h1 class="title">Home Assistant Heating Controller</h1>
     <div class="byline">Taking control of my heating system with a
 custom D1 Mini Board and ESPHome</div>
-    <div class="date">2023-01-31</div>
+    <div class="date">2023-01-16</div>
     <nav>
         <ul>
             <li><a href="/">Home</a></li>
@@ -22,6 +22,7 @@ custom D1 Mini Board and ESPHome</div>
             <li><a href="/photography/">Photography</a></li>
         </ul>
     </nav>
+<h1 id="motivation">Motivation</h1>
 <p>I’ve been using <a href="https://www.home-assistant.io">Home
 Assistant</a> to automate my house, and one of the big things I want to
 add control of is my heating. The heating system in my house is a little
@@ -30,35 +31,46 @@ upstairs (radiators) and one for downstairs (underfloor heating). This
 means a lot of the off-the-shelf thermostat options, especially Google
 Nest, aren’t suitable for me, and what options there are have a
 prohibitive cost.</p>
+<p>A commercial option would be something by Hive, they support
+multi-zone thermostats and they are supported in HomeAssistant. Sadly,
+this option would cost about £300.</p>
+<p>Home assistant to the rescue, it has a built-in integration for
+controlling heating, so long as you provide it a switch to toggle the
+heating, and a sensor to read the current temperature. It even has a
+nice interface. <img src="./images/home-assistant-climate.png"
+alt="Home assistant climate interface" /></p>
+<h2 id="my-boiler">My boiler</h2>
 <p>What are we contending with? I have a combi-boiler hooked up to a
 pair of Honeywell thermostats.<a href="#fn1" class="footnote-ref"
 id="fnref1" role="doc-noteref"><sup>1</sup></a> Both thermostats are set
 up to bridge the ‘request for heat’ control line on the boiler. Here’s
 what the thermostat receiver looks like for my underfloor heating.</p>
 <figure>
-<img src="./images/honeywell-heating.jpg"
+<img src="./images/honeywell-interface.jpeg"
 alt="Honeywell heating interface" />
 <figcaption aria-hidden="true">Honeywell heating interface</figcaption>
 </figure>
 <p>This interface is pleasingly simple, the controller mounts on top and
 simply has an RF receiver for the thermostat, and a relay to bridge
 connect <code>A</code> to <code>B</code>. To connect this to home
-assistant I could just use a generic relay board, like this from Amazon,
-and flash the ESP8266 with something sensible from <a
-href="https://esphome.io">ESPHome</a>.</p>
+assistant I could just use a generic relay board, like <a
+href="https://www.amazon.co.uk/dp/B07PZ6TZFF/">this</a> from Amazon, and
+flash the ESP8266 with <a href="https://esphome.io">ESPHome</a>.</p>
 <figure>
-<img src="./images/generic-esp-relay-board.jpg"
+<img src="./images/generic-esp-relay-board.jpeg"
 alt="Generic ESP8266 Relay Board" />
 <figcaption aria-hidden="true">Generic ESP8266 Relay Board</figcaption>
 </figure>
-<p>These annoy me though. I’d need to separately have a mains to 12v
-power supply to control something which is switching mains voltage. A
-quick search didn’t yeild anything satisfactory with an integrated power
-suply, so I am left with only one reasonable choice: build my own at
-significant expense and time cost, negating any cost saving from not
-buying the expensive Ecobee thermostats in the first place. Okay, it’s
-not quite that bad, the BOM for each of these boards comes to about £50
-in small quantities, and it can probably be optimised a bit.</p>
+<p>This solution doesn’t please me, though. I’d need to separately have
+a mains to 12v power supply to control something which is switching
+mains voltage. A quick search didn’t yeild anything satisfactory with an
+integrated power suply, so I am left with only one reasonable choice:
+build my own at significant expense and time cost, negating any cost
+saving from not buying the expensive Hive thermostats in the first
+place. Okay, it’s not quite that bad, the BOM for each of these boards
+comes to about £50 in small quantities so it’s still a lot cheaper, and
+it can probably be optimised a fair bit. And no price can be put on the
+enjoyment I get when designing a PCB.</p>
 <h2 id="enclosure">Enclosure</h2>
 <p>First thing’s first: the enclosure. I recently scavenged a bunch of
 <a href="https://en.wikipedia.org/wiki/DIN_rail">DIN mounted</a>
@@ -71,14 +83,22 @@ mounting. A scan of Farnell yielded this bad-boy:</p>
 <p>This supports a reasonable 86.5x68mm PCB in the bottom-most mounting
 position.</p>
 <h1 id="circuit-design">Circuit design</h1>
-<p>I need three key things on this board: - Power supply, mains to a
-reasonable DC voltage for some relays - ESP8266/ESP32 compatibility -
-Two relays, one for each of my heating zones</p>
+<p>I need three key things on this board:</p>
+<ul>
+<li>Power supply, mains to a reasonable DC voltage for some relays</li>
+<li>ESP8266/ESP32 compatibility</li>
+<li>Two relays, one for each of my heating zones</li>
+</ul>
 <p>I did all the design in Eagle, the CAD files are available <a
-href="">here</a>. They are provided without warantee, I’m not a
-qualified electrical/electronic engineer. If your house burns down it’s
-between you and your insurer.</p>
+href="https://github.com/graymalkin/esphome-heating-interface">here</a>.
+They are provided without warantee, I’m not a qualified
+electrical/electronic engineer. If your house burns down it’s between
+you and your insurer.</p>
 <h2 id="relays">Relays</h2>
+<figure>
+<img src="./images/relay-schematic.png" alt="Relay schematic" />
+<figcaption aria-hidden="true">Relay schematic</figcaption>
+</figure>
 <p>This is basically a text-book circuit. I’m using 2N7002 MOSFETs to
 control the coil on a relay, these FETs are great as they have a very
 low trigger voltage of about 1v (ideal for 3.3v logic).</p>
@@ -89,9 +109,11 @@ a PCB-mount module. The first one I selected was very simple, but
 regrettably £20 ea. I thought about it and decided to deal with a SIP
 module with a higher integration complexity (and board footprint), but
 that was substantially cheaper at £1.86 ea, and about £5 in support
-components.</p>
+components. The various filter components are what are recommended by
+the <a href="">datasheet</a>.</p>
 <figure>
-<img src="./images/power-supply.png" alt="Power supply schematic" />
+<img src="./images/power-supply-schematic.png"
+alt="Power supply schematic" />
 <figcaption aria-hidden="true">Power supply schematic</figcaption>
 </figure>
 <p>In theory I should also add MOV between L and N, but this is optional
@@ -103,40 +125,83 @@ populated. Maybe in REV2.</p>
 binary to run on an ESP32, ESP8266, etc, which will connect to your WiFi
 and expsose all manor of sensors and actuators to your Home Assistant
 API. This project is wildly simple for ESPHome configuration and
-comprises simply two switches connected to D2 and D3 of the D1 mini.
-There is also a status LED on D4.</p>
+comprises simply two switches connected to <code>D3</code> and
+<code>D4</code> of the D1 mini. There is also a status LED on
+<code>D2</code>.</p>
 <div class="sourceCode" id="cb1"><pre
 class="sourceCode yaml"><code class="sourceCode yaml"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">esphome</span><span class="kw">:</span></span>
-<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="fu">name</span><span class="kw">:</span><span class="at"> heating-controller</span></span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="at">  </span><span class="fu">name</span><span class="kw">:</span><span class="at"> </span><span class="st">&quot;heating-controller&quot;</span></span>
 <span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="fu">esp8266</span><span class="kw">:</span></span>
-<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="fu">board</span><span class="kw">:</span><span class="at"> d1_mini_lite </span></span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a><span class="at">  </span><span class="fu">board</span><span class="kw">:</span><span class="at"> d1_mini_lite</span></span>
 <span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a><span class="fu">light</span><span class="kw">:</span></span>
-<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a><span class="at">  </span><span class="kw">-</span><span class="at"> </span><span class="fu">platform</span><span class="kw">:</span><span class="at"> status_led</span></span>
-<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="fu">name</span><span class="kw">:</span><span class="at"> </span><span class="st">&quot;Heating status&quot;</span></span>
-<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="fu">pin</span><span class="kw">:</span><span class="at"> D2</span></span>
-<span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a><span class="fu">switch</span><span class="kw">:</span></span>
-<span id="cb1-13"><a href="#cb1-13" aria-hidden="true" tabindex="-1"></a><span class="at">  </span><span class="kw">-</span><span class="at"> </span><span class="fu">platform</span><span class="kw">:</span><span class="at"> gpio</span></span>
-<span id="cb1-14"><a href="#cb1-14" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="fu">pin</span><span class="kw">:</span><span class="at"> D3</span></span>
-<span id="cb1-15"><a href="#cb1-15" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="fu">name</span><span class="kw">:</span><span class="at"> </span><span class="st">&quot;Underfloor heating&quot;</span></span>
-<span id="cb1-16"><a href="#cb1-16" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-17"><a href="#cb1-17" aria-hidden="true" tabindex="-1"></a><span class="fu">switch</span><span class="kw">:</span></span>
-<span id="cb1-18"><a href="#cb1-18" aria-hidden="true" tabindex="-1"></a><span class="at">  </span><span class="kw">-</span><span class="at"> </span><span class="fu">platform</span><span class="kw">:</span><span class="at"> gpio</span></span>
-<span id="cb1-19"><a href="#cb1-19" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="fu">pin</span><span class="kw">:</span><span class="at"> D4</span></span>
-<span id="cb1-20"><a href="#cb1-20" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="fu">name</span><span class="kw">:</span><span class="at"> </span><span class="st">&quot;Radiators&quot;</span></span></code></pre></div>
-<h1 id="bugs-with-rev1">Bugs with REV1</h1>
-<h1 id="next-revision">Next revision</h1>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a><span class="co"># Enable logging</span></span>
+<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a><span class="fu">logger</span><span class="kw">:</span></span>
+<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a><span class="co"># Enable Home Assistant API</span></span>
+<span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a><span class="fu">api</span><span class="kw">:</span></span>
+<span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-13"><a href="#cb1-13" aria-hidden="true" tabindex="-1"></a><span class="fu">ota</span><span class="kw">:</span></span>
+<span id="cb1-14"><a href="#cb1-14" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-15"><a href="#cb1-15" aria-hidden="true" tabindex="-1"></a><span class="fu">light</span><span class="kw">:</span></span>
+<span id="cb1-16"><a href="#cb1-16" aria-hidden="true" tabindex="-1"></a><span class="at">  </span><span class="kw">-</span><span class="at"> </span><span class="fu">platform</span><span class="kw">:</span><span class="at"> status_led</span></span>
+<span id="cb1-17"><a href="#cb1-17" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="fu">name</span><span class="kw">:</span><span class="at"> </span><span class="st">&quot;Heating status&quot;</span></span>
+<span id="cb1-18"><a href="#cb1-18" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="fu">pin</span><span class="kw">:</span><span class="at"> D2</span></span>
+<span id="cb1-19"><a href="#cb1-19" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-20"><a href="#cb1-20" aria-hidden="true" tabindex="-1"></a><span class="fu">switch</span><span class="kw">:</span></span>
+<span id="cb1-21"><a href="#cb1-21" aria-hidden="true" tabindex="-1"></a><span class="at">  </span><span class="kw">-</span><span class="at"> </span><span class="fu">platform</span><span class="kw">:</span><span class="at"> gpio</span></span>
+<span id="cb1-22"><a href="#cb1-22" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="fu">pin</span><span class="kw">:</span><span class="at"> D3</span></span>
+<span id="cb1-23"><a href="#cb1-23" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="fu">name</span><span class="kw">:</span><span class="at"> </span><span class="st">&quot;Underfloor heating&quot;</span></span>
+<span id="cb1-24"><a href="#cb1-24" aria-hidden="true" tabindex="-1"></a><span class="at">  </span><span class="kw">-</span><span class="at"> </span><span class="fu">platform</span><span class="kw">:</span><span class="at"> gpio</span></span>
+<span id="cb1-25"><a href="#cb1-25" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="fu">pin</span><span class="kw">:</span><span class="at"> D4</span></span>
+<span id="cb1-26"><a href="#cb1-26" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="fu">name</span><span class="kw">:</span><span class="at"> </span><span class="st">&quot;Radiators&quot;</span></span>
+<span id="cb1-27"><a href="#cb1-27" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-28"><a href="#cb1-28" aria-hidden="true" tabindex="-1"></a><span class="fu">wifi</span><span class="kw">:</span></span>
+<span id="cb1-29"><a href="#cb1-29" aria-hidden="true" tabindex="-1"></a><span class="at">  </span><span class="fu">ssid</span><span class="kw">:</span><span class="at"> !secret wifi_ssid</span></span>
+<span id="cb1-30"><a href="#cb1-30" aria-hidden="true" tabindex="-1"></a><span class="at">  </span><span class="fu">password</span><span class="kw">:</span><span class="at"> !secret wifi_password</span></span>
+<span id="cb1-31"><a href="#cb1-31" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-32"><a href="#cb1-32" aria-hidden="true" tabindex="-1"></a><span class="co">  # Enable fallback hotspot (captive portal) in case wifi connection fails</span></span>
+<span id="cb1-33"><a href="#cb1-33" aria-hidden="true" tabindex="-1"></a><span class="at">  </span><span class="fu">ap</span><span class="kw">:</span></span>
+<span id="cb1-34"><a href="#cb1-34" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="fu">ssid</span><span class="kw">:</span><span class="at"> </span><span class="st">&quot;Esphome-Web-0C2621&quot;</span></span>
+<span id="cb1-35"><a href="#cb1-35" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="fu">password</span><span class="kw">:</span><span class="at"> </span><span class="st">&quot;3Hkntq3KmOXA&quot;</span></span>
+<span id="cb1-36"><a href="#cb1-36" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-37"><a href="#cb1-37" aria-hidden="true" tabindex="-1"></a><span class="fu">captive_portal</span><span class="kw">:</span></span>
+<span id="cb1-38"><a href="#cb1-38" aria-hidden="true" tabindex="-1"></a><span class="at">  </span></span></code></pre></div>
+<h1 id="it-works">It works!</h1>
+<p>Remarkably, notwithstanding a few minor bugs, the board worked first
+time!</p>
+<figure>
+<img src="./images/first-power.jpeg"
+alt="Working board connected to Home Assistant" />
+<figcaption aria-hidden="true">Working board connected to Home
+Assistant</figcaption>
+</figure>
+<p>Now I just need to wire it up to my boiler.</p>
+<h2 id="bugs-with-rev1">Bugs with REV1</h2>
+<p>The footprint for C1 was one size too small, the Panasonic-F
+capacitor barely fit on the E-pad. I also forgot to buy the lower value
+output filter capacitor for the 12V PSU, so that’s unpopulated on my
+board. I bought the wrong size fuse holders, but they just about worked
+for the 32x6mm fuse. The D1 mini has a bright blue LED on
+<code>D4</code>, so moving Relay 2 to something else would be
+better.</p>
+<p>There are two mechanical issues. The clearance for the D1 mini is not
+good, it interfers with an internal support on the CMMB/4 enclosure, so
+it needs to be moved a few millimeters to the west. The terminal blocks
+are not well aligned with the holes on the cover for the CMNB/4
+enclosure, they need to move south and towards the centre.</p>
+<h2 id="next-revision">Next revision</h2>
+<p>Apart from fixing the REV1 bugs there’s a couple of things I would do
+differently in a future revision.</p>
 <p>I’ll add a couple of pads for connecting a thermal probe, this will
 make the board useful to people with a water cylinder, especially those
 who want to automate using solar energy to keep their water hot when
 possible. As far as I know, most water cylinders in the UK have two
 heating elements one top, one bottom, so the dual relay will be useful
-for that. I’ll also add that MOV to the power supply.</p>
-<p>I might put the ESP on a daugterboard with a screen for status, and
-the status LEDs broken out more sensibly. This will free up a bit of
-space on the bottom board nicely.</p>
+for that. I might put the ESP on a daugterboard with a screen for
+status, and the status LEDs broken out more sensibly. This will free up
+a bit of space on the bottom board nicely, and fix that mechanical
+issue.</p>
 <p>There’s some minor tweaks to do to the power supply too. Adding a MOV
 and a bleed resistor would add a couple of extra types of safety.</p>
 <h1 id="bill-of-materials">Bill of Materials</h1>
@@ -144,8 +209,8 @@ and a bleed resistor would add a couple of extra types of safety.</p>
 <colgroup>
 <col style="width: 22%" />
 <col style="width: 13%" />
-<col style="width: 16%" />
-<col style="width: 47%" />
+<col style="width: 23%" />
+<col style="width: 40%" />
 </colgroup>
 <thead>
 <tr class="header">
@@ -242,14 +307,14 @@ and a bleed resistor would add a couple of extra types of safety.</p>
 </tr>
 <tr class="odd">
 <td style="text-align: left;">L1</td>
-<td style="text-align: left;">4R7</td>
-<td style="text-align: left;"></td>
+<td style="text-align: left;">4.7µH</td>
+<td style="text-align: left;">Radial 5mm</td>
 <td style="text-align: left;">12V PSU output filter inductor</td>
 </tr>
 <tr class="even">
 <td style="text-align: left;">L2</td>
-<td style="text-align: left;">1R</td>
-<td style="text-align: left;"></td>
+<td style="text-align: left;">1mH</td>
+<td style="text-align: left;">DR74-4R7-R</td>
 <td style="text-align: left;">Mains input filter</td>
 </tr>
 <tr class="odd">
@@ -287,6 +352,12 @@ and a bleed resistor would add a couple of extra types of safety.</p>
 <td style="text-align: left;">12R</td>
 <td style="text-align: left;">22mm, 3W</td>
 <td style="text-align: left;">Resistor</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">SIP</td>
+<td style="text-align: left;">–</td>
+<td style="text-align: left;">MP-LS05-13B12R3</td>
+<td style="text-align: left;">AC/DC converter 12V</td>
 </tr>
 </tbody>
 </table>
