@@ -32,15 +32,13 @@ means a lot of the off-the-shelf thermostat options, especially Google
 Nest, aren’t suitable for me, and what options there are have a
 prohibitive cost.</p>
 <p>A commercial option would be something by Hive, they support
-multi-zone thermostats and they are supported in HomeAssistant. Sadly,
+multi-zone thermostats, and they are supported in Home Assistant. Sadly,
 this option would cost about £300.</p>
 <p>Home assistant to the rescue, it has a built-in integration for
 controlling heating, so long as you provide it a switch to toggle the
 heating, and a sensor to read the current temperature. It even has a
 nice interface. <img src="./images/home-assistant-climate.png"
 alt="Home assistant climate interface" /></p>
-<p>This project is my first custom PCB with mains, and also my first
-where I’ve used SMT parts!</p>
 <h2 id="my-boiler">My boiler</h2>
 <p>What are we contending with? I have a combi-boiler hooked up to a
 pair of Honeywell thermostats.<a href="#fn1" class="footnote-ref"
@@ -65,12 +63,12 @@ alt="Generic ESP8266 Relay Board" />
 </figure>
 <p>This solution doesn’t please me, though. I’d need to separately have
 a mains to 12v power supply to control something which is switching
-mains voltage. A quick search didn’t yeild anything satisfactory with an
-integrated power suply, so I am left with only one reasonable choice:
+mains voltage. A quick search didn’t yield anything satisfactory with an
+integrated power supply, so I am left with only one reasonable choice:
 build my own at significant expense and time cost, negating any cost
 saving from not buying the expensive Hive thermostats in the first
 place. Okay, it’s not quite that bad, the BOM for each of these boards
-comes to about £50 in small quantities so it’s still a lot cheaper, and
+comes to about £50 in small quantities, so it’s still a lot cheaper, and
 it can probably be optimised a fair bit. And no price can be put on the
 enjoyment I get when designing a PCB.</p>
 <h2 id="enclosure">Enclosure</h2>
@@ -93,7 +91,7 @@ position.</p>
 </ul>
 <p>I did all the design in Eagle, the CAD files are available <a
 href="https://github.com/graymalkin/esphome-heating-interface">here</a>.
-They are provided without warantee, I’m not a qualified
+They are provided without warrantee, I’m not a qualified
 electrical/electronic engineer. If your house burns down it’s between
 you and your insurer.</p>
 <h2 id="relays">Relays</h2>
@@ -112,22 +110,22 @@ regrettably £20 ea. I thought about it and decided to deal with a SIP
 module with a higher integration complexity (and board footprint), but
 that was substantially cheaper at £1.86 ea, and about £5 in support
 components. The various filter components are what are recommended by
-the <a href="">datasheet</a>.</p>
+the <a href="./datasheets/MP-LS05-13B12R3.pdf">data sheet</a>.</p>
 <figure>
 <img src="./images/power-supply-schematic.png"
 alt="Power supply schematic" />
 <figcaption aria-hidden="true">Power supply schematic</figcaption>
 </figure>
-<p>In theory I should also add MOV between L and N, but this is optional
-in the datasheet’s application note, and the board I have is quite well
-populated. Maybe in REV2.</p>
+<p>In theory, I should also add MOV between L and N, but this is
+optional in the data sheet’s application note, and the board I have is
+quite well populated. Maybe in REV2.</p>
 <h1 id="esphome-setup">ESPHome setup</h1>
-<p>ESPHome is fantastic for DIY smarthome gadgets. With just a familiar
+<p>ESPHome is fantastic for DIY smart home gadgets. With just a familiar
 (at least to Home Assistant users) YAML configuration you can create a
-binary to run on an ESP32, ESP8266, etc, which will connect to your WiFi
-and expsose all manor of sensors and actuators to your Home Assistant
-API. This project is wildly simple for ESPHome configuration and
-comprises simply two switches connected to <code>D3</code> and
+binary to run on an ESP32, ESP8266, etc, which will connect to your
+Wi-Fi and expose all manor of sensors and actuators to your Home
+Assistant API. This project is wildly simple for ESPHome configuration
+and comprises simply two switches connected to <code>D3</code> and
 <code>D4</code> of the D1 mini. There is also a status LED on
 <code>D2</code>.</p>
 <div class="sourceCode" id="cb1"><pre
@@ -188,8 +186,8 @@ for the 32x6mm fuse. The D1 mini has a bright blue LED on
 <code>D4</code>, so moving Relay 2 to something else would be
 better.</p>
 <p>There are two mechanical issues. The clearance for the D1 mini is not
-good, it interfers with an internal support on the CMMB/4 enclosure, so
-it needs to be moved a few millimeters to the west. The terminal blocks
+good, it interferes with an internal support on the CMMB/4 enclosure, so
+it needs to be moved a few millimetres to the west. The terminal blocks
 are not well aligned with the holes on the cover for the CMNB/4
 enclosure, they need to move south and towards the centre.</p>
 <h2 id="next-revision">Next revision</h2>
@@ -200,7 +198,7 @@ make the board useful to people with a water cylinder, especially those
 who want to automate using solar energy to keep their water hot when
 possible. As far as I know, most water cylinders in the UK have two
 heating elements one top, one bottom, so the dual relay will be useful
-for that. I might put the ESP on a daugterboard with a screen for
+for that. I might put the ESP on a daugter-board with a screen for
 status, and the status LEDs broken out more sensibly. This will free up
 a bit of space on the bottom board nicely, and fix that mechanical
 issue.</p>
@@ -380,7 +378,7 @@ role="doc-endnotes">
 <ol>
 <li id="fn1"><p>Annoyingly, my boiler made by Worcester Bosch doesn’t
 support the <a href="https://www.opentherm.eu">OpenTherm</a> standard
-for communication, only a propietary system that Woscester Bosch
+for communication, only a proprietary system that Worcester Bosch
 supplies. Very frustrating.<a href="#fnref1" class="footnote-back"
 role="doc-backlink">↩︎</a></p></li>
 </ol>

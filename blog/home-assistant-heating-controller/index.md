@@ -11,7 +11,7 @@ I've been using [Home Assistant](https://www.home-assistant.io) to automate my h
 The heating system in my house is a little different to a typical British home in that I have zones, one for upstairs (radiators) and one for downstairs (underfloor heating).
 This means a lot of the off-the-shelf thermostat options, especially Google Nest, aren't suitable for me, and what options there are have a prohibitive cost.
 
-A commercial option would be something by Hive, they support multi-zone thermostats and they are supported in HomeAssistant.
+A commercial option would be something by Hive, they support multi-zone thermostats, and they are supported in Home Assistant.
 Sadly, this option would cost about £300.
 
 Home assistant to the rescue, it has a built-in integration for controlling heating, so long as you provide it a switch to toggle the heating, and a sensor to read the current temperature.
@@ -33,8 +33,8 @@ To connect this to home assistant I could just use a generic relay board, like [
 
 This solution doesn't please me, though.
 I'd need to separately have a mains to 12v power supply to control something which is switching mains voltage.
-A quick search didn't yeild anything satisfactory with an integrated power suply, so I am left with only one reasonable choice: build my own at significant expense and time cost, negating any cost saving from not buying the expensive Hive thermostats in the first place.
-Okay, it's not quite that bad, the BOM for each of these boards comes to about £50 in small quantities so it's still a lot cheaper, and it can probably be optimised a fair bit.
+A quick search didn't yield anything satisfactory with an integrated power supply, so I am left with only one reasonable choice: build my own at significant expense and time cost, negating any cost saving from not buying the expensive Hive thermostats in the first place.
+Okay, it's not quite that bad, the BOM for each of these boards comes to about £50 in small quantities, so it's still a lot cheaper, and it can probably be optimised a fair bit.
 And no price can be put on the enjoyment I get when designing a PCB.
 
 ## Enclosure
@@ -56,7 +56,7 @@ I need three key things on this board:
  - Two relays, one for each of my heating zones
 
 I did all the design in Eagle, the CAD files are available [here](https://github.com/graymalkin/esphome-heating-interface).
-They are provided without warantee, I'm not a qualified electrical/electronic engineer.
+They are provided without warrantee, I'm not a qualified electrical/electronic engineer.
 If your house burns down it's between you and your insurer.
 
 ## Relays
@@ -72,17 +72,17 @@ This was by far the most difficult part to deal with.
 I didn't want to roll my own AC/DC converter or switch mode power supply, so I picked a PCB-mount module.
 The first one I selected was very simple, but regrettably £20 ea.
 I thought about it and decided to deal with a SIP module with a higher integration complexity (and board footprint), but that was substantially cheaper at £1.86 ea, and about £5 in support components.
-The various filter components are what are recommended by the [datasheet]().
+The various filter components are what are recommended by the [data sheet](./datasheets/MP-LS05-13B12R3.pdf).
 
 ![Power supply schematic](./images/power-supply-schematic.png)
 
-In theory I should also add MOV between L and N, but this is optional in the datasheet's application note, and the board I have is quite well populated.
+In theory, I should also add MOV between L and N, but this is optional in the data sheet's application note, and the board I have is quite well populated.
 Maybe in REV2.
 
 # ESPHome setup
 
-ESPHome is fantastic for DIY smarthome gadgets.
-With just a familiar (at least to Home Assistant users) YAML configuration you can create a binary to run on an ESP32, ESP8266, etc, which will connect to your WiFi and expsose all manor of sensors and actuators to your Home Assistant API.
+ESPHome is fantastic for DIY smart home gadgets.
+With just a familiar (at least to Home Assistant users) YAML configuration you can create a binary to run on an ESP32, ESP8266, etc, which will connect to your Wi-Fi and expose all manor of sensors and actuators to your Home Assistant API.
 This project is wildly simple for ESPHome configuration and comprises simply two switches connected to `D3` and `D4` of the D1 mini.
 There is also a status LED on `D2`.
 
@@ -143,7 +143,7 @@ I bought the wrong size fuse holders, but they just about worked for the 32x6mm 
 The D1 mini has a bright blue LED on `D4`, so moving Relay 2 to something else would be better.
 
 There are two mechanical issues.
-The clearance for the D1 mini is not good, it interfers with an internal support on the CMMB/4 enclosure, so it needs to be moved a few millimeters to the west.
+The clearance for the D1 mini is not good, it interferes with an internal support on the CMMB/4 enclosure, so it needs to be moved a few millimetres to the west.
 The terminal blocks are not well aligned with the holes on the cover for the CMNB/4 enclosure, they need to move south and towards the centre.
 
 ## Next revision
@@ -152,7 +152,7 @@ Apart from fixing the REV1 bugs there's a couple of things I would do differentl
 
 I'll add a couple of pads for connecting a thermal probe, this will make the board useful to people with a water cylinder, especially those who want to automate using solar energy to keep their water hot when possible.
 As far as I know, most water cylinders in the UK have two heating elements one top, one bottom, so the dual relay will be useful for that.
-I might put the ESP on a daugterboard with a screen for status, and the status LEDs broken out more sensibly.
+I might put the ESP on a daugter-board with a screen for status, and the status LEDs broken out more sensibly.
 This will free up a bit of space on the bottom board nicely, and fix that mechanical issue.
 
 There's some minor tweaks to do to the power supply too.
@@ -227,4 +227,4 @@ table th, table td{ padding: 0.33em; }
 </style>
 
 
-[^1]: Annoyingly, my boiler made by Worcester Bosch doesn't support the [OpenTherm](https://www.opentherm.eu) standard for communication, only a propietary system that Woscester Bosch supplies. Very frustrating.
+[^1]: Annoyingly, my boiler made by Worcester Bosch doesn't support the [OpenTherm](https://www.opentherm.eu) standard for communication, only a proprietary system that Worcester Bosch supplies. Very frustrating.
