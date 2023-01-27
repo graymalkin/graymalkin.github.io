@@ -6,6 +6,8 @@ published: true
 toc: false
 ---
 
+![Boiler controller installed](./images/installed.jpeg)
+
 # Motivation
 I've been using [Home Assistant](https://www.home-assistant.io) to automate my house, and one of the big things I want to add control of is my heating.
 The heating system in my house is a little different to a typical British home in that I have zones, one for upstairs (radiators) and one for downstairs (underfloor heating).
@@ -78,6 +80,17 @@ The various filter components are what are recommended by the [data sheet](./dat
 
 In theory, I should also add MOV between L and N, but this is optional in the data sheet's application note, and the board I have is quite well populated.
 Maybe in REV2.
+
+## PCB
+
+I got the PCB made by JLCPCB, the same one from all the YouTube mid-roll adverts...
+I'm very impressed, it came quickly and appears to be exactly what I asked for including semi-complicated routed slots!
+There was no extra cost for the black solder mask, but there was an extra one-day lead time.
+From design to PCBs in-hand was about 2 weeks, as I paid for slower (cheaper) shipping.
+Total cost for 5 boards (which is the minimum order) was $14.
+So about £10.
+
+![Bare PCB](./images/bare-pcb.jpeg)
 
 # ESPHome setup
 
