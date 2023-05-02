@@ -32,15 +32,35 @@
     The School of Computing at the University of Kent has scholarships available for excellent UK and International Students.</p>
 
     <h2>Publications</h2>
+    <h3>Rust for Morello: Always-on Memory Safety, Even in Unsafe Code</h3>
+    <p>Memory safety issues are a serious concern in systems programming. Rust is a systems language that provides memory safety through a combination of a static checks embodied in the type system and ad hoc dynamic checks inserted where this analysis becomes impractical. The Morello prototype architecture from ARM uses capabilities, fat pointers augmented with object bounds information, to catch failures of memory safety. This paper presents a compiler from Rust to the Morello architecture, together with a comparison of the performance of Rust's runtime safety checks and the hardware-supported checks of Morello. The cost of Morello's always-on memory safety guarantees is 39% in our 19 benchmark suites from the Rust crates repository (comprising 872 total benchmarks). For this cost, Morello's capabilities ensure that even unsafe Rust code benefits from memory safety guarantees.</p>
+    <details class="pub">
+      <summary>
+        <div><i>Rust for Morello: Always-on Memory Safety, Even in Unsafe Code</i></div>
+        <br />
+        Sarah Harris, <b>Simon Cooksey</b>, Michael Vollmer, Mark Batty
+      </summary>
+      <pre language="BibTeX">"to appear"
+@inproceedings{SHarris:2023,
+  author={Harris, Sarah and Cooksey, Simon and Vollmer, Michael and Batty, Mark},
+  title={Rust for Morello: Always-on Memory Safety, Even in Unsafe Code},
+  booktitle={Proccedings of the 37th European Conference on Object-Oriented Programming, {ECOOP} 2023, July 17-21, 2023, Seatle, Washington USA},
+  series={LIPIcs},
+  publisher={Schloss Dagstuhl - Leibniz-Zentrum f{\"{u}}r Informatik},
+  year={2023},
+}</pre>
+    </details>
+
     <h3>Mixed-Proxy Extensions to NVIDIA PTX</h3>
     <p>An extension of NVIDIA's PTX ISA to support mixing load and store operations that target different proxies of memory. 
       This gives well-defined semantics to programs with both, for example, constant loads and generic stores to the same address. 
       The memory model extension was built in the relational model checking tool, Alloy, and we showed that our extension to the PTX model is sound and complete with respect to the existing industrial model.</p>
-    <p>★ <i>Honorable Mention, IEEE Micro Top Picks 2023!</i></p>
-    <details class="pub">
-      <summary>
+      <details class="pub">
+        <summary>
         <div><i>Mixed-Proxy Extensions for the NVIDIA PTX Memory Consistency Model</i></div>
-        <br >
+        <br />
+        ★ <i>Honorable Mention, IEEE Micro Top Picks 2023!</i>
+        <br />
         Daniel Lustig, <b>Simon Cooksey</b>, Olivier Giroux
       </summary>
       <pre language="BibTeX">@inproceedings{DLustig:2022,
@@ -154,7 +174,7 @@
     <h2>Grants</h2>
     <h3>Embedded Rust for Morello in Defence Applications</h3>
     <p><i>Defence and Security Accelerator, 2023.</i></p>
-    <p>I am Principal Investigator for a grant of £87.763 (80% FEC) on a project to extend our Rust for Morello compiler to embedded targets on the Morello platform.</p>
+    <p>I am Principal Investigator for a grant of £87,763 (80% FEC) on a project to extend our Rust for Morello compiler to embedded targets on the Morello platform.</p>
 
     <h3>Complementing capabilities: introducing pointer-safe programming to DSBD tech</h3>
     <p><i>Innovate UK ICSF, 2022.</i></p>
@@ -195,11 +215,8 @@
 
     <h2 id="contact">Contact</h2>
     <p>I am now on Mastodon at <a rel="me" href="https://types.pl/@graymalkin">@graymalkin@types.pl</a>.</p>
-    <p>You can contact me via email, <a href="mailto:simon@graymalk.in">simon@graymalk.in</a>.
-      <a href="./pgp.pub">I use PGP</a>, so if that floats your boat: my PGP fingerprint is
-      <tt>49BC 8FD6 E61B B9CA BA97 A33C 33AA 9C37 025D 2B62</tt>
-      and I have a <a href="https://keybase.io/graymalkin">keybase profile</a>. </p>
-    <p>My <a href="./cv.pdf" target="_blank">CV</a> is available too, although I am not currently looking for a job.</p>
+    <p>You can contact me via email, <a href="mailto:simon@graymalk.in">simon@graymalk.in</a>.</p>
+    <p>My <a href="./cv.pdf" target="_blank">CV</a> is available too.</p>
   </main>
 
   
