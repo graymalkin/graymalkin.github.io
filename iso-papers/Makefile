@@ -5,6 +5,7 @@ OUTPUTS = index.html
 
 # Order is the index order. Maintain reverse chronological order.
 INPTUS = \
+	p2850/p2850r0.bs \
 	p1780/p1780r2.bs \
 	p2426/p2426r0.bs \
 	p1780/p1780r1.bs \

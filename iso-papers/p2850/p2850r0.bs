@@ -1,0 +1,602 @@
+<pre class='metadata'>
+Title: Minimal Compiler Preserved Dependencies
+Shortname: P2850
+Revision: 0
+Audience: SG1
+Status: P
+Group: WG21
+URL: https://graymalk.in/iso-papers/p2850/p2850r0.html
+Editor: Mark Batty, University of Kent, M.J.Batty@kent.ac.uk
+Editor: Simon Cooksey, University of Kent, simon@graymalk.in
+Abstract: This paper is a step in integrating semantic dependency into the C++ standard in order to fix the longstanding thin-air problem. It explains semantic dependency with examples and then poses questions to WG21 members on the finer details of C++ compiler behaviour.
+Date: 2023-06-12
+Markup Shorthands: markdown yes
+</pre>
+
+Thanks {#thanks}
+======
+
+Our thanks go to the many people who have contributed to this discussion over many years.
+Hans Boehm,
+Soham Chakraborty,
+David Goldblatt,
+Chung-Kil Hur,
+Alan Jeffrey,
+Ori Lahav,
+Paul McKenney,
+Scott Owens,
+Anouk Paradis,
+Marco Paviotti,
+William Pugh,
+James Riely,
+Jaroslav Ševčík,
+Ben Simner,
+Viktor Vafeiadis,
+Daniel Wright,
+and others!
+
+
+
+Introduction {#intro}
+============
+
+This paper is a step in integrating *semantic dependency* ([SDEP]) into the C++ standard in order to fix the longstanding thin-air problem. It explains [SDEP] with examples and then poses questions to SG1 members on the finer details of C++ compiler behaviour.
+
+[SDEP] is intended to capture a minimum set of ordering implicit in the data, control and address dependencies of a program -- [SDEP] is made up of only the dependencies that *must* be preserved by an optimising C++ compiler.  [[P1780]] (Kona 2022) provided standards text introducing [SDEP] as an implementation-defined relation, restricted by a technical report, auxilliary to the standard. Adding [SDEP] is a small change to the standard that fixes a deep problem, avoiding a rewrite of the concurrency specification. We hope this paper will lead to the auxilliary technical report by defining cases where there must be [SDEP], and the compiler may not optimse, and cases where the compiler must be free to optimise, so there can be no [SDEP].
+
+We use small example programs with defined outcomes called *litmus tests* to introduce [SDEP], and then to discuss the corner cases where the C++ standard should limit the compiler's optimiser to preseve program order. By convention, locations in litmus tests are atomic and memory accesses are `memory_order_relaxed` unless otherwise stated.
+
+Target architectures like ARM and POWER allow *relaxed* concurrent behaviours, that cannot be explained by any sequential scheduling of the memory events in the program. The following litmus test, called Load Buffering (LB), can produce the outcome `r1 == 1 && r2 == 1` when translated directly to POWER and ARM targets, so C++ relaxed atomics must be allowed to witness this same behaviour. Similarly, optimisers can reorder events, permitting this behavior even on targets whose architectures forbid the relaxed behaviour.
+
+Load buffering {#lb}
+--------------
+<pre class=include>
+path: ./tests/lb.md
+</pre>
+
+The concurrent behaviour of a program is defined by the C++ memory model as a set of *executions* -- graphs of the memory events performed in one path of the program's control flow. The memory reads, writes and fences make up the nodes, the black edges represent *sequenced before*, [SB], and the red edges represent *reads from*, [RF], indicating which write each read is reading from. The memory model forbids executions that have the wrong kind of cycles in these relations, but because we must allow the relaxed outcome in the LB test, it cannot forbid executions containing a cycle in [SB] and [RF] as below.
+
+<img alt="Load buffering" src="./tests/lb.png">
+
+There is a flaw in the existing C++ standard where, in an attempt to allow aggressive compiler optimisation, the language definition goes too far, allowing programs to produce values out of thin air. The test below, LB+datas, is a variant of LB where the values written are taken from the values read on each thread.
+
+Load buffering with data dependencies {#lb+datas}
+-------------------------------------
+<pre class=include>
+path: ./tests/lb+datas.md
+</pre>
+
+The standard allows the outcomes `r1 == 1 && r2 == 1` or even `r1 == 42 && r2 == 42` despite the only writes in the program being of value `0`: the values `1` and `42` come *out of thin air*. This is a problem: no combination of compiler optimisations and quirks of the target architecture admits this behaviour, and allowing it is known to make it impossible to prove C++ code correct -- the standard must be changed to forbid this outcome [[Problem]].
+
+<img alt="Load buffering with data dependencies" src="./tests/lb+datas.png">
+
+The curved arrows in the executions are *dependency edges* they reflect the fact that the values written by the writes are data dependent on the values read. In the previous test, LB, there were no dependency edges because concrete values were written making the writes independent. By forbidding cycles in dependency and [RF], we could forbid the relaxed outcome here, but keep the outcome in the LB test, just as we need to. Note that this choice restricts the compiler: the specification requires the compiler to keep the accesses in order in LB+datas. That is not an onerous resrtiction: we do not expect the compiler to optimise here.
+
+The next test demonstrates that conditional statements can create dependencies too. 
+
+Load buffering with control dependency {#lb+ctrls}
+--------------------------------------
+<pre class=include>
+path: ./tests/lb+ctrldat+ctrl-single.md
+</pre>
+<img alt="Load buffering with data dependencies" src="./tests/lb+ctrldat+ctrl-single.png">
+
+Once again, the execution where `r1 == 1 && r2 == 1` is allowed by the current standard, but it should not be. Again, it can be ruled out by forbidding cycles in dependency and [RF].
+
+It is not enough to consider only the syntactic structure of the program when calculating dependencies. In the following test, a value loaded from memory is used in a conditional, but because a write of value `1` to `x` occurs regardless, the compiler may optimise this conditional away.
+
+Load buffering with false-dependency {#lb+false-deps}
+------------------------------------
+<pre class=include>
+path: ./tests/lbfd.md
+</pre>
+
+The standard must allow the optimisation. Syntactic dependency, [SDEP], is a relation that captures just the dependencies that should not be optimised away. In particular, there is no [SDEP] from the load of `y` to the store of `x` in this example. There is no cycle in [SDEP] and [RF], so the following execution is allowed, as required. In all execution graphs the orange arrows represent [SDEP].
+
+<img alt="Load buffering with false-dependency" src="./tests/lbfd.png">
+
+Java Hotspot {#hotspot}
+------------
+
+While the audience for this paper is SG1, it is useful to consider other programming languages that have grappled with similar problems.
+Java has a complex memory consistency model, and they too have had to consider what the meaning of dependency is in their programming language.
+The following program [[Sevcik]] is an example where the Java concurrency specification fails to allow all of Hotspot's optimisations.
+
+<pre class=include>
+path: ./tests/hotspot.md
+</pre>
+
+Hotspot will optimise Thread 1 as follows: the load of `y` in the true branch can take its value from the prior load of `y`; in the true branch, that load must be of value `1`; the true branch now performs a concrete write of `1` to `x`, just as the false branch does, so there is no need for the conditional; Thread 1 simply loads `y` into `r2` and `r3` and writes `1` to `x`. Now the optimised program can produce the outcome `r1 == 1 && r2 == 1` on architectures that exhibit relaxed behaviour in the LB test.
+
+Rather than describe the list of optisations that is performed, [SDEP] is more abstract, describing the dependencies left in each excecution after optimisation. The optimisations described above impact the execution below, where both loads of `y` on Thread 1 read from the write of value `1` on Thread 0. There is no semantic dependency from the load of `x` to the write of `y` because the series of optimisations performed by Hotspot can remove it. The exectuion with outcome `r1 == 1 && r2 == 1` is then allowed because there is no cycle in [SDEP] and [RF].
+
+<img alt="Java hotspot example" src="./tests/hotspot.png">
+
+Java Causality Test Case 18 {#jctc18}
+---------------------------
+
+There is an established set of litmus tests for Java that analyses the effects of dependencies on the memory consistency model, called the *Java Causality Tests*. Test case 18 highlights the impact of global value-range analysis.
+
+<pre class=include>
+path: ./tests/jctc18.md
+</pre>
+
+A global analysis could determine that the only writes to `x` in this program are of values `0` and `42`. Then on Thread 0, either the inital load of `x` sees value `42`, or the conditional write of `x` sets it to `42`, and in any case, the value of `r1` is the concrete value `42`. Global value range analysis causes the compiler break the [SDEP] between the loads of `x` and the store of `y`.
+
+<img alt="JCTC18" src="./tests/jctc18.png">
+
+In the execution above, the absence of [SDEP] on Thread 0 means that there is no cycle in [SDEP] and [RF], and the outcome where `r1 == 42 && r2 == 42` is allowed.
+
+We believe this optimisation should be allowed. Does SG1 agree?
+
+***
+
+These introductory tests show examples where [SDEP] should, and should not, be present, and higlight the existence of cases where we need to ask to be sure.
+There are a selection of tests where this choice is less clear-cut and we are interested in SG1's opinion, we will discuss these next.
+
+
+
+Controversial Tests {#tea}
+===================
+
+
+Goldblatt alignment {#goldblatt}
+-------------------
+
+First, we will look at an example from previous discussions with SG1 committee members when looking at [[P1780]].
+David Goldblatt pointed out that the compiler may enforce additional constraints on the values used in a program, e.g. aligning objects, and then optimisation may take advantage of these constraints, as in the follwoing example.
+
+```
+struct S {
+  float vectorData[8];
+};
+
+S s0;
+S s1;
+S s2;
+
+atomic<S*> x{&s0};
+atomic<S*> y{&s1};
+
+S* r1;
+S* r2;
+
+void t1() {
+  r1 = x.load(rlx);
+  if ((uintptr_t)r1 % 32 == 0) {
+    y.store(&s2);
+  }
+}
+
+void t2() {
+  r2 = y.load(rlx);
+  if ((uintptr_t)r2 % 32 == 0) {
+    x.store(&s2);
+  }
+}
+```
+
+Here `t1` and `t2` are to be run concurrently. The compiler may have chosen to align all `S` objects to 32 bytes.
+With this constraint, the compiler can remove the conditions in `t1` and `t2`: pointers to S-objects will always be `mod 32`. Therefore, there must not be [SDEP] edges from the loads to the stores in `t1` and `t2`. If this optimisation is allowed, the behaviour allowed by the definition of concurrency is necessarily implementation defined.
+
+We believe compilers do create constraints on values like this, and then optimise in the context of these choices, so there can be no [SDEP]. Does the committee agree?
+
+RFUB {#rfub}
+----
+
+Continuing with examples from SG1 members, in [[P1217R1]] Hans Boehm has discussed programs that appear to read from untaken branches.
+
+<pre class=include>
+path: ./tests/rfub.md
+</pre>
+
+In this program, for similar reasons to the Java Hotspot example, a compiler could reason that, no matter what, `x` is assigned `42` at the end of Thread 1: if Thread 1 did not read `42` from `y` into `r2`, then in the conditional, it will set `r2` to `42`. Optimisation would not remove the conditional entirely: the write of `1` to `z` is still dependent on the value read from `y`. Removing the dependency on `x` yields executions where we observe a store of 42 to `x`, but not the store of 1 to `z`.
+
+<img alt="Read from untaken branch" src="./tests/rfub.png">
+
+Does allowing this execution, and chosing this set of [SDEP] edges, match the intention of SG1?
+
+OOTA4 {#oota4}
+-----
+
+This example has an execution that is contentious among concurrent models of dependency [[PwT]]. The program has apparent data dependencies from `y` to `x` on Thread 0 and from `x` to `y` on Thread 2.
+
+<pre class=include>
+path: ./tests/oota4.md
+</pre>
+
+In the following execution, the [RF] edges over `x` and `y` form a cycle if data dependencies are recognised as [SDEP] edges. In this execution, `b` reads from the write on Thread 1. We believe that these [SDEP] edges are correct and the execution should be forbidden.
+
+<img alt="OOTA4 forbidden outcome" src="./tests/oota4.png">
+
+The explanation of why this might be reasonable is rather different to the workings of the C++ concurrency model. It hinges on changing the write that the read on Thread 2 gets its value from, from the `else` branch on Thread 0 to the true branch. In this pattern of reasoning, we note that the read of `b` on Thread 0 could read `0` from the initalisation, leading to the `else` branch and a write of `1` to `x`. Then Thread 2 can read `1` from `x` and write `1` to `y`. Now we reconsider the execution of Thread 0, changing the read of `b` so that it reads `1` from Thread 1. Correspondingly, we change the control flow of Thread 0 so that it follows the true branch and writes `1` to `x` and `z`, allowing the execution above.
+
+We do not have a sequence of optimisations that leads to this behaviour, we believe this execution should be forbidden, and the [SDEP] edges should be as shown above. Does SG1 agree?
+
+
+CohCYC {#cohcyc}
+------
+
+This example also has an execution that is contentious among concurrent models of dependency [[WeakestMO]]. The program has apparent control dependencies from `x` to `y` on Thread 0 and from `y` to `x` on Thread 1.
+
+<pre class=include>
+path: ./tests/coh-cyc.md
+</pre>
+
+In the execution of concern, Thread 1 reads the value `2` from `x`, and then follows a typical control-dependent load from `y` and store to `x`. The explanation of why this might be reasonable hinges on changing the write that satisfies the condition on Thread 0. Thread 0 will write `1` to `y` if it reads `1` from `x` on Thread 1. Then, if we read `1` from `y` on Thread 1, `3` will be written to `x`. Now, so the reasoning goes, reading `3` from `x` on Thread 0 will also satisfy the conditional and lead to the write of `y`, so we can swap to reading from the write of `3` to `x`.
+
+We do not have a sequence of optimisations that leads to this behaviour, we believe this execution should be forbidden, and the [SDEP] edges should be as shown above. Does SG1 agree?
+
+<img alt="Coh-CYC forbidden outcome" src="./tests/coh-cyc.png">
+
+Freeze Example {#freeze}
+--------------
+
+The most tricky example program and optimisation sequence we have is from Ori Lahav and Chung-Kil Hur.
+
+<pre class=include>
+path: ./tests/ori.md
+</pre>
+
+In this test, we could reason that an execution that stores `1` to `boom` could be allowed.
+This depends on the [SDEP] edges that we apply in the following execution. Note, we include enough [SDEP] edges here to forbid the behaviour. We will go on to discuss a series of optimisations that may or may not be reasonable. If the optimisation sequence is reasonable, it would lead to removing one of the [SDEP] edges and allowing the behaviour.
+
+The optimisation sequence hinges on the use of a new `freeze` operation in LLVMIR that allows the compiler to make assumptions about the values read by non-atomics. Use of `freeze` can produce LLVM *poison values*, whose values are inteterminate, and can lead to undefined behaviours. We would like the SG1 opinion on the `freeze` optimisation.
+
+<img alt="Lahav et al" src="./tests/ori.png">
+
+The cycle in [SDEP] and [RF] that forbids this outcome is over events `16`, `17`, `28` and `29`. The question is whether there should be an [SDEP] edge from event `16` to event `17`: from the load of `x` to the store of `z` on Thread 1.
+
+The series of optimisations that might remove that [SDEP] edge and permit this behaviour relies on  global analysis. The optimisations are all on Thread 1, and we repeat the transformed program after each step. To start with, Thread 1 is as follows.
+
+```c++
+// Thread 1:
+r2 := k.load(acq);
+if(r2 == 42) {
+  r3 := x;
+  if(r3 == 1) {
+    z := r3;
+    boom := 1
+  } else {
+    r4 := y.load(na);
+    z := r4
+  }
+}
+```
+
+**Load introduction**
+
+We introduce a non-atomic load of `y` into `r5`. This step relies on global knowledge: introducing a non-atomic in the general case may introduce a race, but here a global analysis could infer that the only other access of `y`, on Thread 2, is not racy because the `if` on Thread 1 guards against it, ensuring <span class="rel hb">happens-before</span> if the read is run.
+
+```c++
+// Thread 1:
+r2 := k.load(acq);
+if(r2 == 42) {
+  r5 := y.load(na);
+  r3 := x;
+  if(r3 == 1) {
+    z := r3;
+    boom := 1
+  } else {
+    r4 := y.load(na);
+    z := r4
+  }
+}
+```
+
+**Load forwarding**
+
+We replace the non-atomic load of `y` in the `else` branch with `r5` from our introduced non-atomic load.
+
+```c++
+// Thread 1:
+r2 := k.load(acq);
+if(r2 == 42) {
+  r5 := y.load(na);
+  r3 := x;
+  if(r3 == 1) {
+    z := r3;
+    boom := 1
+  } else {
+    r4 := r5; // load forward
+    z := r4
+  }
+}
+```
+
+**LLVM trace preserving transformation**
+
+We `freeze` the non-atomic load of `y` at value `1`. This adds a branch on `freeze(r5==1)`. In the true case of the branch, the compiler can optimise with the knowledge that `r5==1`, but in the else branch, `r5` carries a poison value that may lead to undefined behaviour.
+
+```c++
+// Thread 1:
+r2 := k.load(acq);
+if(r2 == 42) {
+  r5 := y.load(na);
+  if (freeze(r5==1)) { // freeze
+    r3 := x;
+    if(r3 == 1) {
+      z := r3;
+      boom := 1
+    } else {
+      r4 := r5;
+      z := r4
+    }
+  } else {
+    /* ... */
+  }
+}
+```
+
+**LLVM trace preserving transformation**
+
+We simplify terms using the predicates on branches.
+
+```c++
+// Thread 1:
+r2 := k.load(acq);
+if(r2 == 42) {
+  r5 := y.load(na);
+  if (freeze(c==1)) {
+    r3 := x;
+    if(r3 == 1) {
+      z := 1; // simplification r3 == 1
+      boom := 1
+    } else {
+      r4 := 1; // simplification using freeze(r5==1)
+      z := r4
+    }
+  } else {
+    /* ... */
+  }
+}
+```
+
+**LLVM trace preserving transformation**
+
+Here we constant propagate the register value into the store on `z` and then hoist the `z := 1` out of the conditional.
+The `else` branch is now empty.
+
+```c++
+// Thread 1:
+r2 := k.load(acq);
+if(r2 == 42) {
+  r5 := y.load(na);
+  if (freeze(c==1)) {
+    r3 := x;
+    z := 1; // hoisted
+    if(r3 == 1) {
+      boom := 1
+    }
+    else { }
+  } else {
+    /* ... */
+  }
+}
+```
+
+There is now no dependency between `r3 := x` and `z := 1` so they can be hardware re-ordered.
+In context with the rest of the program `r3 == 1` is now observable and the program can store `1` to `boom`. This execution would be allowed if the [SDEP] edge were removed between events `16` and `17` in the execution above.
+
+Note that this execution is race-free, the non-atomic store is <span class="rel hb">happens-before</span> the load, thanks to the `release`/`acquire` pair on `k`.
+
+Is SG1 happy with this set of transformations? Should this weak execution be allowed?
+
+
+[SDEP] in Java Causality Tests {#jct}
+==============================
+
+To contextualise [SDEP] with the Java Causality Tests, we print the tests, the interesting execution, and our conclusion on acyclicity of [SDEP] and [RF].
+See [[JCT]].
+
+JCTC1 {#jctc1}
+-----
+
+<pre class=include>
+path: ./tests/jctc1.md
+</pre>
+<img alt="JCTC1" src="./tests/jctc1.png">
+
+Allowed, no cycle. A compiler can observe that `x` is always greater than or equal to zero.
+
+
+JCTC2 {#jctc2}
+-----
+
+<pre class=include>
+path: ./tests/jctc2.md
+</pre>
+<img alt="JCTC2" src="./tests/jctc2.png">
+
+Allowed, no cycle. A compiler can assert that two relaxed loads to the same location will yield the same value.
+
+
+JCTC3 {#jctc3}
+-----
+
+<pre class=include>
+path: ./tests/jctc3.md
+</pre>
+<img alt="JCTC3" src="./tests/jctc3.png">
+
+Allowed, no cycle. Similar to above.
+
+JCTC4 {#jctc4}
+-----
+
+<pre class=include>
+path: ./tests/jctc4.md
+</pre>
+<img alt="JCTC4" src="./tests/jctc4.png">
+
+Forbidden, cycle in [SDEP] &cup; [RF]. No values from thin air.
+
+JCTC5 {#jctc5}
+-----
+
+<pre class=include>
+path: ./tests/jctc5.md
+</pre>
+<img alt="JCTC5" src="./tests/jctc5.png">
+
+Forbidden, cycle in [SDEP] &cup; [RF]. No values from thin air.
+
+JCTC6 {#jctc6}
+-----
+
+<pre class=include>
+path: ./tests/jctc6.md
+</pre>
+<img alt="JCTC6" src="./tests/jctc6.png">
+
+Allowed, no cycle. A compiler can observe that the `if` cases cover all possible values of `B` in this program, so there is always a store of `1` to `A`.
+
+JCTC7 {#jctc7}
+-----
+
+<pre class=include>
+path: ./tests/jctc7.md
+</pre>
+<img alt="JCTC7" src="./tests/jctc7.png">
+
+Allowed, no cycle. Hardware and compiler reordering makes this observable.
+
+JCTC8 {#jctc8}
+-----
+
+<pre class=include>
+path: ./tests/jctc8.md
+</pre>
+<img alt="JCTC8" src="./tests/jctc8.png">
+
+Allowed, no cycle.
+
+> Interthread analysis could determine that x and y are always
+  either 0 or 1, and thus determine that r2 is always 1. Once this determination
+  is made, the write of 1 to y could be moved early in thread 1.
+
+
+JCTC9 {#jctc9}
+-----
+
+<pre class=include>
+path: ./tests/jctc9.md
+</pre>
+<img alt="JCTC9" src="./tests/jctc9.png">
+
+Allowed, no cycle.
+
+> Allowed. Similar to test case 8, except that the x is not always
+  0 or 1. However, a compiler might determine that the read of x by thread
+  2 will never see the write by thread 3 (perhaps because thread 3
+  will be scheduled after thread 1).  Thus, the compiler
+  can determine that r1 will always be 0 or 1.
+
+JCTC10 {#jctc10}
+------
+
+<pre class=include>
+path: ./tests/jctc10.md
+</pre>
+<img alt="JCTC10" src="./tests/jctc10.png">
+
+Forbidden, cycle in [SDEP] &cup; [RF]. No values from thin air.
+
+
+JCTC11 {#jctc11}
+------
+
+<pre class=include>
+path: ./tests/jctc11.md
+</pre>
+<img alt="JCTC11" src="./tests/jctc11.png">
+
+Allowed, no cycle. Observable through compiler and hardare re-ordering.
+
+
+JCTC12  {#jctc12}
+------
+
+<pre class=include>
+path: ./tests/jctc12.md
+</pre>
+<img alt="JCTC12" src="./tests/jctc12.png">
+
+Forbidden, cycle in [SDEP] &cup; [RF]. No values from thin air.
+
+
+JCTC13  {#jctc13}
+------
+
+<pre class=include>
+path: ./tests/jctc13.md
+</pre>
+<img alt="JCTC13" src="./tests/jctc13.png">
+
+Forbidden, cycle in [SDEP] &cup; [RF]. No values from thin air.
+
+
+JCTC14 {#jctc14}
+------
+
+We skip this as it involves loops.
+
+JCTC15 {#jctc15}
+------
+
+We skip this as the test probes Java's weak coherence-order guarantees, and is not relevant to C++.
+
+
+JCTC16 {#jctc16}
+------
+
+We skip this as the test probes Java's weak coherence-order guarantees, and is not relevant to C++.
+
+
+JCTC17 {#jctc17}
+------
+
+We skip this as the test probes Java's weak coherence-order guarantees, and is not relevant to C++.
+
+
+JCTC18 {#jctc18-again}
+------
+
+See [[#jctc18]].
+
+
+JCTC19 {#jctc19}
+------
+
+We skip this as it probes thread joining, which is out-of-scope for this paper.
+
+
+JCTC20 {#jctc20}
+------
+
+We skip this as it probes thread joining, which is out-of-scope for this paper.
+
+
+
+<pre class='metadata'>
+Text Macro: DEP <span class="rel dep">dep</span>
+Text Macro: HB <span class="rel hb">hb</span>
+Text Macro: MO <span class="rel mo">mo</span>
+Text Macro: RF <span class="rel rf">rf</span>
+Text Macro: SB <span class="rel sb">sb</span>
+Text Macro: SDEP <span class="rel sdep">sdep</span>
+Text Macro: SW <span class="rel sw">sw</span>
+</pre>
+<style>
+  .rel {
+    font-family: sans-serif;
+    font-style: normal;
+  }
+  .dep { color: #920000; }
+  .hb { color: forestgreen; }
+  .mo { color: blue; }
+  .rf { color: red; }
+  .sb { color: #777; }
+  .sdep { color: #ff8306; }
+  .sw { color: rgb(139, 10, 80); }
+</style>
