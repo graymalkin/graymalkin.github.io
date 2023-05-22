@@ -15,6 +15,14 @@ h1, h2, h3, h4, h5, .byline {
     line-height: 123%;
 }
 
+.title, .byline {
+    font-weight: bold;
+}
+
+.byline {
+	margin-top: -0.8em;
+}
+
 .title {
     margin-bottom: 0.5em;
 }
@@ -60,11 +68,6 @@ h3 + p {
     margin-top: 0.5em;
 }
 
-blockquote {
-    border-left: solid #7c7c7c 2px;
-    padding-left: 8px;
-}
-
 pre {
     padding: 8px;
     display: block;
@@ -79,7 +82,12 @@ pre:before {
     font-style: italic;
 }
 
+div .sourceCode, pre {
+    overflow: auto;
+}
+
 code { 
+    color: #770000;
     font-family: 'Fira Code', monospace; 
     font-size: 80%;
 }
@@ -95,61 +103,64 @@ quot, blockquote {
     font-style: italic;
 }
 
+blockquote {
+    border-left: solid #7c7c7c 2px;
+    padding-left: 8px;
+}
+
 @media (max-width: 47em) {
-    .newline {
-	display: inline;
-    }
     main {
-	margin-left: 1em;
-	margin-right: 1em;
+        margin-left: 1em;
+        margin-right: 1em;
     }
+
     .title {
 	font-size: 250%;
 	margin-top: 0.7em;
     }
+
     .byline {
         font-size: 180%;
         margin-bottom: 1.5em;
     }
+
     p {
-	line-height: 1.75em;
+	    line-height: 1.75em;
     }
     
     .date {
-	font-size: 120%;
+	    font-size: 120%;
     }
     .date p {
-	padding: 0;
+	    padding: 0;
     }
 }
 
 /* 45em + 1em margin left + 1em margin right */
 @media (min-width: 47em) {
-    .newline {
-	display: none;
-    }
     main {
- 	/*margin-left: 3em;
-	margin-right: 3em;*/
-	margin: 0 auto;
-	margin-bottom: 5em;
-	max-width: 45em; 
+        margin: 0 auto;
+        margin-bottom: 5em;
+        max-width: 45em; 
     }
+
     .title {
-	margin-top: 1em;
-	font-size: 300%;
+        margin-top: 1em;
+        font-size: 300%;
     }
+
     .byline {
-	font-size: 200%;
-	margin-bottom: 2em;
+        font-size: 200%;
+        margin-bottom: 2em;
     }
+
     p {
-	line-height: 1.5;
+    	line-height: 1.5;
     }
     
     .date {
-	font-size: 150%;
-}
+	    font-size: 150%;
+    }
 }
 
 .date {
@@ -161,64 +172,6 @@ quot, blockquote {
 .date p {
     padding: 0;
     margin: 0;
-}
-
-.title, .byline {
-    font-weight: bold;
-    font-family: 'Fira Code', 'DeJa Vu Mono', monospace;
-}
-
-.byline {
-	margin-top: -0.8em;
-}
-
-@keyframes blink {
-    0%   { opacity: 1; }
-    25%  { opacity: 1; }
-    50%  { opacity: 0; }
-    75%  { opacity: 0; }
-}
-
-.indent {
-    margin-left: 3em;
-}
-.indent-small {
-    margin-left: 1em;
-}
-
-.left-right {
-    margin-bottom: 1em;
-}
-.left-right * {
-    width: 50%;
-    float: left;
-    display: inline-block;
-}
-.left-right div * {
-    padding-left: 5%;
-    padding-right: 5%;
-}
-
-div .sourceCode, pre {
-    overflow: auto;
-}
-
-code {
-    color: #770000;
-}
-
-.swatch {
-    width: 1em;
-    height: 1em;
-    background-color: attr(color);
-    display: inline-block;
-    border-radius: 3px;
-    border: 1px solid #bbb;
-}
-
-
-.sc {
-    font-variant: small-caps;
 }
 
 a[target~="_blank"]:after {
