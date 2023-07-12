@@ -216,7 +216,7 @@ with a 24v system voltage. How do you pick the pack size?</p>
 <p>Well, first off is the voltage. You’d like the <em>nominal</em>
 voltage of the pack to be 24v. The nominal voltage of a single
 Lithium-ion cell is 3.7v. We shall first calculate the S rating.</p>
-<p><math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mtable><mtr><mtd columnalign="right"><mi>S</mi></mtd><mtd columnalign="left"><mo>=</mo><mrow><mo stretchy="true" form="prefix">⌈</mo><mfrac><msub><mi>V</mi><mtext mathvariant="normal">system</mtext></msub><msub><mi>V</mi><mtext mathvariant="normal">cell</mtext></msub></mfrac><mo stretchy="true" form="postfix">⌉</mo></mrow></mtd></mtr><mtr><mtd columnalign="right"><mi>S</mi></mtd><mtd columnalign="left"><mo>=</mo><mrow><mo stretchy="true" form="prefix">⌈</mo><mfrac><mrow><mn>24</mn><mi>v</mi></mrow><mrow><mn>3.7</mn><mi>v</mi></mrow></mfrac><mo stretchy="true" form="postfix">⌉</mo></mrow><mo>=</mo><mo stretchy="false" form="prefix">⌈</mo><mn>6.48</mn><mo stretchy="false" form="postfix">⌉</mo><mo>=</mo><mn>7</mn></mtd></mtr></mtable><annotation encoding="application/x-tex">
+<p><math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mtable><mtr><mtd columnalign="right" style="text-align: right"><mi>S</mi></mtd><mtd columnalign="left" style="text-align: left"><mo>=</mo><mrow><mo stretchy="true" form="prefix">⌈</mo><mfrac><msub><mi>V</mi><mtext mathvariant="normal">system</mtext></msub><msub><mi>V</mi><mtext mathvariant="normal">cell</mtext></msub></mfrac><mo stretchy="true" form="postfix">⌉</mo></mrow></mtd></mtr><mtr><mtd columnalign="right" style="text-align: right"><mi>S</mi></mtd><mtd columnalign="left" style="text-align: left"><mo>=</mo><mrow><mo stretchy="true" form="prefix">⌈</mo><mfrac><mrow><mn>24</mn><mi>v</mi></mrow><mrow><mn>3.7</mn><mi>v</mi></mrow></mfrac><mo stretchy="true" form="postfix">⌉</mo></mrow><mo>=</mo><mo stretchy="false" form="prefix">⌈</mo><mn>6.48</mn><mo stretchy="false" form="postfix">⌉</mo><mo>=</mo><mn>7</mn></mtd></mtr></mtable><annotation encoding="application/x-tex">
 \begin{align}
     S &amp;= \left\lceil \frac{V_\text{system}}{V_\text{cell}} \right\rceil \\
     S &amp;= \left\lceil \frac{24v}{3.7v} \right\rceil = \lceil 6.48 \rceil = 7
@@ -235,7 +235,7 @@ we’re using, we can see that they have a continuous discharge rating of
 i.e. how quickly the energy storage will deteriorate with
 charge/discharge cycles. Let’s take that as a maximum though, and find
 out what P rating we’d need.</p>
-<p><math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mtable><mtr><mtd columnalign="right"><mi>P</mi></mtd><mtd columnalign="left"><mo>=</mo><mrow><mo stretchy="true" form="prefix">⌈</mo><mfrac><msub><mi>I</mi><mtext mathvariant="normal">max</mtext></msub><msub><mi>I</mi><mtext mathvariant="normal">cell</mtext></msub></mfrac><mo stretchy="true" form="postfix">⌉</mo></mrow></mtd></mtr><mtr><mtd columnalign="right"><mi>P</mi></mtd><mtd columnalign="left"><mo>=</mo><mrow><mo stretchy="true" form="prefix">⌈</mo><mfrac><mrow><mn>15</mn><mtext mathvariant="normal">A</mtext></mrow><mrow><mn>2.75</mn><mtext mathvariant="normal">A</mtext></mrow></mfrac><mo stretchy="true" form="postfix">⌉</mo></mrow><mo>=</mo><mo stretchy="false" form="prefix">⌈</mo><mn>5.45</mn><mtext mathvariant="normal">A</mtext><mo stretchy="false" form="postfix">⌉</mo><mo>=</mo><mn>6</mn><mtext mathvariant="normal">A</mtext></mtd></mtr></mtable><annotation encoding="application/x-tex">
+<p><math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mtable><mtr><mtd columnalign="right" style="text-align: right"><mi>P</mi></mtd><mtd columnalign="left" style="text-align: left"><mo>=</mo><mrow><mo stretchy="true" form="prefix">⌈</mo><mfrac><msub><mi>I</mi><mtext mathvariant="normal">max</mtext></msub><msub><mi>I</mi><mtext mathvariant="normal">cell</mtext></msub></mfrac><mo stretchy="true" form="postfix">⌉</mo></mrow></mtd></mtr><mtr><mtd columnalign="right" style="text-align: right"><mi>P</mi></mtd><mtd columnalign="left" style="text-align: left"><mo>=</mo><mrow><mo stretchy="true" form="prefix">⌈</mo><mfrac><mrow><mn>15</mn><mtext mathvariant="normal">A</mtext></mrow><mrow><mn>2.75</mn><mtext mathvariant="normal">A</mtext></mrow></mfrac><mo stretchy="true" form="postfix">⌉</mo></mrow><mo>=</mo><mo stretchy="false" form="prefix">⌈</mo><mn>5.45</mn><mtext mathvariant="normal">A</mtext><mo stretchy="false" form="postfix">⌉</mo><mo>=</mo><mn>6</mn><mtext mathvariant="normal">A</mtext></mtd></mtr></mtable><annotation encoding="application/x-tex">
 \begin{align}
     P &amp;= \left\lceil \frac{I_\text{max}}{I_\text{cell}} \right\rceil\\
     P &amp;= \left\lceil \frac{15\text{A}}{2.75\text{A}} \right\rceil = \lceil 5.45\text{A} \rceil = 6\text{A}
@@ -251,7 +251,7 @@ is about 3.5A.</p>
 <p>Most commercial batteries are sold by their Ah rating, not their Wh
 rating, but Wh is the unit of energy, so in my opinion it’s more
 useful.</p>
-<p><math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mtable><mtr><mtd columnalign="right"><mi>E</mi></mtd><mtd columnalign="left"><mo>=</mo><mi>S</mi><mo>×</mo><mi>P</mi><mo>×</mo><msub><mi>V</mi><mtext mathvariant="normal">cell</mtext></msub><mo>×</mo><msub><mtext mathvariant="normal">Ah</mtext><mtext mathvariant="normal">cell</mtext></msub></mtd></mtr><mtr><mtd columnalign="right"><mi>E</mi></mtd><mtd columnalign="left"><mo>=</mo><mn>7</mn><mo>×</mo><mn>6</mn><mo>×</mo><mn>3.7</mn><mi>v</mi><mo>×</mo><mn>2.9</mn><mtext mathvariant="normal">Ah</mtext><mo>=</mo><mn>450</mn><mtext mathvariant="normal">Wh</mtext></mtd></mtr></mtable><annotation encoding="application/x-tex">
+<p><math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mtable><mtr><mtd columnalign="right" style="text-align: right"><mi>E</mi></mtd><mtd columnalign="left" style="text-align: left"><mo>=</mo><mi>S</mi><mo>×</mo><mi>P</mi><mo>×</mo><msub><mi>V</mi><mtext mathvariant="normal">cell</mtext></msub><mo>×</mo><msub><mtext mathvariant="normal">Ah</mtext><mtext mathvariant="normal">cell</mtext></msub></mtd></mtr><mtr><mtd columnalign="right" style="text-align: right"><mi>E</mi></mtd><mtd columnalign="left" style="text-align: left"><mo>=</mo><mn>7</mn><mo>×</mo><mn>6</mn><mo>×</mo><mn>3.7</mn><mi>v</mi><mo>×</mo><mn>2.9</mn><mtext mathvariant="normal">Ah</mtext><mo>=</mo><mn>450</mn><mtext mathvariant="normal">Wh</mtext></mtd></mtr></mtable><annotation encoding="application/x-tex">
 \begin{align}
     E &amp;= S \times P \times V_\text{cell} \times \text{Ah}_\text{cell} \\
     E &amp;= 7 \times 6 \times 3.7v \times 2.9 \text{Ah} = 450 \text{Wh}
@@ -384,15 +384,15 @@ ingress.</p>
 using it!</p>
 <h1 class="unnumbered" id="references">References</h1>
 <div id="refs" class="references csl-bib-body hanging-indent"
-role="doc-bibliography">
-<div id="ref-BSEN15194:2017" class="csl-entry" role="doc-biblioentry">
+role="list">
+<div id="ref-BSEN15194:2017" class="csl-entry" role="listitem">
 <span>“Cycles - Electrically Power Assisted Cycles - EPAC
 Bicycles.”</span> 2017. Standard. 389 Chiswick High Rd., Chiswick,
 London W4 4AL. <a
 href="https://knowledge.bsigroup.com/products/cycles-electrically-power-assisted-cycles-epac-bicycles-1/standard">https://knowledge.bsigroup.com/products/cycles-electrically-power-assisted-cycles-epac-bicycles-1/standard</a>.
 </div>
 </div>
-<section id="footnotes" class="footnotes footnotes-end-of-document"
+<aside id="footnotes" class="footnotes footnotes-end-of-document"
 role="doc-endnotes">
 <hr />
 <ol>
@@ -410,7 +410,7 @@ density. All the same calculations from this section still apply though,
 but the voltages per cell will be a bit lower.<a href="#fnref3"
 class="footnote-back" role="doc-backlink">↩︎</a></p></li>
 </ol>
-</section>
+</aside>
   </main>
   <style></style>
   <script>
@@ -421,7 +421,6 @@ class="footnote-back" role="doc-backlink">↩︎</a></p></li>
         headline.innerHTML
           .split(" ")
           .forEach((word, _) => {
-            console.log(word);
             newHeadingMarkup += `<span class="headline-word">${word}</span>`;
           }
         );

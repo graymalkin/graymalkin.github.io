@@ -388,7 +388,7 @@ table thead { border-top: 3px solid black; border-bottom: 1px solid black; }
 table tbody { border-bottom: 3px solid black; }
 table th, table td{ padding: 0.33em; }
 </style>
-<section id="footnotes" class="footnotes footnotes-end-of-document"
+<aside id="footnotes" class="footnotes footnotes-end-of-document"
 role="doc-endnotes">
 <hr />
 <ol>
@@ -398,7 +398,7 @@ for communication, only a proprietary system that Worcester Bosch
 supplies. Very frustrating.<a href="#fnref1" class="footnote-back"
 role="doc-backlink">↩︎</a></p></li>
 </ol>
-</section>
+</aside>
   </main>
   <style>pre > code.sourceCode { white-space: pre; position: relative; }
 pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
@@ -474,7 +474,6 @@ code span.wa { color: #bf0303; } /* Warning */</style>
         headline.innerHTML
           .split(" ")
           .forEach((word, _) => {
-            console.log(word);
             newHeadingMarkup += `<span class="headline-word">${word}</span>`;
           }
         );

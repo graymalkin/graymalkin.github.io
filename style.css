@@ -33,6 +33,7 @@ h1, h2, h3, h4, h5, .byline {
     background: black;
     padding: 0.25em 0.25em 0.1em 0.25em;
     margin-bottom: 0.1em;
+    border: solid 1px black;
 }
 
 nav {
