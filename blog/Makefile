@@ -3,7 +3,7 @@ PANDOC_FLAGS = --standalone --toc --citeproc --highlight-style kate --template=$
 
 # Order is the index order. Maintain reverse chronological order.
 ARTICLES = \
-	usize \
+	leaving-kent \
 	home-assistant-heating-controller \
 	barcamp-2022 \
 	make-a-static-site \
