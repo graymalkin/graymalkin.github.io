@@ -1,6 +1,9 @@
 <!DOCTYPE html>
 <html lang="en">
-  <title>Make a static website &mdash; Simon Cooksey Blog</title>
+  <title><span class="headline-word">Make</span> <span
+class="headline-word">a</span> <span class="headline-word">static</span>
+<span
+class="headline-word">website</span> &mdash; Simon Cooksey Blog</title>
   <meta name="viewport" content="width=device-width, user-scalable=yes">
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/firacode@6.2.0/distr/fira_code.css">
   <link rel="stylesheet" type="text/css" href="/style.css"/>
@@ -9,9 +12,17 @@
 </head>
 <body>
   <main>
-    <h1 class="title">Make a static website</h1>
-    <div class="byline">Building a static website with pandoc and
-Make</div>
+    <h1 class="title"><span class="headline-word">Make</span> <span
+class="headline-word">a</span> <span class="headline-word">static</span>
+<span class="headline-word">website</span></h1>
+    <div class="byline"><span class="headline-word">Building</span>
+<span class="headline-word">a</span> <span
+class="headline-word">static</span> <span
+class="headline-word">website</span> <span
+class="headline-word">with</span> <span
+class="headline-word">pandoc</span> <span
+class="headline-word">and</span> <span
+class="headline-word">Make</span></div>
     <div class="date">2022-11-02</div>
     <nav>
         <ul>
@@ -44,16 +55,17 @@ based static website generator built with the same aims - but it’s
 significant learning curves. I’ve done the hard work, I could use them
 for my website, but that would be procrastinating a little too much. So
 what am I doing instead? Well, just Pandoc and Makefiles.</p>
-<h1 id="building-articles">Building articles</h1>
+<h1 id="building-articles"><span class="headline-word">Building</span>
+<span class="headline-word">articles</span></h1>
 <p>First up: how do I build an individual post? Well, that’s easy, I can
 call pandoc on a <code>.md</code> file and fill in a template.</p>
 <div class="sourceCode" id="cb1"><pre
-class="sourceCode makefile"><code class="sourceCode makefile"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="dt">TEMPLATE </span><span class="ch">=</span><span class="st"> ./blog-template.html</span></span>
-<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="dt">PANDOC_FLAGS </span><span class="ch">=</span><span class="st"> --standalone --highlight-style kate --template=</span><span class="ch">$(</span><span class="dt">TEMPLATE</span><span class="ch">)</span><span class="st"> --mathjax</span></span>
+class="sourceCode makefile"><code class="sourceCode makefile"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="dt">TEMPLATE</span> <span class="ch">=</span><span class="st"> ./blog-template.html</span></span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="dt">PANDOC_FLAGS</span> <span class="ch">=</span><span class="st"> --standalone --highlight-style kate --template=</span><span class="ch">$(</span><span class="dt">TEMPLATE</span><span class="ch">)</span><span class="st"> --mathjax</span></span>
 <span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a><span class="dv">%.html:</span><span class="dt"> %.md </span><span class="ch">$(</span><span class="dt">TEMPLATE</span><span class="ch">)</span></span>
-<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a>    pandoc <span class="ch">$(</span><span class="dt">PANDOC_FLAGS</span><span class="ch">)</span> -o <span class="ch">$@</span> <span class="ch">$&lt;</span> </span></code></pre></div>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a><span class="er">    </span>pandoc <span class="ch">$(</span><span class="dt">PANDOC_FLAGS</span><span class="ch">)</span> -o <span class="ch">$@</span> <span class="ch">$&lt;</span> </span></code></pre></div>
 <p>Each article needs a front-matter block with the date, title,
 subtitle, and a published state:</p>
 <div class="sourceCode" id="cb2"><pre class="sourceCode md"><code class="sourceCode markdown"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="co">---</span></span>
@@ -65,7 +77,7 @@ subtitle, and a published state:</p>
 <span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb2-8"><a href="#cb2-8" aria-hidden="true" tabindex="-1"></a>I&#39;m a believer in simple static html based websites, but I&#39;m not quite so dyed-in-the-wool that I want to write html by hand.</span>
 <span id="cb2-9"><a href="#cb2-9" aria-hidden="true" tabindex="-1"></a>...</span></code></pre></div>
-<h1 id="template">Template</h1>
+<h1 id="template"><span class="headline-word">Template</span></h1>
 <p>Okay, the template. Most of this is boilerplate that I’ve pulled from
 my home page. There are a few <code>$macro$</code>s which pandoc
 expands:</p>
@@ -80,35 +92,38 @@ some CSS to syntax highlight any source code.</li>
 </ul>
 <div class="sourceCode" id="cb3"><pre
 class="sourceCode html"><code class="sourceCode html"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="dt">&lt;!DOCTYPE </span>html<span class="dt">&gt;</span></span>
-<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a><span class="kw">&lt;html</span> <span class="er">lang</span><span class="ot">=</span><span class="st">&quot;en&quot;</span><span class="kw">&gt;</span></span>
-<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>  <span class="kw">&lt;title&gt;</span>$title$ <span class="dv">&amp;mdash;</span> Simon Cooksey Blog<span class="kw">&lt;/title&gt;</span></span>
-<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a>  <span class="kw">&lt;meta</span> <span class="er">name</span><span class="ot">=</span><span class="st">&quot;viewport&quot;</span> <span class="er">content</span><span class="ot">=</span><span class="st">&quot;width=device-width, user-scalable=yes&quot;</span><span class="kw">&gt;</span></span>
-<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a>  <span class="kw">&lt;link</span> <span class="er">rel</span><span class="ot">=</span><span class="st">&quot;stylesheet&quot;</span> <span class="er">href</span><span class="ot">=</span><span class="st">&quot;https://cdn.jsdelivr.net/npm/firacode@6.2.0/distr/fira_code.css&quot;</span><span class="kw">&gt;</span></span>
-<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a>  <span class="kw">&lt;link</span> <span class="er">rel</span><span class="ot">=</span><span class="st">&quot;stylesheet&quot;</span> <span class="er">type</span><span class="ot">=</span><span class="st">&quot;text/css&quot;</span> <span class="er">href</span><span class="ot">=</span><span class="st">&quot;https://graymalk.in/style.css&quot;</span><span class="kw">/&gt;</span></span>
-<span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a>  <span class="kw">&lt;meta</span> <span class="er">name</span><span class="ot">=</span><span class="st">&quot;description&quot;</span> <span class="er">content</span><span class="ot">=</span><span class="st">&quot;Personal webpage of Simon Cooksey, summarising academic research projects and funding.&quot;</span><span class="kw">&gt;</span></span>
-<span id="cb3-8"><a href="#cb3-8" aria-hidden="true" tabindex="-1"></a>  <span class="kw">&lt;meta</span> <span class="er">charset</span><span class="ot">=</span><span class="st">&quot;utf-8&quot;</span><span class="kw">&gt;</span></span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a><span class="dt">&lt;</span><span class="kw">html</span><span class="ot"> lang</span><span class="op">=</span><span class="st">&quot;en&quot;</span><span class="dt">&gt;</span></span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&lt;</span><span class="kw">title</span><span class="dt">&gt;</span>$title$ <span class="dv">&amp;mdash;</span> Simon Cooksey Blog<span class="dt">&lt;/</span><span class="kw">title</span><span class="dt">&gt;</span></span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&lt;</span><span class="kw">meta</span><span class="ot"> name</span><span class="op">=</span><span class="st">&quot;viewport&quot;</span><span class="ot"> content</span><span class="op">=</span><span class="st">&quot;width=device-width, user-scalable=yes&quot;</span><span class="dt">&gt;</span></span>
+<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&lt;</span><span class="kw">link</span><span class="ot"> rel</span><span class="op">=</span><span class="st">&quot;stylesheet&quot;</span><span class="ot"> href</span><span class="op">=</span><span class="st">&quot;https://cdn.jsdelivr.net/npm/firacode@6.2.0/distr/fira_code.css&quot;</span><span class="dt">&gt;</span></span>
+<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&lt;</span><span class="kw">link</span><span class="ot"> rel</span><span class="op">=</span><span class="st">&quot;stylesheet&quot;</span><span class="ot"> type</span><span class="op">=</span><span class="st">&quot;text/css&quot;</span><span class="ot"> href</span><span class="op">=</span><span class="st">&quot;https://graymalk.in/style.css&quot;</span><span class="dt">/&gt;</span></span>
+<span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&lt;</span><span class="kw">meta</span><span class="ot"> name</span><span class="op">=</span><span class="st">&quot;description&quot;</span><span class="ot"> content</span><span class="op">=</span><span class="st">&quot;Personal webpage of Simon Cooksey, summarising academic research projects and funding.&quot;</span><span class="dt">&gt;</span></span>
+<span id="cb3-8"><a href="#cb3-8" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&lt;</span><span class="kw">meta</span><span class="ot"> charset</span><span class="op">=</span><span class="st">&quot;utf-8&quot;</span><span class="dt">&gt;</span></span>
 <span id="cb3-9"><a href="#cb3-9" aria-hidden="true" tabindex="-1"></a>$for(header-includes)$</span>
 <span id="cb3-10"><a href="#cb3-10" aria-hidden="true" tabindex="-1"></a>  $header-includes$</span>
 <span id="cb3-11"><a href="#cb3-11" aria-hidden="true" tabindex="-1"></a>$endfor$</span>
-<span id="cb3-12"><a href="#cb3-12" aria-hidden="true" tabindex="-1"></a><span class="kw">&lt;/head&gt;</span></span>
-<span id="cb3-13"><a href="#cb3-13" aria-hidden="true" tabindex="-1"></a><span class="kw">&lt;body&gt;</span></span>
-<span id="cb3-14"><a href="#cb3-14" aria-hidden="true" tabindex="-1"></a>  <span class="kw">&lt;main&gt;</span></span>
-<span id="cb3-15"><a href="#cb3-15" aria-hidden="true" tabindex="-1"></a>    <span class="kw">&lt;h1</span> <span class="er">class</span><span class="ot">=</span><span class="st">&quot;title&quot;</span><span class="kw">&gt;</span>$title$<span class="kw">&lt;/h1&gt;</span></span>
-<span id="cb3-16"><a href="#cb3-16" aria-hidden="true" tabindex="-1"></a>    <span class="kw">&lt;div</span> <span class="er">class</span><span class="ot">=</span><span class="st">&quot;byline&quot;</span><span class="kw">&gt;</span>$subtitle$<span class="kw">&lt;/div&gt;</span></span>
-<span id="cb3-17"><a href="#cb3-17" aria-hidden="true" tabindex="-1"></a>    <span class="kw">&lt;div</span> <span class="er">class</span><span class="ot">=</span><span class="st">&quot;date&quot;</span><span class="kw">&gt;</span>$date$<span class="kw">&lt;/div&gt;</span></span>
-<span id="cb3-18"><a href="#cb3-18" aria-hidden="true" tabindex="-1"></a>    <span class="kw">&lt;nav&gt;</span></span>
-<span id="cb3-19"><a href="#cb3-19" aria-hidden="true" tabindex="-1"></a>        <span class="kw">&lt;ul&gt;</span></span>
-<span id="cb3-20"><a href="#cb3-20" aria-hidden="true" tabindex="-1"></a>            <span class="kw">&lt;li&gt;&lt;a</span> <span class="er">href</span><span class="ot">=</span><span class="st">&quot;/&quot;</span><span class="kw">&gt;</span>Home<span class="kw">&lt;/a&gt;&lt;/li&gt;</span></span>
-<span id="cb3-21"><a href="#cb3-21" aria-hidden="true" tabindex="-1"></a>            <span class="kw">&lt;li&gt;&lt;a</span> <span class="er">href</span><span class="ot">=</span><span class="st">&quot;/blog/&quot;</span><span class="kw">&gt;</span>Blog<span class="kw">&lt;/a&gt;&lt;/li&gt;</span></span>
-<span id="cb3-22"><a href="#cb3-22" aria-hidden="true" tabindex="-1"></a>            <span class="kw">&lt;li&gt;&lt;a</span> <span class="er">href</span><span class="ot">=</span><span class="st">&quot;/photography/&quot;</span><span class="kw">&gt;</span>Photography<span class="kw">&lt;/a&gt;&lt;/li&gt;</span></span>
-<span id="cb3-23"><a href="#cb3-23" aria-hidden="true" tabindex="-1"></a>        <span class="kw">&lt;/ul&gt;</span></span>
-<span id="cb3-24"><a href="#cb3-24" aria-hidden="true" tabindex="-1"></a>    <span class="kw">&lt;/nav&gt;</span></span>
+<span id="cb3-12"><a href="#cb3-12" aria-hidden="true" tabindex="-1"></a><span class="dt">&lt;/</span><span class="kw">head</span><span class="dt">&gt;</span></span>
+<span id="cb3-13"><a href="#cb3-13" aria-hidden="true" tabindex="-1"></a><span class="dt">&lt;</span><span class="kw">body</span><span class="dt">&gt;</span></span>
+<span id="cb3-14"><a href="#cb3-14" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&lt;</span><span class="kw">main</span><span class="dt">&gt;</span></span>
+<span id="cb3-15"><a href="#cb3-15" aria-hidden="true" tabindex="-1"></a>    <span class="dt">&lt;</span><span class="kw">h1</span><span class="ot"> class</span><span class="op">=</span><span class="st">&quot;title&quot;</span><span class="dt">&gt;</span>$title$<span class="dt">&lt;/</span><span class="kw">h1</span><span class="dt">&gt;</span></span>
+<span id="cb3-16"><a href="#cb3-16" aria-hidden="true" tabindex="-1"></a>    <span class="dt">&lt;</span><span class="kw">div</span><span class="ot"> class</span><span class="op">=</span><span class="st">&quot;byline&quot;</span><span class="dt">&gt;</span>$subtitle$<span class="dt">&lt;/</span><span class="kw">div</span><span class="dt">&gt;</span></span>
+<span id="cb3-17"><a href="#cb3-17" aria-hidden="true" tabindex="-1"></a>    <span class="dt">&lt;</span><span class="kw">div</span><span class="ot"> class</span><span class="op">=</span><span class="st">&quot;date&quot;</span><span class="dt">&gt;</span>$date$<span class="dt">&lt;/</span><span class="kw">div</span><span class="dt">&gt;</span></span>
+<span id="cb3-18"><a href="#cb3-18" aria-hidden="true" tabindex="-1"></a>    <span class="dt">&lt;</span><span class="kw">nav</span><span class="dt">&gt;</span></span>
+<span id="cb3-19"><a href="#cb3-19" aria-hidden="true" tabindex="-1"></a>        <span class="dt">&lt;</span><span class="kw">ul</span><span class="dt">&gt;</span></span>
+<span id="cb3-20"><a href="#cb3-20" aria-hidden="true" tabindex="-1"></a>            <span class="dt">&lt;</span><span class="kw">li</span><span class="dt">&gt;&lt;</span><span class="kw">a</span><span class="ot"> href</span><span class="op">=</span><span class="st">&quot;/&quot;</span><span class="dt">&gt;</span>Home<span class="dt">&lt;/</span><span class="kw">a</span><span class="dt">&gt;&lt;/</span><span class="kw">li</span><span class="dt">&gt;</span></span>
+<span id="cb3-21"><a href="#cb3-21" aria-hidden="true" tabindex="-1"></a>            <span class="dt">&lt;</span><span class="kw">li</span><span class="dt">&gt;&lt;</span><span class="kw">a</span><span class="ot"> href</span><span class="op">=</span><span class="st">&quot;/blog/&quot;</span><span class="dt">&gt;</span>Blog<span class="dt">&lt;/</span><span class="kw">a</span><span class="dt">&gt;&lt;/</span><span class="kw">li</span><span class="dt">&gt;</span></span>
+<span id="cb3-22"><a href="#cb3-22" aria-hidden="true" tabindex="-1"></a>            <span class="dt">&lt;</span><span class="kw">li</span><span class="dt">&gt;&lt;</span><span class="kw">a</span><span class="ot"> href</span><span class="op">=</span><span class="st">&quot;/photography/&quot;</span><span class="dt">&gt;</span>Photography<span class="dt">&lt;/</span><span class="kw">a</span><span class="dt">&gt;&lt;/</span><span class="kw">li</span><span class="dt">&gt;</span></span>
+<span id="cb3-23"><a href="#cb3-23" aria-hidden="true" tabindex="-1"></a>        <span class="dt">&lt;/</span><span class="kw">ul</span><span class="dt">&gt;</span></span>
+<span id="cb3-24"><a href="#cb3-24" aria-hidden="true" tabindex="-1"></a>    <span class="dt">&lt;/</span><span class="kw">nav</span><span class="dt">&gt;</span></span>
 <span id="cb3-25"><a href="#cb3-25" aria-hidden="true" tabindex="-1"></a>    $body$</span>
-<span id="cb3-26"><a href="#cb3-26" aria-hidden="true" tabindex="-1"></a>  <span class="kw">&lt;/main&gt;</span></span>
-<span id="cb3-27"><a href="#cb3-27" aria-hidden="true" tabindex="-1"></a>  <span class="kw">&lt;style&gt;</span>$highlighting-css$<span class="kw">&lt;/style&gt;</span></span>
-<span id="cb3-28"><a href="#cb3-28" aria-hidden="true" tabindex="-1"></a><span class="kw">&lt;/body&gt;</span></span>
-<span id="cb3-29"><a href="#cb3-29" aria-hidden="true" tabindex="-1"></a><span class="kw">&lt;/html&gt;</span></span></code></pre></div>
-<h1 id="building-an-index-page">Building an index page</h1>
+<span id="cb3-26"><a href="#cb3-26" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&lt;/</span><span class="kw">main</span><span class="dt">&gt;</span></span>
+<span id="cb3-27"><a href="#cb3-27" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&lt;</span><span class="kw">style</span><span class="dt">&gt;</span>$highlighting-css$<span class="dt">&lt;/</span><span class="kw">style</span><span class="dt">&gt;</span></span>
+<span id="cb3-28"><a href="#cb3-28" aria-hidden="true" tabindex="-1"></a><span class="dt">&lt;/</span><span class="kw">body</span><span class="dt">&gt;</span></span>
+<span id="cb3-29"><a href="#cb3-29" aria-hidden="true" tabindex="-1"></a><span class="dt">&lt;/</span><span class="kw">html</span><span class="dt">&gt;</span></span></code></pre></div>
+<h1 id="building-an-index-page"><span
+class="headline-word">Building</span> <span
+class="headline-word">an</span> <span class="headline-word">index</span>
+<span class="headline-word">page</span></h1>
 <p>This is where Hugo and Jekyll excel, and pandoc is less useful.
 Thankfully, I want a very simple index page, so a little bit of bash
 hacking to read the meta-data from the yaml block at the top of each
@@ -119,16 +134,16 @@ Makefile as a metaprogramming language 😜.</p>
 index, but let me continue commiting the html.</p>
 <div class="sourceCode" id="cb4"><pre
 class="sourceCode makefile"><code class="sourceCode makefile"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Order is the index order. Maintain reverse chronological order.</span></span>
-<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a><span class="dt">ARTICLES </span><span class="ch">=</span><span class="st"> </span><span class="ch">\</span></span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a><span class="dt">ARTICLES</span> <span class="ch">=</span><span class="st"> </span><span class="ch">\</span></span>
 <span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a><span class="st">    barcamp-2022 </span><span class="ch">\</span></span>
 <span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a><span class="st">    make-a-static-site </span><span class="ch">\</span></span>
 <span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a><span class="st">    church-js</span></span>
 <span id="cb4-6"><a href="#cb4-6" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb4-7"><a href="#cb4-7" aria-hidden="true" tabindex="-1"></a><span class="dt">INPTUS </span><span class="ch">=</span><span class="st"> </span><span class="ch">$(</span><span class="kw">patsubst</span><span class="st"> %</span><span class="kw">,</span><span class="st">%/index.md</span><span class="kw">,</span><span class="ch">$(</span><span class="dt">ARTICLES</span><span class="ch">))</span></span>
+<span id="cb4-7"><a href="#cb4-7" aria-hidden="true" tabindex="-1"></a><span class="dt">INPTUS</span> <span class="ch">=</span><span class="st"> </span><span class="ch">$(</span><span class="kw">patsubst</span><span class="st"> %</span><span class="kw">,</span><span class="st">%/index.md</span><span class="kw">,</span><span class="ch">$(</span><span class="dt">ARTICLES</span><span class="ch">))</span></span>
 <span id="cb4-8"><a href="#cb4-8" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb4-9"><a href="#cb4-9" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb4-10"><a href="#cb4-10" aria-hidden="true" tabindex="-1"></a><span class="dv">index.md:</span><span class="dt"> </span><span class="ch">$(</span><span class="dt">INPUTS</span><span class="ch">)</span></span>
-<span id="cb4-11"><a href="#cb4-11" aria-hidden="true" tabindex="-1"></a>    <span class="ch">@</span><span class="fu">echo </span><span class="st">&quot;---&quot;</span><span class="fu"> &gt; index.md</span></span>
+<span id="cb4-11"><a href="#cb4-11" aria-hidden="true" tabindex="-1"></a><span class="er">    </span><span class="ch">@</span><span class="fu">echo </span><span class="st">&quot;---&quot;</span><span class="fu"> &gt; index.md</span></span>
 <span id="cb4-12"><a href="#cb4-12" aria-hidden="true" tabindex="-1"></a>    <span class="ch">@</span><span class="fu">echo </span><span class="st">&quot;title: Blog&quot;</span><span class="fu"> &gt;&gt; index.md</span></span>
 <span id="cb4-13"><a href="#cb4-13" aria-hidden="true" tabindex="-1"></a>    <span class="ch">@</span><span class="fu">echo </span><span class="st">&quot;---&quot;</span><span class="fu"> &gt;&gt; index.md</span></span>
 <span id="cb4-14"><a href="#cb4-14" aria-hidden="true" tabindex="-1"></a>    <span class="ch">@</span><span class="fu">for a in </span><span class="ch">$(</span><span class="dt">INPTUS</span><span class="ch">)</span><span class="fu">; do </span><span class="ch">\</span></span>
@@ -144,7 +159,7 @@ writing articles, but a light-weight set of tools to build the index and
 each page.</p>
   </main>
   <style>pre > code.sourceCode { white-space: pre; position: relative; }
-pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span { line-height: 1.25; }
 pre > code.sourceCode > span:empty { height: 1.2em; }
 .sourceCode { overflow: visible; }
 code.sourceCode > span { color: inherit; text-decoration: inherit; }
@@ -209,20 +224,5 @@ code span.st { color: #bf0303; } /* String */
 code span.va { color: #0057ae; } /* Variable */
 code span.vs { color: #bf0303; } /* VerbatimString */
 code span.wa { color: #bf0303; } /* Warning */</style>
-  <script>
-    let newHeadlineMarkup = "";
-    document.querySelectorAll("h1, h2, h3, h4, .byline")
-      .forEach((headline, _) => {
-        var newHeadingMarkup = "";
-        headline.innerHTML
-          .split(" ")
-          .forEach((word, _) => {
-            newHeadingMarkup += `<span class="headline-word">${word}</span>`;
-          }
-        );
-        headline.innerHTML = newHeadingMarkup;
-      }
-    );
-  </script>
 </body>
 </html>

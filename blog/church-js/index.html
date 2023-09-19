@@ -1,7 +1,9 @@
 <!DOCTYPE html>
 <html lang="en">
-  <title>Church encoding in
-JavaScript &mdash; Simon Cooksey Blog</title>
+  <title><span class="headline-word">Church</span> <span
+class="headline-word">encoding</span> <span
+class="headline-word">in</span> <span
+class="headline-word">JavaScript</span> &mdash; Simon Cooksey Blog</title>
   <meta name="viewport" content="width=device-width, user-scalable=yes">
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/firacode@6.2.0/distr/fira_code.css">
   <link rel="stylesheet" type="text/css" href="/style.css"/>
@@ -10,9 +12,21 @@ JavaScript &mdash; Simon Cooksey Blog</title>
 </head>
 <body>
   <main>
-    <h1 class="title">Church encoding in JavaScript</h1>
-    <div class="byline">Weak typing in JavaScript makes lambda calculus’
-church encoding a cinch</div>
+    <h1 class="title"><span class="headline-word">Church</span> <span
+class="headline-word">encoding</span> <span
+class="headline-word">in</span> <span
+class="headline-word">JavaScript</span></h1>
+    <div class="byline"><span class="headline-word">Weak</span> <span
+class="headline-word">typing</span> <span
+class="headline-word">in</span> <span
+class="headline-word">JavaScript</span> <span
+class="headline-word">makes</span> <span
+class="headline-word">lambda</span> <span
+class="headline-word">calculus’</span> <span
+class="headline-word">church</span> <span
+class="headline-word">encoding</span> <span
+class="headline-word">a</span> <span
+class="headline-word">cinch</span></div>
     <div class="date">2022-09-28</div>
     <nav>
         <ul>
@@ -29,7 +43,11 @@ intuition for it – we asked him how he’d implement addition if he could
 not use the <code>+</code> operator in JavaScript. This is, predictably,
 a bit challenging – the base number type in JS isn’t structural like it
 might be in a language like OCaml, it’s all floats all the way down.</p>
-<h1 id="natural-numbers-in-ocaml">Natural numbers in OCaml</h1>
+<h1 id="natural-numbers-in-ocaml"><span
+class="headline-word">Natural</span> <span
+class="headline-word">numbers</span> <span
+class="headline-word">in</span> <span
+class="headline-word">OCaml</span></h1>
 <p>We demonstrated what an encoding of natural numbers would look like
 in OCaml:</p>
 <div class="sourceCode" id="cb1"><pre
@@ -58,8 +76,11 @@ class="sourceCode ocaml"><code class="sourceCode ocaml"><span id="cb3-1"><a href
 <p>This function pops all the successors off the 2nd argument and puts
 them on the front of the first argument, until there’s none left.
 Addition!</p>
-<h1 id="church-numerals-in-javascript">Church numerals in
-Javascript</h1>
+<h1 id="church-numerals-in-javascript"><span
+class="headline-word">Church</span> <span
+class="headline-word">numerals</span> <span
+class="headline-word">in</span> <span
+class="headline-word">Javascript</span></h1>
 <p>This doesn’t help us in Javascript though. Our encoding of naturals
 here is structural in the types available in the language, we could
 probably fake that up in Javascript using lists or objects, but a far
@@ -121,8 +142,11 @@ class="sourceCode js"><code class="sourceCode javascript"><span id="cb11-1"><a h
 <span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a><span class="kw">let</span> five <span class="op">=</span> <span class="fu">add</span>(two)(three)</span>
 <span id="cb11-4"><a href="#cb11-4" aria-hidden="true" tabindex="-1"></a><span class="bu">console</span><span class="op">.</span><span class="fu">log</span>(<span class="fu">ch_to_num</span>(five))</span>
 <span id="cb11-5"><a href="#cb11-5" aria-hidden="true" tabindex="-1"></a><span class="co">// 5</span></span></code></pre></div>
-<h1 id="more-fun-with-church-encoding">More fun with Church
-encoding</h1>
+<h1 id="more-fun-with-church-encoding"><span
+class="headline-word">More</span> <span class="headline-word">fun</span>
+<span class="headline-word">with</span> <span
+class="headline-word">Church</span> <span
+class="headline-word">encoding</span></h1>
 <p>We can define a few more numeric functions in Church encoding:</p>
 <div class="sourceCode" id="cb12"><pre
 class="sourceCode js"><code class="sourceCode javascript"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="kw">const</span> mult <span class="op">=</span> m <span class="kw">=&gt;</span> n <span class="kw">=&gt;</span> f <span class="kw">=&gt;</span> x <span class="kw">=&gt;</span> <span class="fu">n</span>(<span class="fu">m</span> (f))(x)</span>
@@ -177,7 +201,9 @@ class="sourceCode js"><code class="sourceCode javascript"><span id="cb16-1"><a h
 <span id="cb16-17"><a href="#cb16-17" aria-hidden="true" tabindex="-1"></a><span class="co">// true</span></span>
 <span id="cb16-18"><a href="#cb16-18" aria-hidden="true" tabindex="-1"></a><span class="bu">console</span><span class="op">.</span><span class="fu">log</span>(<span class="fu">or</span>(inr)(inr)(<span class="kw">true</span>)(<span class="kw">false</span>))</span>
 <span id="cb16-19"><a href="#cb16-19" aria-hidden="true" tabindex="-1"></a><span class="co">// false</span></span></code></pre></div>
-<h1 id="loops-and-recursion">Loops and recursion</h1>
+<h1 id="loops-and-recursion"><span class="headline-word">Loops</span>
+<span class="headline-word">and</span> <span
+class="headline-word">recursion</span></h1>
 <p>This is where the story seems to get a little sticky. Curry found the
 fixed-point operator in simply typed lambda calculus called the
 Y-combinator.</p>
@@ -205,7 +231,7 @@ class="sourceCode js"><code class="sourceCode javascript"><span id="cb20-1"><a h
 <p>This is the point where I found V8 doesn’t work for me, and WebKit is
 too slow. I’ll keep playing and try and build some working interesting
 recursion examples.</p>
-<section id="footnotes" class="footnotes footnotes-end-of-document"
+<aside id="footnotes" class="footnotes footnotes-end-of-document"
 role="doc-endnotes">
 <hr />
 <ol>
@@ -216,10 +242,10 @@ href="https://stackoverflow.com/questions/23260390/node-js-tail-call-optimizatio
 thread</a><a href="#fnref1" class="footnote-back"
 role="doc-backlink">↩︎</a></p></li>
 </ol>
-</section>
+</aside>
   </main>
   <style>pre > code.sourceCode { white-space: pre; position: relative; }
-pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span { line-height: 1.25; }
 pre > code.sourceCode > span:empty { height: 1.2em; }
 .sourceCode { overflow: visible; }
 code.sourceCode > span { color: inherit; text-decoration: inherit; }
@@ -284,20 +310,5 @@ code span.st { color: #bf0303; } /* String */
 code span.va { color: #0057ae; } /* Variable */
 code span.vs { color: #bf0303; } /* VerbatimString */
 code span.wa { color: #bf0303; } /* Warning */</style>
-  <script>
-    let newHeadlineMarkup = "";
-    document.querySelectorAll("h1, h2, h3, h4, .byline")
-      .forEach((headline, _) => {
-        var newHeadingMarkup = "";
-        headline.innerHTML
-          .split(" ")
-          .forEach((word, _) => {
-            newHeadingMarkup += `<span class="headline-word">${word}</span>`;
-          }
-        );
-        headline.innerHTML = newHeadingMarkup;
-      }
-    );
-  </script>
 </body>
 </html>

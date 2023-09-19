@@ -1,6 +1,10 @@
 <!DOCTYPE html>
 <html lang="en">
-  <title>A Maker’s Guide to EBikes &mdash; Simon Cooksey Blog</title>
+  <title><span class="headline-word">A</span> <span
+class="headline-word">Maker’s</span> <span
+class="headline-word">Guide</span> <span class="headline-word">to</span>
+<span
+class="headline-word">EBikes</span> &mdash; Simon Cooksey Blog</title>
   <meta name="viewport" content="width=device-width, user-scalable=yes">
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/firacode@6.2.0/distr/fira_code.css">
   <link rel="stylesheet" type="text/css" href="/style.css"/>
@@ -9,9 +13,19 @@
 </head>
 <body>
   <main>
-    <h1 class="title">A Maker’s Guide to EBikes</h1>
-    <div class="byline">How to build an EBike, and what you might want
-to know.</div>
+    <h1 class="title"><span class="headline-word">A</span> <span
+class="headline-word">Maker’s</span> <span
+class="headline-word">Guide</span> <span class="headline-word">to</span>
+<span class="headline-word">EBikes</span></h1>
+    <div class="byline"><span class="headline-word">How</span> <span
+class="headline-word">to</span> <span class="headline-word">build</span>
+<span class="headline-word">an</span> <span
+class="headline-word">EBike,</span> <span
+class="headline-word">and</span> <span class="headline-word">what</span>
+<span class="headline-word">you</span> <span
+class="headline-word">might</span> <span
+class="headline-word">want</span> <span class="headline-word">to</span>
+<span class="headline-word">know.</span></div>
     <div class="date">2022-11-02</div>
     <nav>
         <ul>
@@ -24,73 +38,147 @@ to know.</div>
 <h1 id="toc">Contents</h1>
 <ul>
 <li><a href="#technical-aspects-of-ebikes"
-id="toc-technical-aspects-of-ebikes">Technical Aspects of EBikes</a>
+id="toc-technical-aspects-of-ebikes"><span
+class="headline-word">Technical</span> <span
+class="headline-word">Aspects</span> <span
+class="headline-word">of</span> <span
+class="headline-word">EBikes</span></a>
 <ul>
-<li><a href="#ebikes-and-the-law" id="toc-ebikes-and-the-law">EBikes and
-the law</a></li>
-<li><a href="#types-of-ebike-drive" id="toc-types-of-ebike-drive">Types
-of EBike Drive</a>
+<li><a href="#ebikes-and-the-law" id="toc-ebikes-and-the-law"><span
+class="headline-word">EBikes</span> <span
+class="headline-word">and</span> <span class="headline-word">the</span>
+<span class="headline-word">law</span></a></li>
+<li><a href="#types-of-ebike-drive" id="toc-types-of-ebike-drive"><span
+class="headline-word">Types</span> <span class="headline-word">of</span>
+<span class="headline-word">EBike</span> <span
+class="headline-word">Drive</span></a>
 <ul>
-<li><a href="#brushless-vs-brushed"
-id="toc-brushless-vs-brushed">Brushless vs Brushed</a></li>
-<li><a href="#hub-vs-bottom-bracket" id="toc-hub-vs-bottom-bracket">Hub
-vs Bottom Bracket</a></li>
+<li><a href="#brushless-vs-brushed" id="toc-brushless-vs-brushed"><span
+class="headline-word">Brushless</span> <span
+class="headline-word">vs</span> <span
+class="headline-word">Brushed</span></a></li>
+<li><a href="#hub-vs-bottom-bracket"
+id="toc-hub-vs-bottom-bracket"><span class="headline-word">Hub</span>
+<span class="headline-word">vs</span> <span
+class="headline-word">Bottom</span> <span
+class="headline-word">Bracket</span></a></li>
 </ul></li>
 <li><a href="#understanding-batteries"
-id="toc-understanding-batteries">Understanding Batteries</a>
+id="toc-understanding-batteries"><span
+class="headline-word">Understanding</span> <span
+class="headline-word">Batteries</span></a>
 <ul>
-<li><a href="#lead-acid-vs-lithium" id="toc-lead-acid-vs-lithium">Lead
-acid vs Lithium</a></li>
+<li><a href="#lead-acid-vs-lithium" id="toc-lead-acid-vs-lithium"><span
+class="headline-word">Lead</span> <span
+class="headline-word">acid</span> <span class="headline-word">vs</span>
+<span class="headline-word">Lithium</span></a></li>
 <li><a href="#technical-specifications-of-batteries"
-id="toc-technical-specifications-of-batteries">Technical specifications
-of batteries</a></li>
+id="toc-technical-specifications-of-batteries"><span
+class="headline-word">Technical</span> <span
+class="headline-word">specifications</span> <span
+class="headline-word">of</span> <span
+class="headline-word">batteries</span></a></li>
 <li><a href="#designing-a-battery-pack"
-id="toc-designing-a-battery-pack">Designing a battery pack</a></li>
+id="toc-designing-a-battery-pack"><span
+class="headline-word">Designing</span> <span
+class="headline-word">a</span> <span
+class="headline-word">battery</span> <span
+class="headline-word">pack</span></a></li>
 <li><a href="#picking-a-battery-management-system"
-id="toc-picking-a-battery-management-system">Picking a battery
-management system</a></li>
+id="toc-picking-a-battery-management-system"><span
+class="headline-word">Picking</span> <span
+class="headline-word">a</span> <span
+class="headline-word">battery</span> <span
+class="headline-word">management</span> <span
+class="headline-word">system</span></a></li>
 </ul></li>
 </ul></li>
 <li><a href="#building-your-own-custom-lithium-pack"
-id="toc-building-your-own-custom-lithium-pack">Building your own custom
-lithium pack</a>
+id="toc-building-your-own-custom-lithium-pack"><span
+class="headline-word">Building</span> <span
+class="headline-word">your</span> <span class="headline-word">own</span>
+<span class="headline-word">custom</span> <span
+class="headline-word">lithium</span> <span
+class="headline-word">pack</span></a>
 <ul>
-<li><a href="#bill-of-materials" id="toc-bill-of-materials">Bill of
-Materials</a></li>
+<li><a href="#bill-of-materials" id="toc-bill-of-materials"><span
+class="headline-word">Bill</span> <span class="headline-word">of</span>
+<span class="headline-word">Materials</span></a></li>
 <li><a href="#step-0-play-with-your-spot-welder"
-id="toc-step-0-play-with-your-spot-welder">Step 0: Play with your spot
-welder</a></li>
+id="toc-step-0-play-with-your-spot-welder"><span
+class="headline-word">Step</span> <span class="headline-word">0:</span>
+<span class="headline-word">Play</span> <span
+class="headline-word">with</span> <span
+class="headline-word">your</span> <span
+class="headline-word">spot</span> <span
+class="headline-word">welder</span></a></li>
 <li><a href="#step-1-check-your-cells-are-balanced"
-id="toc-step-1-check-your-cells-are-balanced">Step 1: Check your cells
-are balanced</a></li>
+id="toc-step-1-check-your-cells-are-balanced"><span
+class="headline-word">Step</span> <span class="headline-word">1:</span>
+<span class="headline-word">Check</span> <span
+class="headline-word">your</span> <span
+class="headline-word">cells</span> <span
+class="headline-word">are</span> <span
+class="headline-word">balanced</span></a></li>
 <li><a href="#step-2-arrange-the-cells-in-the-radiators"
-id="toc-step-2-arrange-the-cells-in-the-radiators">Step 2: Arrange the
-cells in the radiators</a></li>
+id="toc-step-2-arrange-the-cells-in-the-radiators"><span
+class="headline-word">Step</span> <span class="headline-word">2:</span>
+<span class="headline-word">Arrange</span> <span
+class="headline-word">the</span> <span
+class="headline-word">cells</span> <span class="headline-word">in</span>
+<span class="headline-word">the</span> <span
+class="headline-word">radiators</span></a></li>
 <li><a href="#step-3-begin-welding-parallel-packs"
-id="toc-step-3-begin-welding-parallel-packs">Step 3: Begin welding
-parallel packs</a></li>
+id="toc-step-3-begin-welding-parallel-packs"><span
+class="headline-word">Step</span> <span class="headline-word">3:</span>
+<span class="headline-word">Begin</span> <span
+class="headline-word">welding</span> <span
+class="headline-word">parallel</span> <span
+class="headline-word">packs</span></a></li>
 <li><a href="#step-4-weld-series-connections"
-id="toc-step-4-weld-series-connections">Step 4: Weld series
-connections</a></li>
+id="toc-step-4-weld-series-connections"><span
+class="headline-word">Step</span> <span class="headline-word">4:</span>
+<span class="headline-word">Weld</span> <span
+class="headline-word">series</span> <span
+class="headline-word">connections</span></a></li>
 <li><a href="#step-5-add-the-bms-and-xt-60-connector"
-id="toc-step-5-add-the-bms-and-xt-60-connector">Step 5: Add the BMS and
-XT-60 connector</a></li>
-<li><a href="#step-6-heatshrink" id="toc-step-6-heatshrink">Step 6:
-Heatshrink</a></li>
+id="toc-step-5-add-the-bms-and-xt-60-connector"><span
+class="headline-word">Step</span> <span class="headline-word">5:</span>
+<span class="headline-word">Add</span> <span
+class="headline-word">the</span> <span class="headline-word">BMS</span>
+<span class="headline-word">and</span> <span
+class="headline-word">XT-60</span> <span
+class="headline-word">connector</span></a></li>
+<li><a href="#step-6-heatshrink" id="toc-step-6-heatshrink"><span
+class="headline-word">Step</span> <span class="headline-word">6:</span>
+<span class="headline-word">Heatshrink</span></a></li>
 <li><a href="#step-7-pop-it-in-the-box"
-id="toc-step-7-pop-it-in-the-box">Step 7: Pop it in the box</a></li>
+id="toc-step-7-pop-it-in-the-box"><span
+class="headline-word">Step</span> <span class="headline-word">7:</span>
+<span class="headline-word">Pop</span> <span
+class="headline-word">it</span> <span class="headline-word">in</span>
+<span class="headline-word">the</span> <span
+class="headline-word">box</span></a></li>
 </ul></li>
-<li><a href="#references" id="toc-references">References</a></li>
+<li><a href="#references" id="toc-references"><span
+class="headline-word">References</span></a></li>
 </ul>
 <p>This year’s BarCamp Canterbury was held at the MakerSpace in the new
 Engineering building at Canterbury Christ Church university. I gave a
 short talk on building EBikes, the slides are available <a
 href="./slides.pdf">here</a> (53M PDF).</p>
 <!-- # Manifesto: Bikes as a hacking platform -->
-<h1 id="technical-aspects-of-ebikes">Technical Aspects of EBikes</h1>
+<h1 id="technical-aspects-of-ebikes"><span
+class="headline-word">Technical</span> <span
+class="headline-word">Aspects</span> <span
+class="headline-word">of</span> <span
+class="headline-word">EBikes</span></h1>
 <p>To make this a somewhat useful (I hope) resource, I will enumerate
 some of the things I’ve learned about EBikes, and how to build them.</p>
-<h2 id="ebikes-and-the-law">EBikes and the law</h2>
+<h2 id="ebikes-and-the-law"><span class="headline-word">EBikes</span>
+<span class="headline-word">and</span> <span
+class="headline-word">the</span> <span
+class="headline-word">law</span></h2>
 <p>I live in the UK, so I need to build bikes which fit within the UK
 law. I am not a laywer.</p>
 <p>The UK law is largely derived from European law, which is useful as
@@ -110,7 +198,10 @@ are available on the GOV.UK website<a href="#fn1" class="footnote-ref"
 id="fnref1" role="doc-noteref"><sup>1</sup></a>, but I’ll outline them
 here:</p>
 <blockquote>
-<h3 id="what-counts-as-an-eapc">What counts as an EAPC</h3>
+<h3 id="what-counts-as-an-eapc"><span class="headline-word">What</span>
+<span class="headline-word">counts</span> <span
+class="headline-word">as</span> <span class="headline-word">an</span>
+<span class="headline-word">EAPC</span></h3>
 <p>An EAPC must have pedals that can be used to propel it.</p>
 <p>It must show either:</p>
 <ul>
@@ -147,11 +238,17 @@ on describing the performance of an EBike. A 72v system connected to a
 9Continent motor does not tell you a whether the motor is conformant,
 what wattage the bike is designed for, whether it is speed limitted
 etc.</p>
-<h2 id="types-of-ebike-drive">Types of EBike Drive</h2>
+<h2 id="types-of-ebike-drive"><span class="headline-word">Types</span>
+<span class="headline-word">of</span> <span
+class="headline-word">EBike</span> <span
+class="headline-word">Drive</span></h2>
 <p>There’s a few drive train architectures for EBikes, you will need to
 pick one, and I have a favourite, but honestly all of these are mostly
 okay.</p>
-<h3 id="brushless-vs-brushed">Brushless vs Brushed</h3>
+<h3 id="brushless-vs-brushed"><span
+class="headline-word">Brushless</span> <span
+class="headline-word">vs</span> <span
+class="headline-word">Brushed</span></h3>
 <p>There are two types of motor available: brushed, and brushless.
 Brushed motors are cheap, simple, but have a lower power density than
 their brushless counterparts. Conversely, brushless motors are typically
@@ -161,7 +258,10 @@ to work with brushless architectures. Loads of EBike motors are
 available on Amazon which can just drop straight into a regular bike,
 you won’t need to build/buy custom mounting brackets for industrial
 motors.</p>
-<h3 id="hub-vs-bottom-bracket">Hub vs Bottom Bracket</h3>
+<h3 id="hub-vs-bottom-bracket"><span class="headline-word">Hub</span>
+<span class="headline-word">vs</span> <span
+class="headline-word">Bottom</span> <span
+class="headline-word">Bracket</span></h3>
 <p>Another choice is where the motor goes on your bike. For brushed
 motors there’s little choice: it’d better be a bottom bracket motor,
 i.e. a motor which mounts at the pedals of the bike. Those brushed
@@ -170,15 +270,23 @@ left-hand side (the other side to the pedals’ chain). For brushless
 motors the motor mounts in a way that the power can be transferred
 through the pedals as a Pedal Assist system, so you’d only have one
 chain.</p>
-<h2 id="understanding-batteries">Understanding Batteries</h2>
-<h3 id="lead-acid-vs-lithium">Lead acid vs Lithium</h3>
+<h2 id="understanding-batteries"><span
+class="headline-word">Understanding</span> <span
+class="headline-word">Batteries</span></h2>
+<h3 id="lead-acid-vs-lithium"><span class="headline-word">Lead</span>
+<span class="headline-word">acid</span> <span
+class="headline-word">vs</span> <span
+class="headline-word">Lithium</span></h3>
 <p>There are two common rechargeable battery chemistries, lead acid and
 lithium ion<a href="#fn3" class="footnote-ref" id="fnref3"
 role="doc-noteref"><sup>3</sup></a>. Lead acid is quite cheap, and
 substantially more forgiving to charge. It is arguably the ‘safe’
 option, although I would argue that easy management of</p>
-<h3 id="technical-specifications-of-batteries">Technical specifications
-of batteries</h3>
+<h3 id="technical-specifications-of-batteries"><span
+class="headline-word">Technical</span> <span
+class="headline-word">specifications</span> <span
+class="headline-word">of</span> <span
+class="headline-word">batteries</span></h3>
 <p><strong>S and P rating.</strong> Batteries are specified by the
 number and configuration of the cells.</p>
 <p>The S rating is the number of cells arranged in series, this defines
@@ -207,7 +315,11 @@ inside of your cells, and the more aggressive the charge/discharge the
 more the internal structure changes. These changes mean the battery
 stores less energy – so using lower C ratings will mean your battery
 lasts longer.</p>
-<h3 id="designing-a-battery-pack">Designing a battery pack</h3>
+<h3 id="designing-a-battery-pack"><span
+class="headline-word">Designing</span> <span
+class="headline-word">a</span> <span
+class="headline-word">battery</span> <span
+class="headline-word">pack</span></h3>
 <p>You will need to know your system voltage, the type of cell you will
 use, and motor wattage. These specifications will essentially define a
 minimum pack size to safely (electrically) operate your bike.</p>
@@ -216,7 +328,7 @@ with a 24v system voltage. How do you pick the pack size?</p>
 <p>Well, first off is the voltage. You’d like the <em>nominal</em>
 voltage of the pack to be 24v. The nominal voltage of a single
 Lithium-ion cell is 3.7v. We shall first calculate the S rating.</p>
-<p><math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mtable><mtr><mtd columnalign="right"><mi>S</mi></mtd><mtd columnalign="left"><mo>=</mo><mrow><mo stretchy="true" form="prefix">⌈</mo><mfrac><msub><mi>V</mi><mtext mathvariant="normal">system</mtext></msub><msub><mi>V</mi><mtext mathvariant="normal">cell</mtext></msub></mfrac><mo stretchy="true" form="postfix">⌉</mo></mrow></mtd></mtr><mtr><mtd columnalign="right"><mi>S</mi></mtd><mtd columnalign="left"><mo>=</mo><mrow><mo stretchy="true" form="prefix">⌈</mo><mfrac><mrow><mn>24</mn><mi>v</mi></mrow><mrow><mn>3.7</mn><mi>v</mi></mrow></mfrac><mo stretchy="true" form="postfix">⌉</mo></mrow><mo>=</mo><mo stretchy="false" form="prefix">⌈</mo><mn>6.48</mn><mo stretchy="false" form="postfix">⌉</mo><mo>=</mo><mn>7</mn></mtd></mtr></mtable><annotation encoding="application/x-tex">
+<p><math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mtable><mtr><mtd columnalign="right" style="text-align: right"><mi>S</mi></mtd><mtd columnalign="left" style="text-align: left"><mo>=</mo><mrow><mo stretchy="true" form="prefix">⌈</mo><mfrac><msub><mi>V</mi><mtext mathvariant="normal">system</mtext></msub><msub><mi>V</mi><mtext mathvariant="normal">cell</mtext></msub></mfrac><mo stretchy="true" form="postfix">⌉</mo></mrow></mtd></mtr><mtr><mtd columnalign="right" style="text-align: right"><mi>S</mi></mtd><mtd columnalign="left" style="text-align: left"><mo>=</mo><mrow><mo stretchy="true" form="prefix">⌈</mo><mfrac><mrow><mn>24</mn><mi>v</mi></mrow><mrow><mn>3.7</mn><mi>v</mi></mrow></mfrac><mo stretchy="true" form="postfix">⌉</mo></mrow><mo>=</mo><mo stretchy="false" form="prefix">⌈</mo><mn>6.48</mn><mo stretchy="false" form="postfix">⌉</mo><mo>=</mo><mn>7</mn></mtd></mtr></mtable><annotation encoding="application/x-tex">
 \begin{align}
     S &amp;= \left\lceil \frac{V_\text{system}}{V_\text{cell}} \right\rceil \\
     S &amp;= \left\lceil \frac{24v}{3.7v} \right\rceil = \lceil 6.48 \rceil = 7
@@ -235,7 +347,7 @@ we’re using, we can see that they have a continuous discharge rating of
 i.e. how quickly the energy storage will deteriorate with
 charge/discharge cycles. Let’s take that as a maximum though, and find
 out what P rating we’d need.</p>
-<p><math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mtable><mtr><mtd columnalign="right"><mi>P</mi></mtd><mtd columnalign="left"><mo>=</mo><mrow><mo stretchy="true" form="prefix">⌈</mo><mfrac><msub><mi>I</mi><mtext mathvariant="normal">max</mtext></msub><msub><mi>I</mi><mtext mathvariant="normal">cell</mtext></msub></mfrac><mo stretchy="true" form="postfix">⌉</mo></mrow></mtd></mtr><mtr><mtd columnalign="right"><mi>P</mi></mtd><mtd columnalign="left"><mo>=</mo><mrow><mo stretchy="true" form="prefix">⌈</mo><mfrac><mrow><mn>15</mn><mtext mathvariant="normal">A</mtext></mrow><mrow><mn>2.75</mn><mtext mathvariant="normal">A</mtext></mrow></mfrac><mo stretchy="true" form="postfix">⌉</mo></mrow><mo>=</mo><mo stretchy="false" form="prefix">⌈</mo><mn>5.45</mn><mtext mathvariant="normal">A</mtext><mo stretchy="false" form="postfix">⌉</mo><mo>=</mo><mn>6</mn><mtext mathvariant="normal">A</mtext></mtd></mtr></mtable><annotation encoding="application/x-tex">
+<p><math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mtable><mtr><mtd columnalign="right" style="text-align: right"><mi>P</mi></mtd><mtd columnalign="left" style="text-align: left"><mo>=</mo><mrow><mo stretchy="true" form="prefix">⌈</mo><mfrac><msub><mi>I</mi><mtext mathvariant="normal">max</mtext></msub><msub><mi>I</mi><mtext mathvariant="normal">cell</mtext></msub></mfrac><mo stretchy="true" form="postfix">⌉</mo></mrow></mtd></mtr><mtr><mtd columnalign="right" style="text-align: right"><mi>P</mi></mtd><mtd columnalign="left" style="text-align: left"><mo>=</mo><mrow><mo stretchy="true" form="prefix">⌈</mo><mfrac><mrow><mn>15</mn><mtext mathvariant="normal">A</mtext></mrow><mrow><mn>2.75</mn><mtext mathvariant="normal">A</mtext></mrow></mfrac><mo stretchy="true" form="postfix">⌉</mo></mrow><mo>=</mo><mo stretchy="false" form="prefix">⌈</mo><mn>5.45</mn><mtext mathvariant="normal">A</mtext><mo stretchy="false" form="postfix">⌉</mo><mo>=</mo><mn>6</mn><mtext mathvariant="normal">A</mtext></mtd></mtr></mtable><annotation encoding="application/x-tex">
 \begin{align}
     P &amp;= \left\lceil \frac{I_\text{max}}{I_\text{cell}} \right\rceil\\
     P &amp;= \left\lceil \frac{15\text{A}}{2.75\text{A}} \right\rceil = \lceil 5.45\text{A} \rceil = 6\text{A}
@@ -251,7 +363,7 @@ is about 3.5A.</p>
 <p>Most commercial batteries are sold by their Ah rating, not their Wh
 rating, but Wh is the unit of energy, so in my opinion it’s more
 useful.</p>
-<p><math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mtable><mtr><mtd columnalign="right"><mi>E</mi></mtd><mtd columnalign="left"><mo>=</mo><mi>S</mi><mo>×</mo><mi>P</mi><mo>×</mo><msub><mi>V</mi><mtext mathvariant="normal">cell</mtext></msub><mo>×</mo><msub><mtext mathvariant="normal">Ah</mtext><mtext mathvariant="normal">cell</mtext></msub></mtd></mtr><mtr><mtd columnalign="right"><mi>E</mi></mtd><mtd columnalign="left"><mo>=</mo><mn>7</mn><mo>×</mo><mn>6</mn><mo>×</mo><mn>3.7</mn><mi>v</mi><mo>×</mo><mn>2.9</mn><mtext mathvariant="normal">Ah</mtext><mo>=</mo><mn>450</mn><mtext mathvariant="normal">Wh</mtext></mtd></mtr></mtable><annotation encoding="application/x-tex">
+<p><math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mtable><mtr><mtd columnalign="right" style="text-align: right"><mi>E</mi></mtd><mtd columnalign="left" style="text-align: left"><mo>=</mo><mi>S</mi><mo>×</mo><mi>P</mi><mo>×</mo><msub><mi>V</mi><mtext mathvariant="normal">cell</mtext></msub><mo>×</mo><msub><mtext mathvariant="normal">Ah</mtext><mtext mathvariant="normal">cell</mtext></msub></mtd></mtr><mtr><mtd columnalign="right" style="text-align: right"><mi>E</mi></mtd><mtd columnalign="left" style="text-align: left"><mo>=</mo><mn>7</mn><mo>×</mo><mn>6</mn><mo>×</mo><mn>3.7</mn><mi>v</mi><mo>×</mo><mn>2.9</mn><mtext mathvariant="normal">Ah</mtext><mo>=</mo><mn>450</mn><mtext mathvariant="normal">Wh</mtext></mtd></mtr></mtable><annotation encoding="application/x-tex">
 \begin{align}
     E &amp;= S \times P \times V_\text{cell} \times \text{Ah}_\text{cell} \\
     E &amp;= 7 \times 6 \times 3.7v \times 2.9 \text{Ah} = 450 \text{Wh}
@@ -264,8 +376,12 @@ distances, then you can consider adding extra strings in parallel – this
 won’t change the voltage, only increase the maximum continuous current
 you can draw, and increase the battery pack’s overall energy
 storage.</p>
-<h3 id="picking-a-battery-management-system">Picking a battery
-management system</h3>
+<h3 id="picking-a-battery-management-system"><span
+class="headline-word">Picking</span> <span
+class="headline-word">a</span> <span
+class="headline-word">battery</span> <span
+class="headline-word">management</span> <span
+class="headline-word">system</span></h3>
 <p>The battery management system is essential for allowing you to safely
 charge and discharge a lithium battery. Mistreating lithium batteries,
 especially when charging can cause fires. It ensures that each string of
@@ -284,11 +400,17 @@ common port is what I’d recommend, as it means you can do regenerative
 breaking easily, if your controller supports it. The downside of common
 port is that if the battery is in-circuit the bike will be powered up by
 the charger.</p>
-<h1 id="building-your-own-custom-lithium-pack">Building your own custom
-lithium pack</h1>
+<h1 id="building-your-own-custom-lithium-pack"><span
+class="headline-word">Building</span> <span
+class="headline-word">your</span> <span class="headline-word">own</span>
+<span class="headline-word">custom</span> <span
+class="headline-word">lithium</span> <span
+class="headline-word">pack</span></h1>
 <p>Okay, so you know what size and configuration battery to build now,
 how do you actually build it?</p>
-<h2 id="bill-of-materials">Bill of Materials</h2>
+<h2 id="bill-of-materials"><span class="headline-word">Bill</span> <span
+class="headline-word">of</span> <span
+class="headline-word">Materials</span></h2>
 <p>Let’s make a shopping list for the 7S6P pack that we designed in the
 previous section.</p>
 <ul>
@@ -320,44 +442,71 @@ high resistivity and isn’t suitable for high current connections in a
 battery pack. To be sure you got nickel, you can test by sanding the
 surface of the metal, dabbing it with some salt water and leaving it for
 a few days to see if rust develops. No rust? It’s 100% nickel!</p>
-<h2 id="step-0-play-with-your-spot-welder">Step 0: Play with your spot
-welder</h2>
+<h2 id="step-0-play-with-your-spot-welder"><span
+class="headline-word">Step</span> <span class="headline-word">0:</span>
+<span class="headline-word">Play</span> <span
+class="headline-word">with</span> <span
+class="headline-word">your</span> <span
+class="headline-word">spot</span> <span
+class="headline-word">welder</span></h2>
 <p>It’s worth getting to know your spot welder, cut a handful of short
 strips of nickel and weld them together. You should be able to get a
 feel for the settings for your welder which creates a solid weld without
 blowing straight through the nickel. On my k-weld I found 50J about the
 right energy level for 2 mm nickel strip, but YMMV.</p>
-<h2 id="step-1-check-your-cells-are-balanced">Step 1: Check your cells
-are balanced</h2>
+<h2 id="step-1-check-your-cells-are-balanced"><span
+class="headline-word">Step</span> <span class="headline-word">1:</span>
+<span class="headline-word">Check</span> <span
+class="headline-word">your</span> <span
+class="headline-word">cells</span> <span
+class="headline-word">are</span> <span
+class="headline-word">balanced</span></h2>
 <p>It is important that all the cells in the pack are at the same state
 of charge before being assembled, otherwise they’ll charge each other at
 their maximum discharge rate which can be a bit spicy. Check all the
 cells with a multimeter, they should ideally be within 10mV of each
 other. 50mV is probably fine. If it’s more than that, you’ll need to
 charge/discharge them on a CC/CV benchtop power supply.</p>
-<h2 id="step-2-arrange-the-cells-in-the-radiators">Step 2: Arrange the
-cells in the radiators</h2>
+<h2 id="step-2-arrange-the-cells-in-the-radiators"><span
+class="headline-word">Step</span> <span class="headline-word">2:</span>
+<span class="headline-word">Arrange</span> <span
+class="headline-word">the</span> <span
+class="headline-word">cells</span> <span class="headline-word">in</span>
+<span class="headline-word">the</span> <span
+class="headline-word">radiators</span></h2>
 <p>Clip together the radiators to make a 7x6 grid, and fill them with
 cells. Check the polarity of your cells and arrange them such that the
 first string of 7 cells has the positives on top, and the next string
 has negatives, and so on. Once you’re done, clip together the radiators
 for the top and push that onto the battery pack.</p>
-<h2 id="step-3-begin-welding-parallel-packs">Step 3: Begin welding
-parallel packs</h2>
+<h2 id="step-3-begin-welding-parallel-packs"><span
+class="headline-word">Step</span> <span class="headline-word">3:</span>
+<span class="headline-word">Begin</span> <span
+class="headline-word">welding</span> <span
+class="headline-word">parallel</span> <span
+class="headline-word">packs</span></h2>
 <p>I like to mask the cells, so I can drop bits of nickel onto strips
 and cause potentially dangerous shorts. Keep just the first parallel
 strip visible. Measure out a length of nickel strip a little longer than
 the pack. Tin the end of the strip – this is where the BMS connection
 will be soldered. Begin welding! I like to make 2 welds per cell in a
 cross.</p>
-<h2 id="step-4-weld-series-connections">Step 4: Weld series
-connections</h2>
+<h2 id="step-4-weld-series-connections"><span
+class="headline-word">Step</span> <span class="headline-word">4:</span>
+<span class="headline-word">Weld</span> <span
+class="headline-word">series</span> <span
+class="headline-word">connections</span></h2>
 <p>Cut a bunch of short lengths of nickel, and begin welding each series
 connection using the same technique. You might need to dial up the power
 on your welder a little to get good weld penetration through the extra
 layer of nickel.</p>
-<h2 id="step-5-add-the-bms-and-xt-60-connector">Step 5: Add the BMS and
-XT-60 connector</h2>
+<h2 id="step-5-add-the-bms-and-xt-60-connector"><span
+class="headline-word">Step</span> <span class="headline-word">5:</span>
+<span class="headline-word">Add</span> <span
+class="headline-word">the</span> <span class="headline-word">BMS</span>
+<span class="headline-word">and</span> <span
+class="headline-word">XT-60</span> <span
+class="headline-word">connector</span></h2>
 <p>First the BMS balance wires. Connect the BMS leads to the tinned tabs
 on the parallel connections from Step 3. On the 7S BMS there will be 8
 balance leads to connect: the first goes to the negative connection for
@@ -376,23 +525,31 @@ and the load/charger gets the male connector.</p>
 <p>Tape down the BMS and the balance leads with kapton tape. You might
 need to offer it up to your case to be make sure it’s put in a place
 with enough space.</p>
-<h2 id="step-6-heatshrink">Step 6: Heatshrink</h2>
+<h2 id="step-6-heatshrink"><span class="headline-word">Step</span> <span
+class="headline-word">6:</span> <span
+class="headline-word">Heatshrink</span></h2>
 <p>Cover your pack in heatshrink to keep it safer from particle
 ingress.</p>
-<h2 id="step-7-pop-it-in-the-box">Step 7: Pop it in the box</h2>
+<h2 id="step-7-pop-it-in-the-box"><span
+class="headline-word">Step</span> <span class="headline-word">7:</span>
+<span class="headline-word">Pop</span> <span
+class="headline-word">it</span> <span class="headline-word">in</span>
+<span class="headline-word">the</span> <span
+class="headline-word">box</span></h2>
 <p>Once it’s in the box, you can charge it for the first time, and begin
 using it!</p>
-<h1 class="unnumbered" id="references">References</h1>
+<h1 class="unnumbered" id="references"><span
+class="headline-word">References</span></h1>
 <div id="refs" class="references csl-bib-body hanging-indent"
-role="doc-bibliography">
-<div id="ref-BSEN15194:2017" class="csl-entry" role="doc-biblioentry">
+data-entry-spacing="0" role="list">
+<div id="ref-BSEN15194:2017" class="csl-entry" role="listitem">
 <span>“Cycles - Electrically Power Assisted Cycles - EPAC
 Bicycles.”</span> 2017. Standard. 389 Chiswick High Rd., Chiswick,
 London W4 4AL. <a
 href="https://knowledge.bsigroup.com/products/cycles-electrically-power-assisted-cycles-epac-bicycles-1/standard">https://knowledge.bsigroup.com/products/cycles-electrically-power-assisted-cycles-epac-bicycles-1/standard</a>.
 </div>
 </div>
-<section id="footnotes" class="footnotes footnotes-end-of-document"
+<aside id="footnotes" class="footnotes footnotes-end-of-document"
 role="doc-endnotes">
 <hr />
 <ol>
@@ -410,23 +567,8 @@ density. All the same calculations from this section still apply though,
 but the voltages per cell will be a bit lower.<a href="#fnref3"
 class="footnote-back" role="doc-backlink">↩︎</a></p></li>
 </ol>
-</section>
+</aside>
   </main>
   <style></style>
-  <script>
-    let newHeadlineMarkup = "";
-    document.querySelectorAll("h1, h2, h3, h4, .byline")
-      .forEach((headline, _) => {
-        var newHeadingMarkup = "";
-        headline.innerHTML
-          .split(" ")
-          .forEach((word, _) => {
-            newHeadingMarkup += `<span class="headline-word">${word}</span>`;
-          }
-        );
-        headline.innerHTML = newHeadingMarkup;
-      }
-    );
-  </script>
 </body>
 </html>

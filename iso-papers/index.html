@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
-  <title>ISO Papers &mdash; Simon Cooksey</title>
+  <title><span class="headline-word">ISO</span> <span
+class="headline-word">Papers</span> &mdash; Simon Cooksey</title>
   <meta name="viewport" content="width=device-width, user-scalable=yes">
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/firacode@6.2.0/distr/fira_code.css">
   <link rel="stylesheet" type="text/css" href="/style.css"/>
@@ -9,7 +10,8 @@
 </head>
 <body>
   <main>
-    <h1 class="title">ISO Papers</h1>
+    <h1 class="title"><span class="headline-word">ISO</span> <span
+class="headline-word">Papers</span></h1>
     
     <div class="date"></div>
     <nav>
@@ -39,20 +41,5 @@
     </ul>
   </main>
   <style></style>
-  <script>
-    let newHeadlineMarkup = "";
-    document.querySelectorAll("h1, h2, h3, h4, .byline")
-      .forEach((headline, _) => {
-        var newHeadingMarkup = "";
-        headline.innerHTML
-          .split(" ")
-          .forEach((word, _) => {
-            newHeadingMarkup += `<span class="headline-word">${word}</span>`;
-          }
-        );
-        headline.innerHTML = newHeadingMarkup;
-      }
-    );
-  </script>
 </body>
 </html>

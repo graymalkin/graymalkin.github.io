@@ -1,8 +1,9 @@
 TEMPLATE = ./blog-template.html
-PANDOC_FLAGS = --standalone --toc --citeproc --highlight-style kate --template=$(TEMPLATE) --mathml
+PANDOC_FLAGS = --standalone --toc --citeproc --highlight-style kate --template=$(TEMPLATE) --mathml --filter ../headlinify.hs
 
 # Order is the index order. Maintain reverse chronological order.
 ARTICLES = \
+	headlinify \
 	leaving-kent \
 	home-assistant-heating-controller \
 	barcamp-2022 \

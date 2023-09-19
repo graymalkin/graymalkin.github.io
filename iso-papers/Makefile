@@ -1,5 +1,5 @@
 TEMPLATE = ./iso-papers-template.html
-PANDOC_FLAGS = --standalone --citeproc --highlight-style kate --template=$(TEMPLATE) --mathjax
+PANDOC_FLAGS = --standalone --citeproc --highlight-style kate --template=$(TEMPLATE) --mathjax --filter ../headlinify.hs
 
 OUTPUTS = index.html
 
