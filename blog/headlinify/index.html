@@ -68,37 +68,66 @@ but that is quite tedious! I still use Make and Pandoc to build this
 site, as described in <a href="/blog/make-a-static-site/">this post</a>,
 so I figured I could whip up a quick Pandoc filter which achieves the
 same aim as the JavaScript above instead.</p>
-<div class="sourceCode" id="cb3"><pre class="sourceCode hs"><code class="sourceCode haskell"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="pp">#!/usr/bin/env stack runghc --package pandoc-types</span></span>
-<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a><span class="ot">{-# LANGUAGE OverloadedStrings #-}</span></span>
-<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a><span class="kw">import</span> <span class="dt">Text.Pandoc.JSON</span></span>
-<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a><span class="kw">import</span> <span class="dt">Text.Pandoc.Generic</span></span>
-<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a><span class="kw">import</span> <span class="kw">qualified</span> <span class="dt">Data.Text</span> <span class="kw">as</span> <span class="dt">T</span></span>
-<span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a><span class="kw">import</span> <span class="dt">Data.Map</span> (mapWithKey, insert, findWithDefault)</span>
-<span id="cb3-8"><a href="#cb3-8" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-9"><a href="#cb3-9" aria-hidden="true" tabindex="-1"></a><span class="ot">headlineInline ::</span> <span class="dt">Inline</span> <span class="ot">-&gt;</span> <span class="dt">Inline</span></span>
-<span id="cb3-10"><a href="#cb3-10" aria-hidden="true" tabindex="-1"></a>headlineInline (<span class="dt">Str</span> x) <span class="ot">=</span> <span class="dt">Span</span> (<span class="st">&quot;&quot;</span>, [<span class="st">&quot;headline-word&quot;</span>], []) [<span class="dt">Str</span> x]</span>
-<span id="cb3-11"><a href="#cb3-11" aria-hidden="true" tabindex="-1"></a>headlineInline x <span class="ot">=</span> x</span>
-<span id="cb3-12"><a href="#cb3-12" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-13"><a href="#cb3-13" aria-hidden="true" tabindex="-1"></a><span class="ot">headlinifyBlock ::</span> <span class="dt">Block</span> <span class="ot">-&gt;</span> <span class="dt">Block</span></span>
-<span id="cb3-14"><a href="#cb3-14" aria-hidden="true" tabindex="-1"></a>headlinifyBlock (<span class="dt">Header</span> n <span class="fu">id</span> content) <span class="ot">=</span> <span class="dt">Header</span> n <span class="fu">id</span> (<span class="fu">map</span> headlineInline content)</span>
-<span id="cb3-15"><a href="#cb3-15" aria-hidden="true" tabindex="-1"></a>headlinifyBlock x <span class="ot">=</span> x</span>
-<span id="cb3-16"><a href="#cb3-16" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-17"><a href="#cb3-17" aria-hidden="true" tabindex="-1"></a><span class="ot">headlinifyMetaInline ::</span> <span class="dt">MetaValue</span> <span class="ot">-&gt;</span> <span class="dt">MetaValue</span></span>
-<span id="cb3-18"><a href="#cb3-18" aria-hidden="true" tabindex="-1"></a>headlinifyMetaInline (<span class="dt">MetaInlines</span> inls) <span class="ot">=</span> <span class="dt">MetaInlines</span> (<span class="fu">map</span> headlineInline inls)</span>
-<span id="cb3-19"><a href="#cb3-19" aria-hidden="true" tabindex="-1"></a>headlinifyMetaInline x <span class="ot">=</span> x</span>
-<span id="cb3-20"><a href="#cb3-20" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-21"><a href="#cb3-21" aria-hidden="true" tabindex="-1"></a><span class="ot">addDisplayMetaValue ::</span> <span class="dt">T.Text</span> <span class="ot">-&gt;</span> <span class="dt">Meta</span> <span class="ot">-&gt;</span> <span class="dt">Meta</span></span>
-<span id="cb3-22"><a href="#cb3-22" aria-hidden="true" tabindex="-1"></a>addDisplayMetaValue field (<span class="dt">Meta</span> m) <span class="ot">=</span> </span>
-<span id="cb3-23"><a href="#cb3-23" aria-hidden="true" tabindex="-1"></a>    <span class="kw">let</span> headlinified <span class="ot">=</span> headlinifyMetaInline (findWithDefault (<span class="dt">MetaInlines</span> []) field m) <span class="kw">in</span></span>
-<span id="cb3-24"><a href="#cb3-24" aria-hidden="true" tabindex="-1"></a>    <span class="kw">let</span> newField <span class="ot">=</span> T.concat [<span class="st">&quot;display&quot;</span>, field] <span class="kw">in</span></span>
-<span id="cb3-25"><a href="#cb3-25" aria-hidden="true" tabindex="-1"></a>    <span class="dt">Meta</span> (insert newField headlinified m)</span>
-<span id="cb3-26"><a href="#cb3-26" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-27"><a href="#cb3-27" aria-hidden="true" tabindex="-1"></a><span class="ot">headlinify ::</span> <span class="dt">Pandoc</span> <span class="ot">-&gt;</span> <span class="dt">Pandoc</span></span>
-<span id="cb3-28"><a href="#cb3-28" aria-hidden="true" tabindex="-1"></a>headlinify <span class="ot">=</span> (bottomUp (addDisplayMetaValue <span class="st">&quot;title&quot;</span>)) <span class="op">.</span> (bottomUp (addDisplayMetaValue <span class="st">&quot;subtitle&quot;</span>)) <span class="op">.</span> (bottomUp headlinifyBlock)</span>
-<span id="cb3-29"><a href="#cb3-29" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-30"><a href="#cb3-30" aria-hidden="true" tabindex="-1"></a><span class="ot">main ::</span> <span class="dt">IO</span> ()</span>
-<span id="cb3-31"><a href="#cb3-31" aria-hidden="true" tabindex="-1"></a>main <span class="ot">=</span> toJSONFilter headlinify</span></code></pre></div>
+<p>There’s two parts to the filter, one which makes modifies normal
+<code># Headings</code>, through the <code>headlinifyBlock</code>
+function.</p>
+<div class="sourceCode" id="cb3"><pre class="sourceCode hs"><code class="sourceCode haskell"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="ot">headlineInline ::</span> <span class="dt">Inline</span> <span class="ot">-&gt;</span> <span class="dt">Inline</span></span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>headlineInline (<span class="dt">Str</span> x) <span class="ot">=</span> <span class="dt">Span</span> (<span class="st">&quot;&quot;</span>, [<span class="st">&quot;headline-word&quot;</span>], []) [<span class="dt">Str</span> x]</span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>headlineInline x <span class="ot">=</span> x</span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a><span class="ot">headlinifyBlock ::</span> <span class="dt">Block</span> <span class="ot">-&gt;</span> <span class="dt">Block</span></span>
+<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a>headlinifyBlock (<span class="dt">Header</span> n <span class="fu">id</span> content) <span class="ot">=</span> <span class="dt">Header</span> n <span class="fu">id</span> (<span class="fu">map</span> headlineInline content)</span>
+<span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a>headlinifyBlock x <span class="ot">=</span> x</span></code></pre></div>
+<p>And a second part which copies the page title and subtitle metadata
+fields and makes new <code>display</code>-versions for use in the
+template. This is necessary because modifying <code>$title$</code>
+directly yields page titles which contain raw HTML which displays in the
+browser tab title.</p>
+<div class="sourceCode" id="cb4"><pre class="sourceCode hs"><code class="sourceCode haskell"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="ot">headlinifyMetaInline ::</span> <span class="dt">MetaValue</span> <span class="ot">-&gt;</span> <span class="dt">MetaValue</span></span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>headlinifyMetaInline (<span class="dt">MetaInlines</span> inls) <span class="ot">=</span> <span class="dt">MetaInlines</span> (<span class="fu">map</span> headlineInline inls)</span>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a>headlinifyMetaInline x <span class="ot">=</span> x</span>
+<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a><span class="ot">addDisplayMetaValue ::</span> <span class="dt">T.Text</span> <span class="ot">-&gt;</span> <span class="dt">Meta</span> <span class="ot">-&gt;</span> <span class="dt">Meta</span></span>
+<span id="cb4-6"><a href="#cb4-6" aria-hidden="true" tabindex="-1"></a>addDisplayMetaValue field (<span class="dt">Meta</span> m) <span class="ot">=</span> </span>
+<span id="cb4-7"><a href="#cb4-7" aria-hidden="true" tabindex="-1"></a>    <span class="kw">let</span> headlinified <span class="ot">=</span> headlinifyMetaInline (findWithDefault (<span class="dt">MetaInlines</span> []) field m) <span class="kw">in</span></span>
+<span id="cb4-8"><a href="#cb4-8" aria-hidden="true" tabindex="-1"></a>    <span class="kw">let</span> newField <span class="ot">=</span> T.concat [<span class="st">&quot;display&quot;</span>, field] <span class="kw">in</span></span>
+<span id="cb4-9"><a href="#cb4-9" aria-hidden="true" tabindex="-1"></a>    <span class="dt">Meta</span> (insert newField headlinified m)</span></code></pre></div>
+<p>Putting it all together, and adding a <code>#!</code> recipe so it
+can be run as a script rather than compiled, and we get this:</p>
+<div class="sourceCode" id="cb5"><pre class="sourceCode hs"><code class="sourceCode haskell"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="pp">#!/usr/bin/env stack runghc --package pandoc-types</span></span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a><span class="ot">{-# LANGUAGE OverloadedStrings #-}</span></span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a><span class="kw">import</span> <span class="dt">Text.Pandoc.JSON</span></span>
+<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a><span class="kw">import</span> <span class="dt">Text.Pandoc.Generic</span></span>
+<span id="cb5-6"><a href="#cb5-6" aria-hidden="true" tabindex="-1"></a><span class="kw">import</span> <span class="kw">qualified</span> <span class="dt">Data.Text</span> <span class="kw">as</span> <span class="dt">T</span></span>
+<span id="cb5-7"><a href="#cb5-7" aria-hidden="true" tabindex="-1"></a><span class="kw">import</span> <span class="dt">Data.Map</span> (mapWithKey, insert, findWithDefault)</span>
+<span id="cb5-8"><a href="#cb5-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-9"><a href="#cb5-9" aria-hidden="true" tabindex="-1"></a><span class="ot">headlineInline ::</span> <span class="dt">Inline</span> <span class="ot">-&gt;</span> <span class="dt">Inline</span></span>
+<span id="cb5-10"><a href="#cb5-10" aria-hidden="true" tabindex="-1"></a>headlineInline (<span class="dt">Str</span> x) <span class="ot">=</span> <span class="dt">Span</span> (<span class="st">&quot;&quot;</span>, [<span class="st">&quot;headline-word&quot;</span>], []) [<span class="dt">Str</span> x]</span>
+<span id="cb5-11"><a href="#cb5-11" aria-hidden="true" tabindex="-1"></a>headlineInline x <span class="ot">=</span> x</span>
+<span id="cb5-12"><a href="#cb5-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-13"><a href="#cb5-13" aria-hidden="true" tabindex="-1"></a><span class="ot">headlinifyBlock ::</span> <span class="dt">Block</span> <span class="ot">-&gt;</span> <span class="dt">Block</span></span>
+<span id="cb5-14"><a href="#cb5-14" aria-hidden="true" tabindex="-1"></a>headlinifyBlock (<span class="dt">Header</span> n <span class="fu">id</span> content) <span class="ot">=</span> <span class="dt">Header</span> n <span class="fu">id</span> (<span class="fu">map</span> headlineInline content)</span>
+<span id="cb5-15"><a href="#cb5-15" aria-hidden="true" tabindex="-1"></a>headlinifyBlock x <span class="ot">=</span> x</span>
+<span id="cb5-16"><a href="#cb5-16" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-17"><a href="#cb5-17" aria-hidden="true" tabindex="-1"></a><span class="ot">headlinifyMetaInline ::</span> <span class="dt">MetaValue</span> <span class="ot">-&gt;</span> <span class="dt">MetaValue</span></span>
+<span id="cb5-18"><a href="#cb5-18" aria-hidden="true" tabindex="-1"></a>headlinifyMetaInline (<span class="dt">MetaInlines</span> inls) <span class="ot">=</span> <span class="dt">MetaInlines</span> (<span class="fu">map</span> headlineInline inls)</span>
+<span id="cb5-19"><a href="#cb5-19" aria-hidden="true" tabindex="-1"></a>headlinifyMetaInline x <span class="ot">=</span> x</span>
+<span id="cb5-20"><a href="#cb5-20" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-21"><a href="#cb5-21" aria-hidden="true" tabindex="-1"></a><span class="ot">addDisplayMetaValue ::</span> <span class="dt">T.Text</span> <span class="ot">-&gt;</span> <span class="dt">Meta</span> <span class="ot">-&gt;</span> <span class="dt">Meta</span></span>
+<span id="cb5-22"><a href="#cb5-22" aria-hidden="true" tabindex="-1"></a>addDisplayMetaValue field (<span class="dt">Meta</span> m) <span class="ot">=</span> </span>
+<span id="cb5-23"><a href="#cb5-23" aria-hidden="true" tabindex="-1"></a>    <span class="kw">let</span> headlinified <span class="ot">=</span> headlinifyMetaInline (findWithDefault (<span class="dt">MetaInlines</span> []) field m) <span class="kw">in</span></span>
+<span id="cb5-24"><a href="#cb5-24" aria-hidden="true" tabindex="-1"></a>    <span class="kw">let</span> newField <span class="ot">=</span> T.concat [<span class="st">&quot;display&quot;</span>, field] <span class="kw">in</span></span>
+<span id="cb5-25"><a href="#cb5-25" aria-hidden="true" tabindex="-1"></a>    <span class="dt">Meta</span> (insert newField headlinified m)</span>
+<span id="cb5-26"><a href="#cb5-26" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-27"><a href="#cb5-27" aria-hidden="true" tabindex="-1"></a><span class="ot">headlinify ::</span> <span class="dt">Pandoc</span> <span class="ot">-&gt;</span> <span class="dt">Pandoc</span></span>
+<span id="cb5-28"><a href="#cb5-28" aria-hidden="true" tabindex="-1"></a>headlinify <span class="ot">=</span> </span>
+<span id="cb5-29"><a href="#cb5-29" aria-hidden="true" tabindex="-1"></a>    (bottomUp (addDisplayMetaValue <span class="st">&quot;title&quot;</span>)) <span class="op">.</span> </span>
+<span id="cb5-30"><a href="#cb5-30" aria-hidden="true" tabindex="-1"></a>    (bottomUp (addDisplayMetaValue <span class="st">&quot;subtitle&quot;</span>)) <span class="op">.</span> </span>
+<span id="cb5-31"><a href="#cb5-31" aria-hidden="true" tabindex="-1"></a>    (bottomUp headlinifyBlock)</span>
+<span id="cb5-32"><a href="#cb5-32" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-33"><a href="#cb5-33" aria-hidden="true" tabindex="-1"></a><span class="ot">main ::</span> <span class="dt">IO</span> ()</span>
+<span id="cb5-34"><a href="#cb5-34" aria-hidden="true" tabindex="-1"></a>main <span class="ot">=</span> toJSONFilter headlinify</span></code></pre></div>
   </main>
   <style>pre > code.sourceCode { white-space: pre; position: relative; }
 pre > code.sourceCode > span { line-height: 1.25; }
