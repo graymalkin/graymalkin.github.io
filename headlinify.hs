@@ -4,26 +4,28 @@
 import Text.Pandoc.JSON
 import Text.Pandoc.Generic
 import qualified Data.Text as T
-import Data.Map (mapWithKey)
+import Data.Map (mapWithKey, insert, findWithDefault)
 
 headlineInline :: Inline -> Inline
 headlineInline (Str x) = Span ("", ["headline-word"], []) [Str x]
 headlineInline x = x
 
 headlinifyBlock :: Block -> Block
-headlinifyBlock (Header n id content) =   (Header n id (map headlineInline content))
+headlinifyBlock (Header n id content) = Header n id (map headlineInline content)
 headlinifyBlock x = x
 
-headlinifyMetaKV :: T.Text -> MetaValue -> MetaValue
-headlinifyMetaKV "title" (MetaInlines content) = MetaInlines (map headlineInline content)
-headlinifyMetaKV "subtitle" (MetaInlines content) = MetaInlines (map headlineInline content)
-headlinifyMetaKV _ x = x
+headlinifyMetaInline :: MetaValue -> MetaValue
+headlinifyMetaInline (MetaInlines inls) = MetaInlines (map headlineInline inls)
+headlinifyMetaInline x = x
 
-headlinifyMetaValue :: Meta -> Meta
-headlinifyMetaValue (Meta m) = Meta (mapWithKey headlinifyMetaKV m)
+addDisplayMetaValue :: T.Text -> Meta -> Meta
+addDisplayMetaValue field (Meta m) = 
+    let headlinified = headlinifyMetaInline (findWithDefault (MetaInlines []) field m) in
+    let newField = T.concat ["display", field] in
+    Meta (insert newField headlinified m)
 
 headlinify :: Pandoc -> Pandoc
-headlinify = (bottomUp headlinifyMetaValue) . (bottomUp headlinifyBlock)
+headlinify = (bottomUp (addDisplayMetaValue "title")) . (bottomUp (addDisplayMetaValue "subtitle")) . (bottomUp headlinifyBlock)
 
 main :: IO ()
 main = toJSONFilter headlinify

@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+  <title>$title$</title>
+  <meta name="viewport" content="width=device-width, user-scalable=yes">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/firacode@6.2.0/distr/fira_code.css">
+  <link rel="stylesheet" type="text/css" href="/style.css"/>
+  <meta name="description" content="Simon's Blog, with personal projects and some academic musings.">
+  <meta charset="utf-8">
+$for(header-includes)$
+  $header-includes$
+$endfor$
+</head>
+<body>
+  <main>
+    <h1 class="title">$displaytitle$</h1>
+    $if(subtitle)$<div class="byline">$displaysubtitle$</div>$endif$
+    $if(date)$<div class="date">$date$</div>$endif$
+    <nav>
+        <ul>
+            <li><a href="/">Home</a></li>
+            <li><a href="/blog/">Blog</a></li>
+            <li><a href="/iso-papers">ISO Papers</a></li>
+            <li><a href="/photography/">Photography</a></li>
+        </ul>
+    </nav>
+$if(toc)$
+<h1 id="toc">Contents</h1>
+$toc$
+$endif$
+$body$
+    <link rel="stylesheet" type="text/css" href="orrery.min.css"/>
+    <div class="orrery">
+      <div id="sun" class="star">
+        <div class="flare"></div>
+        <div class="flare"></div>
+        <div class="flare"></div>
+      </div>
+      <div id="mercury_orbit" class="orbit"></div>
+      <div id="mercury" class="planet"></div>
+      <div id="venus_orbit" class="orbit"></div>
+      <div id="venus" class="planet"></div>
+
+      <div id="earth_orbit" class="orbit"></div>
+      <div id="earth" class="planet">
+        <div id="moon"></div>
+      </div>
+
+      <div id="mars_orbit" class="orbit"></div>
+      <div id="mars" class="planet">
+        <div id="phobos"></div>
+        <div id="deimos"></div>
+      </div>
+
+      <div id="saturn_orbit" class="orbit"></div>
+      <div id="saturn" class="planet">
+        <div class="ring"></div>
+        <div id="titan"></div>
+      </div>
+
+      <div id="jupiter_orbit" class="orbit"></div>
+      <div id="jupiter" class="planet">
+        <div class="spot"></div>
+        <div id="io"></div>
+        <div id="europa"></div>
+        <div id="ganymede"></div>
+        <div id="callisto"></div>
+      </div>
+
+      <div id="neptune_orbit" class="orbit"></div>
+      <div id="neptune" class="planet">
+        <div class="ring"></div>
+      </div>
+
+      <div id="uranus_orbit" class="orbit"></div>
+      <div id="uranus" class="planet"></div>
+    </div>
+  </main>
+  <style>$highlighting-css$</style>
+</body>
+</html>

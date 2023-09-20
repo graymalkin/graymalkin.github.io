@@ -1,7 +1,7 @@
 ---
 title: Leaving Kent
 subtitle: Moving on from academic research into industrial research
-date: 11-09-2023
+date: 2023-09-11
 published: true
 toc: false
 ---

@@ -1,0 +1,316 @@
+<!DOCTYPE html>
+<html lang="en">
+  <title>Simon Cooksey</title>
+  <meta name="viewport" content="width=device-width, user-scalable=yes">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/firacode@6.2.0/distr/fira_code.css">
+  <link rel="stylesheet" type="text/css" href="./style.css"/>
+  <meta name="description" content="Personal webpage of Simon Cooksey, summarising academic research projects and funding.">
+  <meta charset="utf-8">
+</head>
+<body>
+  <main>
+    <h1 class="title">Simon Cooksey</h1>
+    <div class="byline">Research Fellow in Programming Languages</div>
+    <nav>
+      <ul>
+          <li><a href="/">Home</a></li>
+          <li><a href="/blog/">Blog</a></li>
+          <li><a href="/iso-papers">ISO Papers</a></li>
+          <li><a href="/photography/">Photography</a></li>
+      </ul>
+  </nav>
+
+  
+  <h2>Research Fellow</h2>
+    <p> I am a Research Fellow in Programming Languages at the University of Kent, as part of the Programming Languages and Systems Research Group.
+    I am working on the <i>Complementing Capabilities</i> research project to bring the Rust programming language to Morello.</p>
+
+    <p>I am open to industrial collaboration investigating weak memory behaviours and the semantics of compiler optimised programs. I am happy to work on an ad-hoc contractor basis, or as part of a traditionally funded research program, please <a href="#contact">get in touch</a>.</p>
+
+    <h3>Potential students</h3>
+    <p>If you are interested in doing a PhD with me, please <a href="#contact">reach out</a>!
+    The School of Computing at the University of Kent has scholarships available for excellent UK and International Students.</p>
+
+    <h2>Publications</h2>
+    <h3>Rust for Morello: Always-on Memory Safety, Even in Unsafe Code</h3>
+    <p>Memory safety issues are a serious concern in systems programming. Rust is a systems language that provides memory safety through a combination of a static checks embodied in the type system and ad hoc dynamic checks inserted where this analysis becomes impractical. The Morello prototype architecture from ARM uses capabilities, fat pointers augmented with object bounds information, to catch failures of memory safety. This paper presents a compiler from Rust to the Morello architecture, together with a comparison of the performance of Rust's runtime safety checks and the hardware-supported checks of Morello. The cost of Morello's always-on memory safety guarantees is 39% in our 19 benchmark suites from the Rust crates repository (comprising 872 total benchmarks). For this cost, Morello's capabilities ensure that even unsafe Rust code benefits from memory safety guarantees.</p>
+    <details class="pub">
+      <summary>
+        <div><i>Rust for Morello: Always-on Memory Safety, Even in Unsafe Code</i></div>
+        <br />
+        Sarah Harris, <b>Simon Cooksey</b>, Michael Vollmer, Mark Batty
+      </summary>
+      <a href="/papers/ecoop23.pdf" target="_blank">[PDF]</a> | <a href="https://github.com/kent-weak-memory/rust" target="_blank">[GitHub]</a>
+      <pre language="BibTeX">
+@InProceedings{SHarris:2023,
+  author ={Harris, Sarah and Cooksey, Simon and Vollmer, Michael and Batty, Mark},
+  title ={{Rust for Morello: Always-On Memory Safety, Even in Unsafe Code}},
+  booktitle ={37th European Conference on Object-Oriented Programming (ECOOP 2023)},
+  pages ={39:1--39:27},
+  series ={Leibniz International Proceedings in Informatics (LIPIcs)},
+  ISBN ={978-3-95977-281-5},
+  ISSN ={1868-8969},
+  year ={2023},
+  volume ={263},
+  editor ={Ali, Karim and Salvaneschi, Guido},
+  publisher ={Schloss Dagstuhl -- Leibniz-Zentrum f{\"u}r Informatik},
+  address ={Dagstuhl, Germany},
+  URL ={https://drops.dagstuhl.de/opus/volltexte/2023/18232},
+  URN ={urn:nbn:de:0030-drops-182322},
+  doi ={10.4230/LIPIcs.ECOOP.2023.39},
+  annote ={Keywords: Compilers, Rust, Memory Safety, CHERI}
+}</pre>
+    </details>
+
+    <h3>Mixed-Proxy Extensions to NVIDIA PTX</h3>
+    <p>An extension of NVIDIA's PTX ISA to support mixing load and store operations that target different proxies of memory. 
+      This gives well-defined semantics to programs with both, for example, constant loads and generic stores to the same address. 
+      The memory model extension was built in the relational model checking tool, Alloy, and we showed that our extension to the PTX model is sound and complete with respect to the existing industrial model.</p>
+      <details class="pub">
+        <summary>
+        <div><i>Mixed-Proxy Extensions for the NVIDIA PTX Memory Consistency Model</i></div>
+        <br />
+        ★ <i>Honorable Mention, IEEE Micro Top Picks 2023!</i>
+        <br />
+        Daniel Lustig, <b>Simon Cooksey</b>, Olivier Giroux
+      </summary>
+      <a href="papers/isca22.pdf" target="_blank">[PDF]</a>
+      <pre language="BibTeX">@inproceedings{DLustig:2022,
+  author = {Lustig, Daniel and Cooksey, Simon and Giroux, Olivier},
+  title = {Mixed-Proxy Extensions for the NVIDIA PTX Memory Consistency Model: Industrial Product},
+  booktitle = {Proceedings of the 49th Annual International Symposium on Computer Architecture},
+  pages = {1058-1070},
+  publisher = {Association for Computing Machinery},
+  year = {2022},
+  isbn = {9781450386104},
+  address = {New York, NY, USA},
+  url = {https://doi.org/10.1145/3470496.3533045},
+  doi = {10.1145/3470496.3533045},
+  numpages = {13},
+  location = {New York, New York},
+  series = {ISCA '22}
+}</pre>
+    </details>
+
+    <h3>Pomsets with Predicate Transformers</h3>
+    <p>Pomsets with Predicate Transformers (PwT) is a recent fully denotational semantics for weak memory consistency.
+    It captures program dependencies by embedding a logic into predicate transformers which compose to create proof
+    burdens necessary to remove dependencies which are syntactic only from list of dependencies actually present in a
+    program. I developed an OCaml tool to automatically evaluate PwT over a series of litmus tests. <i>Appears in the proceedings of POPL 2022.</i></p>
+    <details class="pub">
+      <summary>
+        <div><i>The Leaky Semicolon: Compositional Semantic Dependencies for Relaxed-Memory Concurrency</i></div>
+        <br >
+        Alan Jeffery, James Riely, Mark Batty, <b>Simon Cooksey</b>, Ilya Kaysin, Anton Podkopaev
+      </summary>
+      <a href="papers/popl22.pdf" target="_blank">[PDF]</a>
+      <pre language="BibTeX">@inproceedings{AJeffrey:2022,
+  title={The Leaky Semicolon: Compositional Semantic Dependencies for Relaxed-Memory Concurrency},
+  author={Jeffrey, Alan and Riely, James and Batty, Mark and Cooksey, Simon and Kaysin, Ilya and Podkopaev, Anton},
+  booktitle={Proceedings of the 49th {ACM} {SIGPLAN} Symposium on Principles of Programming Languages, {POPL} 2022, Philadelphia, USA, January 18-20, 2022},
+  editor={Rajeev Alur and Hongseok Yang},
+  pages={54--84},
+  publisher={{ACM}},
+  year={2022},
+  url={https://doi.org/10.1145/3498716}
+}
+</pre>
+    </details>
+
+    <h3>Modular Relaxed Dependencies</h3>
+    <p>Modular Relaxed Dependencies (MRD) is a denotational semantics for weak memory consistency in C and C++. As well
+      as helping to define the denotation, I built an evaluation tool (MRDer) in OCaml to enable fast calculation of the
+      semantics against a corpus of litmus tests. Further, I proved meta-theoretic properties about the semantics with
+      respect to industry standard models of C/C++.</p>
+
+    <details class="pub">
+      <summary>
+        <i>P2850: Minimal compiler preserved dependencies</i>.
+        ISO/IEC JTC1/SC22/WG21.
+        <br >
+        Mark Batty, <b>Simon Cooksey</b>
+      </summary>
+      <a href="/iso-papers/p2850/p2850r0.html" rel="noreferrer" target="_blank">Online working document</a>
+      <pre language="BibTeX">@techreport{MBatty:P2850,
+    author="Batty, Mark and Cooksey, Simon",
+    title="Minimal compiler preserved dependencies",
+    institution="ISO/IEC JTC1/SC22/WG21",
+    month="June",
+    year="2023",
+    number="P2850R0"
+}</pre>
+    </details>
+
+    <details class="pub">
+      <summary>
+        <i>Modular Relaxed Dependencies in Weak Memory Concurrency</i>. 
+        ESOP 2020.
+        <br >
+        Marco Paviotti, <b>Simon Cooksey</b>, Anouk Paradis, Daniel Wright, Scott Owens, Mark Batty
+      </summary>
+      <a href="papers/esop20.pdf" target="_blank">[PDF]</a>
+      <pre language="BibTeX">@inproceedings{MPaviotti:ESOP20,
+  title={Modular Relaxed Dependencies in Weak Memory Concurrency},
+  author={Pavoitti, Marco and Cooksey, Simon and Paradis, Anouk and Wright, Daniel and Owens, Scott and Batty, Mark},
+  booktitle="Programming Languages and Systems",
+  editor="M{\"u}ller, Peter",
+  year="2020",
+  publisher="Springer International Publishing",
+  address="Cham",
+  pages="599--625",
+}
+</pre>
+    </details>
+
+    <details class="pub">
+      <summary>
+        <i>P1780R0: Modular Relaxed Dependencies: A new approach to the Out-Of-Thin-Air Problem</i>.
+        ISO/IEC JTC1/SC22/WG21.
+        <br >
+        Mark Batty, <b>Simon Cooksey</b>, Scott Owens, Anouk Paradis, Marco Paviotti, Daniel Wright
+      </summary>
+      <a href="https://wg21.link/p1780" rel="noreferrer" target="_blank">Online working document</a>
+      <pre language="BibTeX">@techreport{MBatty:P1780,
+  author="Batty, Mark and Cooksey, Simon and Owens, Scott and Paradis, Anouk and Paviotti, Marco and Wright, Daniel",
+  title="Modular Relaxed Dependencies: A new approach to the Out-Of-Thin-Air Problem",
+  institution="ISO/IEC JTC1/SC22/WG21",
+  month="June",
+  year="2019",
+  number="P1780R0"
+}</pre>
+    </details>
+
+    <h3>PrideMM</h3>
+    <p>PrideMM is a tool written in OCaml which provides an API for building Second Order logical formulae and uses
+      this API to express memory models. We use cutting edge Quantified Boolean Formulae (QBF) solvers to efficiently
+      simulate a new class of memory model which solve the thin-air problem. We encode the problems in a high-level
+      second order logic giving us flexibility in problem expression. This then gets translated into a QBF model
+      checking problem for a solver to efficiently execute.</p>
+
+    <details class="pub">
+      <summary>
+        <i>PrideMM: Second Order Model Checking for Memory Consistency Models</i>. TAPAS 2019.
+        <br >
+        <b>Simon Cooksey</b>, Sarah Harris, Mary Batty, Radu Grigore, Mikoláš Janota
+      </summary>
+      <a href="papers/tapas19.pdf" target="_blank">[PDF]</a>
+      <pre language="BibTeX">@inproceedings{SCooksey:TAPAS19,
+  author="Cooksey, Simon and Harris, Sarah and Batty, Mark and Grigore, Radu and Janota, Mikol\'{a}\v{s}",
+  title="PrideMM: Second Order Model Checking for Memory Consistency Models",
+  booktitle="10th Workshop on Tools for Automatic Program Analysis",
+  year="2019"
+}</pre>
+    </details>
+    
+    <h2>Grants</h2>
+    <h3>Embedded Rust for Morello in Defence Applications</h3>
+    <p><i>Defence and Security Accelerator, 2023.</i></p>
+    <p>I am Principal Investigator for a grant of £87,763 (80% FEC) on a project to extend our Rust for Morello compiler to embedded targets on the Morello platform.</p>
+
+    <h3>Complementing capabilities: introducing pointer-safe programming to DSBD tech</h3>
+    <p><i>Innovate UK ICSF, 2022.</i></p>
+    <p>I am a Researcher Co-Investigator for a grant of £494,770 (80% FEC) responding to the Innovate UK call to extend the DSbD ecosystem with new CHERI-compatible software. This work will be focussed on porting the Rust compiler to CHERI and formally demonstrating how the guarantees provided by Rust join up nicely with the guarantees of the capability hardware.</p>
+
+    <h3>Fixing the thin-air problem: ISO dissemination</h3>
+    <p><i>VeTSS, 2020</i>.</p>
+    <p>I am a named researcher and co-author of a VeTSS grant of £60,455 (80% FEC) to pursue further integration of MRD into the ISO C++ Standard. This grant funds travel to ISO meetings, and research time for me to prepare papers ahead of these meetings.</p>
+
+    <h3>CAPC: Capability C semantics, tools and reasoning</h3>
+    <p><i>Digital Security by Design, 2020.</i></p>
+    <p>I am a named researcher and co-author of a Digital Security by Design grant of £485,168 (80% FEC). This is a longer term project to build verified concurrent libraries for the CHERI platform. CHERI is an interesting extension to ARM where memory accesses are tagged with capabilities to keep code secure.</p>
+    
+    <h2>Postgraduate</h2>
+    <p>I completed my PhD in the Programming Languages and Systems group at the University of Kent.
+    I worked with my supervisor  <a href="https://www.cs.kent.ac.uk/people/staff/mjb211/" target="_blank" rel="noreferrer">Mark Batty</a> researching weak memory behaviours and compiler verification.</p>
+
+    <p>In June 2020 I received the <a href="https://blogs.kent.ac.uk/graduateschoolnews/2020/05/19/graduate-school-prizes-2020/" target="_blank" rel="noreferrer">Kent Postgraduate Prize</a>, recognising the impact of my research.</p>
+    <h2>Industrial Experience</h2>
+    <h3>NVIDIA</h3>
+    <p>As an intern at NVIDIA I extended the Memory Consistency Model for NVIDIA’s virtual instruction set (PTX) to
+      support "memory views". This enables writing well defined programs which mix generic load and store operations
+      with specialised load and store operations for texture, surface and constant accesses.</p>
+    
+    <h3>XMOS</h3>
+    <p>I worked for the Bristol based semiconductor company <a href="http://www.xmos.com/">XMOS</a>. XMOS
+      produce a line of multi-core embedded processors called the xCORE. I built tools and
+      applications for the platform, including a port of an MP3 library, <tt><a href="https://github.com/graymalkin/lib_mp3/">lib_mp3</a></tt> and
+      adaptations to their debugging toolchain to enable remote debugging of hardware targets over the network, and to
+      allow interfacing the debugger with a fast simulator.</p>
+
+    <h2>Undergraduate</h2>
+    <p>I graduated from the University of Kent with a First in <i>Computer Science with a Year in Industry</i>.</p>
+    
+    <h3>TinkerSoc</h3>
+    <p>I was the president of <a href="http://tinkersoc.org/">TinkerSoc</a>, a society dedicated to making things,
+      particularly electronics.</p>
+
+    <h2 id="contact">Contact</h2>
+    <p>I am now on Mastodon at <a rel="me" href="https://types.pl/@graymalkin">@graymalkin@types.pl</a>.</p>
+    <p>You can contact me via email, <a href="mailto:simon@graymalk.in">simon@graymalk.in</a>.</p>
+    <p>My <a href="./cv.pdf" target="_blank">CV</a> is available too.</p>
+  </main>
+
+  
+  <link rel="stylesheet" type="text/css" href="orrery.min.css"/>
+  <div class="orrery">
+    <div id="sun" class="star">
+      <div class="flare"></div>
+      <div class="flare"></div>
+      <div class="flare"></div>
+    </div>
+    <div id="mercury_orbit" class="orbit"></div>
+    <div id="mercury" class="planet"></div>
+    <div id="venus_orbit" class="orbit"></div>
+    <div id="venus" class="planet"></div>
+
+    <div id="earth_orbit" class="orbit"></div>
+    <div id="earth" class="planet">
+      <div id="moon"></div>
+    </div>
+
+    <div id="mars_orbit" class="orbit"></div>
+    <div id="mars" class="planet">
+      <div id="phobos"></div>
+      <div id="deimos"></div>
+    </div>
+
+    <div id="saturn_orbit" class="orbit"></div>
+    <div id="saturn" class="planet">
+      <div class="ring"></div>
+      <div id="titan"></div>
+    </div>
+
+    <div id="jupiter_orbit" class="orbit"></div>
+    <div id="jupiter" class="planet">
+      <div class="spot"></div>
+      <div id="io"></div>
+      <div id="europa"></div>
+      <div id="ganymede"></div>
+      <div id="callisto"></div>
+    </div>
+
+    <div id="neptune_orbit" class="orbit"></div>
+    <div id="neptune" class="planet">
+      <div class="ring"></div>
+    </div>
+
+    <div id="uranus_orbit" class="orbit"></div>
+    <div id="uranus" class="planet"></div>
+  </div>
+  <script>
+    let newHeadlineMarkup = "";
+    document.querySelectorAll("h1, h2, h3, h4, .byline")
+      .forEach((headline, _) => {
+        var newHeadingMarkup = "";
+        headline.innerHTML
+          .split(" ")
+          .forEach((word, _) => {
+            newHeadingMarkup += `<span class="headline-word">${word}</span>`;
+          }
+        );
+        headline.innerHTML = newHeadingMarkup;
+      }
+    );
+  </script>
+</body>
+</html>
