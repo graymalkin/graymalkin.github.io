@@ -1,4 +1,4 @@
-#!/usr/bin/env stack runghc --package pandoc-types
+#!/usr/bin/env -S stack runghc --package pandoc-types
 {-# LANGUAGE OverloadedStrings #-}
 
 import Text.Pandoc.JSON
