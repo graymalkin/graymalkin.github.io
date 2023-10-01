@@ -8,7 +8,7 @@ toc: false
 
 While re-designing this site, I wanted to use the newsprint style headlines for my headings.
 To my dissatisfaction, it is very hard to style header (`<h1>`) elements using just CSS to produce this effect.
-I had a look online, and a [stack overflow][stack-overflow-headline] post gave me a solution using JavaScript:
+I had a look online, and a stack overflow post (that I can no-longer find) gave me a solution using JavaScript:
 
 ```js
 <script>
@@ -79,7 +79,7 @@ addDisplayMetaValue field (Meta m) =
 Putting it all together, and adding a `#!` recipe so it can be run as a script rather than compiled, and we get this:
 
 ```hs
-#!/usr/bin/env stack runghc --package pandoc-types
+#!/usr/bin/env -S stack runghc --package pandoc-types
 {-# LANGUAGE OverloadedStrings #-}
 
 import Text.Pandoc.JSON
