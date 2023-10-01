@@ -1,13 +1,10 @@
 ---
 title: Simon Cooksey
-subtitle: Research Fellow in Programming Languages
+subtitle: Research Scientist
 toc: false
 ---
 
-## Research Fellow
-I am a Research Fellow in Programming Languages at the University of Kent, as part of the Programming Languages and Systems Research Group.
-I am working on the _Complementing Capabilities_ research project to bring the Rust programming language to Morello.
-
+I am a Research Scientist working for NVIDIA in the Architecture Research Group.
 
 ## Publications
 ### Rust for Morello: Always-on Memory Safety, Even in Unsafe Code
