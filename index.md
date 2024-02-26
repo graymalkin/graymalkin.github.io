@@ -12,7 +12,7 @@ Memory safety issues are a serious concern in systems programming.
 Rust is a systems language that provides memory safety through a combination of a static checks embodied in the type system and ad hoc dynamic checks inserted where this analysis becomes impractical.
 The Morello prototype architecture from ARM uses capabilities, fat pointers augmented with object bounds information, to catch failures of memory safety.
 This paper presents a compiler from Rust to the Morello architecture, together with a comparison of the performance of Rust's runtime safety checks and the hardware-supported checks of Morello.
-The cost of Morello's always-on memory safety guarantees is 39% in our 19 benchmark suites from the Rust crates repository (comprising 872 total benchmarks). For this cost, Morello's capabilities ensure that even unsafe Rust code benefits from memory safety guarantees.
+[Project website](https://www.cs.kent.ac.uk/people/staff/mjb211/rust/index.htm).
 
 <details class="pub">
 <summary>
@@ -194,7 +194,7 @@ I am Principal Investigator for a grant of £87,763 (100% FEC) on a project to e
 ### Complementing Capabilities: Introducing Pointer-Safe Programming to DSbD Tech
 _Innovate UK ICSF, 2022_
 
-I am a Researcher Co-Investigator for a grant of £494,770 (80% FEC) responding to the Innovate UK call to extend the DSbD ecosystem with new CHERI-compatible software.
+I am a Researcher Co-Investigator for a grant of £494,770 (80% FEC) responding to the Innovate UK call to extend the DSbD ecosystem with new CHERI compatible software.
 This work will be focussed on porting the Rust compiler to CHERI and formally demonstrating how the guarantees provided by Rust join up nicely with the guarantees of the capability hardware.
 
 ### Fixing the Thin-Air Problem: ISO Dissemination
@@ -226,7 +226,7 @@ This enables writing well-defined programs which mix generic load and store oper
 
 ### XMOS
 I worked for the Bristol based semiconductor company [XMOS][xmos].
-XMOS produce a line of multi-core embedded processors called the xCORE.
+XMOS produces a line of multicore embedded processors called the xCORE.
 I built tools and applications for the platform, including a port of an MP3 library, `lib_mp3` and adaptations to their debugging toolchain to enable remote debugging of hardware targets over the network, and to allow interfacing the debugger with a fast simulator.
 
 [xmos]: https://www.xmos.com
