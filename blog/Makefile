@@ -1,8 +1,9 @@
 TEMPLATE = ./blog-template.html
-PANDOC_FLAGS = --standalone --toc --citeproc --highlight-style kate --template=$(TEMPLATE) --mathml --filter ../headlinify.hs
+PANDOC_FLAGS = --standalone --toc --citeproc --from markdown+grid_tables --highlight-style kate --template=$(TEMPLATE) --mathml --filter ../headlinify.hs
 
 # Order is the index order. Maintain reverse chronological order.
 ARTICLES = \
+	myford-ml4 \
 	headlinify \
 	leaving-kent \
 	home-assistant-heating-controller \
