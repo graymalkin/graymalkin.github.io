@@ -2,7 +2,7 @@
 title: Myford Lathe (Part I)
 subtitle: Cleaning and inspection
 date: 2024-09-30
-published: false
+published: true
 toc: false
 ---
 
@@ -77,10 +77,19 @@ There are some marks and heavier scratches in the several of the sldiing surface
 Minor surface rust cleaned up fine with scotchbrite (I was gentle on ground surfaces).
 The gibs seem poorly made, there's burs on the angled surfaces.
 
+![Compound](./images/compound.jpg){ width=100% }
+
 The apron, the part of the lathe which engages the lead screw and feed rack, is filthy.
 Perhaps it is normal, but there is a 4th gib on the action to engage the half nut: the lever actuates a cam which slides the half nut parts around the lead screw.
 I've not dismantled a lathe apron before to know if this is a common arrangement, but it is neat to me.
 The gib screws are in poor condition.
+
+<div style="text-align: center">
+![Compound cleaned](./images/compound-cleaned.jpg){ width=45% }
+![Compound cleaned](./images/compound-cleaned2.jpg){ width=45% }
+</div>
+
+![Apron cleaned](./images/apron-cleaned.jpg){ width=100% }
 
 All of the handwheels are in a sorry state.
 Very corroded with a rough texture to the hand.
