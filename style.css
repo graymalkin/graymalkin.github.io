@@ -3,6 +3,10 @@ body {
     padding: 0;
     color: rgba(53,53,53,1); /* #353535 */
     font-family: Georgia, serif;
+    hyphens: auto;
+    overflow-wrap: break-word;
+    text-rendering: optimizeLegibility;
+    font-kerning: normal;
 }
 
 h1, h2, h3, h4, h5, .byline {
