@@ -1,20 +1,17 @@
 <!DOCTYPE html>
 <html lang="en">
-  <title>$title$ &mdash; Simon Cooksey Blog</title>
+  <title>Allotment &mdash; Simon Cooksey Blog</title>
   <meta name="viewport" content="width=device-width, user-scalable=yes">
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/firacode@6.2.0/distr/fira_code.css">
   <link rel="stylesheet" type="text/css" href="/style.css"/>
   <meta name="description" content="Simon's Blog, with personal projects and some academic musings.">
   <meta charset="utf-8">
-$for(header-includes)$
-  $header-includes$
-$endfor$
 </head>
 <body>
   <main>
-    <h1 class="title">$displaytitle$</h1>
-    $if(subtitle)$<div class="byline">$displaysubtitle$</div>$endif$
-    <div class="date">$date$</div>
+    <h1 class="title"><span class="headline-word">Allotment</span></h1>
+    
+    <div class="date">2024-11-01</div>
     <nav>
         <ul>
             <li><a href="/">Home</a></li>
@@ -23,14 +20,17 @@ $endfor$
             <li><a href="/photography/">Photography</a></li>
         </ul>
     </nav>
-$if(toc)$
-<h1 id="toc">Contents</h1>
-<nav id="$idprefix$TOC">
-$toc$
-</nav>
-$endif$
-$body$
+<ul>
+<li><span style="color: #666">(2024-11-01)</span> <a
+href="./">Allotment</a>
+<ul>
+<li><span style="color: #666">(2024-11-12)</span> <a
+href="./winter-24/">Winter 2024</a></li>
+<li><span style="color: #666">(2025-03-01)</span> <a
+href="./spring-25/">Spring 2025</a></li>
+</ul></li>
+</ul>
   </main>
-  <style>$highlighting-css$</style>
+  <style></style>
 </body>
 </html>

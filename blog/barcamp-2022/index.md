@@ -3,7 +3,7 @@ title: A Maker's Guide to EBikes
 subtitle: How to build an EBike, and what you might want to know.
 date: 2022-11-02
 published: false
-bibliography: barcamp-2022/bib.bib
+bibliography: bib.bib
 ---
 
 This year's BarCamp Canterbury was held at the MakerSpace in the new Engineering building at Canterbury Christ Church university.
