@@ -7,8 +7,8 @@ import qualified Data.Text as T
 import Data.Map (mapWithKey, insert, findWithDefault)
 
 headlineInline :: Inline -> Inline
--- headlineInline (Str x) = Span ("", ["headline-word"], []) [Str x] "<strong class=\"headline-word\">" <> x <> "</strong>"
-headlineInline (Str x) = RawInline (Format "html") ("<strong class=\"headline-word\">" <> x <> "</strong>")
+headlineInline (Str x) = Span ("", ["headline-word"], []) [Str x]
+-- headlineInline (Str x) = RawInline (Format "html") ("<span class=\"headline-word\">" <> x <> "</span>")
 headlineInline x = x
 
 intersperse :: a -> [a] -> [a]

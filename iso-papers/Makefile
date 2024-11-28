@@ -26,12 +26,10 @@ index.md: $(INPUTS)
 		TITLE=$$(grep -m 1 "Title" $$a | sed -e 's/Title: //g'); \
 		SHORTNAME=$$(grep -m 1 "Shortname" $$a | sed -e 's/Shortname: //g'); \
 		REVISION=$$(grep -m 1 "Revision" $$a | sed -e 's/Revision: //g'); \
-		if [[ $$a == *.url ]]; \
-		then \
-			HREF=$$(grep -m 1 "URL" $$a | sed -e 's/URL: //g'); \
-		else \
-			HREF="./$$(echo $$a | sed -e 's/.bs/.html/g')"; \
-		fi; \
+		case $$a in \
+			*.url) HREF=$$(grep -m 1 "URL" $$a | sed -e 's/URL: //g');; \
+			*) HREF="./$$(echo $$a | sed -e 's/.bs/.html/g')";; \
+		esac; \
 		echo " - <span style=\"color: #666\">($$DATE)</span> [$$SHORTNAME r$$REVISION] [$$TITLE]($$HREF)" >> index.md; \
 	done
 
