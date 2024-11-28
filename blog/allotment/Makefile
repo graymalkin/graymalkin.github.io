@@ -14,7 +14,7 @@ SUB_PAGES = \
 	pandoc $(PANDOC_FLAGS) -o $@ $<
 
 images/%.jpg : images/%-large.jpg
-	magick $< -resize ^1000x1000 $@
+	$(MAGICK) $< -resize ^1000x1000 $@
 
 all: $(IMAGES_RESIZED) $(patsubst %.md,%/index.html,$(SUB_PAGES)) toc.md
 
