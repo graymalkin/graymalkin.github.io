@@ -7,11 +7,17 @@ import qualified Data.Text as T
 import Data.Map (mapWithKey, insert, findWithDefault)
 
 headlineInline :: Inline -> Inline
-headlineInline (Str x) = Span ("", ["headline-word"], []) [Str x]
+-- headlineInline (Str x) = Span ("", ["headline-word"], []) [Str x] "<strong class=\"headline-word\">" <> x <> "</strong>"
+headlineInline (Str x) = RawInline (Format "html") ("<strong class=\"headline-word\">" <> x <> "</strong>")
 headlineInline x = x
 
+intersperse :: a -> [a] -> [a]
+intersperse i (x:y:ys) = x:i:intersperse i (y:ys)
+intersperse _ xs = xs
+
+
 headlinifyBlock :: Block -> Block
-headlinifyBlock (Header n id content) = Header n id (map headlineInline content)
+headlinifyBlock (Header n id content) = Header n id (intersperse Space (map headlineInline content))
 headlinifyBlock x = x
 
 headlinifyMetaInline :: MetaValue -> MetaValue

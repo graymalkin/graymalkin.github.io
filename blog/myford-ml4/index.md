@@ -1,8 +1,8 @@
 ---
 title: Myford Lathe (Part I)
 subtitle: Cleaning and inspection
-date: 2024-09-30
-published: true
+date: Work-in-progress
+published: false
 toc: false
 ---
 
@@ -93,12 +93,18 @@ The gib screws are in poor condition.
 
 All of the handwheels are in a sorry state.
 Very corroded with a rough texture to the hand.
+I can't tell how to remove the handwheels yet, there is a small hex behind the handwheel, but it doesn't seem to turn independently of the handle, and I don't want to reef on it too hard.
+Perhaps I'm being too lily-livered.
+
+I shall try cleaning a lot of these parts in a small ultrasonic cleaner, starting with the apron.
 
 ## Tailstock
 This feels in rough shape.
 There is a dead centre in the tailstock taper which is very much in-there.
 I will need to dismantle to get further.
 The machined surfaces which run on the ways seem in okay condition.
+
+[![Tailstock](./images/tailstock.jpg){ width=100% }](./images/tailstock-large.jpg)
 
 ## Electrics
 WIP, photos to follow.
@@ -206,6 +212,9 @@ A small peice of 3/32-in. steel wire should be used to connect two wheels togeth
 +----------------+----------+----------------------+-----------+-----------+------------------+
 </div>
 
+Please note one extra 20 wheel is required in .5, .75, and 1.0 pitch.
+Also in extra fine feed.
+
 ## B. Machine Specifications
 _From the catalogue._
 
@@ -289,6 +298,10 @@ As I dismantle the lathe and find some hardware in poor condition, I shall try t
 0.625 ⅝
 0.750 ¾
 0.875 ⅞ -->
+
+Nuts and bolts seem to be odd-ball sizes.
+My standard set of 16th imperial spanners seem to be missing exactly the spanners needed for the smaller hardware.
+
 
 <style>
 .change-wheel-tbl table { border-top: 2px solid black; border-bottom: 2px solid black; text-align: center }
