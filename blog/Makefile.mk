@@ -1,7 +1,9 @@
+MAGICK = convert
+
 toc.md: index.md $(SUB_PAGES)
 	@rm -f toc.md
 	@touch toc.md
-	@if [ -a "index.md" ] ; then \
+	@if [ -f "index.md" ] ; then \
 		DATE=$$(grep -m 1 "date" index.md | sed -e 's/date: //g'); \
 		TITLE=$$(grep -m 1 "title" index.md | sed -e 's/title: //g'); \
 		PUBLISHED=$$(grep -m 1 "published" index.md | sed -e 's/published: //g'); \
