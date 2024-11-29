@@ -7,7 +7,18 @@ published: true
 ---
 
 My partner and I have recently taken on an allotment here in Canterbury.
+For those who don't know, an allotment is an area of land you can rent from the council or an association designated by the council to cultivate.
+There's lots of variety in rules, but generally there's some minimum cultivation rate which you must achieve, and most people grow at least some fruit and vegetables.
+Some sites have running water, some do not.
+Some sites allow livestock (normally just chickens), some do not.
+Some require primarily vegetables be grown, some do not.
+
 While I'm not totally new to allotments---my mum took one on when I was a teenager---this will be my first attempt without "supervision".
+Well, not quite my first: when I was a PhD student I took on a half-allotment about a 20 minute walk from my flat, and that proved to be a bit of a barrier to getting my hands in the soil.
+That plot was also in worse shape than the one my partner and I have taken on, and starting in the summer meant a season of very hot work trying to clear ground to get anything planted.
+I'm sure some people could have made it work, but for me at that time in my life it wasn't going to happen.
+
+The allotment site this time is very close to our house, and I am now at a point in my life where I have some stability and predictability to make the most of an allotment.
 My partner has no allotment experience, but she grew veg with her father as a child.
 We'd like to grow some of the veg we enjoy most, I'd like some cut flowers, and we'd both like some oddities which are hard to get from the supermarket.
 
@@ -53,11 +64,11 @@ We also found an old air bed which we think was being used to suppress weeds.
 Allotments here have a strong ‘reuse and make do’ ethos, which I really like, but unfortunately it can sometimes go over the edge into just storing rubbish.
 We’re going to do our best to avoid plastics where we can, especially ones which will perish quickly in the sun.
 
-[![Compost heaps](../images/clearing.jpg){ width=100% }](../images/clearing-large.jpg)
+[![Clearing rubbish](../images/clearing.jpg){ width=100% }](../images/clearing-large.jpg)
 
 We broke down the old strawberry patch, pulled up the weed proof membrane, and have begun digging that over too.
 
-[![Compost heaps](../images/removed-raised-bed.jpg){ width=100% }](../images/removed-raised-bed-large.jpg)
+[![Removed raised beds](../images/removed-raised-bed.jpg){ width=100% }](../images/removed-raised-bed-large.jpg)
 
 The soil from under the membrane is quite poor.
 It is very heavy clay with little life left except couch grass rhizomes, there aren't even many worms.
@@ -70,15 +81,18 @@ In hindsight, I should have known leaving a couple of panels of glass/polycarbon
 It collapsed onto the adjacent polytunnel frame, which buckled even further out of shape but did protect the established fruit bushes from damage.
 
 [![Greenhouse damage](../images/greenhouse-damage.jpg){ width=100% }](../images/greenhouse-damage-large.jpg)
+Thankfully, it's worse than it looks.
 
 After the storm passed, I went back up to inspect the damage.
-Thankfully, it's worse than it looks.
-Greenhouses are made of surprisingly sturdy aluminium extrusions, and while a few bits were bent a little, the greenhouse went back together quite easily over an hour of faff.
+Greenhouses are made of surprisingly sturdy aluminium extrusions, and while a few bits were bent a little the structure went back together quite easily over an hour or two of faff.
 A few screws were missing (which I knew about before the storm) and the roof was extremely wobbly as a result.
 A previous tennant of the plot had wired parts of the frame together with thick horticultural wire, but it is not really the same as proper nuts and bolts.
 Thankfully, a pack of 50 greenhouse bolts is £6 from Amazon--so I have also bolted it back together more securely.
 
 [![Greenhouse re-erected](../images/greenhouse-re-erected.jpg){ width=100% }](../images/greenhouse-re-erected-large.jpg)
+
+It is now much more rigid when I push on it, and with no glass/plastic in the frame at all it should survive any more winter storms.
+Here's hoping anyway...
 
 A task for this winter is to re-build the greenhouse base.
 The existing base is made of 2×4 batons and 2×2 stakes which have all but rotted completely through.
@@ -103,6 +117,15 @@ I would like to mostly grow in raised beds, but I'm a little concerned about the
 Timber prices shot up around 2022 with the start of the current war in Ukraine, and haven't really gone back down.
 We're going to try and buy used scaffolding boards to make the sides of the raised beds, but at about £15 per 3m scaffolding board, and with a desire to make 3×1.5×0.5 beds, it'll be about £90 for the sides alone and another £20-ish for the corner posts, per raised bed!
 That cost is not in the spirit of cheap gardening that allotments promote.
+
+# Reference books
+On the recommendation of my mum I've picked up a couple of reference books, which happily I found in the local charity shop.
+Namely, _The Vegetable and Herb Expert_ and _The Fruit Expert_, both by D. G. Hessayon, totalling only £4!
+I remember that mum found the Vegetable Expert very useful when she started on her allotment, and now I'm a bit older I can see why.
+It's full of useful information about planting, but more importantly about common pests, how to identify them, and how to treat them.
+This will be invaluable while getting started at the allotment especially as pests are more rampant on allotments than in gardens.
+With so many novices growing such a variety of plants in a tight space, and with varying levels of hygeine, disease is inevitable.
+Hopefully these books will help us identify and treat problems quickly, or, failing that, help us at least understand what went wrong if a crop fails.
 
 [Rod (unit)]: https://en.wikipedia.org/wiki/Rod_(unit)
 [ground screw]: https://www.amazon.co.uk/PWU-Ground-Sleeve-Screw-Anchor/dp/B07L34F3FH
