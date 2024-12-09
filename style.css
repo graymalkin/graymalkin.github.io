@@ -166,6 +166,12 @@ blockquote {
     .date {
 	    font-size: 150%;
     }
+
+    figure {
+        max-width: 15em;
+        float: right;
+        margin: 0em 0 1em 1em;
+    }
 }
 
 .date {
