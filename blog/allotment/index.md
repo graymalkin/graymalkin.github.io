@@ -1,8 +1,11 @@
 ---
 title: Allotment
-date: 2024-11-01
+date: 2024-10-30
 published: true
+url: /blog/
 ---
- - <span style="color: #666">(2024-11-01)</span> [Allotment](./)
-     - <span style="color: #666">(2024-11-12)</span> [Winter 2024](./winter-24/)
-     - <span style="color: #666">(2025-03-01)</span> [Spring 2025](./spring-25/)
+
+Keeping track of my allotment!
+
+ - <span style="color: #666">(2024-10-30)</span> [Allotment](./allotment/)
+     - <span style="color: #666">(Winter 2024)</span> [Making a start](./allotment/winter-24/)

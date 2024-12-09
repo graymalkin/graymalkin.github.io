@@ -5,7 +5,7 @@ PANDOC_FLAGS = --standalone --toc --citeproc --highlight-style kate --template=$
 %.html: %.md $(TEMPLATE) $(FILTER)
 	pandoc $(PANDOC_FLAGS) -o $@ $< 
 
-all: index.html
+all: index.html cs-meat.html
 	make -C blog/ all
 	make -C iso-papers/ all
 

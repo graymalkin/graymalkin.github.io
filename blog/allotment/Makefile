@@ -6,6 +6,15 @@ SUB_PAGES = \
 	winter-24.md \
 	spring-25.md
 
+index.md: index-template.md
+	cat index-template.md > index.md
+
+toc.md : index.md
+
+index.html : index.md toc.md
+	cat toc.md >> index.md
+	pandoc $(PANDOC_FLAGS) -o $@ index.md
+
 %/index.html : %.md
 	mkdir -p $(basename $<)
 	pandoc $(PANDOC_FLAGS) -o $@ $<
