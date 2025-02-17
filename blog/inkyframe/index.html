@@ -1,0 +1,198 @@
+<!DOCTYPE html>
+<html lang="en">
+  <title>Inky Frame &mdash; Simon Cooksey Blog</title>
+  <meta name="viewport" content="width=device-width, user-scalable=yes">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/firacode@6.2.0/distr/fira_code.css">
+  <link rel="stylesheet" type="text/css" href="/style.css"/>
+  <meta name="description" content="Simon's Blog, with personal projects and some academic musings.">
+  <meta charset="utf-8">
+</head>
+<body>
+  <main>
+    <h1 class="title"><span class="headline-word">Inky</span> <span
+class="headline-word">Frame</span></h1>
+    <div class="byline"><span class="headline-word">Colour</span> <span
+class="headline-word">e-paper</span> <span
+class="headline-word">weather</span> <span
+class="headline-word">display</span></div>
+    <div class="date">2025-02-14</div>
+    <nav>
+        <ul>
+            <li><a href="/">Home</a></li>
+            <li><a href="/blog/">Blog</a></li>
+            <li><a href="/iso-papers">ISO Papers</a></li>
+            <li><a href="/photography/">Photography</a></li>
+        </ul>
+    </nav>
+<p>Pimoroni in the UK sell a cute <a
+href="https://shop.pimoroni.com/products/inky-frame-5-7?variant=40048398958675">5.7”
+e-paper photo frame</a>, with an integrated Raspberry Pi Pico W. They’re
+pretty pricey, but colour e-paper is very cool. I’ve had it for a while,
+and had grand visions of building a customisable YAML driven home
+assistant front-end for it, to display stats about the house, weather,
+inside and outside temperatures, and other nerdery. Like all the best
+laid plans though, it never really got anywhere. Time and other
+priorities meant it was left languishing in a drawer and I never got the
+project past a barely functional prototype.</p>
+<p>Well last weekend, while procrastinating building a <a
+href="/blog/allotment/spring-25/">greenhouse base</a> (it was raining…),
+I remembered it and thought I could do something more simple. The Met
+Office publish a few APIs, one of which provides images for map
+overlays.</p>
+<p>I hacked together a couple of scripts, one which runs locally on my
+network pulls a day’s worth of imagery from the Met Office API and
+processes it to be easy to display on the inky frame. Those images are
+then hosted on the same pi’s web server.</p>
+<div class="sourceCode" id="cb1"><pre
+class="sourceCode python"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="co">#!/usr/bin/env python3</span></span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> json</span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> re</span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> datetime</span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> urllib.request</span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a>API_URL <span class="op">=</span> <span class="st">&quot;https://data.hub.api.metoffice.gov.uk/map-images/1.0.0&quot;</span></span>
+<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a>MET_OFFICE_API_KEY <span class="op">=</span> <span class="st">&quot;&quot;&quot;YOUR KEY HERE&quot;&quot;&quot;</span></span>
+<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a>ORDER_NAME <span class="op">=</span> <span class="st">&quot;YOUR ORDER NUMBER HERE&quot;</span></span>
+<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a>FILENAME_BASE <span class="op">=</span> <span class="st">&quot;&quot;</span></span>
+<span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a><span class="co"># Get a list of files in the job, filter out dupes.</span></span>
+<span id="cb1-13"><a href="#cb1-13" aria-hidden="true" tabindex="-1"></a>req <span class="op">=</span> urllib.request.Request(API_URL <span class="op">+</span> <span class="st">&quot;/orders/&quot;</span> <span class="op">+</span> ORDER_NAME <span class="op">+</span> <span class="st">&quot;/latest&quot;</span>)</span>
+<span id="cb1-14"><a href="#cb1-14" aria-hidden="true" tabindex="-1"></a>req.add_header(<span class="st">&quot;apikey&quot;</span>, MET_OFFICE_API_KEY)</span>
+<span id="cb1-15"><a href="#cb1-15" aria-hidden="true" tabindex="-1"></a>req.add_header(<span class="st">&quot;Accept&quot;</span>, <span class="st">&quot;application/json&quot;</span>)</span>
+<span id="cb1-16"><a href="#cb1-16" aria-hidden="true" tabindex="-1"></a>resp <span class="op">=</span> urllib.request.urlopen(req).read()</span>
+<span id="cb1-17"><a href="#cb1-17" aria-hidden="true" tabindex="-1"></a>data <span class="op">=</span> json.loads(resp.decode(<span class="st">&quot;utf-8&quot;</span>))</span>
+<span id="cb1-18"><a href="#cb1-18" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-19"><a href="#cb1-19" aria-hidden="true" tabindex="-1"></a>files <span class="op">=</span> []</span>
+<span id="cb1-20"><a href="#cb1-20" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> <span class="bu">file</span> <span class="kw">in</span> data[<span class="st">&quot;orderDetails&quot;</span>][<span class="st">&quot;files&quot;</span>]:</span>
+<span id="cb1-21"><a href="#cb1-21" aria-hidden="true" tabindex="-1"></a>    fileId <span class="op">=</span> <span class="bu">file</span>[<span class="st">&quot;fileId&quot;</span>]</span>
+<span id="cb1-22"><a href="#cb1-22" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> <span class="st">&quot;_+00&quot;</span> <span class="kw">not</span> <span class="kw">in</span> fileId <span class="kw">and</span> <span class="st">&quot;ts&quot;</span> <span class="kw">in</span> fileId:</span>
+<span id="cb1-23"><a href="#cb1-23" aria-hidden="true" tabindex="-1"></a>        timestamp <span class="op">=</span> datetime.datetime.strptime(<span class="bu">file</span>[<span class="st">&quot;runDateTime&quot;</span>], <span class="st">&quot;%Y-%m-</span><span class="sc">%d</span><span class="st">T%H:%M:%S%z&quot;</span>)</span>
+<span id="cb1-24"><a href="#cb1-24" aria-hidden="true" tabindex="-1"></a>        timestep <span class="op">=</span> <span class="bu">int</span>(re.findall(<span class="vs">r&quot;ts\d\d?&quot;</span>, fileId)[<span class="dv">0</span>][<span class="dv">2</span>:])</span>
+<span id="cb1-25"><a href="#cb1-25" aria-hidden="true" tabindex="-1"></a>        series <span class="op">=</span> re.split(<span class="vs">r&quot;_&quot;</span>, fileId)[<span class="dv">0</span>]</span>
+<span id="cb1-26"><a href="#cb1-26" aria-hidden="true" tabindex="-1"></a>        timestamp <span class="op">=</span> timestamp <span class="op">+</span> datetime.timedelta(hours<span class="op">=</span>timestep)</span>
+<span id="cb1-27"><a href="#cb1-27" aria-hidden="true" tabindex="-1"></a>        files.append({<span class="st">&#39;fileId&#39;</span> : fileId, <span class="st">&#39;timestamp&#39;</span>: timestamp, <span class="st">&#39;series&#39;</span>: series})</span>
+<span id="cb1-28"><a href="#cb1-28" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-29"><a href="#cb1-29" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-30"><a href="#cb1-30" aria-hidden="true" tabindex="-1"></a><span class="co"># Download each file from the list of files.</span></span>
+<span id="cb1-31"><a href="#cb1-31" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> <span class="bu">file</span> <span class="kw">in</span> files:</span>
+<span id="cb1-32"><a href="#cb1-32" aria-hidden="true" tabindex="-1"></a>    req <span class="op">=</span> urllib.request.Request(API_URL <span class="op">+</span> <span class="st">&quot;/orders/&quot;</span> <span class="op">+</span> ORDER_NAME <span class="op">+</span> <span class="st">&quot;/latest/&quot;</span> <span class="op">+</span> <span class="bu">file</span>[<span class="st">&#39;fileId&#39;</span>] <span class="op">+</span> <span class="st">&quot;/data&quot;</span>)</span>
+<span id="cb1-33"><a href="#cb1-33" aria-hidden="true" tabindex="-1"></a>    req.add_header(<span class="st">&quot;apikey&quot;</span>, MET_OFFICE_API_KEY)</span>
+<span id="cb1-34"><a href="#cb1-34" aria-hidden="true" tabindex="-1"></a>    req.add_header(<span class="st">&quot;Accept&quot;</span>, <span class="st">&quot;image/png&quot;</span>)</span>
+<span id="cb1-35"><a href="#cb1-35" aria-hidden="true" tabindex="-1"></a>    resp <span class="op">=</span> urllib.request.urlopen(req).read()</span>
+<span id="cb1-36"><a href="#cb1-36" aria-hidden="true" tabindex="-1"></a>    filename <span class="op">=</span> FILENAME_BASE <span class="op">+</span> <span class="st">&quot;</span><span class="sc">{}</span><span class="st">-</span><span class="sc">{}</span><span class="st">.png&quot;</span>.<span class="bu">format</span>(<span class="bu">file</span>[<span class="st">&#39;series&#39;</span>], <span class="bu">file</span>[<span class="st">&#39;timestamp&#39;</span>].strftime(<span class="st">&quot;%Y-%m-</span><span class="sc">%d</span><span class="st">-%H&quot;</span>))</span>
+<span id="cb1-37"><a href="#cb1-37" aria-hidden="true" tabindex="-1"></a>    <span class="cf">with</span> <span class="bu">open</span>(filename, <span class="st">&#39;wb&#39;</span>) <span class="im">as</span> f:</span>
+<span id="cb1-38"><a href="#cb1-38" aria-hidden="true" tabindex="-1"></a>        f.write(resp)</span>
+<span id="cb1-39"><a href="#cb1-39" aria-hidden="true" tabindex="-1"></a>        <span class="bu">print</span>(filename)</span></code></pre></div>
+<p>This produces a bunch of PNG files with names like
+<code>temperature-2025-02-14-10.png</code> (the temperature forecast for
+Valentine’s Day 2025 at 10:00). The Micro Python libraries available for
+the inky frame only support JPEG compression, so I have written a bash
+script which calls imagemagick to convert all the output PNGs into
+JPEGs. The PNGs returned by the Met Office do not include a map
+background layer (despite what their sample data shows…) so I composite
+in a background image for the British Isles. I experimented with using
+imagemagick’s dithering, but the automatic dithering done by the JPEG
+library on the Inky Frame produced (to me) a more pleasing result. This
+script also copies the files to the web server’s hosted directory.</p>
+<div class="sourceCode" id="cb2"><pre
+class="sourceCode bash"><code class="sourceCode bash"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="co">#!/bin/bash</span></span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a><span class="bu">cd</span> /home/simon/weather</span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a><span class="co"># Delete old files</span></span>
+<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a><span class="fu">rm</span> <span class="at">-f</span> temperature-<span class="pp">*</span>.png</span>
+<span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a><span class="fu">rm</span> <span class="at">-f</span> mean-<span class="pp">*</span>.png</span>
+<span id="cb2-8"><a href="#cb2-8" aria-hidden="true" tabindex="-1"></a><span class="fu">rm</span> <span class="at">-f</span> total-<span class="pp">*</span>.png</span>
+<span id="cb2-9"><a href="#cb2-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-10"><a href="#cb2-10" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> f <span class="kw">in</span> <span class="kw">`</span><span class="ex">python3</span> /home/simon/weather/metoffice.py<span class="kw">`;</span> <span class="cf">do</span></span>
+<span id="cb2-11"><a href="#cb2-11" aria-hidden="true" tabindex="-1"></a>    <span class="co">#convert -composite -compose Multiply british-isles.png $f -dither Riemersma -remap palate.bmp -crop 600x448+200+352 ${f%.*}.jpeg;</span></span>
+<span id="cb2-12"><a href="#cb2-12" aria-hidden="true" tabindex="-1"></a>    <span class="ex">convert</span> <span class="at">-composite</span> <span class="at">-compose</span> Multiply british-isles.png <span class="va">$f</span> <span class="at">-crop</span> 600x448+200+352 <span class="va">${f</span><span class="op">%</span>.<span class="pp">*</span><span class="va">}</span>.jpeg<span class="kw">;</span></span>
+<span id="cb2-13"><a href="#cb2-13" aria-hidden="true" tabindex="-1"></a>    <span class="co">#echo $f</span></span>
+<span id="cb2-14"><a href="#cb2-14" aria-hidden="true" tabindex="-1"></a><span class="cf">done</span></span>
+<span id="cb2-15"><a href="#cb2-15" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-16"><a href="#cb2-16" aria-hidden="true" tabindex="-1"></a><span class="fu">rm</span> <span class="at">-f</span> /var/www/html/weather/<span class="pp">*</span>.jpeg</span>
+<span id="cb2-17"><a href="#cb2-17" aria-hidden="true" tabindex="-1"></a><span class="fu">cp</span> <span class="pp">*</span>.jpeg /var/www/html/weather/</span></code></pre></div>
+<p>Then, on the Inky Frame itself I hacked together some Micro Python to
+download the correct file based on the setting of the RTC, and update
+the display accordingly.</p>
+<div class="sourceCode" id="cb3"><pre
+class="sourceCode python"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="co"># to follow</span></span></code></pre></div>
+<h2 id="battery-sleep-and-thonny"><span
+class="headline-word">Battery,</span> <span
+class="headline-word">sleep,</span> <span
+class="headline-word">and</span> <span
+class="headline-word">Thonny</span></h2>
+<p>I had surprising friction trying to take my <code>main.py</code> from
+something that worked under Thonny. The update of the screen appears to
+be asynchronous, but that seems to mean that calling deep sleep allows
+the Pi Pico to sleep before the screen has updated causing meaning it
+never draws the JPEG to the display.</p>
+  </main>
+  <style>pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    background-color: #ffffff;
+    color: #a0a0a0;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #a0a0a0;  padding-left: 4px; }
+div.sourceCode
+  { color: #1f1c1b; background-color: #ffffff; }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span { color: #1f1c1b; } /* Normal */
+code span.al { color: #bf0303; background-color: #f7e6e6; font-weight: bold; } /* Alert */
+code span.an { color: #ca60ca; } /* Annotation */
+code span.at { color: #0057ae; } /* Attribute */
+code span.bn { color: #b08000; } /* BaseN */
+code span.bu { color: #644a9b; font-weight: bold; } /* BuiltIn */
+code span.cf { color: #1f1c1b; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #924c9d; } /* Char */
+code span.cn { color: #aa5500; } /* Constant */
+code span.co { color: #898887; } /* Comment */
+code span.cv { color: #0095ff; } /* CommentVar */
+code span.do { color: #607880; } /* Documentation */
+code span.dt { color: #0057ae; } /* DataType */
+code span.dv { color: #b08000; } /* DecVal */
+code span.er { color: #bf0303; text-decoration: underline; } /* Error */
+code span.ex { color: #0095ff; font-weight: bold; } /* Extension */
+code span.fl { color: #b08000; } /* Float */
+code span.fu { color: #644a9b; } /* Function */
+code span.im { color: #ff5500; } /* Import */
+code span.in { color: #b08000; } /* Information */
+code span.kw { color: #1f1c1b; font-weight: bold; } /* Keyword */
+code span.op { color: #1f1c1b; } /* Operator */
+code span.ot { color: #006e28; } /* Other */
+code span.pp { color: #006e28; } /* Preprocessor */
+code span.re { color: #0057ae; background-color: #e0e9f8; } /* RegionMarker */
+code span.sc { color: #3daee9; } /* SpecialChar */
+code span.ss { color: #ff5500; } /* SpecialString */
+code span.st { color: #bf0303; } /* String */
+code span.va { color: #0057ae; } /* Variable */
+code span.vs { color: #bf0303; } /* VerbatimString */
+code span.wa { color: #bf0303; } /* Warning */</style>
+</body>
+</html>
