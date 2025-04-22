@@ -7,6 +7,23 @@ toc: false
 I am a Research Scientist working for NVIDIA in the Architecture Research Group.
 
 ## Publications
+### Symbolic MRD: Dynamic Memory, Undefined Behaviour, and Extrinsic Choice
+We present the first thin-air free memory model that admits compiler optimisations that aggressively leverage knowledge from alias analysis, an assumption of freedom from undefined behaviour, and from the extrinsic choices of real implementations such as over-alignment.
+Our model has tooling support with state-of-the-art performance, executing a battery of tests orders of magnitude quicker than other executable thin-air free semantics.
+The model integrates with the C/C++ memory model through an exportable semantic dependency relation, it allows standard compilation mappings for atomics, and it matches all tests in the recently published desiderata for C/C++ from the ISO.
+
+<details class="pub">
+<summary>
+<div><i>Symbolic MRD: Dynamic Memory, Undefined Behaviour, and Extrinsic Choice</i></div>
+<br />
+Jay Richards, Daniel Wright, <b>Simon Cooksey</b>, Mark Batty
+</summary>
+<a href="/papers/oopsla25.pdf" target="_blank">[PDF]</a>
+<pre language="BibTeX">
+To follow at OOPSLA 2025.
+</pre>
+</details>
+
 ### Rust for Morello: Always-on Memory Safety, Even in Unsafe Code
 Memory safety issues are a serious concern in systems programming.
 Rust is a systems language that provides memory safety through a combination of a static checks embodied in the type system and ad hoc dynamic checks inserted where this analysis becomes impractical.
