@@ -115,6 +115,10 @@ Greenhouses are made of surprisingly sturdy aluminium extrusions, and while a fe
 A few screws were missing (which I knew about before the storm) and the roof was extremely wobbly as a result.
 A previous tenant of the plot had wired parts of the frame together with thick horticultural wire, but it is not really the same as proper nuts and bolts.
 Thankfully, a pack of 50 greenhouse bolts is £6 from Amazon--so I have also bolted it back together more securely.
+In one place there were some mismatched bolts holding the frame together, but they were steel.
+This has led to some galvanic corrosion of the aluminium which has gone brittle at the apex of the roof above the door.
+There's enough material left to bolt it, but it is not as strong as I'd hope.
+I've replaced all the steel bolts I could find with aluminium bolts.
 
 ![Greenhouse re-erected.](../images/greenhouse-re-erected.jpg)
 
@@ -131,6 +135,14 @@ But then, part of the fun of allotment-ing is doing stuff on the cheap: so I mig
 The bottom half of those boards have rotten through, but there's still plenty of good wood left.
 
 # December
+
+With the mild weather we've been having this winter, I popped to the garden centre in search of a deal on some bulbs.
+One of the local ones is selling the last of their stock off at 75% discount.
+I grabbed 30 _Allium_ 'Sensation' for £2 per 15, 7 _Allium_ 'Summer Drummer' for £1.75, and all 20 of the remaining tulip bulbs for £1.49 per 10.
+55 bulbs for £8.75 felt like a pretty good deal.
+I've bunged them in at the end of the plot.
+The soil isn't ideal for bulbs--it is not very free draining--but it's nice to get _anything_ in the ground, and they won't last so long into next season that I need to worry a great deal about their placement.
+
 
 I have a few tasks lined up for my lunchtimes in December.
 
@@ -155,7 +167,10 @@ I have a few tasks lined up for my lunchtimes in December.
 
 ## Storm Darragh
 
-We've had more stormy weather in the UK, 
+We've had more stormy weather in the UK, but as far as I can tell Storm Darragh passed without much incident!
+Fully de-glazing the greenhouse appears to have worked.
+The damage on other plots seems less this time around too.
+Whether that's because Storm Bert already weeded out the weak structures, or whether people have fortified against the wind since then is unclear.
 
 # Plans for the Spring
 
@@ -173,9 +188,20 @@ Timber prices shot up around 2022 with the start of the current war in Ukraine, 
 We're going to try and buy used scaffolding boards to make the sides of the raised beds, but at about £15 per 3 m scaffolding board, and with a desire to make 3×1.5×0.5 beds, it'll be about £90 for the sides alone and another £20-ish for the corner posts, per raised bed!
 That cost is not in the spirit of cheap gardening that allotments promote.
 
+# January
+
+We had a slow January this year, and I didn't manage to get much done.
+Work travel and bad weather conspired to keep me away from the allotment.
+
+# February
+
+This was a bit better, I bought some 4x4 posts from a local timber merchant, and built a more solid base for the greenhouse frame to be anchored to.
+Sadly, following the winter storms it seems the supply of cheap/free greenhouse glass has dried up.
+We will have to wait until later in the year to scrounge some up.
+
 # Reference books
 On the recommendation of my mum I've picked up a couple of reference books, which happily I found in the local charity shop.
-Namely, _The Vegetable and Herb Expert_ and _The Fruit Expert_, both by D. G. Hessayon, totalling only £4!
+Namely, [_The Vegetable and Herb Expert_][herb expert] and [_The Fruit Expert_][fruit expert], both by D. G. Hessayon, totalling only £4!
 I remember that mum found the Vegetable Expert very useful when she started on her allotment, and now I'm a bit older I can see why.
 It's full of useful information about planting, but more importantly about common pests, how to identify them, and how to treat them.
 This will be invaluable while getting started at the allotment especially as pests are more rampant on allotments than in gardens.
@@ -185,3 +211,6 @@ Hopefully these books will help us identify and treat problems quickly, or, fail
 [couch grass]: https://www.rhs.org.uk/weeds/couch-grass
 [Rod (unit)]: https://en.wikipedia.org/wiki/Rod_(unit)
 [ground screw]: https://www.amazon.co.uk/PWU-Ground-Sleeve-Screw-Anchor/dp/B07L34F3FH
+[herb expert]: https://www.goodreads.com/book/show/610585.The_Vegetable_Herb_Expert
+[fruit expert]: https://www.goodreads.com/book/show/836865.The_Fruit_Expert
+
