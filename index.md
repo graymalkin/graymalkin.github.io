@@ -233,7 +233,7 @@ I worked with my supervisor [Mark Batty][mark] researching weak memory behaviour
 
 In June 2020 I received the [Kent Postgraduate Prize][prize], recognising the impact of my research.
 
-In June 2025 I received the [VeTSS Doctoral Dissertation Award][vetss-prize] for my thesis published in 2022.
+In June 2025 I received the [VeTSS Doctoral Dissertation Award][vetss-prize] for my [thesis](/papers/thesis.pdf) published in 2022.
 
 [mark]: https://www.kent.ac.uk/computing/people/3126/batty-mark
 [prize]: https://blogs.kent.ac.uk/graduateschoolnews/2020/05/19/graduate-school-prizes-2020/
