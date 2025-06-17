@@ -195,9 +195,62 @@ Work travel and bad weather conspired to keep me away from the allotment.
 
 # February
 
-This was a bit better, I bought some 4x4 posts from a local timber merchant, and built a more solid base for the greenhouse frame to be anchored to.
+![Huge lag bolts](/blog/allotment/images/lag-bolt.jpg)
+
+This month was a bit better, I bought some 4x4 posts from a local timber merchant, and built a more solid base for the greenhouse frame to be anchored to.
+The posts are just laid on the ground, but their combined weight and rigidity makes it unlikely the greenhouse will blow over again.
+I connected them together with pairs of huge lag bolts on each corner, and screwed the frame down with standard wood screws.
+![Allotment Greenhouse Base](/blog/allotment/images/allotment-greenhouse-base.jpg)
+
 Sadly, following the winter storms it seems the supply of cheap/free greenhouse glass has dried up.
 We will have to wait until later in the year to scrounge some up.
+
+# March
+
+![Mystery bulbs](/blog/allotment/images/allotment-mystery-bulbs.jpg)
+
+The bulbs are up, some I planted in November, and some mystery bulbs down by the greenhouse.
+They look like daffodils.
+
+I planted some garlic and onions.
+I chose 'Stuttgarter Giant' onions sets, and 'Garcua' garlic.
+Onions were planted in a long double row, and garlic in a little square patch.
+I could probably have planted more onions, or planted an earlier variety back in the autumn/winter, but they're in now!
+![Allotment onions and garlic](/blog/allotment/images/onions-and-garlic.jpg)
+
+
+<div class="plant centre">
+<img alt="Stuttgarter Giant Packet" src="/blog/allotment/images/stuttgarter-giant.jpg"></img>
+<div class="common-name">Onion <span class="cultivar">Stuttgarter Giant</span></div>
+<div class="growing-calendar">
+  <table>
+    <tr>
+      <td class="jan sew-outdoors">J</td>
+      <td class="feb sew-outdoors">F</td>
+      <td class="mar sew-outdoors">M</td>
+      <td class="apr sew-outdoors">A</td>
+      <td class="may">M</td>
+      <td class="jun flower">J</td>
+      <td class="jul flower">J</td>
+      <td class="aug harvest">A</td>
+      <td class="sep">S</td>
+      <td class="oct">O</td>
+      <td class="nov">N</td>
+      <td class="dec">D</td>
+    </tr>
+    <tr class="legend">
+      <td colspan=3 class="sew-indoors">Sew indoors</td>
+      <td colspan=3 class="sew-outdoors">Sew outdoors</td>
+      <td colspan=3 class="flower">Flowers</td>
+      <td colspan=3 class="harvest">Harvest</td>
+    </tr>
+  </table>
+</div>
+<div class="description">
+An AGM variety of onion, harvested in mid summer.
+I don't think we ever tried this variety at home, so I'm excited to see how it turns out!
+</div>
+</div>
 
 # Reference books
 On the recommendation of my mum I've picked up a couple of reference books, which happily I found in the local charity shop.
@@ -214,3 +267,37 @@ Hopefully these books will help us identify and treat problems quickly, or, fail
 [herb expert]: https://www.goodreads.com/book/show/610585.The_Vegetable_Herb_Expert
 [fruit expert]: https://www.goodreads.com/book/show/836865.The_Fruit_Expert
 
+
+<style>
+.plant { border: solid 3px black; padding: 0.5em;  }
+.center, .centre { margin: 0 auto 1em auto; width: 75%; }
+
+@media (min-width: 47em) {
+  .right { float: right; margin: 0 0 1em 1em; width: 30%; }
+  .left { float: left; margin: 0 1em 1em 0em; width: 30%; }
+}
+@media (max-width: 47em) {
+  .left, .right { margin: 0 auto 1em auto; width: 75%; }
+}
+
+.plant .common-name { font-size: 20px; display: block; }
+.plant .latin-name { font-size: inherit; font-style: italic; color: #666;}
+.plant img { float: right; max-width: 100%; margin-left: 0.5em; }
+.plant .description p { line-height: 1.2; margin-bottom: 0; }
+.cultivar { font-style: italic; font-size: 16px; }
+.cultivar::before { content: "("; }
+.cultivar::after { content: ")"; }
+.growing-calendar { padding-bottom: 0.5em; padding-top: 0.5em; }
+.growing-calendar table { margin: 0 auto; border-collapse: collapse; }
+.growing-calendar tr { border: solid 1px black; }
+.growing-calendar tr td { width: 2em; height: 1em; border: solid 1px black; text-align: center; color: #black; }
+.growing-calendar tr.legend td { height: 1em; width: 6em; border: solid 1px black; text-align: center; color: black; }
+.sew-indoors { background-color: lightgreen; }
+.sew-indoors-outdoors { background: 
+    linear-gradient(to bottom, transparent 50%, lightgreen 50%), 
+    linear-gradient(100deg, yellow, yellow); 
+}
+.sew-outdoors { background-color: yellow; }
+.flower { background-color: pink; }
+.harvest { background-color: CornflowerBlue; }
+</style>
