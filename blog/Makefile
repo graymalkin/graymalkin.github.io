@@ -8,6 +8,7 @@ ARTICLES = \
 	allotment \
 	inkyframe \
 	myford-ml4 \
+	artefact-evaluation \
 	headlinify \
 	leaving-kent \
 	home-assistant-heating-controller \
