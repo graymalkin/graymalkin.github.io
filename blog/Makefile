@@ -6,6 +6,7 @@ export PANDOC_FLAGS := --standalone --toc --citeproc --highlight-style kate --te
 # Order is the index order. Maintain reverse chronological order.
 ARTICLES = \
 	allotment \
+	inkyframe \
 	myford-ml4 \
 	headlinify \
 	leaving-kent \

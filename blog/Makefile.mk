@@ -8,7 +8,7 @@ toc.md: index.md $(SUB_PAGES)
 		TITLE=$$(grep -m 1 "title" index.md | sed -e 's/title: //g'); \
 		PUBLISHED=$$(grep -m 1 "published" index.md | sed -e 's/published: //g'); \
 		if [ $$PUBLISHED = true ]; then \
-			echo " - <span style=\"color: #666\">($$DATE)</span> [$$TITLE](./$$ART_DIR/)" >> toc.md; \
+			echo " - <span style=\"color: #666\">($$DATE)</span> [$$TITLE](/blog/$$ART_DIR/)" >> toc.md; \
 		fi; \
 	fi
 	@for a in $(SUB_PAGES); do \
@@ -16,7 +16,7 @@ toc.md: index.md $(SUB_PAGES)
 		TITLE=$$(grep -m 1 "title" $$a | sed -e 's/title: //g'); \
 		PUBLISHED=$$(grep -m 1 "published" $$a | sed -e 's/published: //g'); \
 		if [ $$PUBLISHED = true ]; then \
-			echo "     - <span style=\"color: #666\">($$DATE)</span> [$$TITLE](./$$ART_DIR/$$(basename $$a .md)/)" >> toc.md; \
+			echo "     - <span style=\"color: #666\">($$DATE)</span> [$$TITLE](/blog/$$ART_DIR/$$(basename $$a .md)/)" >> toc.md; \
 		fi \
 	done
 

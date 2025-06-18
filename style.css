@@ -209,3 +209,14 @@ summary div {
         display: table;
     }
 }
+
+footer {
+    text-align: center;
+    margin-top: 8em;
+}
+
+footer img {
+    max-width: 1em;
+    max-height:1em;
+    margin-left: .2em;
+}

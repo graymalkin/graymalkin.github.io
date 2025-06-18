@@ -10,7 +10,7 @@ Late spring and early summer has seen a flurry of activity at home.
 While this is notionally a blog about the allotment, a bunch of work has happened at home to feed the gardening addiction -- sadly to (hopefully short-term) the detriment of the plot itself.
 
 # The great shed shuffle
-As described in the [winter](/blog/allotment/winter-25/) post, we want to move our 5x7 shed up to the allotment to make space for a greenhouse at home.
+As described in the [winter](/blog/allotment/winter-24/) post, we want to move our 5x7 shed up to the allotment to make space for a greenhouse at home.
 The first step is constructing a new shed for our bikes, so there's somewhere for them to live once we take down our old 5x7 shed.
 
 ![Shed plans](/blog/allotment/images/bike-shed-plans.png)

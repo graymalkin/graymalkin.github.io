@@ -1,6 +1,6 @@
 ---
 title: Allotment
-date: 2024-10-30
+date: On-going
 published: true
 url: /blog/
 ---
