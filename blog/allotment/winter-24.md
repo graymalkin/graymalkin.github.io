@@ -239,10 +239,10 @@ I could probably have planted more onions, or planted an earlier variety back in
       <td class="dec">D</td>
     </tr>
     <tr class="legend">
-      <td colspan=3 class="sew-indoors">Sew indoors</td>
-      <td colspan=3 class="sew-outdoors">Sew outdoors</td>
-      <td colspan=3 class="flower">Flowers</td>
-      <td colspan=3 class="harvest">Harvest</td>
+      <td colspan=3 class="sew-indoors"></td>
+      <td colspan=3 class="sew-outdoors"></td>
+      <td colspan=3 class="flower"></td>
+      <td colspan=3 class="harvest"></td>
     </tr>
   </table>
 </div>
@@ -266,38 +266,3 @@ Hopefully these books will help us identify and treat problems quickly, or, fail
 [ground screw]: https://www.amazon.co.uk/PWU-Ground-Sleeve-Screw-Anchor/dp/B07L34F3FH
 [herb expert]: https://www.goodreads.com/book/show/610585.The_Vegetable_Herb_Expert
 [fruit expert]: https://www.goodreads.com/book/show/836865.The_Fruit_Expert
-
-
-<style>
-.plant { border: solid 3px black; padding: 0.5em;  }
-.center, .centre { margin: 0 auto 1em auto; width: 75%; }
-
-@media (min-width: 47em) {
-  .right { float: right; margin: 0 0 1em 1em; width: 30%; }
-  .left { float: left; margin: 0 1em 1em 0em; width: 30%; }
-}
-@media (max-width: 47em) {
-  .left, .right { margin: 0 auto 1em auto; width: 75%; }
-}
-
-.plant .common-name { font-size: 20px; display: block; }
-.plant .latin-name { font-size: inherit; font-style: italic; color: #666;}
-.plant img { float: right; max-width: 100%; margin-left: 0.5em; }
-.plant .description p { line-height: 1.2; margin-bottom: 0; }
-.cultivar { font-style: italic; font-size: 16px; }
-.cultivar::before { content: "("; }
-.cultivar::after { content: ")"; }
-.growing-calendar { padding-bottom: 0.5em; padding-top: 0.5em; }
-.growing-calendar table { margin: 0 auto; border-collapse: collapse; }
-.growing-calendar tr { border: solid 1px black; }
-.growing-calendar tr td { width: 2em; height: 1em; border: solid 1px black; text-align: center; color: #black; }
-.growing-calendar tr.legend td { height: 1em; width: 6em; border: solid 1px black; text-align: center; color: black; }
-.sew-indoors { background-color: lightgreen; }
-.sew-indoors-outdoors { background: 
-    linear-gradient(to bottom, transparent 50%, lightgreen 50%), 
-    linear-gradient(100deg, yellow, yellow); 
-}
-.sew-outdoors { background-color: yellow; }
-.flower { background-color: pink; }
-.harvest { background-color: CornflowerBlue; }
-</style>

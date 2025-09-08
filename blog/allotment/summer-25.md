@@ -1,10 +1,164 @@
 ---
 title: Chillis and tomatoes
-subtitle: Wibble
 date: Summer 2025
 toc: no
-published: false
+published: true
 ---
+
+# Compost conundrum
+
+We've really struggled to grow plants this year.
+As usual, we started seedlings under a decent quality grow lamp, and they germinated fairly fast and got to a few inches tall.
+The chillies especially just seemed to stop growing.
+This was frustrating, but made all the more frustrating by our difficulty in identifying the root-cause.
+The plants showed some signs of distress from water, but nothing serious, and the leaves were slightly yellowing.
+We thought this was because of water and/or light issues, so we tinkered with watering schedules, light intensity, and distance from the light to the plants.
+The mild yellowing went away, but the plants remained stunted.
+We also thought it might be pests, especially fungus gnats, but again we did some pest control and the plants didn't seem to improve.
+All this experimenting took several weeks.
+It affected several types of plants, our chillies were the worst affected, but it also seemed to make our tomatoes and sunflowers struggle too.
+The only plant not affected seemed to be the cosmos.
+We suspected a nutrient deficiency in the compost, so we switched from _Westland Multi-purpose Compost with John Innes № 3_, to _Miracle Grow All-purpose Compost_.
+This was a bit of a mistake, this compost (also peat free) retained moisture far more effectively than the Westland compost, and the roots of the tomatoes rotted off.
+
+In hindsight, the cosmos were probably giving us the information we needed.
+According to the RHS, cosmos is well adapted to poor soils, and flowers more prolifically in those conditions too.
+All-in-all it's a significant damper on our season's growing, but we're willing to "cheat" a bit and buy nursery plants.
+
+# Pumpkins and squashes
+
+<b style="color: #f00">TODO: fix the planting/sewing dates</b>
+
+<div style="display: flex; justify-content: space-evenly">
+<div class="plant left">
+<img alt="Patty Pan" src="/blog/allotment/images/summer-25/patty-pan.jpg"></img>
+<div class="common-name">Squash <span class="cultivar">Green Disc</span></div>
+<div class="growing-calendar">
+  <table>
+    <tr>
+      <td class="jan">J</td>
+      <td class="feb">F</td>
+      <td class="mar sew-indoors">M</td>
+      <td class="apr sew-indoors-outdoors">A</td>
+      <td class="may sew-outdoors">M</td>
+      <td class="jun plant-out">J</td>
+      <td class="jul harvest">J</td>
+      <td class="aug harvest">A</td>
+      <td class="sep harvest">S</td>
+      <td class="oct harvest">O</td>
+      <td class="nov">N</td>
+      <td class="dec">D</td>
+    </tr>
+    <tr class="legend">
+      <td colspan=3 class="sew-indoors"></td>
+      <td colspan=3 class="sew-outdoors"></td>
+      <td colspan=3 class="plant-out"></td>
+      <td colspan=3 class="harvest"></td>
+    </tr>
+  </table>
+</div>
+<div class="description">
+We're not really interested in eating these, although we may try, but they look adorable at Hallowe'en!
+</div>
+</div>
+<div class="plant right">
+<img alt="Pumpkin Justify" src="/blog/allotment/images/summer-25/pumpkin-justify.jpg"></img>
+<div class="common-name">Pumpkin <span class="cultivar">Justify</span></div>
+<div class="growing-calendar">
+  <table>
+    <tr>
+      <td class="jan">J</td>
+      <td class="feb">F</td>
+      <td class="mar sew-indoors">M</td>
+      <td class="apr sew-indoors-outdoors">A</td>
+      <td class="may sew-outdoors">M</td>
+      <td class="jun plant-out">J</td>
+      <td class="jul harvest">J</td>
+      <td class="aug harvest">A</td>
+      <td class="sep harvest">S</td>
+      <td class="oct harvest">O</td>
+      <td class="nov">N</td>
+      <td class="dec">D</td>
+    </tr>
+    <tr class="legend">
+      <td colspan=3 class="sew-indoors"></td>
+      <td colspan=3 class="sew-outdoors"></td>
+      <td colspan=3 class="plant-out"></td>
+      <td colspan=3 class="harvest"></td>
+    </tr>
+  </table>
+</div>
+<div class="description">
+Probably also for autumn decoration, but I like pumpkin soup also.
+</div>
+</div>
+<div class="plant right">
+<img alt="Patio Courgette" src="/blog/allotment/images/summer-25/patio-courgette.jpg"></img>
+<div class="common-name">Patio Courgette <span class="cultivar">Midnight</span></div>
+<div class="growing-calendar">
+  <table>
+    <tr>
+      <td class="jan">J</td>
+      <td class="feb">F</td>
+      <td class="mar sew-indoors">M</td>
+      <td class="apr sew-indoors-outdoors">A</td>
+      <td class="may sew-outdoors">M</td>
+      <td class="jun plant-out">J</td>
+      <td class="jul harvest">J</td>
+      <td class="aug harvest">A</td>
+      <td class="sep harvest">S</td>
+      <td class="oct harvest">O</td>
+      <td class="nov">N</td>
+      <td class="dec">D</td>
+    </tr>
+    <tr class="legend">
+      <td colspan=3 class="sew-indoors"></td>
+      <td colspan=3 class="sew-outdoors"></td>
+      <td colspan=3 class="plant-out"></td>
+      <td colspan=3 class="harvest"></td>
+    </tr>
+  </table>
+</div>
+<div class="description">
+Mum always grew half a dozen of these and couldn't give the courgettes away, hopefully 1 is enough!
+</div>
+</div>
+</div>
+
+The most exciting plant is an aubergine, I've never grown these before and they're meant to look pretty weird!
+
+<div class="plant centre">
+<img alt="Patio Courgette" src="/blog/allotment/images/summer-25/aubergine.jpg"></img>
+<div class="common-name">Aubergine <span class="cultivar">Krasen</span></div>
+<div class="growing-calendar">
+  <table>
+    <tr>
+      <td class="jan">J</td>
+      <td class="feb">F</td>
+      <td class="mar sew-indoors">M</td>
+      <td class="apr sew-indoors-outdoors">A</td>
+      <td class="may sew-outdoors">M</td>
+      <td class="jun plant-out">J</td>
+      <td class="jul harvest">J</td>
+      <td class="aug harvest">A</td>
+      <td class="sep harvest">S</td>
+      <td class="oct harvest">O</td>
+      <td class="nov">N</td>
+      <td class="dec">D</td>
+    </tr>
+    <tr class="legend">
+      <td colspan=3 class="sew-indoors"></td>
+      <td colspan=3 class="sew-outdoors"></td>
+      <td colspan=3 class="plant-out"></td>
+      <td colspan=3 class="harvest"></td>
+    </tr>
+  </table>
+</div>
+<div class="description">
+Never grown these!
+</div>
+</div>
+
 
 # Finding second-hand gold
 
@@ -16,27 +170,9 @@ The same week, we also contacted else whose allotment association forbids glass 
 He was very generously giving it away for free, so we popped up on a Tuesday night and collected many 2ft by 2ft panes of glass, and some triangles for the ends!
 Thank you very much Pawel!
 
-## Second hand market in the UK
-In the UK we've had several popular ways to sell second hand goodies online, eBay, GumTree and FreeCycle used to be dominant.
-All of those are free to browse without an account, and are not run by a global mega corporation that profits from the subversion of democratic processes in many countries (see: [Cambridge Analytica][ca], [Foreign interference in elections via Facebook][foreign-campaigning], [Genocide of Rohingya in Myanmar][myanmar], [Indian WhatsApp Lynchings][whatsapp], to name a few).
-Sadly in the UK today, Facebook Marketplace is by far the most popular way to sell second hand stuff like lawnmowers, greenhouses, etc.
-After the Brexit vote and [Cambridge Analytica revelations](https://en.wikipedia.org/wiki/Cambridge_Analytica) I deleted my Facebook account, which makes even browsing Facebook marketplace off-limits.
-My partner does maintain a Facebook account so between us, we can navigate buying 2nd hand goods, but it is cumbersome.
+I could (and might) write a whole extra rant about portions of civic society being walled off behind a Facebook/Twitter account, but I'll save that for a different time...
 
-[ca]: https://en.wikipedia.org/wiki/Cambridge_Analytica
-[myanmar]: https://en.wikipedia.org/wiki/Rohingya_genocide#Facebook_content_management_controversy
-[foreign-campaigning]: https://en.wikipedia.org/wiki/Russian_interference_in_the_2016_United_States_elections#Social_media_and_Internet_trolls
-[whatsapp]: https://en.wikipedia.org/wiki/Indian_WhatsApp_lynchings
-
-Facebook marketplace is also a bit too bereft of features.
-Clearly lots of people are taken for a ride as buyers and sellers and there's a distinct culture of mistrust.
-The seller of the lawn mower seemed taken aback that we turned up on-time, with the correct money, and didn't mess him about.
-Similarly, Pawel told us that even _giving away_ the glass for free he'd been messed around by 4 people before us!
-Perhaps this is just the nature of selling stuff in-person but being initiated online, but it seems like a sorry state of affairs.
-
-I could (and might) write a whole extra rant about portions of civic society being walled off behind a Facebook/Twitter account, but I'll save that for a different time.
-
-# Reglazing the allotment greenhouse
+# Re-glazing the allotment greenhouse
 
 The frame is sturdy and secured to a new base, as of February's work.
 

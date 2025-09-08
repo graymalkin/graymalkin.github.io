@@ -1,8 +1,8 @@
 body {
     margin: 0;
     padding: 0;
-    color: rgba(53,53,53,1); /* #353535 */
-    font-family: Georgia, serif;
+    color: #353535; /* #353535 */
+    font-family: Baskerville, serif;
     hyphens: auto;
     overflow-wrap: break-word;
     text-rendering: optimizeLegibility;
@@ -66,12 +66,19 @@ nav ul * a {
 p, img {
     margin-top: 0;
     max-width: 100%;
+    text-align: justify;
+    text-align-last: left;
+}
+
+h2 {
+    margin-top: 2em;
 }
 
 h2 + p,
 h3 + p {
     margin-top: 0.5em;
 }
+
 
 pre {
     padding: 8px;
@@ -219,4 +226,78 @@ footer img {
     max-width: 1em;
     max-height:1em;
     margin-left: .2em;
+    vertical-align: bottom;
+    padding-bottom: 0.07em;
+}
+
+.plant { border: solid 3px black; padding: 0.5em; display: block }
+.center, .centre { margin: 0 auto 1em auto; width: 75%; }
+
+@media (min-width: 47em) {
+  .right { float: right; margin: 0 0 1em 1em; width: 30%; }
+  .left { float: left; margin: 0 1em 1em 0em; width: 30%; }
+  .wider { margin: 0; width: 45%; }
+}
+@media (max-width: 47em) {
+  .left, .right { margin: 0 auto 1em auto; width: 75%; }
+}
+
+.plant .common-name { font-size: 20px; display: block; }
+.plant .latin-name { font-size: inherit; font-style: italic; color: #666;}
+.plant img { float: right; max-width: 100%; margin-left: 0.5em; }
+.plant .description p { line-height: 1.2; margin-bottom: 0; }
+.cultivar { font-style: italic; font-size: 16px; }
+.cultivar::before { content: "("; }
+.cultivar::after { content: ")"; }
+.growing-calendar { padding-bottom: 0.5em; padding-top: 0.5em; }
+.growing-calendar table { margin: 0 auto; border-collapse: collapse; }
+.growing-calendar tr { border: solid 1px black; }
+.growing-calendar tr td { width: 2em; height: 1em; border: solid 1px black; text-align: center; color: #black; }
+.growing-calendar tr.legend td { height: 1em; width: 6em; border: solid 1px black; text-align: center; color: black; }
+
+.sew-indoors { background-color: lightgreen; }
+.left .legend .sew-indoors::after, .right .legend .sew-indoors::after { content: "SI" }
+.centre .legend .sew-indoors::after { content: "Sew Indoors" }
+
+.sew-indoors-outdoors { background: 
+    linear-gradient(to bottom, transparent 50%, lightgreen 50%), 
+    linear-gradient(100deg, yellow, yellow); 
+}
+
+
+.flower { background-color: pink; }
+.left .legend .flower::after, .right .legend .flower::after { content: "F" }
+.centre .legend .flower::after { content: "Flower" }
+
+.harvest { background-color: CornflowerBlue; }
+.left .legend .harvest::after, .right .legend .harvest::after { content: "H" }
+.centre .legend .harvest::after { content: "Harvest" }
+
+
+.plant-out { background-color: darkseagreen; }
+.left .legend .plant-out::after, .right .legend .plant-out::after { content: "P" }
+.centre .legend .plant-out::after { content: "Plant Out" }
+
+.sew-outdoors { background-color: yellow; }
+.left .legend .sew-outdoors::after, .right .legend .sew-outdoors::after { content: "SO" }
+.centre .legend .sew-outdoors::after { content: "Sew Outdoors" }
+
+hr {
+    border: none; 
+    margin: 3em auto 3em auto;
+}
+hr::before {
+    content: "***";
+    display: block;
+    color: #aaa;
+    text-align:center;
+    font-size: x-large;
+}
+
+.footnotes hr {
+    border: solid 1px #aaa;
+    margin: 3em auto 1em auto;
+}
+.footnotes hr::before {
+    content: "";
 }

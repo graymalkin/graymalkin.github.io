@@ -4,7 +4,7 @@ subtitle: Research Scientist
 toc: false
 ---
 
-I am a Research Scientist working for NVIDIA in the Architecture Research Group.
+I am a Research Scientist working for NVIDIA in the [Architecture Research Group](https://research.nvidia.com/person/simon-cooksey).
 
 ## Publications
 ### Symbolic MRD: Dynamic Memory, Undefined Behaviour, and Extrinsic Choice
@@ -14,13 +14,28 @@ The model integrates with the C/C++ memory model through an exportable semantic 
 
 <details class="pub">
 <summary>
-<div><i>Symbolic MRD: Dynamic Memory, Undefined Behaviour, and Extrinsic Choice</i></div>
+<div>Symbolic MRD: Dynamic Memory, Undefined Behaviour, and Extrinsic Choice. _OOPSLA 2025._</div>
 <br />
-Jay Richards, Daniel Wright, <b>Simon Cooksey</b>, Mark Batty
+_Jay Richards, Daniel Wright, **Simon Cooksey**, Mark Batty_
 </summary>
 <a href="/papers/oopsla25.pdf" target="_blank">[PDF]</a>
 <pre language="BibTeX">
-To follow at OOPSLA 2025.
+@article{10.1145/3721089,
+  author = {Richards, Jay and Wright, Daniel and Cooksey, Simon and Batty, Mark},
+  title = {Symbolic MRD: Dynamic Memory, Undefined Behaviour, and Extrinsic Choice},
+  year = {2025},
+  issue_date = {April 2025},
+  publisher = {Association for Computing Machinery},
+  address = {New York, NY, USA},
+  volume = {9},
+  number = {OOPSLA1},
+  url = {https://doi.org/10.1145/3721089},
+  doi = {10.1145/3721089},
+  journal = {Proc. ACM Program. Lang.},
+  month = apr,
+  articleno = {146},
+  numpages = {25},
+}
 </pre>
 </details>
 
@@ -33,9 +48,9 @@ This paper presents a compiler from Rust to the Morello architecture, together w
 
 <details class="pub">
 <summary>
-<div><i>Rust for Morello: Always-on Memory Safety, Even in Unsafe Code</i></div>
+<div>Rust for Morello: Always-on Memory Safety, Even in Unsafe Code. _ECOOP 2023._</div>
 <br />
-Sarah Harris, <b>Simon Cooksey</b>, Michael Vollmer, Mark Batty
+_Sarah Harris, **Simon Cooksey**, Michael Vollmer, Mark Batty_
 </summary>
 <a href="/papers/ecoop23.pdf" target="_blank">[PDF]</a> | <a href="https://github.com/kent-weak-memory/rust" target="_blank">[GitHub]</a>
 <pre language="BibTeX">
@@ -66,11 +81,11 @@ The memory model extension was built in the relational model checking tool, Allo
 
 <details class="pub">
 <summary>
-<div><i>Mixed-Proxy Extensions for the NVIDIA PTX Memory Consistency Model</i></div>
+<div>Mixed-Proxy Extensions for the NVIDIA PTX Memory Consistency Model. _ISCA 2022._</div>
 <br />
 ★ <i>Honorable Mention, IEEE Micro Top Picks 2023!</i>
 <br />
-Daniel Lustig, <b>Simon Cooksey</b>, Olivier Giroux
+_Daniel Lustig, **Simon Cooksey**, Olivier Giroux_
 </summary>
 <a href="papers/isca22.pdf" target="_blank">[PDF]</a>
 <pre language="BibTeX">@inproceedings{DLustig:2022,
@@ -99,9 +114,9 @@ I developed an OCaml tool to automatically evaluate PwT over a series of litmus 
 
 <details class="pub">
 <summary>
-<div><i>The Leaky Semicolon: Compositional Semantic Dependencies for Relaxed-Memory Concurrency</i></div>
+<div>The Leaky Semicolon: Compositional Semantic Dependencies for Relaxed-Memory Concurrency. _POPL 2022._</div>
 <br >
-Alan Jeffery, James Riely, Mark Batty, <b>Simon Cooksey</b>, Ilya Kaysin, Anton Podkopaev
+_Alan Jeffery, James Riely, Mark Batty, **Simon Cooksey**, Ilya Kaysin, Anton Podkopaev_
 </summary>
 <a href="papers/popl22.pdf" target="_blank">[PDF]</a>
 <pre language="BibTeX">@inproceedings{AJeffrey:2022,
@@ -125,10 +140,9 @@ Further, I proved meta-theoretic properties about the semantics with respect to 
 
 <details class="pub">
 <summary>
-<i>P2850: Minimal compiler preserved dependencies</i>.
-ISO/IEC JTC1/SC22/WG21.
+P2850: Minimal compiler preserved dependencies. _ISO/IEC JTC1/SC22/WG21._
 <br >
-Mark Batty, <b>Simon Cooksey</b>
+_Mark Batty, **Simon Cooksey**_
 </summary>
 <a href="/iso-papers/p2850/p2850r0.html" rel="noreferrer" target="_blank">Online working document</a>
 <pre language="BibTeX">@techreport{MBatty:P2850,
@@ -143,10 +157,9 @@ Mark Batty, <b>Simon Cooksey</b>
 
 <details class="pub">
 <summary>
-<i>Modular Relaxed Dependencies in Weak Memory Concurrency</i>. 
-ESOP 2020.
+Modular Relaxed Dependencies in Weak Memory Concurrency. _ESOP 2020._
 <br >
-Marco Paviotti, <b>Simon Cooksey</b>, Anouk Paradis, Daniel Wright, Scott Owens, Mark Batty
+_Marco Paviotti, **Simon Cooksey**, Anouk Paradis, Daniel Wright, Scott Owens, Mark Batty_
 </summary>
 <a href="papers/esop20.pdf" target="_blank">[PDF]</a>
 <pre language="BibTeX">@inproceedings{MPaviotti:ESOP20,
@@ -164,10 +177,10 @@ Marco Paviotti, <b>Simon Cooksey</b>, Anouk Paradis, Daniel Wright, Scott Owens,
 
 <details class="pub">
 <summary>
-<i>P1780R0: Modular Relaxed Dependencies: A new approach to the Out-Of-Thin-Air Problem</i>.
-ISO/IEC JTC1/SC22/WG21.
+P1780R0: Modular Relaxed Dependencies: A new approach to the Out-Of-Thin-Air Problem.
+_ISO/IEC JTC1/SC22/WG21._
 <br >
-Mark Batty, <b>Simon Cooksey</b>, Scott Owens, Anouk Paradis, Marco Paviotti, Daniel Wright
+_Mark Batty, **Simon Cooksey**, Scott Owens, Anouk Paradis, Marco Paviotti, Daniel Wright_
 </summary>
 <a href="https://wg21.link/p1780" rel="noreferrer" target="_blank">Online working document</a>
 <pre language="BibTeX">@techreport{MBatty:P1780,
@@ -189,9 +202,9 @@ This then gets translated into a QBF model checking problem for a solver to effi
 
 <details class="pub">
 <summary>
-<i>PrideMM: Second Order Model Checking for Memory Consistency Models</i>. TAPAS 2019.
+PrideMM: Second Order Model Checking for Memory Consistency Models. _TAPAS 2019._
 <br >
-<b>Simon Cooksey</b>, Sarah Harris, Mary Batty, Radu Grigore, Mikoláš Janota
+_**Simon Cooksey**, Sarah Harris, Mary Batty, Radu Grigore, Mikoláš Janota_
 </summary>
 <a href="papers/tapas19.pdf" target="_blank">[PDF]</a>
 <pre language="BibTeX">@inproceedings{SCooksey:TAPAS19,
@@ -204,24 +217,24 @@ This then gets translated into a QBF model checking problem for a solver to effi
 
 ## Grants
 ### Embedded Rust for Morello in Defence Applications
-_Defence and Security Accelerator, 2023_
+**Defence and Security Accelerator, 2023**
 
 I am Principal Investigator for a grant of £87,763 (100% FEC) on a project to extend our Rust for Morello compiler to embedded targets on the Morello platform.
 
 ### Complementing Capabilities: Introducing Pointer-Safe Programming to DSbD Tech
-_Innovate UK ICSF, 2022_
+**Innovate UK ICSF, 2022**
 
 I am a Researcher Co-Investigator for a grant of £494,770 (80% FEC) responding to the Innovate UK call to extend the DSbD ecosystem with new CHERI compatible software.
 This work will be focussed on porting the Rust compiler to CHERI and formally demonstrating how the guarantees provided by Rust join up nicely with the guarantees of the capability hardware.
 
 ### Fixing the Thin-Air Problem: ISO Dissemination
-_VeTSS, 2020_
+**VeTSS, 2020**
 
 I am a named researcher and co-author of a VeTSS grant of £60,455 (80% FEC) to pursue further integration of MRD into the ISO C++ Standard.
 This grant funds travel to ISO meetings, and research time for me to prepare papers ahead of these meetings.
 
 ### CapC: Capability C Semantics, Tools and Reasoning
-_Digital Security by Design, 2020_
+**Digital Security by Design, 2020**
 
 I am a named researcher and co-author of a Digital Security by Design grant of £485,168 (80% FEC).
 This is a longer term project to build verified concurrent libraries for the CHERI platform.
@@ -251,17 +264,7 @@ I built tools and applications for the platform, including a port of an MP3 libr
 
 [xmos]: https://www.xmos.com
 
-## Undergraduate
-I graduated from the University of Kent with a First in _Computer Science with a Year in Industry_.
-
-### TinkerSoc
-I was the president of [TinkerSoc][TinkerSoc], a society dedicated to making things, particularly electronics.
-
-[TinkerSoc]: https://tinkersoc.org
-
 ## Contact
-I am now on Mastodon at <a rel="me" href="https://types.pl/@graymalkin">\@graymalkin\@types.pl</a>.
-
 You can contact me via email, [simon@graymalk.in](mailto:simon@graymalk.in).
 
 My CV is available [here](./cv.pdf).
