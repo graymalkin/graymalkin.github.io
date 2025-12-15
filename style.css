@@ -286,3 +286,14 @@ hr::before {
 .footnotes hr::before {
     content: "";
 }
+
+@media (prefers-color-scheme: dark) {
+  body {
+    background: #222;
+    color: white;
+  }
+  * a, nav ul * a {
+    color: white;
+  }
+  code { color: #ff9a9a; }
+}
