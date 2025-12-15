@@ -15,7 +15,7 @@ h1, h2, h3, h4, h5, .byline {
     display: flex;
     flex-wrap: wrap;
     margin: 0 0 0 -0.25em;
-    padding: 0.25em 0.25em 0.1em 0.25em;
+    padding: 0.25em 0.25em 0.1em 0em;
     line-height: 123%;
 }
 
@@ -203,7 +203,7 @@ summary div {
 }
 
 .pub {
-    margin-bottom: 1em;
+    margin: -0.5em 0em 1em 1em;
 }
 
 .pub > * {
