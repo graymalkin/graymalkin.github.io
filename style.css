@@ -20,6 +20,10 @@ h1, h2, h3, h4, h5, .byline {
     line-height: 123%;
 }
 
+h3 {
+    font-size: 100%;
+}
+
 .byline {
 	margin-top: -0.8em;
 }
@@ -200,6 +204,11 @@ summary div {
 
 .pub > * {
     margin-left: 0.25em;
+}
+
+.pub + h2, p + h2,
+.pub + h3, p + h3 {
+    margin-top: 1.5em;
 }
 
 footer {

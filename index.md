@@ -217,25 +217,21 @@ _**Simon Cooksey**, Sarah Harris, Mary Batty, Radu Grigore, Mikoláš Janota_
 
 ## Grants
 ### Embedded Rust for Morello in Defence Applications
-**Defence and Security Accelerator, 2023**
-
+*Defence and Security Accelerator, 2023.*
 I am Principal Investigator for a grant of £87,763 (100% FEC) on a project to extend our Rust for Morello compiler to embedded targets on the Morello platform.
 
 ### Complementing Capabilities: Introducing Pointer-Safe Programming to DSbD Tech
-**Innovate UK ICSF, 2022**
-
+*Innovate UK ICSF, 2022.*
 I am a Researcher Co-Investigator for a grant of £494,770 (80% FEC) responding to the Innovate UK call to extend the DSbD ecosystem with new CHERI compatible software.
 This work will be focussed on porting the Rust compiler to CHERI and formally demonstrating how the guarantees provided by Rust join up nicely with the guarantees of the capability hardware.
 
 ### Fixing the Thin-Air Problem: ISO Dissemination
-**VeTSS, 2020**
-
+*VeTSS, 2020.*
 I am a named researcher and co-author of a VeTSS grant of £60,455 (80% FEC) to pursue further integration of MRD into the ISO C++ Standard.
 This grant funds travel to ISO meetings, and research time for me to prepare papers ahead of these meetings.
 
 ### CapC: Capability C Semantics, Tools and Reasoning
-**Digital Security by Design, 2020**
-
+*Digital Security by Design, 2020.*
 I am a named researcher and co-author of a Digital Security by Design grant of £485,168 (80% FEC).
 This is a longer term project to build verified concurrent libraries for the CHERI platform.
 CHERI is an interesting extension to ARM where memory accesses are tagged with capabilities to keep code secure.
