@@ -1,7 +1,7 @@
 body {
     margin: 0;
     padding: 0;
-    color: #353535; /* #353535 */
+    color: #353535;
     font-family: Baskerville, serif;
     hyphens: auto;
     overflow-wrap: break-word;
@@ -116,11 +116,12 @@ quot, blockquote {
     padding-left: 8px;
 }
 
+main {
+    margin-left: 2em;
+    margin-right: 2em;
+}
+
 @media (max-width: 47em) {
-    main {
-        margin-left: 2em;
-        margin-right: 2em;
-    }
 
     .title {
         font-size: 250%;
@@ -147,7 +148,6 @@ quot, blockquote {
 /* 45em + 1em margin left + 1em margin right */
 @media (min-width: 47em) {
     main {
-        margin: 0 0 0 3em;
         margin-bottom: 5em;
         max-width: 45em; 
     }
@@ -179,8 +179,8 @@ quot, blockquote {
 
 .date {
     font-family: 'Fira Code', 'DeJa Vu Mono', monospace;
-    margin-top: -2em;
-    float: right;
+    width: 100%;
+    text-align: right;
 }
 
 .date p {
