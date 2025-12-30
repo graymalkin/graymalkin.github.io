@@ -12,11 +12,7 @@
 <body>
   <main>
     <h1 class="title"><span class="headline-word">Headlinify</span></h1>
-    <div class="byline"><span class="headline-word">News</span> <span
-class="headline-word">style</span> <span
-class="headline-word">headlines</span> <span
-class="headline-word">without</span> <span
-class="headline-word">JavaScript</span></div>
+    <div class="byline"><span class="headline-word">News</span> <span class="headline-word">style</span> <span class="headline-word">headlines</span> <span class="headline-word">without</span> <span class="headline-word">JavaScript</span></div>
     <div class="date">2023-09-20</div>
     <nav>
         <ul>
@@ -26,11 +22,9 @@ class="headline-word">JavaScript</span></div>
             <li><a href="/photography/">Photography</a></li>
         </ul>
     </nav>
-<p>While re-designing this site, I wanted to use the newsprint style
-headlines for my headings. To my dissatisfaction, it is very hard to
-style header (<code>&lt;h1&gt;</code>) elements using just CSS to
-produce this effect. I had a look online, and a stack overflow post
-(that I can no-longer find) gave me a solution using JavaScript:</p>
+<p>While re-designing this site, I wanted to use the newsprint style headlines for my headings.
+To my dissatisfaction, it is very hard to style header (<code>&lt;h1&gt;</code>) elements using just CSS to produce this effect.
+I had a look online, and a stack overflow post (that I can no-longer find) gave me a solution using JavaScript:</p>
 <div class="sourceCode" id="cb1"><pre class="sourceCode js"><code class="sourceCode javascript"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="op">&lt;</span>script<span class="op">&gt;</span></span>
 <span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="kw">let</span> newHeadlineMarkup <span class="op">=</span> <span class="st">&quot;&quot;</span><span class="op">;</span></span>
 <span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="bu">document</span><span class="op">.</span><span class="fu">querySelectorAll</span>(<span class="st">&quot;h1, h2, h3, h4, .byline&quot;</span>)</span>
@@ -47,8 +41,7 @@ produce this effect. I had a look online, and a stack overflow post
 <span id="cb1-14"><a href="#cb1-14" aria-hidden="true" tabindex="-1"></a>)<span class="op">;</span></span>
 <span id="cb1-15"><a href="#cb1-15" aria-hidden="true" tabindex="-1"></a><span class="op">&lt;/</span>script<span class="op">&gt;</span></span></code></pre></div>
 <p>… and the corresponding css…</p>
-<div class="sourceCode" id="cb2"><pre
-class="sourceCode css"><code class="sourceCode css"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="fu">.headline-word</span> {</span>
+<div class="sourceCode" id="cb2"><pre class="sourceCode css"><code class="sourceCode css"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="fu">.headline-word</span> {</span>
 <span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>    <span class="kw">display</span><span class="ch">:</span> <span class="dv">inline</span><span class="op">;</span></span>
 <span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>    <span class="kw">color</span><span class="ch">:</span> <span class="cn">white</span><span class="op">;</span></span>
 <span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a>    <span class="kw">background</span><span class="ch">:</span> <span class="cn">black</span><span class="op">;</span></span>
@@ -56,22 +49,12 @@ class="sourceCode css"><code class="sourceCode css"><span id="cb2-1"><a href="#c
 <span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a>    <span class="kw">margin-bottom</span><span class="ch">:</span> <span class="dv">0.1</span><span class="dt">em</span><span class="op">;</span></span>
 <span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a>    <span class="kw">border</span><span class="ch">:</span> <span class="dv">solid</span> <span class="dv">1</span><span class="dt">px</span> <span class="cn">black</span><span class="op">;</span></span>
 <span id="cb2-8"><a href="#cb2-8" aria-hidden="true" tabindex="-1"></a>}</span></code></pre></div>
-<p>This is in itself a bit annoying though! The webpage subtly changes
-layout just after loading, causing an ugly flash, and this doesn’t work
-at all for people who do not use javascript.</p>
-<h2 id="pandoc-to-the-rescue"><span class="headline-word">Pandoc</span>
-<span class="headline-word">to</span> <span
-class="headline-word">the</span> <span
-class="headline-word">rescue</span></h2>
-<p>I could manually transform a heading element into
-<code>&lt;h1&gt;&lt;span class="headline-word"&gt;My&lt;/span&gt; &lt;span class="headline-word"&gt;Heading&lt;/span&gt;&lt;/h1&gt;</code>,
-but that is quite tedious! I still use Make and Pandoc to build this
-site, as described in <a href="/blog/make-a-static-site/">this post</a>,
-so I figured I could whip up a quick Pandoc filter which achieves the
-same aim as the JavaScript above instead.</p>
-<p>There’s two parts to the filter, one which makes modifies normal
-<code># Headings</code>, through the <code>headlinifyBlock</code>
-function.</p>
+<p>This is in itself a bit annoying though!
+The webpage subtly changes layout just after loading, causing an ugly flash, and this doesn’t work at all for people who do not use javascript.</p>
+<h2 id="pandoc-to-the-rescue"><span class="headline-word">Pandoc</span> <span class="headline-word">to</span> <span class="headline-word">the</span> <span class="headline-word">rescue</span></h2>
+<p>I could manually transform a heading element into <code>&lt;h1&gt;&lt;span class="headline-word"&gt;My&lt;/span&gt; &lt;span class="headline-word"&gt;Heading&lt;/span&gt;&lt;/h1&gt;</code>, but that is quite tedious!
+I still use Make and Pandoc to build this site, as described in <a href="/blog/make-a-static-site/">this post</a>, so I figured I could whip up a quick Pandoc filter which achieves the same aim as the JavaScript above instead.</p>
+<p>There’s two parts to the filter, one which makes modifies normal <code># Headings</code>, through the <code>headlinifyBlock</code> function.</p>
 <div class="sourceCode" id="cb3"><pre class="sourceCode hs"><code class="sourceCode haskell"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="ot">headlineInline ::</span> <span class="dt">Inline</span> <span class="ot">-&gt;</span> <span class="dt">Inline</span></span>
 <span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>headlineInline (<span class="dt">Str</span> x) <span class="ot">=</span> <span class="dt">Span</span> (<span class="st">&quot;&quot;</span>, [<span class="st">&quot;headline-word&quot;</span>], []) [<span class="dt">Str</span> x]</span>
 <span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>headlineInline x <span class="ot">=</span> x</span>
@@ -79,11 +62,8 @@ function.</p>
 <span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a><span class="ot">headlinifyBlock ::</span> <span class="dt">Block</span> <span class="ot">-&gt;</span> <span class="dt">Block</span></span>
 <span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a>headlinifyBlock (<span class="dt">Header</span> n <span class="fu">id</span> content) <span class="ot">=</span> <span class="dt">Header</span> n <span class="fu">id</span> (<span class="fu">map</span> headlineInline content)</span>
 <span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a>headlinifyBlock x <span class="ot">=</span> x</span></code></pre></div>
-<p>And a second part which copies the page title and subtitle metadata
-fields and makes new <code>display</code>-versions for use in the
-template. This is necessary because modifying <code>$title$</code>
-directly yields page titles which contain raw HTML which displays in the
-browser tab title.</p>
+<p>And a second part which copies the page title and subtitle metadata fields and makes new <code>display</code>-versions for use in the template.
+This is necessary because modifying <code>$title$</code> directly yields page titles which contain raw HTML which displays in the browser tab title.</p>
 <div class="sourceCode" id="cb4"><pre class="sourceCode hs"><code class="sourceCode haskell"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="ot">headlinifyMetaInline ::</span> <span class="dt">MetaValue</span> <span class="ot">-&gt;</span> <span class="dt">MetaValue</span></span>
 <span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>headlinifyMetaInline (<span class="dt">MetaInlines</span> inls) <span class="ot">=</span> <span class="dt">MetaInlines</span> (<span class="fu">map</span> headlineInline inls)</span>
 <span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a>headlinifyMetaInline x <span class="ot">=</span> x</span>
@@ -93,8 +73,7 @@ browser tab title.</p>
 <span id="cb4-7"><a href="#cb4-7" aria-hidden="true" tabindex="-1"></a>    <span class="kw">let</span> headlinified <span class="ot">=</span> headlinifyMetaInline (findWithDefault (<span class="dt">MetaInlines</span> []) field m) <span class="kw">in</span></span>
 <span id="cb4-8"><a href="#cb4-8" aria-hidden="true" tabindex="-1"></a>    <span class="kw">let</span> newField <span class="ot">=</span> T.concat [<span class="st">&quot;display&quot;</span>, field] <span class="kw">in</span></span>
 <span id="cb4-9"><a href="#cb4-9" aria-hidden="true" tabindex="-1"></a>    <span class="dt">Meta</span> (insert newField headlinified m)</span></code></pre></div>
-<p>Putting it all together, and adding a <code>#!</code> recipe so it
-can be run as a script rather than compiled, and we get this:</p>
+<p>Putting it all together, and adding a <code>#!</code> recipe so it can be run as a script rather than compiled, and we get this:</p>
 <div class="sourceCode" id="cb5"><pre class="sourceCode hs"><code class="sourceCode haskell"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="pp">#!/usr/bin/env -S stack runghc --package pandoc-types</span></span>
 <span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a><span class="ot">{-# LANGUAGE OverloadedStrings #-}</span></span>
 <span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a></span>

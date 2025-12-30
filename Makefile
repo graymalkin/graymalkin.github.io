@@ -1,11 +1,11 @@
 TEMPLATE = ./template.html
 FILTER = ./headlinify.hs
-PANDOC_FLAGS = --standalone --toc --citeproc --highlight-style kate --template=$(TEMPLATE) --mathml --filter $(FILTER)
+PANDOC_FLAGS = --standalone --toc --citeproc --highlight-style kate --template=$(TEMPLATE) --mathml --filter $(FILTER) --wrap=preserve
 
 %.html: %.md $(TEMPLATE) $(FILTER)
 	pandoc $(PANDOC_FLAGS) -o $@ $< 
 
-all: index.html cs-meat.html
+all: index.html
 	make -C blog/ all
 	make -C iso-papers/ all
 

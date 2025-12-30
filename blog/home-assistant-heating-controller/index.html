@@ -1,7 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
-  <title>Home Assistant Heating
-Controller &mdash; Simon Cooksey Blog</title>
+  <title>Home Assistant Heating Controller &mdash; Simon Cooksey Blog</title>
   <meta name="viewport" content="width=device-width, user-scalable=yes">
   <link rel="preconnect" href="https://cdn.jsdelivr.net" />
   <link rel="preload" href="/fonts.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
@@ -12,21 +11,8 @@ Controller &mdash; Simon Cooksey Blog</title>
 </head>
 <body>
   <main>
-    <h1 class="title"><span class="headline-word">Home</span> <span
-class="headline-word">Assistant</span> <span
-class="headline-word">Heating</span> <span
-class="headline-word">Controller</span></h1>
-    <div class="byline"><span class="headline-word">Taking</span> <span
-class="headline-word">control</span> <span
-class="headline-word">of</span> <span class="headline-word">my</span>
-<span class="headline-word">heating</span> <span
-class="headline-word">system</span> <span
-class="headline-word">with</span> <span class="headline-word">a</span>
-<span class="headline-word">custom</span> <span
-class="headline-word">D1</span> <span class="headline-word">Mini</span>
-<span class="headline-word">Board</span> <span
-class="headline-word">and</span> <span
-class="headline-word">ESPHome</span></div>
+    <h1 class="title"><span class="headline-word">Home</span> <span class="headline-word">Assistant</span> <span class="headline-word">Heating</span> <span class="headline-word">Controller</span></h1>
+    <div class="byline"><span class="headline-word">Taking</span> <span class="headline-word">control</span> <span class="headline-word">of</span> <span class="headline-word">my</span> <span class="headline-word">heating</span> <span class="headline-word">system</span> <span class="headline-word">with</span> <span class="headline-word">a</span> <span class="headline-word">custom</span> <span class="headline-word">D1</span> <span class="headline-word">Mini</span> <span class="headline-word">Board</span> <span class="headline-word">and</span> <span class="headline-word">ESPHome</span></div>
     <div class="date">2023-01-16</div>
     <nav>
         <ul>
@@ -41,129 +27,89 @@ class="headline-word">ESPHome</span></div>
 <figcaption aria-hidden="true">Boiler controller installed</figcaption>
 </figure>
 <h1 id="motivation"><span class="headline-word">Motivation</span></h1>
-<p>I’ve been using <a href="https://www.home-assistant.io">Home
-Assistant</a> to automate my house, and one of the big things I want to
-add control of is my heating. The heating system in my house is a little
-different to a typical British home in that I have zones, one for
-upstairs (radiators) and one for downstairs (underfloor heating). This
-means a lot of the off-the-shelf thermostat options, especially Google
-Nest, aren’t suitable for me, and what options there are have a
-prohibitive cost.</p>
-<p>A commercial option would be something by Hive, they support
-multi-zone thermostats, and they are supported in Home Assistant. Sadly,
-this option would cost about £300.</p>
-<p>Home assistant to the rescue, it has a built-in integration for
-controlling heating, so long as you provide it a switch to toggle the
-heating, and a sensor to read the current temperature. It even has a
-nice interface. <img src="./images/home-assistant-climate.png"
-alt="Home assistant climate interface" /></p>
-<h2 id="my-boiler"><span class="headline-word">My</span> <span
-class="headline-word">boiler</span></h2>
-<p>What are we contending with? I have a combi-boiler hooked up to a
-pair of Honeywell thermostats.<a href="#fn1" class="footnote-ref"
-id="fnref1" role="doc-noteref"><sup>1</sup></a> Both thermostats are set
-up to bridge the ‘request for heat’ control line on the boiler. Here’s
-what the thermostat receiver looks like for my underfloor heating.</p>
+<p>I’ve been using <a href="https://www.home-assistant.io">Home Assistant</a> to automate my house, and one of the big things I want to add control of is my heating.
+The heating system in my house is a little different to a typical British home in that I have zones, one for upstairs (radiators) and one for downstairs (underfloor heating).
+This means a lot of the off-the-shelf thermostat options, especially Google Nest, aren’t suitable for me, and what options there are have a prohibitive cost.</p>
+<p>A commercial option would be something by Hive, they support multi-zone thermostats, and they are supported in Home Assistant.
+Sadly, this option would cost about £300.</p>
+<p>Home assistant to the rescue, it has a built-in integration for controlling heating, so long as you provide it a switch to toggle the heating, and a sensor to read the current temperature.
+It even has a nice interface.
+<img src="./images/home-assistant-climate.png" alt="Home assistant climate interface" /></p>
+<h2 id="my-boiler"><span class="headline-word">My</span> <span class="headline-word">boiler</span></h2>
+<p>What are we contending with?
+I have a combi-boiler hooked up to a pair of Honeywell thermostats.<a href="#fn1" class="footnote-ref" id="fnref1" role="doc-noteref"><sup>1</sup></a>
+Both thermostats are set up to bridge the ‘request for heat’ control line on the boiler.
+Here’s what the thermostat receiver looks like for my underfloor heating.</p>
 <figure>
-<img src="./images/honeywell-interface.jpeg"
-alt="Honeywell heating interface" />
+<img src="./images/honeywell-interface.jpeg" alt="Honeywell heating interface" />
 <figcaption aria-hidden="true">Honeywell heating interface</figcaption>
 </figure>
-<p>This interface is pleasingly simple, the controller mounts on top and
-simply has an RF receiver for the thermostat, and a relay to bridge
-connect <code>A</code> to <code>B</code>. To connect this to home
-assistant I could just use a generic relay board, like <a
-href="https://www.amazon.co.uk/dp/B07PZ6TZFF/">this</a> from Amazon, and
-flash the ESP8266 with <a href="https://esphome.io">ESPHome</a>.</p>
+<p>This interface is pleasingly simple, the controller mounts on top and simply has an RF receiver for the thermostat, and a relay to bridge connect <code>A</code> to <code>B</code>.
+To connect this to home assistant I could just use a generic relay board, like <a href="https://www.amazon.co.uk/dp/B07PZ6TZFF/">this</a> from Amazon, and flash the ESP8266 with <a href="https://esphome.io">ESPHome</a>.</p>
 <figure>
-<img src="./images/generic-esp-relay-board.jpeg"
-alt="Generic ESP8266 Relay Board" />
+<img src="./images/generic-esp-relay-board.jpeg" alt="Generic ESP8266 Relay Board" />
 <figcaption aria-hidden="true">Generic ESP8266 Relay Board</figcaption>
 </figure>
-<p>This solution doesn’t please me, though. I’d need to separately have
-a mains to 12v power supply to control something which is switching
-mains voltage. A quick search didn’t yield anything satisfactory with an
-integrated power supply, so I am left with only one reasonable choice:
-build my own at significant expense and time cost, negating any cost
-saving from not buying the expensive Hive thermostats in the first
-place. Okay, it’s not quite that bad, the BOM for each of these boards
-comes to about £50 in small quantities, so it’s still a lot cheaper, and
-it can probably be optimised a fair bit. And no price can be put on the
-enjoyment I get when designing a PCB.</p>
+<p>This solution doesn’t please me, though.
+I’d need to separately have a mains to 12v power supply to control something which is switching mains voltage.
+A quick search didn’t yield anything satisfactory with an integrated power supply, so I am left with only one reasonable choice: build my own at significant expense and time cost, negating any cost saving from not buying the expensive Hive thermostats in the first place.
+Okay, it’s not quite that bad, the BOM for each of these boards comes to about £50 in small quantities, so it’s still a lot cheaper, and it can probably be optimised a fair bit.
+And no price can be put on the enjoyment I get when designing a PCB.</p>
 <h2 id="enclosure"><span class="headline-word">Enclosure</span></h2>
-<p>First thing’s first: the enclosure. I recently scavenged a bunch of
-<a href="https://en.wikipedia.org/wiki/DIN_rail">DIN mounted</a>
-hardware from an old CNC machine control panel, and I quite like DIN
-mounting. A scan of Farnell yielded this bad-boy:</p>
+<p>First thing’s first: the enclosure.
+I recently scavenged a bunch of <a href="https://en.wikipedia.org/wiki/DIN_rail">DIN mounted</a> hardware from an old CNC machine control panel, and I quite like DIN mounting.
+A scan of Farnell yielded this bad-boy:</p>
 <figure>
 <img src="./images/cnmb-4v-kit.jpg" alt="CNMB/4V/KIT DIN Enclosure" />
 <figcaption aria-hidden="true">CNMB/4V/KIT DIN Enclosure</figcaption>
 </figure>
-<p>This supports a reasonable 86.5x68mm PCB in the bottom-most mounting
-position.</p>
-<h1 id="circuit-design"><span class="headline-word">Circuit</span> <span
-class="headline-word">design</span></h1>
+<p>This supports a reasonable 86.5x68mm PCB in the bottom-most mounting position.</p>
+<h1 id="circuit-design"><span class="headline-word">Circuit</span> <span class="headline-word">design</span></h1>
 <p>I need three key things on this board:</p>
 <ul>
 <li>Power supply, mains to a reasonable DC voltage for some relays</li>
 <li>ESP8266/ESP32 compatibility</li>
 <li>Two relays, one for each of my heating zones</li>
 </ul>
-<p>I did all the design in Eagle, the CAD files are available <a
-href="https://github.com/graymalkin/esphome-heating-interface">here</a>.
-They are provided without warrantee, I’m not a qualified
-electrical/electronic engineer. If your house burns down it’s between
-you and your insurer.</p>
+<p>I did all the design in Eagle, the CAD files are available <a href="https://github.com/graymalkin/esphome-heating-interface">here</a>.
+They are provided without warrantee, I’m not a qualified electrical/electronic engineer.
+If your house burns down it’s between you and your insurer.</p>
 <h2 id="relays"><span class="headline-word">Relays</span></h2>
 <figure>
 <img src="./images/relay-schematic.png" alt="Relay schematic" />
 <figcaption aria-hidden="true">Relay schematic</figcaption>
 </figure>
-<p>This is basically a text-book circuit. I’m using 2N7002 MOSFETs to
-control the coil on a relay, these FETs are great as they have a very
-low trigger voltage of about 1v (ideal for 3.3v logic).</p>
-<h2 id="power-supply"><span class="headline-word">Power</span> <span
-class="headline-word">supply</span></h2>
-<p>This was by far the most difficult part to deal with. I didn’t want
-to roll my own AC/DC converter or switch mode power supply, so I picked
-a PCB-mount module. The first one I selected was very simple, but
-regrettably £20 ea. I thought about it and decided to deal with a SIP
-module with a higher integration complexity (and board footprint), but
-that was substantially cheaper at £1.86 ea, and about £5 in support
-components. The various filter components are what are recommended by
-the <a href="./datasheets/MP-LS05-13B12R3.pdf">data sheet</a>.</p>
+<p>This is basically a text-book circuit.
+I’m using 2N7002 MOSFETs to control the coil on a relay, these FETs are great as they have a very low trigger voltage of about 1v (ideal for 3.3v logic).</p>
+<h2 id="power-supply"><span class="headline-word">Power</span> <span class="headline-word">supply</span></h2>
+<p>This was by far the most difficult part to deal with.
+I didn’t want to roll my own AC/DC converter or switch mode power supply, so I picked a PCB-mount module.
+The first one I selected was very simple, but regrettably £20 ea.
+I thought about it and decided to deal with a SIP module with a higher integration complexity (and board footprint), but that was substantially cheaper at £1.86 ea, and about £5 in support components.
+The various filter components are what are recommended by the <a href="./datasheets/MP-LS05-13B12R3.pdf">data sheet</a>.</p>
 <figure>
-<img src="./images/power-supply-schematic.png"
-alt="Power supply schematic" />
+<img src="./images/power-supply-schematic.png" alt="Power supply schematic" />
 <figcaption aria-hidden="true">Power supply schematic</figcaption>
 </figure>
-<p>In theory, I should also add MOV between L and N, but this is
-optional in the data sheet’s application note, and the board I have is
-quite well populated. Maybe in REV2.</p>
+<p>In theory, I should also add MOV between L and N, but this is optional in the data sheet’s application note, and the board I have is quite well populated.
+Maybe in REV2.</p>
 <h2 id="pcb"><span class="headline-word">PCB</span></h2>
-<p>I got the PCB made by JLCPCB, the same one from all the YouTube
-mid-roll adverts… I’m very impressed, it came quickly and appears to be
-exactly what I asked for including semi-complicated routed slots! There
-was no extra cost for the black solder mask, but there was an extra
-one-day lead time. From design to PCBs in-hand was about 2 weeks, as I
-paid for slower (cheaper) shipping. Total cost for 5 boards (which is
-the minimum order) was $14. So about £10.</p>
+<p>I got the PCB made by JLCPCB, the same one from all the YouTube mid-roll adverts…
+I’m very impressed, it came quickly and appears to be exactly what I asked for including semi-complicated routed slots!
+There was no extra cost for the black solder mask, but there was an extra one-day lead time.
+From design to PCBs in-hand was about 2 weeks, as I paid for slower (cheaper) shipping.
+Total cost for 5 boards (which is the minimum order) was $14.
+So about £10.</p>
 <figure>
 <img src="./images/bare-pcb.jpeg" alt="Bare PCB" />
 <figcaption aria-hidden="true">Bare PCB</figcaption>
 </figure>
-<h1 id="esphome-setup"><span class="headline-word">ESPHome</span> <span
-class="headline-word">setup</span></h1>
-<p>ESPHome is fantastic for DIY smart home gadgets. With just a familiar
-(at least to Home Assistant users) YAML configuration you can create a
-binary to run on an ESP32, ESP8266, etc, which will connect to your
-Wi-Fi and expose all manor of sensors and actuators to your Home
-Assistant API. This project is wildly simple for ESPHome configuration
-and comprises simply two switches connected to <code>D3</code> and
-<code>D4</code> of the D1 mini. There is also a status LED on
-<code>D2</code>.</p>
-<div class="sourceCode" id="cb1"><pre
-class="sourceCode yaml"><code class="sourceCode yaml"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">esphome</span><span class="kw">:</span></span>
+<h1 id="esphome-setup"><span class="headline-word">ESPHome</span> <span class="headline-word">setup</span></h1>
+<p>ESPHome is fantastic for DIY smart home gadgets.
+With just a familiar (at least to Home Assistant users) YAML configuration you can create a binary to run on an ESP32, ESP8266, etc, which will connect to your Wi-Fi and expose all manor of sensors and actuators to your Home Assistant API.
+This project is wildly simple for ESPHome configuration and comprises simply two switches connected to <code>D3</code> and <code>D4</code> of the D1 mini.
+There is also a status LED on <code>D2</code>.</p>
+<div class="sourceCode" id="cb1"><pre class="sourceCode yaml"><code class="sourceCode yaml"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">esphome</span><span class="kw">:</span></span>
 <span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="at">  </span><span class="fu">name</span><span class="kw">:</span><span class="at"> </span><span class="st">&quot;heating-controller&quot;</span></span>
 <span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="fu">esp8266</span><span class="kw">:</span></span>
@@ -201,50 +147,30 @@ class="sourceCode yaml"><code class="sourceCode yaml"><span id="cb1-1"><a href="
 <span id="cb1-36"><a href="#cb1-36" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb1-37"><a href="#cb1-37" aria-hidden="true" tabindex="-1"></a><span class="fu">captive_portal</span><span class="kw">:</span></span>
 <span id="cb1-38"><a href="#cb1-38" aria-hidden="true" tabindex="-1"></a><span class="at">  </span></span></code></pre></div>
-<h1 id="it-works"><span class="headline-word">It</span> <span
-class="headline-word">works!</span></h1>
-<p>Remarkably, notwithstanding a few minor bugs, the board worked first
-time!</p>
+<h1 id="it-works"><span class="headline-word">It</span> <span class="headline-word">works!</span></h1>
+<p>Remarkably, notwithstanding a few minor bugs, the board worked first time!</p>
 <figure>
-<img src="./images/first-power.jpeg"
-alt="Working board connected to Home Assistant" />
-<figcaption aria-hidden="true">Working board connected to Home
-Assistant</figcaption>
+<img src="./images/first-power.jpeg" alt="Working board connected to Home Assistant" />
+<figcaption aria-hidden="true">Working board connected to Home Assistant</figcaption>
 </figure>
 <p>Now I just need to wire it up to my boiler.</p>
-<h2 id="bugs-with-rev1"><span class="headline-word">Bugs</span> <span
-class="headline-word">with</span> <span
-class="headline-word">REV1</span></h2>
-<p>The footprint for C1 was one size too small, the Panasonic-F
-capacitor barely fit on the E-pad. I also forgot to buy the lower value
-output filter capacitor for the 12V PSU, so that’s unpopulated on my
-board. I bought the wrong size fuse holders, but they just about worked
-for the 32x6mm fuse. The D1 mini has a bright blue LED on
-<code>D4</code>, so moving Relay 2 to something else would be
-better.</p>
-<p>There are two mechanical issues. The clearance for the D1 mini is not
-good, it interferes with an internal support on the CMMB/4 enclosure, so
-it needs to be moved a few millimetres to the west. The terminal blocks
-are not well aligned with the holes on the cover for the CMNB/4
-enclosure, they need to move south and towards the centre.</p>
-<h2 id="next-revision"><span class="headline-word">Next</span> <span
-class="headline-word">revision</span></h2>
-<p>Apart from fixing the REV1 bugs there’s a couple of things I would do
-differently in a future revision.</p>
-<p>I’ll add a couple of pads for connecting a thermal probe, this will
-make the board useful to people with a water cylinder, especially those
-who want to automate using solar energy to keep their water hot when
-possible. As far as I know, most water cylinders in the UK have two
-heating elements one top, one bottom, so the dual relay will be useful
-for that. I might put the ESP on a daugter-board with a screen for
-status, and the status LEDs broken out more sensibly. This will free up
-a bit of space on the bottom board nicely, and fix that mechanical
-issue.</p>
-<p>There’s some minor tweaks to do to the power supply too. Adding a MOV
-and a bleed resistor would add a couple of extra types of safety.</p>
-<h1 id="bill-of-materials"><span class="headline-word">Bill</span> <span
-class="headline-word">of</span> <span
-class="headline-word">Materials</span></h1>
+<h2 id="bugs-with-rev1"><span class="headline-word">Bugs</span> <span class="headline-word">with</span> <span class="headline-word">REV1</span></h2>
+<p>The footprint for C1 was one size too small, the Panasonic-F capacitor barely fit on the E-pad.
+I also forgot to buy the lower value output filter capacitor for the 12V PSU, so that’s unpopulated on my board.
+I bought the wrong size fuse holders, but they just about worked for the 32x6mm fuse.
+The D1 mini has a bright blue LED on <code>D4</code>, so moving Relay 2 to something else would be better.</p>
+<p>There are two mechanical issues.
+The clearance for the D1 mini is not good, it interferes with an internal support on the CMMB/4 enclosure, so it needs to be moved a few millimetres to the west.
+The terminal blocks are not well aligned with the holes on the cover for the CMNB/4 enclosure, they need to move south and towards the centre.</p>
+<h2 id="next-revision"><span class="headline-word">Next</span> <span class="headline-word">revision</span></h2>
+<p>Apart from fixing the REV1 bugs there’s a couple of things I would do differently in a future revision.</p>
+<p>I’ll add a couple of pads for connecting a thermal probe, this will make the board useful to people with a water cylinder, especially those who want to automate using solar energy to keep their water hot when possible.
+As far as I know, most water cylinders in the UK have two heating elements one top, one bottom, so the dual relay will be useful for that.
+I might put the ESP on a daugter-board with a screen for status, and the status LEDs broken out more sensibly.
+This will free up a bit of space on the bottom board nicely, and fix that mechanical issue.</p>
+<p>There’s some minor tweaks to do to the power supply too.
+Adding a MOV and a bleed resistor would add a couple of extra types of safety.</p>
+<h1 id="bill-of-materials"><span class="headline-word">Bill</span> <span class="headline-word">of</span> <span class="headline-word">Materials</span></h1>
 <table>
 <colgroup>
 <col style="width: 22%" />
@@ -295,13 +221,15 @@ class="headline-word">Materials</span></h1>
 <td style="text-align: left;">C6</td>
 <td style="text-align: left;">330nF</td>
 <td style="text-align: left;">0603</td>
-<td style="text-align: left;">Linear regulator input capacitor</td>
+<td style="text-align: left;">Linear regulator input
+capacitor</td>
 </tr>
 <tr class="odd">
 <td style="text-align: left;">C7, C8</td>
 <td style="text-align: left;">10µF</td>
 <td style="text-align: left;">Panasonic B</td>
-<td style="text-align: left;">Linear regulator bulk capacitance</td>
+<td style="text-align: left;">Linear regulator bulk
+capacitance</td>
 </tr>
 <tr class="even">
 <td style="text-align: left;">CX1</td>
@@ -325,7 +253,8 @@ class="headline-word">Materials</span></h1>
 <td style="text-align: left;">D3</td>
 <td style="text-align: left;">SMBJ 20V</td>
 <td style="text-align: left;">SMBJ</td>
-<td style="text-align: left;">Over-voltage protection shunt diode</td>
+<td style="text-align: left;">Over-voltage protection shunt
+diode</td>
 </tr>
 <tr class="even">
 <td style="text-align: left;">F1</td>
@@ -370,7 +299,8 @@ class="headline-word">Materials</span></h1>
 <td style="text-align: left;">N-Channel MOSFET</td>
 </tr>
 <tr class="odd">
-<td style="text-align: left;">R1, R3, R5, R6, R7, R8</td>
+<td style="text-align: left;">R1, R3, R5, R6,
+R7, R8</td>
 <td style="text-align: left;">470R</td>
 <td style="text-align: left;">0603</td>
 <td style="text-align: left;">Resistor</td>
@@ -401,8 +331,7 @@ class="headline-word">Materials</span></h1>
 </tr>
 </tbody>
 </table>
-<p>The schematics and layout are available on my <a
-href="https://github.com/graymalkin/esphome-heating-interface">GitHub</a>.</p>
+<p>The schematics and layout are available on my <a href="https://github.com/graymalkin/esphome-heating-interface">GitHub</a>.</p>
 <style>
 table{
     border-collapse: collapse;
@@ -412,15 +341,10 @@ table thead { border-top: 3px solid black; border-bottom: 1px solid black; }
 table tbody { border-bottom: 3px solid black; }
 table th, table td{ padding: 0.33em; }
 </style>
-<section id="footnotes" class="footnotes footnotes-end-of-document"
-role="doc-endnotes">
+<section id="footnotes" class="footnotes footnotes-end-of-document" role="doc-endnotes">
 <hr />
 <ol>
-<li id="fn1"><p>Annoyingly, my boiler made by Worcester Bosch doesn’t
-support the <a href="https://www.opentherm.eu">OpenTherm</a> standard
-for communication, only a proprietary system that Worcester Bosch
-supplies. Very frustrating.<a href="#fnref1" class="footnote-back"
-role="doc-backlink">↩︎</a></p></li>
+<li id="fn1"><p>Annoyingly, my boiler made by Worcester Bosch doesn’t support the <a href="https://www.opentherm.eu">OpenTherm</a> standard for communication, only a proprietary system that Worcester Bosch supplies. Very frustrating.<a href="#fnref1" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
 </ol>
 </section>
   <footer>

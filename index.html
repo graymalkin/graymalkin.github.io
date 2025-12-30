@@ -11,10 +11,8 @@
 </head>
 <body>
   <main>
-    <h1 class="title"><span class="headline-word">Simon</span> <span
-class="headline-word">Cooksey</span></h1>
-    <div class="byline"><span class="headline-word">Research</span>
-<span class="headline-word">Scientist</span></div>
+    <h1 class="title"><span class="headline-word">Simon</span> <span class="headline-word">Cooksey</span></h1>
+    <div class="byline"><span class="headline-word">Research</span> <span class="headline-word">Scientist</span></div>
     
     <nav>
         <ul>
@@ -24,40 +22,19 @@ class="headline-word">Cooksey</span></h1>
             <li><a href="/photography/">Photography</a></li>
         </ul>
     </nav>
-<p>I am a Research Scientist working for NVIDIA in the <a
-href="https://research.nvidia.com/person/simon-cooksey">Architecture
-Research Group</a>.</p>
-<h2 id="publications"><span
-class="headline-word">Publications</span></h2>
-<h3
-id="symbolic-mrd-dynamic-memory-undefined-behaviour-and-extrinsic-choice"><span
-class="headline-word">Symbolic</span> <span
-class="headline-word">MRD:</span> <span
-class="headline-word">Dynamic</span> <span
-class="headline-word">Memory,</span> <span
-class="headline-word">Undefined</span> <span
-class="headline-word">Behaviour,</span> <span
-class="headline-word">and</span> <span
-class="headline-word">Extrinsic</span> <span
-class="headline-word">Choice</span></h3>
-<p>We present the first thin-air free memory model that admits compiler
-optimisations that aggressively leverage knowledge from alias analysis,
-an assumption of freedom from undefined behaviour, and from the
-extrinsic choices of real implementations such as over-alignment. Our
-model has tooling support with state-of-the-art performance, executing a
-battery of tests orders of magnitude quicker than other executable
-thin-air free semantics. The model integrates with the C/C++ memory
-model through an exportable semantic dependency relation, it allows
-standard compilation mappings for atomics, and it matches all tests in
-the recently published desiderata for C/C++ from the ISO.</p>
+<p>I am a Research Scientist working for NVIDIA in the <a href="https://research.nvidia.com/person/simon-cooksey">Architecture Research Group</a>.</p>
+<h2 id="publications"><span class="headline-word">Publications</span></h2>
+<h3 id="symbolic-mrd-dynamic-memory-undefined-behaviour-and-extrinsic-choice"><span class="headline-word">Symbolic</span> <span class="headline-word">MRD:</span> <span class="headline-word">Dynamic</span> <span class="headline-word">Memory,</span> <span class="headline-word">Undefined</span> <span class="headline-word">Behaviour,</span> <span class="headline-word">and</span> <span class="headline-word">Extrinsic</span> <span class="headline-word">Choice</span></h3>
+<p>We present the first thin-air free memory model that admits compiler optimisations that aggressively leverage knowledge from alias analysis, an assumption of freedom from undefined behaviour, and from the extrinsic choices of real implementations such as over-alignment.
+Our model has tooling support with state-of-the-art performance, executing a battery of tests orders of magnitude quicker than other executable thin-air free semantics.
+The model integrates with the C/C++ memory model through an exportable semantic dependency relation, it allows standard compilation mappings for atomics, and it matches all tests in the recently published desiderata for C/C++ from the ISO.</p>
 <details class="pub">
 <summary>
 <div>
-Symbolic MRD: Dynamic Memory, Undefined Behaviour, and Extrinsic Choice.
-<em>OOPSLA 2025.</em>
+Symbolic MRD: Dynamic Memory, Undefined Behaviour, and Extrinsic Choice. <em>OOPSLA 2025.</em>
 </div>
-<br /> <em>Jay Richards, Daniel Wright, <strong>Simon Cooksey</strong>,
-Mark Batty</em>
+<br />
+<em>Jay Richards, Daniel Wright, <strong>Simon Cooksey</strong>, Mark Batty</em>
 </summary>
 <a href="/papers/oopsla25.pdf" target="_blank">[PDF]</a>
 <pre language="BibTeX">
@@ -79,38 +56,21 @@ Mark Batty</em>
 }
 </pre>
 </details>
-<h3
-id="rust-for-morello-always-on-memory-safety-even-in-unsafe-code"><span
-class="headline-word">Rust</span> <span class="headline-word">for</span>
-<span class="headline-word">Morello:</span> <span
-class="headline-word">Always-on</span> <span
-class="headline-word">Memory</span> <span
-class="headline-word">Safety,</span> <span
-class="headline-word">Even</span> <span class="headline-word">in</span>
-<span class="headline-word">Unsafe</span> <span
-class="headline-word">Code</span></h3>
+<h3 id="rust-for-morello-always-on-memory-safety-even-in-unsafe-code"><span class="headline-word">Rust</span> <span class="headline-word">for</span> <span class="headline-word">Morello:</span> <span class="headline-word">Always-on</span> <span class="headline-word">Memory</span> <span class="headline-word">Safety,</span> <span class="headline-word">Even</span> <span class="headline-word">in</span> <span class="headline-word">Unsafe</span> <span class="headline-word">Code</span></h3>
 <p>Memory safety issues are a serious concern in systems programming.
-Rust is a systems language that provides memory safety through a
-combination of a static checks embodied in the type system and ad hoc
-dynamic checks inserted where this analysis becomes impractical. The
-Morello prototype architecture from ARM uses capabilities, fat pointers
-augmented with object bounds information, to catch failures of memory
-safety. This paper presents a compiler from Rust to the Morello
-architecture, together with a comparison of the performance of Rust’s
-runtime safety checks and the hardware-supported checks of Morello. <a
-href="https://www.cs.kent.ac.uk/people/staff/mjb211/rust/index.htm">Project
-website</a>.</p>
+Rust is a systems language that provides memory safety through a combination of a static checks embodied in the type system and ad hoc dynamic checks inserted where this analysis becomes impractical.
+The Morello prototype architecture from ARM uses capabilities, fat pointers augmented with object bounds information, to catch failures of memory safety.
+This paper presents a compiler from Rust to the Morello architecture, together with a comparison of the performance of Rust’s runtime safety checks and the hardware-supported checks of Morello.
+<a href="https://www.cs.kent.ac.uk/people/staff/mjb211/rust/index.htm">Project website</a>.</p>
 <details class="pub">
 <summary>
 <div>
-Rust for Morello: Always-on Memory Safety, Even in Unsafe Code.
-<em>ECOOP 2023.</em>
+Rust for Morello: Always-on Memory Safety, Even in Unsafe Code. <em>ECOOP 2023.</em>
 </div>
-<br /> <em>Sarah Harris, <strong>Simon Cooksey</strong>, Michael
-Vollmer, Mark Batty</em>
+<br />
+<em>Sarah Harris, <strong>Simon Cooksey</strong>, Michael Vollmer, Mark Batty</em>
 </summary>
-<a href="/papers/ecoop23.pdf" target="_blank">[PDF]</a> |
-<a href="https://github.com/kent-weak-memory/rust" target="_blank">[GitHub]</a>
+<a href="/papers/ecoop23.pdf" target="_blank">[PDF]</a> | <a href="https://github.com/kent-weak-memory/rust" target="_blank">[GitHub]</a>
 <pre language="BibTeX">
 @InProceedings{SHarris:2023,
   author ={Harris, Sarah and Cooksey, Simon and Vollmer, Michael and Batty, Mark},
@@ -131,26 +91,17 @@ Vollmer, Mark Batty</em>
   annote ={Keywords: Compilers, Rust, Memory Safety, CHERI}
 }</pre>
 </details>
-<h3 id="mixed-proxy-extensions-to-nvidia-ptx"><span
-class="headline-word">Mixed-Proxy</span> <span
-class="headline-word">Extensions</span> <span
-class="headline-word">to</span> <span
-class="headline-word">NVIDIA</span> <span
-class="headline-word">PTX</span></h3>
-<p>An extension of NVIDIA’s PTX ISA to support mixing load and store
-operations that target different proxies of memory. This gives
-well-defined semantics to programs with both, for example, constant
-loads and generic stores to the same address. The memory model extension
-was built in the relational model checking tool, Alloy, and we showed
-that our extension to the PTX model is sound and complete with respect
-to the existing industrial model.</p>
+<h3 id="mixed-proxy-extensions-to-nvidia-ptx"><span class="headline-word">Mixed-Proxy</span> <span class="headline-word">Extensions</span> <span class="headline-word">to</span> <span class="headline-word">NVIDIA</span> <span class="headline-word">PTX</span></h3>
+<p>An extension of NVIDIA’s PTX ISA to support mixing load and store operations that target different proxies of memory. This gives well-defined semantics to programs with both, for example, constant loads and generic stores to the same address.
+The memory model extension was built in the relational model checking tool, Alloy, and we showed that our extension to the PTX model is sound and complete with respect to the existing industrial model.</p>
 <details class="pub">
 <summary>
 <div>
-Mixed-Proxy Extensions for the NVIDIA PTX Memory Consistency Model.
-<em>ISCA 2022.</em>
+Mixed-Proxy Extensions for the NVIDIA PTX Memory Consistency Model. <em>ISCA 2022.</em>
 </div>
-<br /> ★ <i>Honorable Mention, IEEE Micro Top Picks 2023!</i> <br />
+<br />
+★ <i>Honorable Mention, IEEE Micro Top Picks 2023!</i>
+<br />
 <em>Daniel Lustig, <strong>Simon Cooksey</strong>, Olivier Giroux</em>
 </summary>
 <a href="papers/isca22.pdf" target="_blank">[PDF]</a>
@@ -170,26 +121,17 @@ Mixed-Proxy Extensions for the NVIDIA PTX Memory Consistency Model.
   series = {ISCA '22}
 }</pre>
 </details>
-<h3 id="pomsets-with-predicate-transformers"><span
-class="headline-word">Pomsets</span> <span
-class="headline-word">with</span> <span
-class="headline-word">Predicate</span> <span
-class="headline-word">Transformers</span></h3>
-<p>Pomsets with Predicate Transformers (PwT) is a recent fully
-denotational semantics for weak memory consistency. It captures program
-dependencies by embedding a logic into predicate transformers which
-compose to create proof burdens necessary to remove dependencies which
-are syntactic only from list of dependencies actually present in a
-program. I developed an OCaml tool to automatically evaluate PwT over a
-series of litmus tests. Appears in the proceedings of POPL 2022.</p>
+<h3 id="pomsets-with-predicate-transformers"><span class="headline-word">Pomsets</span> <span class="headline-word">with</span> <span class="headline-word">Predicate</span> <span class="headline-word">Transformers</span></h3>
+<p>Pomsets with Predicate Transformers (PwT) is a recent fully denotational semantics for weak memory consistency.
+It captures program dependencies by embedding a logic into predicate transformers which compose to create proof burdens necessary to remove dependencies which are syntactic only from list of dependencies actually present in a program.
+I developed an OCaml tool to automatically evaluate PwT over a series of litmus tests. Appears in the proceedings of POPL 2022.</p>
 <details class="pub">
 <summary>
 <div>
-The Leaky Semicolon: Compositional Semantic Dependencies for
-Relaxed-Memory Concurrency. <em>POPL 2022.</em>
+The Leaky Semicolon: Compositional Semantic Dependencies for Relaxed-Memory Concurrency. <em>POPL 2022.</em>
 </div>
-<br > <em>Alan Jeffery, James Riely, Mark Batty, <strong>Simon
-Cooksey</strong>, Ilya Kaysin, Anton Podkopaev</em>
+<br >
+<em>Alan Jeffery, James Riely, Mark Batty, <strong>Simon Cooksey</strong>, Ilya Kaysin, Anton Podkopaev</em>
 </summary>
 <a href="papers/popl22.pdf" target="_blank">[PDF]</a>
 <pre language="BibTeX">@inproceedings{AJeffrey:2022,
@@ -204,24 +146,17 @@ Cooksey</strong>, Ilya Kaysin, Anton Podkopaev</em>
 }
 </pre>
 </details>
-<h3 id="modular-relaxed-dependencies"><span
-class="headline-word">Modular</span> <span
-class="headline-word">Relaxed</span> <span
-class="headline-word">Dependencies</span></h3>
-<p>Modular Relaxed Dependencies (MRD) is a denotational semantics for
-weak memory consistency in C and C++. As well as helping to define the
-denotation, I built an evaluation tool (MRDer) in OCaml to enable fast
-calculation of the semantics against a corpus of litmus tests. Further,
-I proved meta-theoretic properties about the semantics with respect to
-industry standard models of C/C++.</p>
+<h3 id="modular-relaxed-dependencies"><span class="headline-word">Modular</span> <span class="headline-word">Relaxed</span> <span class="headline-word">Dependencies</span></h3>
+<p>Modular Relaxed Dependencies (MRD) is a denotational semantics for weak memory consistency in C and C++.
+As well as helping to define the denotation, I built an evaluation tool (MRDer) in OCaml to enable fast calculation of the semantics against a corpus of litmus tests.
+Further, I proved meta-theoretic properties about the semantics with respect to industry standard models of C/C++.</p>
 <details class="pub">
 <summary>
-P2850: Minimal compiler preserved dependencies. <em>ISO/IEC
-JTC1/SC22/WG21.</em> <br > <em>Mark Batty, <strong>Simon
-Cooksey</strong></em>
+P2850: Minimal compiler preserved dependencies. <em>ISO/IEC JTC1/SC22/WG21.</em>
+<br >
+<em>Mark Batty, <strong>Simon Cooksey</strong></em>
 </summary>
-<a href="/iso-papers/p2850/p2850r0.html" rel="noreferrer" target="_blank">Online
-working document</a>
+<a href="/iso-papers/p2850/p2850r0.html" rel="noreferrer" target="_blank">Online working document</a>
 <pre language="BibTeX">@techreport{MBatty:P2850,
     author="Batty, Mark and Cooksey, Simon",
     title="Minimal compiler preserved dependencies",
@@ -233,9 +168,9 @@ working document</a>
 </details>
 <details class="pub">
 <summary>
-Modular Relaxed Dependencies in Weak Memory Concurrency. <em>ESOP
-2020.</em> <br > <em>Marco Paviotti, <strong>Simon Cooksey</strong>,
-Anouk Paradis, Daniel Wright, Scott Owens, Mark Batty</em>
+Modular Relaxed Dependencies in Weak Memory Concurrency. <em>ESOP 2020.</em>
+<br >
+<em>Marco Paviotti, <strong>Simon Cooksey</strong>, Anouk Paradis, Daniel Wright, Scott Owens, Mark Batty</em>
 </summary>
 <a href="papers/esop20.pdf" target="_blank">[PDF]</a>
 <pre language="BibTeX">@inproceedings{MPaviotti:ESOP20,
@@ -252,13 +187,12 @@ Anouk Paradis, Daniel Wright, Scott Owens, Mark Batty</em>
 </details>
 <details class="pub">
 <summary>
-P1780R0: Modular Relaxed Dependencies: A new approach to the
-Out-Of-Thin-Air Problem. <em>ISO/IEC JTC1/SC22/WG21.</em> <br > <em>Mark
-Batty, <strong>Simon Cooksey</strong>, Scott Owens, Anouk Paradis, Marco
-Paviotti, Daniel Wright</em>
+P1780R0: Modular Relaxed Dependencies: A new approach to the Out-Of-Thin-Air Problem.
+<em>ISO/IEC JTC1/SC22/WG21.</em>
+<br >
+<em>Mark Batty, <strong>Simon Cooksey</strong>, Scott Owens, Anouk Paradis, Marco Paviotti, Daniel Wright</em>
 </summary>
-<a href="https://wg21.link/p1780" rel="noreferrer" target="_blank">Online
-working document</a>
+<a href="https://wg21.link/p1780" rel="noreferrer" target="_blank">Online working document</a>
 <pre language="BibTeX">@techreport{MBatty:P1780,
   author="Batty, Mark and Cooksey, Simon and Owens, Scott and Paradis, Anouk and Paviotti, Marco and Wright, Daniel",
   title="Modular Relaxed Dependencies: A new approach to the Out-Of-Thin-Air Problem",
@@ -269,19 +203,15 @@ working document</a>
 }</pre>
 </details>
 <h3 id="pridemm"><span class="headline-word">PrideMM</span></h3>
-<p>PrideMM is a tool written in OCaml which provides an API for building
-Second Order logical formulae and uses this API to express memory
-models. We use cutting edge Quantified Boolean Formulae (QBF) solvers to
-efficiently simulate a new class of memory model which solve the
-thin-air problem. We encode the problems in a high-level second order
-logic giving us flexibility in problem expression. This then gets
-translated into a QBF model checking problem for a solver to efficiently
-execute.</p>
+<p>PrideMM is a tool written in OCaml which provides an API for building Second Order logical formulae and uses this API to express memory models.
+We use cutting edge Quantified Boolean Formulae (QBF) solvers to efficiently simulate a new class of memory model which solve the thin-air problem.
+We encode the problems in a high-level second order logic giving us flexibility in problem expression.
+This then gets translated into a QBF model checking problem for a solver to efficiently execute.</p>
 <details class="pub">
 <summary>
-PrideMM: Second Order Model Checking for Memory Consistency Models.
-<em>TAPAS 2019.</em> <br > <em><strong>Simon Cooksey</strong>, Sarah
-Harris, Mary Batty, Radu Grigore, Mikoláš Janota</em>
+PrideMM: Second Order Model Checking for Memory Consistency Models. <em>TAPAS 2019.</em>
+<br >
+<em><strong>Simon Cooksey</strong>, Sarah Harris, Mary Batty, Radu Grigore, Mikoláš Janota</em>
 </summary>
 <a href="papers/tapas19.pdf" target="_blank">[PDF]</a>
 <pre language="BibTeX">@inproceedings{SCooksey:TAPAS19,
@@ -292,91 +222,37 @@ Harris, Mary Batty, Radu Grigore, Mikoláš Janota</em>
 }</pre>
 </details>
 <h2 id="grants"><span class="headline-word">Grants</span></h2>
-<h3 id="embedded-rust-for-morello-in-defence-applications"><span
-class="headline-word">Embedded</span> <span
-class="headline-word">Rust</span> <span class="headline-word">for</span>
-<span class="headline-word">Morello</span> <span
-class="headline-word">in</span> <span
-class="headline-word">Defence</span> <span
-class="headline-word">Applications</span></h3>
-<p><em>Defence and Security Accelerator, 2023.</em> I am Principal
-Investigator for a grant of £87,763 (100% FEC) on a project to extend
-our Rust for Morello compiler to embedded targets on the Morello
-platform.</p>
-<h3
-id="complementing-capabilities-introducing-pointer-safe-programming-to-dsbd-tech"><span
-class="headline-word">Complementing</span> <span
-class="headline-word">Capabilities:</span> <span
-class="headline-word">Introducing</span> <span
-class="headline-word">Pointer-Safe</span> <span
-class="headline-word">Programming</span> <span
-class="headline-word">to</span> <span class="headline-word">DSbD</span>
-<span class="headline-word">Tech</span></h3>
-<p><em>Innovate UK ICSF, 2022.</em> I am a Researcher Co-Investigator
-for a grant of £494,770 (80% FEC) responding to the Innovate UK call to
-extend the DSbD ecosystem with new CHERI compatible software. This work
-will be focussed on porting the Rust compiler to CHERI and formally
-demonstrating how the guarantees provided by Rust join up nicely with
-the guarantees of the capability hardware.</p>
-<h3 id="fixing-the-thin-air-problem-iso-dissemination"><span
-class="headline-word">Fixing</span> <span
-class="headline-word">the</span> <span
-class="headline-word">Thin-Air</span> <span
-class="headline-word">Problem:</span> <span
-class="headline-word">ISO</span> <span
-class="headline-word">Dissemination</span></h3>
-<p><em>VeTSS, 2020.</em> I am a named researcher and co-author of a
-VeTSS grant of £60,455 (80% FEC) to pursue further integration of MRD
-into the ISO C++ Standard. This grant funds travel to ISO meetings, and
-research time for me to prepare papers ahead of these meetings.</p>
-<h3 id="capc-capability-c-semantics-tools-and-reasoning"><span
-class="headline-word">CapC:</span> <span
-class="headline-word">Capability</span> <span
-class="headline-word">C</span> <span
-class="headline-word">Semantics,</span> <span
-class="headline-word">Tools</span> <span
-class="headline-word">and</span> <span
-class="headline-word">Reasoning</span></h3>
-<p><em>Digital Security by Design, 2020.</em> I am a named researcher
-and co-author of a Digital Security by Design grant of £485,168 (80%
-FEC). This is a longer term project to build verified concurrent
-libraries for the CHERI platform. CHERI is an interesting extension to
-ARM where memory accesses are tagged with capabilities to keep code
-secure.</p>
-<h2 id="postgraduate"><span
-class="headline-word">Postgraduate</span></h2>
-<p>I completed my PhD in the Programming Languages and Systems group at
-the University of Kent. I worked with my supervisor <a
-href="https://www.kent.ac.uk/computing/people/3126/batty-mark">Mark
-Batty</a> researching weak memory behaviours and compiler
-verification.</p>
-<p>In June 2020 I received the <a
-href="https://blogs.kent.ac.uk/graduateschoolnews/2020/05/19/graduate-school-prizes-2020/">Kent
-Postgraduate Prize</a>, recognising the impact of my research.</p>
-<p>In June 2025 I received the <a
-href="https://vetss.org.uk/vetss-annual-conference-2025-concluded/">VeTSS
-Doctoral Dissertation Award</a> for my <a
-href="/papers/thesis.pdf">thesis</a> published in 2022.</p>
-<h2 id="industrial-experience"><span
-class="headline-word">Industrial</span> <span
-class="headline-word">Experience</span></h2>
+<h3 id="embedded-rust-for-morello-in-defence-applications"><span class="headline-word">Embedded</span> <span class="headline-word">Rust</span> <span class="headline-word">for</span> <span class="headline-word">Morello</span> <span class="headline-word">in</span> <span class="headline-word">Defence</span> <span class="headline-word">Applications</span></h3>
+<p><em>Defence and Security Accelerator, 2023.</em>
+I am Principal Investigator for a grant of £87,763 (100% FEC) on a project to extend our Rust for Morello compiler to embedded targets on the Morello platform.</p>
+<h3 id="complementing-capabilities-introducing-pointer-safe-programming-to-dsbd-tech"><span class="headline-word">Complementing</span> <span class="headline-word">Capabilities:</span> <span class="headline-word">Introducing</span> <span class="headline-word">Pointer-Safe</span> <span class="headline-word">Programming</span> <span class="headline-word">to</span> <span class="headline-word">DSbD</span> <span class="headline-word">Tech</span></h3>
+<p><em>Innovate UK ICSF, 2022.</em>
+I am a Researcher Co-Investigator for a grant of £494,770 (80% FEC) responding to the Innovate UK call to extend the DSbD ecosystem with new CHERI compatible software.
+This work will be focussed on porting the Rust compiler to CHERI and formally demonstrating how the guarantees provided by Rust join up nicely with the guarantees of the capability hardware.</p>
+<h3 id="fixing-the-thin-air-problem-iso-dissemination"><span class="headline-word">Fixing</span> <span class="headline-word">the</span> <span class="headline-word">Thin-Air</span> <span class="headline-word">Problem:</span> <span class="headline-word">ISO</span> <span class="headline-word">Dissemination</span></h3>
+<p><em>VeTSS, 2020.</em>
+I am a named researcher and co-author of a VeTSS grant of £60,455 (80% FEC) to pursue further integration of MRD into the ISO C++ Standard.
+This grant funds travel to ISO meetings, and research time for me to prepare papers ahead of these meetings.</p>
+<h3 id="capc-capability-c-semantics-tools-and-reasoning"><span class="headline-word">CapC:</span> <span class="headline-word">Capability</span> <span class="headline-word">C</span> <span class="headline-word">Semantics,</span> <span class="headline-word">Tools</span> <span class="headline-word">and</span> <span class="headline-word">Reasoning</span></h3>
+<p><em>Digital Security by Design, 2020.</em>
+I am a named researcher and co-author of a Digital Security by Design grant of £485,168 (80% FEC).
+This is a longer term project to build verified concurrent libraries for the CHERI platform.
+CHERI is an interesting extension to ARM where memory accesses are tagged with capabilities to keep code secure.</p>
+<h2 id="postgraduate"><span class="headline-word">Postgraduate</span></h2>
+<p>I completed my PhD in the Programming Languages and Systems group at the University of Kent.
+I worked with my supervisor <a href="https://www.kent.ac.uk/computing/people/3126/batty-mark">Mark Batty</a> researching weak memory behaviours and compiler verification.</p>
+<p>In June 2020 I received the <a href="https://blogs.kent.ac.uk/graduateschoolnews/2020/05/19/graduate-school-prizes-2020/">Kent Postgraduate Prize</a>, recognising the impact of my research.</p>
+<p>In June 2025 I received the <a href="https://vetss.org.uk/vetss-annual-conference-2025-concluded/">VeTSS Doctoral Dissertation Award</a> for my <a href="/papers/thesis.pdf">thesis</a> published in 2022.</p>
+<h2 id="industrial-experience"><span class="headline-word">Industrial</span> <span class="headline-word">Experience</span></h2>
 <h3 id="nvidia"><span class="headline-word">NVIDIA</span></h3>
-<p>As an intern at NVIDIA I extended the Memory Consistency Model for
-NVIDIA’s virtual instruction set (PTX) to support “memory views”. This
-enables writing well-defined programs which mix generic load and store
-operations with specialised load and store operations for texture,
-surface and constant accesses.</p>
+<p>As an intern at NVIDIA I extended the Memory Consistency Model for NVIDIA’s virtual instruction set (PTX) to support “memory views”.
+This enables writing well-defined programs which mix generic load and store operations with specialised load and store operations for texture, surface and constant accesses.</p>
 <h3 id="xmos"><span class="headline-word">XMOS</span></h3>
-<p>I worked for the Bristol based semiconductor company <a
-href="https://www.xmos.com">XMOS</a>. XMOS produces a line of multicore
-embedded processors called the xCORE. I built tools and applications for
-the platform, including a port of an MP3 library, <code>lib_mp3</code>
-and adaptations to their debugging toolchain to enable remote debugging
-of hardware targets over the network, and to allow interfacing the
-debugger with a fast simulator.</p>
+<p>I worked for the Bristol based semiconductor company <a href="https://www.xmos.com">XMOS</a>.
+XMOS produces a line of multicore embedded processors called the xCORE.
+I built tools and applications for the platform, including a port of an MP3 library, <code>lib_mp3</code> and adaptations to their debugging toolchain to enable remote debugging of hardware targets over the network, and to allow interfacing the debugger with a fast simulator.</p>
 <h2 id="contact"><span class="headline-word">Contact</span></h2>
-<p>You can contact me via email, <a
-href="mailto:simon@graymalk.in">simon@graymalk.in</a>.</p>
+<p>You can contact me via email, <a href="mailto:simon@graymalk.in">simon@graymalk.in</a>.</p>
 <p>My CV is available <a href="./cv.pdf">here</a>.</p>
     <link rel="preload" href="/orrery.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
     <noscript><link rel="stylesheet" href="/orrery.min.css"></noscript>

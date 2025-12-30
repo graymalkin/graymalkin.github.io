@@ -18,6 +18,8 @@ The first step is constructing a new shed for our bikes, so there's somewhere fo
 So, in early spring, we built a new bike shed at home, for our bicycles, lawn mower, and miscellaneous garden equipment.
 Shopping around we didn't find any pre-fabricated sheds which were quite right for the space we have, so I designed something custom on the computer and built it with lumber ordered from our local timber merchant.
 It arrived quickly and I could make a start!
+<br/>
+<br/>
 
 ![Shed build in progress](/blog/allotment/images/bike-shed-frame.jpg)
 
@@ -28,8 +30,9 @@ I bought a chop-saw to make quick work of all the cuts, and the tools required t
 Saw, drill, impact driver, measuring/marking, and a hammer!
 I grabbed the hardware for the doors from a shop named literally _Hinges and Brackets_ which is quite close to my house.
 
-I'm very happy with the end result!
 ![Bike shed complete](/blog/allotment/images/bike-shed-complete.jpg)
+
+I'm very happy with the end result!
 
 With a new bike shed built, the old shed was taken up to the allotment and plonked at the end of the plot.
 Dismantling and re-assembling the shed was surprisingly quick and easy.
@@ -51,6 +54,8 @@ Meanwhile, I dug out a couple of new borders.
 Down the side of our house and to the front there are small patches of scrub land, where building rubble and hardcore have been compacted and covered with gravel.
 I find myself spending a fair bit of my time weeding that area, and it's generally quite scruffy and unlovable.
 So to remedy this, I dug out a border at the front and a large border to the side.
+
+<br/>
 
 ![Front border dug out](/blog/allotment/images/front-border-dig.jpg)
 
@@ -90,6 +95,8 @@ Foxgloves 'Lucas white' ^[RHS][3]^ (back left, back right),
 _Salvia Nemorosa_ 'Caradonna' ^[RHS][4]^ (middle right),
 _Cosmos_ 'Double Click Cranberry' ^[RHS][5]^ and 'Candy Stripe' ^[RHS][6]^ (front right),
 and I've since planted a couple of dahlias in the front-middle of the border.
+
+&nbsp;
 ![Side border planted](/blog/allotment/images/side-border-planted.jpg)
 
 
@@ -123,6 +130,8 @@ Instructions notwithstanding, the frame went up very fast, on my first day of as
 A friend came over to help me get the four sides fitted together, and put in most of the roof structure.
 Sadly, weather and travel worked against me for a few days, so glazing didn't start until the following Sunday.
 
+<br/> 
+
 ![Frame up right](/blog/allotment/images/greenhouse-frame-upright.jpg)
 
 Fitting the glass was _hard_.
@@ -130,6 +139,8 @@ The instructions on getting the "beads" in were not very clear, and using the gl
 Pushing the beads in by hand however was very, very hard on my hands, especially my thumbs.
 In conjunction with moving fragile and heavy bits of glass, this part of building the greenhouse was very frustrating.
 Eventually, through some desperation, I started to use the glazing paddle and mallet with more gusto and got the knack for it, and it made the rest of the job substantially easier (although still not a walk in the park)
+
+&nbsp;
 ![Greenhouse glazed](/blog/allotment/images/greenhouse-glazed.jpg)
 
 With the glass in, the greenhouse felt completely solid.

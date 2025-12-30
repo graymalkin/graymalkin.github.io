@@ -1,10 +1,11 @@
 # include ./Makefile.mk
 TEMPLATE = ${CURDIR}/blog-template.html
 FILTER := ${CURDIR}/../headlinify.hs
-export PANDOC_FLAGS := --standalone --toc --citeproc --highlight-style kate --template=$(TEMPLATE) --mathml --filter $(FILTER)
+export PANDOC_FLAGS := --standalone --toc --citeproc --highlight-style kate --template=$(TEMPLATE) --mathml --filter $(FILTER) --wrap=preserve
 
 # Order is the index order. Maintain reverse chronological order.
 ARTICLES = \
+	recipes \
 	allotment \
 	why-must-we-log-in-to-society \
 	inkyframe \
