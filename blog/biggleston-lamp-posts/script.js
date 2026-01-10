@@ -41,6 +41,7 @@ async function populate() {
 
     const response = await fetch(request);
     const data = await response.json();
+    var notTracked = 0;
     var goodCondition = 0;
     var poorCondition = 0;
     var razed = 0;
@@ -76,16 +77,19 @@ async function populate() {
         popupString += `Condition: <i>${condition_code_to_string(data[i]["condition_code"])}</i><br/>`;
         popupString += `Date checked: <i>${data[i]["date_checked"]}</i><br />`;
         popupString += `Council tracked: <i>${data[i]["council_tracked"]}`;
+        if (!data[i]["council_tracked"]) notTracked++;
 
         c.bindPopup(popupString);
         c.addTo(map);
     }
 
     var total = goodCondition + poorCondition + razed;
+    document.getElementById("dataLen").innerHTML = `${data.length}`;
     document.getElementById("numLampPosts").innerHTML = `${total}`;
     document.getElementById("numGood").innerHTML = `${goodCondition} (${(goodCondition/total * 100).toFixed(0)}%)`;
     document.getElementById("numPoor").innerHTML = `${poorCondition} (${(poorCondition/total * 100).toFixed(0)}%)`;
     document.getElementById("numRazed").innerHTML = `${razed} (${(razed/total * 100).toFixed(0)}%)`;
+    document.getElementById("notTracked").innerHTML = `${notTracked}`;
 }
 
 populate();
