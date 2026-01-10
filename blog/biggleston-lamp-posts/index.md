@@ -14,7 +14,7 @@ Over the last 10-15 years or so they have been poorly maintained, and weathering
 Many have been removed, and of those many have been removed quite poorly: the top has been chopped off, and a new modern lamp post has been installed directly next to the stump.
 
 &nbsp;
-![Badly removed lamp post on Castle Street](/blog/biggleston-lamp-posts/images/14-castle-street.jpg)
+![Badly removed lamp post on Castle Street](/blog/biggleston-lamp-posts/images/24-york-road-base.jpeg)
 
 I have been surveying the remaining lamp posts I can find in Canterbury and have documented their locations and condition on the map below.
 

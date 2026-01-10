@@ -10,13 +10,28 @@ function condition_code_to_color(code) {
             return 'green';
         case 2:
         case 3:
-            return 'rgba(196, 141, 0, 1)';
         case 4:
         case 5:
+            return 'rgba(196, 141, 0, 1)';
         case 6:
+        case 7:
             return 'red';
         default:
             return 'magenta';
+    }
+}
+
+function condition_code_to_string(code) {
+    switch (code) {
+        case 0: return 'Not surveyed.'
+        case 1: return 'Good condition';
+        case 2: return 'Poor: needs repaint';
+        case 3: return 'Poor: needs access hatch repair';
+        case 4: return 'Poor: needs repaint and hatch repair';
+        case 5: return 'Poor: other reason'
+        case 6: return 'Removed (stump)';
+        case 7: return 'Removed (completely missing)'
+        default: return 'Unknown condition';
     }
 }
 
@@ -58,7 +73,7 @@ async function populate() {
         if (image_url != null) {
             popupString += `<a href="${image_url}"><img src="${image_url}" alt="Image" class="mapPopupImg"/></a> <br/>`
         }
-        popupString += `Condition: <i>${data[i]["condition_string"]}</i><br/>`;
+        popupString += `Condition: <i>${condition_code_to_string(data[i]["condition_code"])}</i><br/>`;
         popupString += `Date checked: <i>${data[i]["date_checked"]}</i><br />`;
         popupString += `Council tracked: <i>${data[i]["council_tracked"]}`;
 
