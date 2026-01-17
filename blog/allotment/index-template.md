@@ -1,6 +1,5 @@
 ---
 title: Allotment
-date: On-going
 published: true
 url: /blog/
 ---

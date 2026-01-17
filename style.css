@@ -298,6 +298,10 @@ hr::before {
     content: "";
 }
 
+span.idx-date { color: #666; }
+span.idx-date:not(:empty)::before { content: "("; }
+span.idx-date:not(:empty)::after { content: ")"; }
+
 @media (prefers-color-scheme: dark) {
   body {
     background: #222;

@@ -1,6 +1,5 @@
 ---
 title: Recipes
-date: On-going
 published: true
 url: /blog/
 ---
