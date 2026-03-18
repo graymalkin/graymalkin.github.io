@@ -1,6 +1,7 @@
 ---
 title: Recipes
 published: true
+date: ...
 url: /blog/
 ---
 

@@ -1,6 +1,7 @@
 ---
 title: Allotment
 published: true
+date: ...
 url: /blog/
 ---
 

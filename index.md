@@ -1,10 +1,10 @@
 ---
 title: Simon Cooksey
-subtitle: Research Scientist
+subtitle: Senior Research Scientist
 toc: false
 ---
 
-I am a Research Scientist working for NVIDIA in the [Architecture Research Group](https://research.nvidia.com/person/simon-cooksey).
+I am a Senior Research Scientist working for NVIDIA in the [Architecture Research Group](https://research.nvidia.com/person/simon-cooksey).
 
 ## Publications
 ### Symbolic MRD: Dynamic Memory, Undefined Behaviour, and Extrinsic Choice
