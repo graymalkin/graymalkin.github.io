@@ -4,14 +4,14 @@ PANDOC_FLAGS = --standalone --citeproc --highlight-style kate --template=$(TEMPL
 OUTPUTS = index.html
 
 # Order is the index order. Maintain reverse chronological order.
+# One .url file per paper, listing all revisions.
 PAPERS = \
-	p3881/p3881r0.url \
-	p3111/p3111r0.url \
-	p2850/p2850r0.bs \
-	p2426/p2426r0.bs \
-	p1780/p1780r2.bs \
-	p1780/p1780r1.bs \
-	p1780/p1780r0.bs
+	p3881/p3881.url \
+	p3692/p3692.url \
+	p3111/p3111.url \
+	p2850/p2850.url \
+	p2426/p2426.url \
+	p1780/p1780.url
 
 CWG_ISSUES = \
 	cwg/2923.url
@@ -19,7 +19,7 @@ CWG_ISSUES = \
 .INTERMEDIATE: index.md
 
 %.html: %.md $(TEMPLATE)
-	pandoc $(PANDOC_FLAGS) -o $@ $< 
+	pandoc $(PANDOC_FLAGS) -o $@ $<
 
 index.md: $(PAPERS) $(CWG_ISSUES)
 	@echo "---" > index.md
@@ -27,26 +27,38 @@ index.md: $(PAPERS) $(CWG_ISSUES)
 	@echo "---" >> index.md
 	@echo "# Papers" >> index.md
 	@for a in $(PAPERS); do \
-		DATE=$$(grep -m 1 "Date" $$a | sed -e 's/Date: //g'); \
-		TITLE=$$(grep -m 1 "Title" $$a | sed -e 's/Title: //g'); \
-		SHORTNAME=$$(grep -m 1 "Shortname" $$a | sed -e 's/Shortname: //g'); \
-		REVISION=$$(grep -m 1 "Revision" $$a | sed -e 's/Revision: //g'); \
-		case $$a in \
-			*.url) HREF=$$(grep -m 1 "URL" $$a | sed -e 's/URL: //g');; \
-			*) HREF="./$$(echo $$a | sed -e 's/.bs/.html/g')";; \
-		esac; \
-		echo " - <span style=\"color: #666\">($$DATE)</span> [$$SHORTNAME r$$REVISION] [$$TITLE]($$HREF)" >> index.md; \
+		DATE=$$(grep -m 1 "^Date:" $$a | sed -e 's/^Date:[ ]*//'); \
+		TITLE=$$(grep -m 1 "^Title:" $$a | sed -e 's/^Title:[ ]*//'); \
+		SHORTNAME=$$(grep -m 1 "^Shortname:" $$a | sed -e 's/^Shortname:[ ]*//'); \
+		DIR=$$(dirname $$a); \
+		PARSED=$$(awk -v dir="$$DIR" ' \
+			/^Revisions:[ \t]*$$/ {f=1; next} \
+			f && /^[ \t]*-[ \t]/ { \
+				sub(/^[ \t]*-[ \t]*/, ""); \
+				n = index($$0, ":"); \
+				tag = substr($$0, 1, n-1); \
+				url = substr($$0, n+1); \
+				sub(/^[ \t]+/, "", url); sub(/[ \t]+$$/, "", url); \
+				if (url !~ /^https?:/ && url !~ /^\//) url = "./" dir "/" url; \
+				if (revs != "") revs = revs ", "; \
+				revs = revs "[" tag "](" url ")"; \
+				latest = url; \
+				next \
+			} \
+			f && !/^[ \t]*$$/ {f=0} \
+			END { print revs "\t" latest } \
+		' $$a); \
+		REV_LINKS=$$(echo "$$PARSED" | cut -f1); \
+		LATEST_URL=$$(echo "$$PARSED" | cut -f2); \
+		echo " - <span style=\"color: #666\">($$DATE)</span> [$$SHORTNAME] [$$TITLE]($$LATEST_URL) <sup>[$$REV_LINKS]</sup>" >> index.md; \
 	done
 	@echo "" >> index.md
 	@echo "# CWG Issues" >> index.md
 	@for a in $(CWG_ISSUES); do \
-		DATE=$$(grep -m 1 "Date" $$a | sed -e 's/Date: //g'); \
-		TITLE=$$(grep -m 1 "Title" $$a | sed -e 's/Title: //g'); \
-		SHORTNAME=$$(grep -m 1 "Shortname" $$a | sed -e 's/Shortname: //g'); \
-		case $$a in \
-			*.url) HREF=$$(grep -m 1 "URL" $$a | sed -e 's/URL: //g');; \
-			*) HREF="./$$(echo $$a | sed -e 's/.bs/.html/g')";; \
-		esac; \
+		DATE=$$(grep -m 1 "^Date:" $$a | sed -e 's/^Date:[ ]*//'); \
+		TITLE=$$(grep -m 1 "^Title:" $$a | sed -e 's/^Title:[ ]*//'); \
+		SHORTNAME=$$(grep -m 1 "^Shortname:" $$a | sed -e 's/^Shortname:[ ]*//'); \
+		HREF=$$(grep -m 1 "^URL:" $$a | sed -e 's/^URL:[ ]*//'); \
 		echo " - <span style=\"color: #666\">($$DATE)</span> [$$SHORTNAME] [$$TITLE]($$HREF)" >> index.md; \
 	done
 

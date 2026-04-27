@@ -1,0 +1,12 @@
+---
+Date: 2024-05-23
+Title: Atomic Reduction Operations
+Shortname: P3111
+Authors: Gonzalo Brito Gadeschi, Simon Cooksey, Daniel Lustig
+Revisions:
+  - r0: https://wg21.link/p3111r0
+  - r1: https://www.open-std.org/jtc1/sc22/wg21/docs/papers/2024/p3111r1.html
+  - r2: https://www.open-std.org/jtc1/sc22/wg21/docs/papers/2024/p3111r2.html
+  - r3: https://www.open-std.org/jtc1/sc22/wg21/docs/papers/2025/p3111r3.html
+  - r4: https://www.open-std.org/jtc1/sc22/wg21/docs/papers/2025/p3111r4.html
+---

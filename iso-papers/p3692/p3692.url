@@ -1,0 +1,9 @@
+---
+Date: 2026-03-26
+Title: How to Avoid OOTA Without Really Trying
+Shortname: P3881
+Authors: Alan Stern, Paul E. McKenney, Michael Wong, Maged Michael, Gonzalo Brito, Simon Cooksey, Mark Batty
+Revisions:
+  - r3: https://www.open-std.org/jtc1/sc22/wg21/docs/papers/2025/p3692r3.pdf
+  - r4: https://www.open-std.org/jtc1/sc22/wg21/docs/papers/2026/p3692r4.pdf
+---
