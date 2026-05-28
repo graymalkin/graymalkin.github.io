@@ -1,8 +1,9 @@
 include ../Makefile.mk
-IMAGES_ORIGINAL = $(wildcard images/*-large.jpg) $(wildcard images/summer-25/*-large.jpg)
+IMAGES_ORIGINAL = $(wildcard images/*-large.jpg) $(wildcard images/summer-25/*-large.jpg) $(wildcard images/spring-26/*-large.jpg)
 IMAGES_RESIZED = $(patsubst %-large.jpg,%.jpg,$(IMAGES_ORIGINAL)) 
 
 SUB_PAGES = \
+	spring-26.md \
 	winter-25.md \
 	autumn-25.md \
 	summer-25.md \

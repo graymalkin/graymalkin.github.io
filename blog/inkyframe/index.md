@@ -12,7 +12,7 @@ I've had it for a while, and had grand visions of building a customisable YAML d
 Like all the best laid plans though, it never really got anywhere.
 Time and other priorities meant it was left languishing in a drawer and I never got the project past a barely functional prototype.
 
-Well last weekend, while procrastinating building a [greenhouse base](/blog/allotment/winter-24/#february) (it was raining...), I remembered it and thought I could do something more simple.
+Well last weekend, while procrastinating building a [greenhouse base](/blog/gardening/winter-24/#february) (it was raining...), I remembered it and thought I could do something more simple.
 The Met Office publishes a few APIs, one of which provides images for map overlays.
 
 I hacked together a couple of scripts, one which runs locally on my network pulls a day's worth of imagery from the Met Office API and processes it to be easy to display on the Inky Frame.

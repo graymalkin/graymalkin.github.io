@@ -10,10 +10,10 @@ Late spring and early summer has seen a flurry of activity at home.
 While this is notionally a blog about the allotment, a bunch of work has happened at home to feed the gardening addiction -- sadly to (hopefully short-term) the detriment of the plot itself.
 
 # The great shed shuffle
-As described in the [winter](/blog/allotment/winter-24/) post, we want to move our 5x7 shed up to the allotment to make space for a greenhouse at home.
+As described in the [winter](/blog/gardening/winter-24/) post, we want to move our 5x7 shed up to the allotment to make space for a greenhouse at home.
 The first step is constructing a new shed for our bikes, so there's somewhere for them to live once we take down our old 5x7 shed.
 
-![Shed plans](/blog/allotment/images/bike-shed-plans.png)
+![Shed plans](/blog/gardening/images/bike-shed-plans.png)
 
 So, in early spring, we built a new bike shed at home, for our bicycles, lawn mower, and miscellaneous garden equipment.
 Shopping around we didn't find any pre-fabricated sheds which were quite right for the space we have, so I designed something custom on the computer and built it with lumber ordered from our local timber merchant.
@@ -21,7 +21,7 @@ It arrived quickly and I could make a start!
 <br/>
 <br/>
 
-![Shed build in progress](/blog/allotment/images/bike-shed-frame.jpg)
+![Shed build in progress](/blog/gardening/images/bike-shed-frame.jpg)
 
 It took about 3 days to build all-in, and was very good fun.
 The frame is made of 2x3 sticks, the base is T&G flooring on 2x3 risers, the sides are made of 18mm shiplap, and the roof is 18mm OSB with a normal roofing felt top.
@@ -30,7 +30,7 @@ I bought a chop-saw to make quick work of all the cuts, and the tools required t
 Saw, drill, impact driver, measuring/marking, and a hammer!
 I grabbed the hardware for the doors from a shop named literally _Hinges and Brackets_ which is quite close to my house.
 
-![Bike shed complete](/blog/allotment/images/bike-shed-complete.jpg)
+![Bike shed complete](/blog/gardening/images/bike-shed-complete.jpg)
 
 I'm very happy with the end result!
 
@@ -40,14 +40,14 @@ It also made it very clear to me how overbuilt I'd designed our new bike shed to
 Almost all the wood is double the thickness and the whole thing is several times more rigid.
 Over-engineering is my crutch for engineering appropriately.
 On the plus-side, I didn't spend 8 weeks debating what colour to paint it...
-![Shed allotment](/blog/allotment/images/allotment-shed-build.jpg)
+![Shed allotment](/blog/gardening/images/allotment-shed-build.jpg)
 
 
 # Greenhouse base and new borders
 
 With the old shed removed, we called in some landscapers to help us with the hard landscaping.
 
-![Side border dug out](/blog/allotment/images/side-border-dig.jpg)
+![Side border dug out](/blog/gardening/images/side-border-dig.jpg)
 
 I ordered a 6yd skip, and the landscapers dug out a footing for the greenhouse, leaving space for brick edging around it.
 Meanwhile, I dug out a couple of new borders.
@@ -57,7 +57,7 @@ So to remedy this, I dug out a border at the front and a large border to the sid
 
 <br/>
 
-![Front border dug out](/blog/allotment/images/front-border-dig.jpg)
+![Front border dug out](/blog/gardening/images/front-border-dig.jpg)
 
 The smaller border is about 60cm by 1m, and the larger border is 1.5m by 2.2m.
 The areas directly around the house had about 20cm of compacted rubble, and then heavy clay with a decent number of bricks buried in it.
@@ -72,7 +72,7 @@ I'll mulch with more manure in the autumn.
 The drainage seems good, the topsoil we ordered is quite sandy, and it hasn't shrunk back too much.
 A few weeks in the plants seem mostly happy, maybe not quite thriving, but nothing unexpected for a first season in after potting out.
 
-![Front border planted](/blog/allotment/images/front-border-planted.jpg)
+![Front border planted](/blog/gardening/images/front-border-planted.jpg)
 
 In the front border my partner and I picked a half standard rose each.
 We picked based on scent mostly.
@@ -97,7 +97,7 @@ _Cosmos_ 'Double Click Cranberry' ^[RHS][5]^ and 'Candy Stripe' ^[RHS][6]^ (fron
 and I've since planted a couple of dahlias in the front-middle of the border.
 
 &nbsp;
-![Side border planted](/blog/allotment/images/side-border-planted.jpg)
+![Side border planted](/blog/gardening/images/side-border-planted.jpg)
 
 
 There is a space at the back of the border which I'm debating what to do with.
@@ -116,7 +116,7 @@ With the base complete, the greenhouse arrived in the first week of June, assumi
 The weather certainly felt more like spring.
 Where we'd had a few weeks of hot mid to high 20˚C days through most of May, June arrived with fairly brisk north-westerly winds and heavy showers.
 
-![Frame laid out on grass](/blog/allotment/images/greenhouse-frame-on-grass.jpg)
+![Frame laid out on grass](/blog/gardening/images/greenhouse-frame-on-grass.jpg)
 
 The greenhouse was from Rhino Greenhouses, and overall I'd say it's an excellent product.
 It arrived in 4 long skinny boxes and a big heap of glass.
@@ -132,7 +132,7 @@ Sadly, weather and travel worked against me for a few days, so glazing didn't st
 
 <br/> 
 
-![Frame up right](/blog/allotment/images/greenhouse-frame-upright.jpg)
+![Frame up right](/blog/gardening/images/greenhouse-frame-upright.jpg)
 
 Fitting the glass was _hard_.
 The instructions on getting the "beads" in were not very clear, and using the glazing paddle and mallet required more percussion than I (initially) thought was appropriate around big sheets of glass!
@@ -141,7 +141,7 @@ In conjunction with moving fragile and heavy bits of glass, this part of buildin
 Eventually, through some desperation, I started to use the glazing paddle and mallet with more gusto and got the knack for it, and it made the rest of the job substantially easier (although still not a walk in the park)
 
 &nbsp;
-![Greenhouse glazed](/blog/allotment/images/greenhouse-glazed.jpg)
+![Greenhouse glazed](/blog/gardening/images/greenhouse-glazed.jpg)
 
 With the glass in, the greenhouse felt completely solid.
 I'm very impressed with the overall build quality of the greenhouse, and would recommend them - even if the instructions leave something to be desired.

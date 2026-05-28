@@ -26,6 +26,8 @@ index.md: $(PAPERS) $(CWG_ISSUES)
 	@echo "title: ISO Papers" >> index.md
 	@echo "---" >> index.md
 	@echo "# Papers" >> index.md
+	@echo "Papers I am involved in as part of the ISO C++ standarisation committee." >> index.md
+	@echo "" >> index.md
 	@for a in $(PAPERS); do \
 		DATE=$$(grep -m 1 "^Date:" $$a | sed -e 's/^Date:[ ]*//'); \
 		TITLE=$$(grep -m 1 "^Title:" $$a | sed -e 's/^Title:[ ]*//'); \

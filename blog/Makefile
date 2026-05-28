@@ -7,7 +7,7 @@ export PANDOC_FLAGS := --standalone --toc --citeproc --highlight-style kate --te
 ARTICLES = \
 	biggleston-lamp-posts \
 	recipes \
-	allotment \
+	gardening \
 	why-must-we-log-in-to-society \
 	inkyframe \
 	myford-ml4 \

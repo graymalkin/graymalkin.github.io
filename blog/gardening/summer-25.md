@@ -31,7 +31,7 @@ All-in-all it's a significant damper on our season's growing, but we're willing 
 
 <div style="display: flex; justify-content: space-evenly">
 <div class="plant left">
-<img alt="Patty Pan" src="/blog/allotment/images/summer-25/patty-pan.jpg"></img>
+<img alt="Patty Pan" src="/blog/gardening/images/summer-25/patty-pan.jpg"></img>
 <div class="common-name">Squash <span class="cultivar">Green Disc</span></div>
 <div class="growing-calendar">
   <table>
@@ -62,7 +62,7 @@ We're not really interested in eating these, although we may try, but they look 
 </div>
 </div>
 <div class="plant right">
-<img alt="Pumpkin Justify" src="/blog/allotment/images/summer-25/pumpkin-justify.jpg"></img>
+<img alt="Pumpkin Justify" src="/blog/gardening/images/summer-25/pumpkin-justify.jpg"></img>
 <div class="common-name">Pumpkin <span class="cultivar">Justify</span></div>
 <div class="growing-calendar">
   <table>
@@ -93,7 +93,7 @@ Probably also for autumn decoration, but I like pumpkin soup also.
 </div>
 </div>
 <div class="plant right">
-<img alt="Patio Courgette" src="/blog/allotment/images/summer-25/patio-courgette.jpg"></img>
+<img alt="Patio Courgette" src="/blog/gardening/images/summer-25/patio-courgette.jpg"></img>
 <div class="common-name">Patio Courgette <span class="cultivar">Midnight</span></div>
 <div class="growing-calendar">
   <table>
@@ -128,7 +128,7 @@ Mum always grew half a dozen of these and couldn't give the courgettes away, hop
 The most exciting plant is an aubergine, I've never grown these before and they're meant to look pretty weird!
 
 <div class="plant centre">
-<img alt="Patio Courgette" src="/blog/allotment/images/summer-25/aubergine.jpg"></img>
+<img alt="Patio Courgette" src="/blog/gardening/images/summer-25/aubergine.jpg"></img>
 <div class="common-name">Aubergine <span class="cultivar">Krasen</span></div>
 <div class="growing-calendar">
   <table>

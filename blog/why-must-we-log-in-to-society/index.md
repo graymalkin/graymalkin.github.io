@@ -33,7 +33,7 @@ My partner does maintain a Facebook account so between us, we can navigate buyin
 Facebook marketplace is also a bit too bereft of features.
 Clearly lots of people are taken for a ride as buyers and sellers and there's a distinct culture of mistrust.
 The seller of the lawn mower seemed taken aback that we turned up on-time, with the correct money, and didn't mess him about.
-Similarly, [Pawel](/blog/allotment/summer-25/#finding-second-hand-gold) told us that even _giving away_ the glass for free he'd been messed around by 4 people before us!
+Similarly, [Pawel](/blog/gardening/summer-25/#finding-second-hand-gold) told us that even _giving away_ the glass for free he'd been messed around by 4 people before us!
 Perhaps this is just the nature of selling stuff in-person but being initiated online, but it seems like a sorry state of affairs.
 
 The local car boot sale hasn't run since the COVID restrictions began in 2020, with much of the sale of 2nd hand goods going online to Facebook Marketplace.

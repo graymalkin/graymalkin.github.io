@@ -10,7 +10,7 @@ This year it feels like there's more wildlife about than there has been in previ
 Both in quantity of individuals, and in variety of species.
 To try and keep track, and maybe feel somewhat positive about things, I thought I should keep a list of what I've spotted.
 \
-![Peacock butterfly on a marigold](/blog/allotment/images/wildlife-25/peacock-butterfly.jpeg)
+![Peacock butterfly on a marigold](/blog/gardening/images/wildlife-25/peacock-butterfly.jpeg)
 
 ## Insects
 
