@@ -3,17 +3,21 @@ IMAGES_ORIGINAL = $(wildcard images/*-large.jpg) $(wildcard images/summer-25/*-l
 IMAGES_RESIZED = $(patsubst %-large.jpg,%.jpg,$(IMAGES_ORIGINAL)) 
 
 SUB_PAGES = \
+	winter-26.md \
+	summer-26.md \
 	spring-26.md \
 	winter-25.md \
 	autumn-25.md \
 	summer-25.md \
 	spring-25.md \
-	wildlife-25.md \
 	winter-24.md
+
+# 	wildlife-25.md
 
 index.md: index-template.md
 	cat index-template.md > index.md
 
+.PHONY: toc.md
 toc.md : index.md
 
 index.html : index.md toc.md
