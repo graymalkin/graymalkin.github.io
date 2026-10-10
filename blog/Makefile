@@ -5,6 +5,8 @@ export PANDOC_FLAGS := --standalone --toc --citeproc --highlight-style kate --te
 
 # Order is the index order. Maintain reverse chronological order.
 ARTICLES = \
+	solar-install \
+	reading-and-writing \
 	biggleston-lamp-posts \
 	recipes \
 	gardening \

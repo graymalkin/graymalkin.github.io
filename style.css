@@ -16,6 +16,7 @@ h1, h2, h3, h4, h5, .byline {
     display: flex;
     flex-wrap: wrap;
     margin: 0;
+    margin-left: -5px;
     padding: 0;
     line-height: 123%;
 }
@@ -37,7 +38,7 @@ h3 {
     display: inline;
     color: white;
     background: black;
-    padding: 0.25em 0.25em 0.1em 0.25em;
+    padding: 3px;
     margin-bottom: 0.1em;
     border: solid 1px black;
 }
@@ -164,7 +165,7 @@ quot, blockquote {
         margin-bottom: 2em;
     }
 
-    p {
+    p, main * ul, main * li {
     	line-height: 1.5;
     }
     
@@ -283,7 +284,7 @@ hr {
     margin: 3em auto 3em auto;
 }
 hr::before {
-    content: "***";
+    content: "* * *";
     display: block;
     color: #aaa;
     text-align:center;
