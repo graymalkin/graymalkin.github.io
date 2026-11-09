@@ -1,7 +1,15 @@
+:root {
+    --background-light: #eeeeea;
+    --foreground-light: #353535;
+    --background-dark: #111105;
+    --foreground-dark: #eee;
+}
+
 body {
     margin: 0;
     padding: 0;
-    color: #353535;
+    background-color: var(--background-light);
+    color: var(--foreground-light);
     font-family: Baskerville, serif;
     hyphens: auto;
     overflow-wrap: break-word;
@@ -309,11 +317,11 @@ span.idx-date:not(:empty)::after { content: ")"; }
 
 @media (prefers-color-scheme: dark) {
   body {
-    background: #222;
-    color: white;
+    background: var(--background-dark);
+    color: var(--foreground-dark);
   }
   * a, nav ul * a {
-    color: white;
+    color: var(--foreground-dark);
   }
   code { color: #ff9a9a; }
 }

@@ -16,7 +16,7 @@ I had a couple of requirements for solar:
 2. **Local control and monitoring.** Clearly I'm a certain kind of person... The kind of person who enjoys Home Assistant and prefers things to not be in the cloud. So to that end, I wanted a solar system that would be something I can hook up to home assistant and control myself and geek out about. All the better if that connection to home assistant doesn't involve wireless.
 
 I've of course done research on the technology itself.
-I did modelling of different panels/battery configurations using the EU PVGIS tool; I set up an [EasyPV](https://easy-pv.co.uk/) account to do similar modelling there, as well as a bit of cost estimation.
+I did modelling of different panels/battery configurations using the [EU PVGIS](https://re.jrc.ec.europa.eu/pvg_tools/en/tools.html) tool; I set up an [EasyPV](https://easy-pv.co.uk/) account to do similar modelling there, as well as a bit of cost estimation.
 The universal thing is that solar panels are substantially more cost-effective with a battery.
 Up-front costs increase quite a lot, but the repayment time decreases significantly.
 EasyPV by the way is a great tool to do some "window shopping".
@@ -53,7 +53,7 @@ Sooner or later we'd have needed this work doing.
 We have a network rack in the cupboard under the stairs, as you do, which is also where the gas and electric come into the house.
 This is extremely convenient for installation of the mains equipment inside the house, including network access.
 There's just about an angle the electrician could drill at to get the SWA cable out of the house and around to the battery.
-Sadly, due to some miscommunication the electrician didn't realise we wanted the hardwired Ethernet up to the inverter, so we don't have a run of fancy PV Ultra cable which integrates a CAT5 UTP cable into the SWA mains cable.
+Sadly, due to some miscommunication the electrician didn't realise we wanted the hardwired Ethernet up to the inverter, so we don't have a run of fancy [EV Ultra](https://www.doncastercables.com/product/ev-ultra) cable which integrates a CAT5 UTP cable into the SWA mains cable.
 Instead, our Ethernet cable has been clipped in underneath the SWA mains, which is totally fine.
 
 The actual installation took 2 days.
@@ -71,10 +71,10 @@ Once the electrical installation was complete, and the out-the-box software for 
 The out-the-box software for the inverter seems fine, although I'm a little untrusting of it on my home network.
 As a home assistant user, and being friends with at least one other energy nerd, I was aware of PredBat.
 [PredBat](https://github.com/springfall2008/batpred/) is a **Bat**tery **Pred**iction software which models household energy usage patterns, time of use tariffs, and forecast solar production to optimise the charging of a home battery.
-To do this, one needs control of the battery within home assistant -- which is easy with the MODBUS Sigen add-on in HACS (TODO: link) -- and some solar forecasting service set up.
+To do this, one needs control of the battery within home assistant -- which is easy with the [local MODBUS Sigen add-on in HACS](https://github.com/TypQxQ/Sigenergy-Local-Modbus) -- and some solar forecasting service set up.
 Tariff information is provided by the Octopus Energy API, via [BottlecapDave's add-on](https://github.com/BottlecapDave/HomeAssistant-OctopusEnergy).
 Home assistant has forecast.solar out-of-the-box, which requires a latitude/longitude and panel capacity/orientation information, but reportedly that's a little inaccurate.
-forecast.solar uses the EU Solar prediction model (TODO: name), and I'm a little surprised it's considered inaccurate.
+forecast.solar uses the EU Solar prediction model (EU PVGIS), and I'm a little surprised it's considered inaccurate.
 PredBat recommends [Solcast](https://toolkit.solcast.com.au/), which is an Australian service for solar prediction which is free for hobbyists/home users.
 Given how long Australians have been using home solar it's not too surprising they've got good tools for this.
 
@@ -92,30 +92,27 @@ I'll try and remember to update this time next year...
 ## Our Grid Connection
 Our grid connection starting all of this was 60A.
 Our grid connection at the time of writing is also 60A.
-This is a little low. Ideally it'd be 80 or 100A.
+This is a little low. Ideally it'd be 80A or 100A.
 The solar company noted the same thing, and needed to provide the DNO with evidence that we'd have a suitable grid connection for the G99 application.
 To that end, our DNO (UK Power Networks) agreed to come out and upgrade our grid connection.
 Yippee!
 Sadly... our main fuse is in a "biscuit tin" fuse box, so-called because it's made of metal.
 Built like things from the 40s/50s, clearly made to last.
-Sadly, metal is conductive, and this box has unfused mains going into it -- which makes replacing it sound quite spicy.
+As you might know, metal is conductive and this box has unfused mains going into it -- which makes replacing it sound quite spicy.
 
 The UKPN are quite good at what they do, and in particular they (mostly?) avoid blowing up their electrical engineers with unexpected arc flash incidents.
-This is bad news for our upgrade though, it means that the fuse box can only be changed while dead.
-They sent someone out to double-check, and yep -- we need to be disconnected from the grid in order to upgrade the service head.
+This is bad news for our upgrade though, the biscuit tin construction means that the fuse box can only be changed while dead.
 To do the upgrade they must cut the mains cable outside the house, replace the fuse, then reconnect the house.
 In this process they traced roughly where the mains cable crosses the property line, and that location is under our drive quite close to the house.
-The front of the house covered in scaffolding.
-So UKPN can't dig under the scaffolding, so we have to wait for that to be gone before they can begin.
-A bit of a Polava, but it seems this hasn't ended up being an impediment to getting a G99.
-
+The front of the house covered in scaffolding, and UKPN can't dig under the scaffolding, so we have to wait for that to be gone before they can begin.
+A bit of a polava, but it seems this hasn't ended up being an impediment to getting a G99.
 
 ## What's next
 We're waiting on the DNO to issue us an MPAN (meter number) which will let us get paid for our exported energy -- currently we're simply giving it away to the grid.
 Once we have that we can pick some import/export tariff.
 Sadly the best tariffs are currently unavailable.
-PredBat's internal modelling suggests we'd get a 3.7yr payback time with Octopus Intelligent Go import/export -- which is crazy!
-Their non-intelligent Go is estimated for 5.9yr payback.
+PredBat's internal modelling suggests we'd get a 3.7yr payback time with Octopus Intelligent Go import/export -- which would be crazy fast!
+Their non-intelligent Go is estimated for 5.9yr payback, and is more inline with what we expected.
 
 We'll also set up [Axle](https://vpp.axle.energy/), which is a VPP ("virtual power plant").
 VPP is a terrible name, but when grid wholesale costs are extremely high Axle will pay users to force discharge their batteries into the grid on top of their normal export tariff.
@@ -136,14 +133,16 @@ Our estimates are around £8,000 after the government £7,500 grant, and the sav
 So environmentally it's the right thing to do, but economically it's hard to justify unless we are planning to stay in this house for a long time.
 If/when the boiler packs up I'll consider it harder.
 Thankfully the $6 mm^2$ SWA to the inverter/battery should be plenty for a reasonably sized heat pump as well -- the inverter is limited to 9 kW export and 8 kW import so will draw about 37A under full load.
-A very large heat pump might be 4 kW, which is about 16A under full load -- so should be in-spec with some safety margin on the wiring.
-Iirc the allowed power over clipped $6 mm^2$ SWA is about 67A.
+A very large heat pump might be 8 kW, which is about 32A under full load -- so should be in-spec with some safety margin on the wiring.
+If I remember correctly, the allowed power over clipped $6 mm^2$ SWA is about 65A.
 
 In the spring I'll review what our actual energy cost was per kWh and re-run the calculations on repayment time for a heat pump conversion.
 Our current gas heating is using a modern (2019) condensing gas boiler so has a COP of approximately 0.9 on gas which costs 8.3p/kWh, or a cost per kWh of heat of 9.222p.
-A decent heat pump will probably get us an average COP of about 4 over the winter season, which using just off-peak electric at 14.3p/kWh would mean a cost per kWh of heat of 3.575p.
+A decent heat pump will probably get us an average COP of about 4 over winter, which using just off-peak electric at 14.3p/kWh would mean a cost per kWh of heat of 3.575p.
 We use approximately 11,000 kWh per year of gas -- so that times the difference in price means a saving of £621/yr, or a repayment period of 12 years.
+Even if our cost of energy per kWh is zero (i.e. 100% solar), the most we could save is £915/yr, or a repayment of period of about 9 years.
 Plausibly sensible if we were to live here indefinitely, but even then it looks a bit dubious against inflation on the same amount of money.
+£8,000 in a 5% government bond over 10 years would be worth about £13,000.
 
 I think until heat pump install costs drop by a lot it is going to be hard to justify the expense.
 I am also slightly suspicious that a heat pump upgrade doesn't actually cost close to the £16k that government+customer are spending.
@@ -157,6 +156,10 @@ In theory, it works as investment in that industry which will help drive down pr
 In practice, it's hard to imagine a more inefficient way to do things.
 The same £7500 could totally pay for a battery installation for a home, which would save the user substantially more money and provide grid resilience as we move to more and more renewables.
 I can't help but feel like this is a £7,500 bung to already quite wealthy middle class homes that don't need the help and props up higher prices for heat pump retrofits.
+In either case, flat government grants for some service or another means there's always going to be a minimum price that equals the grant.
+Why would an installer try and drive the cost to below £7,500 when the government is the one paying with no questions asked?
+A policy that covers half the price up to £7,500 would be better.
+Then the customers have incentive to get good value for money, and the total cost is (in the worst case) the same for the government.
 
 It's hard to test the counterfactual of course, so who knows.
 Hopefully with Octopus's own-brand heat pump now available at a pretty low price that competition will actually manifest and the total cost of installation will drop precipitously.

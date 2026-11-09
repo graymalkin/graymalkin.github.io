@@ -164,7 +164,7 @@ _Marco Paviotti, **Simon Cooksey**, Anouk Paradis, Daniel Wright, Scott Owens, M
 <a href="papers/esop20.pdf" target="_blank">[PDF]</a>
 <pre language="BibTeX">@inproceedings{MPaviotti:ESOP20,
   title={Modular Relaxed Dependencies in Weak Memory Concurrency},
-  author={Pavoitti, Marco and Cooksey, Simon and Paradis, Anouk and Wright, Daniel and Owens, Scott and Batty, Mark},
+  author={Paviotti, Marco and Cooksey, Simon and Paradis, Anouk and Wright, Daniel and Owens, Scott and Batty, Mark},
   booktitle="Programming Languages and Systems",
   editor="M{\"u}ller, Peter",
   year="2020",
