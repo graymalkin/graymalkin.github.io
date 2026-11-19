@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+  <title>Energy management &mdash; Simon Cooksey Blog</title>
+  <meta name="viewport" content="width=device-width, user-scalable=yes">
+  <link rel="preconnect" href="https://cdn.jsdelivr.net" />
+  <link rel="preload" href="/fonts.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+  <noscript><link rel="stylesheet" href="/fonts.css"></noscript>
+  <link rel="stylesheet" type="text/css" href="/style.css"/>
+  <meta name="description" content="Simon's Blog, with personal projects and some academic musings.">
+  <meta charset="utf-8">
+</head>
+<body>
+  <main>
+    <h1 class="title"><span class="headline-word">Energy</span> <span class="headline-word">management</span></h1>
+    <div class="byline"><span class="headline-word">Getting</span> <span class="headline-word">used</span> <span class="headline-word">to</span> <span class="headline-word">predbat</span> <span class="headline-word">and</span> <span class="headline-word">games</span> <span class="headline-word">with</span> <span class="headline-word">Octopus</span></div>
+    <div class="date">2026-11-19</div>
+    <nav>
+        <ul>
+            <li><a href="/">Home</a></li>
+            <li><a href="/blog/">Blog</a></li>
+            <li><a href="/iso-papers">ISO Papers</a></li>
+            <li><a href="/photography/">Photography</a></li>
+        </ul>
+    </nav>
+<h1 id="a-month-in"><span class="headline-word">A</span> <span class="headline-word">month</span> <span class="headline-word">in…</span></h1>
+<p>It’s been an unseasonably mild October/November so far this year, we’ve had the solar setup for a little over month and been able to export for about 3 weeks.
+In that time we’ve had 5 Axle “grid events”, which have netted us about £30 in credit plus a £25 sign-up bonus ([referral link][axle] if anyone is interested).
+We are still on the 60 A fuse at the time of writing, UKPN are here today and tomorrow to do the upgrade.
+Being on just 60 A hasn’t been a problem, although I have been cognisant of it…</p>
+<h2 id="octopus-saving-sessions-happy-hours-and-a-60a-fuse"><span class="headline-word">Octopus</span> <span class="headline-word">saving</span> <span class="headline-word">sessions,</span> <span class="headline-word">happy</span> <span class="headline-word">hours,</span> <span class="headline-word">and</span> <span class="headline-word">a</span> <span class="headline-word">60A</span> <span class="headline-word">fuse</span></h2>
+<p>Octopus do saving sessions where they credit you for using less energy, and that’s calculated as net energy use so exports are basically paid at a higher rate (the export rate plus the load shifting credits).
+Credit varies, but it’s between 72 and 144 “octopoints” per kWh, which works out at 9p to 18p per kWh on top of the export rate.
+Unsurprisingly this coincides with high export payments as well, so we can get up to 50p/kWh exported.
+That’s great!
+They call these hours of load shifting saving sessions.
+We get notified by email, click ‘yes’ in the email (active assent is required by the grid operator), and PredBat picks up the higher export rate via the Octopus HACS addon.
+All works great.</p>
+<p>Another reward from these saving sessions is credit towards a “happy hour”.
+Each saving session where you successfully load shift gets you a token, two (ish) tokens gets you 1 hr of free energy on a Sunday at a timeslot of your choosing.
+This is where I’ve had to be thoughtful about the main fuse.
+With the battery charging at 8 kW, and doing all laundry/dishwashing at the same time, our total load peaks at around 12.5 kW.
+On a 240v supply that’s 52A which is getting fairly close to our 60A maximum.
+I definitely shouldn’t boil the kettle and/or start baking at the same time!</p>
+<p>That will all be better with a 100A fuse, so hopefully by Christmas we can really juice the grid in those happy hours.
+Although Octopus have a fair use limit of 15 kWh per happy hour, so we’ll stay within that.
+15 kWh at our night rate of 14p/kWh is still £2.10, so happy days for us regardless!</p>
+<h2 id="arbitrage"><span class="headline-word">Arbitrage</span></h2>
+  <footer>
+    &copy; 2026, Simon Cooksey. Licensed under <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/">CC BY-NC-SA 4.0</a><img src="/blog/icons/cc.svg" ><img src="/blog/icons/by.svg" ><img src="/blog/icons/nc.svg" ><img src="/blog/icons/sa.svg" >
+  </footer>
+  <link rel="preload" href="/orrery.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+  <noscript><link rel="stylesheet" href="/orrery.min.css"></noscript>
+  <div class="orrery">
+    <div id="sun" class="star">
+      <div class="flare"></div>
+      <div class="flare"></div>
+      <div class="flare"></div>
+    </div>
+    <div id="mercury_orbit" class="orbit"></div>
+    <div id="mercury" class="planet"></div>
+    <div id="venus_orbit" class="orbit"></div>
+    <div id="venus" class="planet"></div>
+
+    <div id="earth_orbit" class="orbit"></div>
+    <div id="earth" class="planet">
+      <div id="moon"></div>
+    </div>
+
+    <div id="mars_orbit" class="orbit"></div>
+    <div id="mars" class="planet">
+      <div id="phobos"></div>
+      <div id="deimos"></div>
+    </div>
+
+    <div id="saturn_orbit" class="orbit"></div>
+    <div id="saturn" class="planet">
+      <div class="ring"></div>
+      <div id="titan"></div>
+    </div>
+
+    <div id="jupiter_orbit" class="orbit"></div>
+    <div id="jupiter" class="planet">
+      <div class="spot"></div>
+      <div id="io"></div>
+      <div id="europa"></div>
+      <div id="ganymede"></div>
+      <div id="callisto"></div>
+    </div>
+
+    <div id="neptune_orbit" class="orbit"></div>
+    <div id="neptune" class="planet">
+      <div class="ring"></div>
+    </div>
+
+    <div id="uranus_orbit" class="orbit"></div>
+    <div id="uranus" class="planet"></div>
+  </div>
+  </main>
+  <style></style>
+  </main>
+  <style></style>
+</body>
+</html>

@@ -105,7 +105,7 @@ This is bad news for our upgrade though, the biscuit tin construction means that
 To do the upgrade they must cut the mains cable outside the house, replace the fuse, then reconnect the house.
 In this process they traced roughly where the mains cable crosses the property line, and that location is under our drive quite close to the house.
 The front of the house covered in scaffolding, and UKPN can't dig under the scaffolding, so we have to wait for that to be gone before they can begin.
-A bit of a polava, but it seems this hasn't ended up being an impediment to getting a G99.
+A bit of a palaver, but it seems this hasn't ended up being an impediment to getting a G99.
 
 ## What's next
 We're waiting on the DNO to issue us an MPAN (meter number) which will let us get paid for our exported energy -- currently we're simply giving it away to the grid.
@@ -132,9 +132,8 @@ But the costs. The costs.
 Our estimates are around £8,000 after the government £7,500 grant, and the savings are potentially very small.
 So environmentally it's the right thing to do, but economically it's hard to justify unless we are planning to stay in this house for a long time.
 If/when the boiler packs up I'll consider it harder.
-Thankfully the $6 mm^2$ SWA to the inverter/battery should be plenty for a reasonably sized heat pump as well -- the inverter is limited to 9 kW export and 8 kW import so will draw about 37A under full load.
-A very large heat pump might be 8 kW, which is about 32A under full load -- so should be in-spec with some safety margin on the wiring.
-If I remember correctly, the allowed power over clipped $6 mm^2$ SWA is about 65A.
+Our solar installer does, and provisions for, off-grid battery setups, which means our battery is wired in with $10 mm^2$ cable!
+That's big enough for a full 100A load which is the same as the incoming supply to the house is (or rather, will be...).
 
 In the spring I'll review what our actual energy cost was per kWh and re-run the calculations on repayment time for a heat pump conversion.
 Our current gas heating is using a modern (2019) condensing gas boiler so has a COP of approximately 0.9 on gas which costs 8.3p/kWh, or a cost per kWh of heat of 9.222p.
@@ -164,3 +163,6 @@ Then the customers have incentive to get good value for money, and the total cos
 It's hard to test the counterfactual of course, so who knows.
 Hopefully with Octopus's own-brand heat pump now available at a pretty low price that competition will actually manifest and the total cost of installation will drop precipitously.
 Time will tell.
+
+
+[axle]: https://vpp.axle.energy/?ref=WINDY-CLOVER-616
